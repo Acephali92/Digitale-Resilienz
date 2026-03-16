@@ -5,14 +5,26 @@
 {% block content %}
 <!-- Hero Section -->
 <section class="hero">
-    <h1 class="hero-title">&#128274; Schütze dich vor dem System</h1>
+    <div class="terminal-prompt js-only">
+        <span data-typing="Initialisiere Widerstands-Protokoll..."></span>
+        <span class="cursor"></span>
+    </div>
+
+    <h1 class="hero-title" data-text="Schütze dich vor dem System">
+        &#128274; Schütze dich vor dem System
+    </h1>
+
     <p class="hero-subtitle">
-        Das Widerstands-Toolkit ist dein Leitfaden für digitale Selbstverteidigung.
+        Das <strong class="text-primary">Widerstands-Toolkit</strong> ist dein Leitfaden für digitale Selbstverteidigung.
         Praktische Werkzeuge und Wissen für Aktivist*innen, Friedensbewegung und kritische Bürger*innen.
     </p>
+
     <div class="hero-actions">
         <a href="{{ url_for('security_index') }}" class="btn btn-primary">
             &#128737; Sicherheit starten
+        </a>
+        <a href="{{ url_for('privacy_quiz') }}" class="btn btn-secondary">
+            &#128269; Bin ich trackbar?
         </a>
         <a href="{{ url_for('tools_downloads') }}" class="btn btn-secondary">
             &#128229; Offline-Downloads
@@ -21,10 +33,10 @@
 </section>
 
 <!-- Feature Grid -->
-<section class="feature-grid">
+<section class="feature-grid stagger-children">
     <!-- Privacy -->
     <a href="{{ url_for('privacy_index') }}" class="feature-card">
-        <div class="feature-icon">&#128065;</div>
+        <span class="feature-icon">&#128065;</span>
         <h3 class="feature-title">Privatsphäre</h3>
         <p class="feature-description">
             EXIF-Daten entfernen, DSGVO-Anfragen stellen, Tracking vermeiden.
@@ -34,7 +46,7 @@
 
     <!-- Security -->
     <a href="{{ url_for('security_index') }}" class="feature-card">
-        <div class="feature-icon">&#128737;</div>
+        <span class="feature-icon">&#128737;</span>
         <h3 class="feature-title">Sicherheit</h3>
         <p class="feature-description">
             Passwort-Manager, 2FA, sichere Messenger, Geräteverschlüsselung.
@@ -44,7 +56,7 @@
 
     <!-- Resilience -->
     <a href="{{ url_for('resilience_index') }}" class="feature-card">
-        <div class="feature-icon">&#129504;</div>
+        <span class="feature-icon">&#129504;</span>
         <h3 class="feature-title">Resilienz</h3>
         <p class="feature-description">
             Propaganda erkennen, Fakten prüfen, unabhängige Quellen finden.
@@ -54,7 +66,7 @@
 
     <!-- Activism -->
     <a href="{{ url_for('activism_index') }}" class="feature-card">
-        <div class="feature-icon">&#9994;</div>
+        <span class="feature-icon">&#9994;</span>
         <h3 class="feature-title">Aktivismus</h3>
         <p class="feature-description">
             Bedrohungsanalyse, Demo-Checklisten, Rechte bei Beschlagnahmung.
@@ -64,7 +76,7 @@
 
     <!-- Conspiracy Check -->
     <a href="{{ url_for('conspiracy_index') }}" class="feature-card">
-        <div class="feature-icon">&#128269;</div>
+        <span class="feature-icon">&#128269;</span>
         <h3 class="feature-title">Faktencheck</h3>
         <p class="feature-description">
             Signal vs. Rauschen unterscheiden, Narrative analysieren.
@@ -74,7 +86,7 @@
 
     <!-- Peace Tools -->
     <a href="{{ url_for('peace_index') }}" class="feature-card">
-        <div class="feature-icon">&#9774;</div>
+        <span class="feature-icon">&#9774;</span>
         <h3 class="feature-title">Frieden</h3>
         <p class="feature-description">
             Petitions-Tools, Anti-Kriegs-Netzwerke, Burnout-Prävention.
@@ -95,15 +107,15 @@
             brauchen engagierte Menschen praktische Werkzeuge, um sich zu schützen.
         </p>
         <p>
-            Dieses Toolkit wurde von und für die Zivilgesellschaft entwickelt. Es ist:
+            Dieses Toolkit wurde von und für die Zivilgesellschaft entwickelt:
         </p>
         <ul class="checklist">
-            <li><strong>Open Source</strong> – Der gesamte Code ist öffentlich einsehbar</li>
-            <li><strong>Keine Tracker</strong> – Wir sammeln keine Daten über dich</li>
-            <li><strong>DSGVO-konform</strong> – Datenschutz ist kein Lippenbekenntnis</li>
-            <li><strong>Offline-fähig</strong> – Alle Materialien als PDF downloadbar</li>
-            <li><strong>Tor-kompatibel</strong> – Funktioniert auch ohne JavaScript</li>
-            <li><strong>Mobil-optimiert</strong> – Für unterwegs konzipiert</li>
+            <li><strong>Open Source</strong> — Der gesamte Code ist öffentlich einsehbar</li>
+            <li><strong>Keine Tracker</strong> — Wir sammeln keine Daten über dich</li>
+            <li><strong>DSGVO-konform</strong> — Datenschutz ist kein Lippenbekenntnis</li>
+            <li><strong>Offline-fähig</strong> — Alle Materialien als PDF downloadbar</li>
+            <li><strong>Tor-kompatibel</strong> — Funktioniert auch ohne JavaScript</li>
+            <li><strong>Mobil-optimiert</strong> — Für unterwegs konzipiert</li>
         </ul>
     </div>
 </section>
@@ -135,5 +147,15 @@
         <p class="text-secondary">Unabhängige Medien finden</p>
         <a href="{{ url_for('resilience_sources') }}" class="btn btn-secondary">Zu den Quellen</a>
     </div>
+</section>
+
+<!-- Status Bar -->
+<section class="card mt-xl text-center" style="border-color: var(--color-matrix);">
+    <p class="text-primary" style="margin: 0; font-family: var(--font-mono);">
+        <span class="pulse">&#9679;</span>
+        SYSTEM STATUS: <strong>AKTIV</strong> //
+        TRACKING: <strong>DEAKTIVIERT</strong> //
+        VERSCHLÜSSELUNG: <strong>EMPFOHLEN</strong>
+    </p>
 </section>
 {% endblock %}

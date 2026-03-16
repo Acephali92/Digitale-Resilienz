@@ -4,30 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Widerstands-Toolkit - Digitale Resilienz für Aktivist*innen. Schütze dich vor dem System.">
+    <meta name="theme-color" content="#00ff41">
     <meta name="robots" content="noindex, nofollow">
     <meta name="referrer" content="no-referrer">
 
-    <!-- Keine externen Ressourcen - alles lokal -->
-    <title>{% block title %}Widerstands-Toolkit{% endblock %} | Digitale Resilienz</title>
+    <title>{% block title %}Widerstands-Toolkit{% endblock %} // Digitale Resilienz</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/logo.svg') }}">
 
+    <!-- Preload Critical Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <!-- Styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
-    <!-- Kein JavaScript für kritische Funktionen - Tor-kompatibel -->
     <noscript>
         <style>
             .js-only { display: none !important; }
             .nojs-show { display: block !important; }
+            .nav-menu { transform: none !important; position: static !important; }
+            .nav-item { opacity: 1 !important; transform: none !important; }
         </style>
     </noscript>
 
     {% block head %}{% endblock %}
 </head>
 <body>
-    <!-- Skip Link für Barrierefreiheit -->
+    <!-- Matrix Rain Background (decorative) -->
+    <canvas id="matrix-bg" class="matrix-background" aria-hidden="true"></canvas>
+
+    <!-- Skip Link -->
     <a href="#main" class="skip-link">Zum Hauptinhalt springen</a>
 
     <!-- Header -->
@@ -35,57 +43,57 @@
         <div class="container">
             <nav class="main-nav" aria-label="Hauptnavigation">
                 <a href="{{ url_for('index') }}" class="logo" aria-label="Startseite">
-                    <span class="logo-icon">&#128274;</span>
+                    <span class="logo-icon" aria-hidden="true">&#128274;</span>
                     <span class="logo-text">Widerstands-Toolkit</span>
                 </a>
 
-                <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
+                <button class="nav-toggle js-only" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav-menu">
                     <span class="nav-toggle-bar"></span>
                     <span class="nav-toggle-bar"></span>
                     <span class="nav-toggle-bar"></span>
                 </button>
 
-                <ul class="nav-menu" id="nav-menu">
-                    <li class="nav-item">
-                        <a href="{{ url_for('privacy_index') }}" class="nav-link {% if request.path.startswith('/privacy') %}active{% endif %}">
-                            <span class="nav-icon">&#128065;</span>
-                            Privatsphäre
+                <ul class="nav-menu" id="nav-menu" role="menubar">
+                    <li class="nav-item" role="none">
+                        <a href="{{ url_for('privacy_index') }}" class="nav-link {% if request.path.startswith('/privacy') %}active{% endif %}" role="menuitem">
+                            <span class="nav-icon" aria-hidden="true">&#128065;</span>
+                            <span>Privatsphäre</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ url_for('security_index') }}" class="nav-link {% if request.path.startswith('/security') %}active{% endif %}">
-                            <span class="nav-icon">&#128737;</span>
-                            Sicherheit
+                    <li class="nav-item" role="none">
+                        <a href="{{ url_for('security_index') }}" class="nav-link {% if request.path.startswith('/security') %}active{% endif %}" role="menuitem">
+                            <span class="nav-icon" aria-hidden="true">&#128737;</span>
+                            <span>Sicherheit</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ url_for('resilience_index') }}" class="nav-link {% if request.path.startswith('/resilience') %}active{% endif %}">
-                            <span class="nav-icon">&#129504;</span>
-                            Resilienz
+                    <li class="nav-item" role="none">
+                        <a href="{{ url_for('resilience_index') }}" class="nav-link {% if request.path.startswith('/resilience') %}active{% endif %}" role="menuitem">
+                            <span class="nav-icon" aria-hidden="true">&#129504;</span>
+                            <span>Resilienz</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ url_for('activism_index') }}" class="nav-link {% if request.path.startswith('/activism') %}active{% endif %}">
-                            <span class="nav-icon">&#9994;</span>
-                            Aktivismus
+                    <li class="nav-item" role="none">
+                        <a href="{{ url_for('activism_index') }}" class="nav-link {% if request.path.startswith('/activism') %}active{% endif %}" role="menuitem">
+                            <span class="nav-icon" aria-hidden="true">&#9994;</span>
+                            <span>Aktivismus</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ url_for('conspiracy_index') }}" class="nav-link {% if request.path.startswith('/conspiracy') %}active{% endif %}">
-                            <span class="nav-icon">&#128269;</span>
-                            Faktencheck
+                    <li class="nav-item" role="none">
+                        <a href="{{ url_for('conspiracy_index') }}" class="nav-link {% if request.path.startswith('/conspiracy') %}active{% endif %}" role="menuitem">
+                            <span class="nav-icon" aria-hidden="true">&#128269;</span>
+                            <span>Faktencheck</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ url_for('peace_index') }}" class="nav-link {% if request.path.startswith('/peace') %}active{% endif %}">
-                            <span class="nav-icon">&#9774;</span>
-                            Frieden
+                    <li class="nav-item" role="none">
+                        <a href="{{ url_for('peace_index') }}" class="nav-link {% if request.path.startswith('/peace') %}active{% endif %}" role="menuitem">
+                            <span class="nav-icon" aria-hidden="true">&#9774;</span>
+                            <span>Frieden</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ url_for('tools_index') }}" class="nav-link {% if request.path.startswith('/tools') %}active{% endif %}">
-                            <span class="nav-icon">&#128295;</span>
-                            Tools
+                    <li class="nav-item" role="none">
+                        <a href="{{ url_for('tools_index') }}" class="nav-link {% if request.path.startswith('/tools') %}active{% endif %}" role="menuitem">
+                            <span class="nav-icon" aria-hidden="true">&#128295;</span>
+                            <span>Tools</span>
                         </a>
                     </li>
                 </ul>
@@ -113,34 +121,36 @@
                 </div>
 
                 <div class="footer-section">
-                    <h3>Wichtige Links</h3>
+                    <h3>Quick Links</h3>
                     <ul class="footer-links">
                         <li><a href="{{ url_for('tools_downloads') }}">Offline-Downloads</a></li>
-                        <li><a href="https://github.com/Acephali92/Digitale-Resilienz" target="_blank" rel="noopener noreferrer">Quellcode (GitHub)</a></li>
+                        <li><a href="{{ url_for('tools_passphrase') }}">Passphrase-Generator</a></li>
+                        <li><a href="{{ url_for('privacy_quiz') }}">Trackbarkeits-Test</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-section">
-                    <h3>Rechtliches</h3>
+                    <h3>Extern</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Impressum</a></li>
-                        <li><a href="#">Datenschutz</a></li>
+                        <li><a href="https://github.com/Acephali92/Digitale-Resilienz" target="_blank" rel="noopener noreferrer">Quellcode (GitHub)</a></li>
+                        <li><a href="https://www.rote-hilfe.de/" target="_blank" rel="noopener noreferrer">Rote Hilfe e.V.</a></li>
+                        <li><a href="https://www.datenanfragen.de/" target="_blank" rel="noopener noreferrer">datenanfragen.de</a></li>
                     </ul>
                 </div>
             </div>
 
             <div class="footer-bottom">
                 <p class="footer-slogan">
-                    &#128274; Widerstand ist fruchtbar. Schütze dich. Vernetze dich. Bleib wachsam.
+                    <span class="glow">&#128274; WIDERSTAND IST FRUCHTBAR</span>
                 </p>
                 <p class="footer-meta">
-                    <small>Diese Seite sammelt keine Daten. Keine Cookies. Keine Tracker. Versprochen.</small>
+                    <span class="pulse">&#9679;</span> Keine Daten. Keine Cookies. Keine Tracker. Versprochen.
                 </p>
             </div>
         </div>
     </footer>
 
-    <!-- Minimal JavaScript - not required for core functionality -->
+    <!-- Scripts -->
     <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
 
     {% block scripts %}{% endblock %}

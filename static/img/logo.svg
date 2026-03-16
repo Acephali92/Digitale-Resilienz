@@ -1,19 +1,77 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <!-- Background Circle -->
-  <circle cx="32" cy="32" r="30" fill="#1a1a2e" stroke="#00ff41" stroke-width="2"/>
+  <defs>
+    <!-- Glow filter -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
 
-  <!-- Lock Body -->
-  <rect x="20" y="28" width="24" height="20" rx="3" fill="#00ff41"/>
+    <!-- Gradient -->
+    <linearGradient id="lockGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00ff41"/>
+      <stop offset="100%" stop-color="#00cc33"/>
+    </linearGradient>
+  </defs>
 
-  <!-- Lock Shackle -->
-  <path d="M24 28 V22 A8 8 0 0 1 40 22 V28" fill="none" stroke="#00ff41" stroke-width="4" stroke-linecap="round"/>
+  <!-- Background hexagon -->
+  <polygon
+    points="32,2 58,17 58,47 32,62 6,47 6,17"
+    fill="#0a0a0f"
+    stroke="#00ff41"
+    stroke-width="1.5"
+    opacity="0.9"
+  />
+
+  <!-- Inner hexagon -->
+  <polygon
+    points="32,8 52,20 52,44 32,56 12,44 12,20"
+    fill="none"
+    stroke="#00ff41"
+    stroke-width="0.5"
+    opacity="0.3"
+  />
+
+  <!-- Lock body -->
+  <rect
+    x="20" y="28" width="24" height="18" rx="2"
+    fill="url(#lockGradient)"
+    filter="url(#glow)"
+  />
+
+  <!-- Lock shackle -->
+  <path
+    d="M24 28 V23 A8 8 0 0 1 40 23 V28"
+    fill="none"
+    stroke="#00ff41"
+    stroke-width="4"
+    stroke-linecap="round"
+    filter="url(#glow)"
+  />
 
   <!-- Keyhole -->
-  <circle cx="32" cy="36" r="3" fill="#1a1a2e"/>
-  <rect x="30" y="36" width="4" height="6" fill="#1a1a2e"/>
+  <circle cx="32" cy="35" r="3" fill="#0a0a0f"/>
+  <rect x="30.5" y="35" width="3" height="6" fill="#0a0a0f"/>
 
-  <!-- Resistance Symbol (small fist) -->
-  <g transform="translate(26, 44) scale(0.15)" fill="#1a1a2e">
-    <path d="M40 10 C35 5 25 5 20 10 L15 20 C10 30 15 45 25 50 L35 55 C45 50 50 35 45 25 Z"/>
-  </g>
+  <!-- Circuit lines (decorative) -->
+  <path
+    d="M10 32 H16 M48 32 H54"
+    stroke="#00ff41"
+    stroke-width="1"
+    opacity="0.5"
+  />
+  <path
+    d="M32 10 V14 M32 50 V54"
+    stroke="#00ff41"
+    stroke-width="1"
+    opacity="0.5"
+  />
+
+  <!-- Corner dots -->
+  <circle cx="10" cy="32" r="1.5" fill="#00ff41" opacity="0.7"/>
+  <circle cx="54" cy="32" r="1.5" fill="#00ff41" opacity="0.7"/>
+  <circle cx="32" cy="10" r="1.5" fill="#00ff41" opacity="0.7"/>
+  <circle cx="32" cy="54" r="1.5" fill="#00ff41" opacity="0.7"/>
 </svg>

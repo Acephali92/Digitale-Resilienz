@@ -1,15 +1,134 @@
 /**
- * Widerstands-Toolkit - Main JavaScript
- * =====================================
- * Minimal, privacy-respecting JavaScript.
- * Core functionality works WITHOUT JavaScript (Tor-compatible).
+ * WIDERSTANDS-TOOLKIT
+ * Interactive Features & Effects
+ * ================================
+ * Cyberpunk resistance aesthetic with matrix effects.
+ * Privacy-respecting, no tracking.
  */
 
 (function() {
     'use strict';
 
     // ========================================
-    // Mobile Navigation Toggle
+    // Matrix Rain Background Effect
+    // ========================================
+
+    class MatrixRain {
+        constructor(canvas) {
+            this.canvas = canvas;
+            this.ctx = canvas.getContext('2d');
+            this.characters = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            this.fontSize = 14;
+            this.columns = 0;
+            this.drops = [];
+            this.isRunning = false;
+
+            this.init();
+            this.bindEvents();
+        }
+
+        init() {
+            this.resize();
+            this.start();
+        }
+
+        resize() {
+            this.canvas.width = window.innerWidth;
+            this.canvas.height = window.innerHeight;
+            this.columns = Math.floor(this.canvas.width / this.fontSize);
+
+            // Reset drops
+            this.drops = [];
+            for (let i = 0; i < this.columns; i++) {
+                this.drops[i] = Math.random() * -100;
+            }
+        }
+
+        draw() {
+            // Semi-transparent black to create trail effect
+            this.ctx.fillStyle = 'rgba(5, 5, 5, 0.05)';
+            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+            // Green text
+            this.ctx.fillStyle = '#00ff41';
+            this.ctx.font = this.fontSize + 'px JetBrains Mono, monospace';
+
+            for (let i = 0; i < this.drops.length; i++) {
+                // Random character
+                const char = this.characters[Math.floor(Math.random() * this.characters.length)];
+
+                // Draw character
+                const x = i * this.fontSize;
+                const y = this.drops[i] * this.fontSize;
+
+                // Vary opacity for depth
+                this.ctx.globalAlpha = Math.random() * 0.3 + 0.1;
+                this.ctx.fillText(char, x, y);
+
+                // Reset drop when it reaches bottom
+                if (y > this.canvas.height && Math.random() > 0.98) {
+                    this.drops[i] = 0;
+                }
+
+                this.drops[i]++;
+            }
+
+            this.ctx.globalAlpha = 1;
+        }
+
+        start() {
+            if (this.isRunning) return;
+            this.isRunning = true;
+            this.animate();
+        }
+
+        stop() {
+            this.isRunning = false;
+        }
+
+        animate() {
+            if (!this.isRunning) return;
+            this.draw();
+            requestAnimationFrame(() => this.animate());
+        }
+
+        bindEvents() {
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => this.resize(), 200);
+            });
+
+            // Reduce animation when not visible
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    this.stop();
+                } else {
+                    this.start();
+                }
+            });
+        }
+    }
+
+    // Initialize matrix rain if canvas exists
+    const matrixCanvas = document.getElementById('matrix-bg');
+    if (matrixCanvas) {
+        // Add styles for the canvas
+        matrixCanvas.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -10;
+            opacity: 0.15;
+            pointer-events: none;
+        `;
+        new MatrixRain(matrixCanvas);
+    }
+
+    // ========================================
+    // Mobile Navigation
     // ========================================
 
     const navToggle = document.querySelector('.nav-toggle');
@@ -18,24 +137,22 @@
     if (navToggle && navMenu) {
         navToggle.addEventListener('click', function() {
             const isOpen = navMenu.classList.toggle('is-open');
-            navToggle.setAttribute('aria-expanded', isOpen);
-            navToggle.setAttribute('aria-label', isOpen ? 'Menü schließen' : 'Menü öffnen');
-
-            // Prevent body scroll when menu is open
+            this.setAttribute('aria-expanded', isOpen);
+            this.setAttribute('aria-label', isOpen ? 'Menü schließen' : 'Menü öffnen');
             document.body.style.overflow = isOpen ? 'hidden' : '';
         });
 
-        // Close menu when clicking on a link
-        navMenu.querySelectorAll('.nav-link').forEach(function(link) {
-            link.addEventListener('click', function() {
+        // Close on link click
+        navMenu.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
                 navMenu.classList.remove('is-open');
                 navToggle.setAttribute('aria-expanded', 'false');
                 document.body.style.overflow = '';
             });
         });
 
-        // Close menu on escape key
-        document.addEventListener('keydown', function(e) {
+        // Close on Escape
+        document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && navMenu.classList.contains('is-open')) {
                 navMenu.classList.remove('is-open');
                 navToggle.setAttribute('aria-expanded', 'false');
@@ -46,10 +163,172 @@
     }
 
     // ========================================
-    // Smooth Scroll for Anchor Links
+    // Scroll Animations
     // ========================================
 
-    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+
+    const animateOnScroll = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+                animateOnScroll.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Observe elements
+    document.querySelectorAll('.card, .feature-card, .alert').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        animateOnScroll.observe(el);
+    });
+
+    // ========================================
+    // Typing Effect for Terminal Prompts
+    // ========================================
+
+    class TypeWriter {
+        constructor(element, text, speed = 50) {
+            this.element = element;
+            this.text = text;
+            this.speed = speed;
+            this.index = 0;
+        }
+
+        type() {
+            if (this.index < this.text.length) {
+                this.element.textContent += this.text.charAt(this.index);
+                this.index++;
+                setTimeout(() => this.type(), this.speed);
+            }
+        }
+
+        start() {
+            this.element.textContent = '';
+            this.type();
+        }
+    }
+
+    // Initialize typing effects
+    document.querySelectorAll('[data-typing]').forEach(el => {
+        const text = el.getAttribute('data-typing');
+        const typewriter = new TypeWriter(el, text);
+
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                typewriter.start();
+                observer.disconnect();
+            }
+        });
+
+        observer.observe(el);
+    });
+
+    // ========================================
+    // Glitch Effect on Hover
+    // ========================================
+
+    document.querySelectorAll('.hero-title').forEach(title => {
+        title.setAttribute('data-text', title.textContent);
+    });
+
+    // ========================================
+    // Copy to Clipboard
+    // ========================================
+
+    window.WiderstandsToolkit = window.WiderstandsToolkit || {};
+
+    WiderstandsToolkit.copyToClipboard = function(text, button) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(() => {
+                showCopyFeedback(button, true);
+            }).catch(() => {
+                fallbackCopy(text, button);
+            });
+        } else {
+            fallbackCopy(text, button);
+        }
+    };
+
+    function showCopyFeedback(button, success) {
+        const originalText = button.textContent;
+        const originalClass = button.className;
+
+        button.textContent = success ? '✓ Kopiert!' : '✗ Fehler';
+        button.classList.add(success ? 'btn-success' : 'btn-danger');
+
+        setTimeout(() => {
+            button.textContent = originalText;
+            button.className = originalClass;
+        }, 2000);
+    }
+
+    function fallbackCopy(text, button) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.cssText = 'position:fixed;left:-9999px';
+        document.body.appendChild(textarea);
+        textarea.select();
+
+        try {
+            document.execCommand('copy');
+            showCopyFeedback(button, true);
+        } catch (err) {
+            showCopyFeedback(button, false);
+        }
+
+        document.body.removeChild(textarea);
+    }
+
+    // ========================================
+    // Local Storage (Privacy-Respecting)
+    // ========================================
+
+    WiderstandsToolkit.storage = {
+        prefix: 'wt_',
+
+        set(key, value) {
+            try {
+                localStorage.setItem(this.prefix + key, JSON.stringify(value));
+            } catch (e) {
+                // Storage not available
+            }
+        },
+
+        get(key, defaultValue = null) {
+            try {
+                const item = localStorage.getItem(this.prefix + key);
+                return item ? JSON.parse(item) : defaultValue;
+            } catch (e) {
+                return defaultValue;
+            }
+        },
+
+        remove(key) {
+            try {
+                localStorage.removeItem(this.prefix + key);
+            } catch (e) {}
+        },
+
+        clear() {
+            try {
+                Object.keys(localStorage)
+                    .filter(key => key.startsWith(this.prefix))
+                    .forEach(key => localStorage.removeItem(key));
+            } catch (e) {}
+        }
+    };
+
+    // ========================================
+    // Smooth Scroll
+    // ========================================
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
@@ -57,141 +336,53 @@
             const target = document.querySelector(targetId);
             if (target) {
                 e.preventDefault();
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-
-                // Update focus for accessibility
-                target.setAttribute('tabindex', '-1');
-                target.focus();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                target.focus({ preventScroll: true });
             }
         });
     });
 
     // ========================================
-    // Form Validation Helper
+    // Print Function
     // ========================================
 
-    window.WiderstandsToolkit = window.WiderstandsToolkit || {};
-
-    WiderstandsToolkit.validateForm = function(form) {
-        let isValid = true;
-        const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
-
-        inputs.forEach(function(input) {
-            if (!input.value.trim()) {
-                isValid = false;
-                input.classList.add('is-invalid');
-            } else {
-                input.classList.remove('is-invalid');
-            }
-        });
-
-        return isValid;
-    };
-
-    // ========================================
-    // Copy to Clipboard Helper
-    // ========================================
-
-    WiderstandsToolkit.copyToClipboard = function(text, button) {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(text).then(function() {
-                const originalText = button.textContent;
-                button.textContent = 'Kopiert!';
-                button.classList.add('btn-success');
-
-                setTimeout(function() {
-                    button.textContent = originalText;
-                    button.classList.remove('btn-success');
-                }, 2000);
-            }).catch(function(err) {
-                console.error('Kopieren fehlgeschlagen:', err);
-                WiderstandsToolkit.fallbackCopy(text);
-            });
-        } else {
-            WiderstandsToolkit.fallbackCopy(text);
-        }
-    };
-
-    WiderstandsToolkit.fallbackCopy = function(text) {
-        const textArea = document.createElement('textarea');
-        textArea.value = text;
-        textArea.style.position = 'fixed';
-        textArea.style.left = '-9999px';
-        document.body.appendChild(textArea);
-        textArea.select();
-
-        try {
-            document.execCommand('copy');
-            alert('Text wurde kopiert!');
-        } catch (err) {
-            alert('Kopieren fehlgeschlagen. Bitte manuell kopieren: ' + text);
-        }
-
-        document.body.removeChild(textArea);
-    };
-
-    // ========================================
-    // Local Storage Helper (Privacy-Respecting)
-    // ========================================
-
-    WiderstandsToolkit.storage = {
-        // Only store non-sensitive preferences locally
-        set: function(key, value) {
-            try {
-                localStorage.setItem('wt_' + key, JSON.stringify(value));
-            } catch (e) {
-                // localStorage not available (private mode, etc.)
-                console.warn('localStorage nicht verfügbar');
-            }
-        },
-
-        get: function(key, defaultValue) {
-            try {
-                const item = localStorage.getItem('wt_' + key);
-                return item ? JSON.parse(item) : defaultValue;
-            } catch (e) {
-                return defaultValue;
-            }
-        },
-
-        remove: function(key) {
-            try {
-                localStorage.removeItem('wt_' + key);
-            } catch (e) {
-                // Ignore
-            }
-        },
-
-        clear: function() {
-            try {
-                // Only clear our own keys
-                Object.keys(localStorage).forEach(function(key) {
-                    if (key.startsWith('wt_')) {
-                        localStorage.removeItem(key);
-                    }
-                });
-            } catch (e) {
-                // Ignore
-            }
-        }
-    };
-
-    // ========================================
-    // Print Helper
-    // ========================================
-
-    WiderstandsToolkit.printPage = function() {
+    WiderstandsToolkit.print = function() {
         window.print();
     };
 
     // ========================================
-    // Initialization
+    // Keyboard Shortcuts
     // ========================================
 
-    console.log('%c🔒 Widerstands-Toolkit geladen', 'color: #00ff41; font-size: 14px; font-weight: bold;');
-    console.log('%cKeine Tracker. Keine Überwachung. Deine Daten bleiben bei dir.', 'color: #a8a8a8;');
+    document.addEventListener('keydown', (e) => {
+        // Ctrl/Cmd + P to print
+        if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+            // Default browser print
+        }
+
+        // Escape to close modals/menus
+        if (e.key === 'Escape') {
+            // Close any open menus
+            document.querySelectorAll('.is-open').forEach(el => {
+                el.classList.remove('is-open');
+            });
+        }
+    });
+
+    // ========================================
+    // Console Easter Egg
+    // ========================================
+
+    console.log('%c' + `
+    ██╗    ██╗██╗██████╗ ███████╗██████╗ ███████╗████████╗ █████╗ ███╗   ██╗██████╗
+    ██║    ██║██║██╔══██╗██╔════╝██╔══██╗██╔════╝╚══██╔══╝██╔══██╗████╗  ██║██╔══██╗
+    ██║ █╗ ██║██║██║  ██║█████╗  ██████╔╝███████╗   ██║   ███████║██╔██╗ ██║██║  ██║
+    ██║███╗██║██║██║  ██║██╔══╝  ██╔══██╗╚════██║   ██║   ██╔══██║██║╚██╗██║██║  ██║
+    ╚███╔███╔╝██║██████╔╝███████╗██║  ██║███████║   ██║   ██║  ██║██║ ╚████║██████╔╝
+     ╚══╝╚══╝ ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝
+    `, 'color: #00ff41; font-family: monospace; font-size: 10px;');
+
+    console.log('%c🔒 Keine Tracker. Keine Überwachung. Deine Daten bleiben bei dir.', 'color: #888; font-size: 12px;');
+    console.log('%c⚡ Quellcode: https://github.com/Acephali92/Digitale-Resilienz', 'color: #00d4ff; font-size: 11px;');
 
 })();
