@@ -2,6 +2,132 @@
 
 {% block title %}EXIF-Daten entfernen{% endblock %}
 
+{% block head %}
+<style>
+    .infographic-container {
+        margin: var(--space-xl) 0;
+        padding: var(--space-lg);
+        background: var(--color-surface);
+        border: 1px solid var(--color-elevated);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .infographic-container::before {
+        content: '// INFOGRAFIK';
+        position: absolute;
+        top: var(--space-sm);
+        left: var(--space-md);
+        font-family: var(--font-display);
+        font-size: var(--text-xs);
+        color: var(--color-matrix);
+        letter-spacing: 0.1em;
+        opacity: 0.7;
+    }
+
+    .infographic-image {
+        width: 100%;
+        height: auto;
+        display: block;
+        border: 2px solid var(--color-elevated);
+        transition: all 0.3s var(--ease-out-expo);
+        cursor: zoom-in;
+    }
+
+    .infographic-image:hover {
+        border-color: var(--color-matrix);
+        box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
+    }
+
+    .infographic-caption {
+        margin-top: var(--space-md);
+        font-family: var(--font-mono);
+        font-size: var(--text-sm);
+        color: var(--color-text-dim);
+        text-align: center;
+    }
+
+    /* Fullscreen modal for image */
+    .image-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(5, 5, 5, 0.95);
+        z-index: 10000;
+        cursor: zoom-out;
+        padding: var(--space-xl);
+        overflow: auto;
+    }
+
+    .image-modal.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .image-modal img {
+        max-width: 100%;
+        max-height: 100%;
+        border: 2px solid var(--color-matrix);
+        box-shadow: var(--glow-lg);
+    }
+
+    .image-modal-close {
+        position: fixed;
+        top: var(--space-lg);
+        right: var(--space-lg);
+        font-size: var(--text-2xl);
+        color: var(--color-matrix);
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 10001;
+    }
+
+    .method-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: var(--space-lg);
+        margin-top: var(--space-xl);
+    }
+
+    .method-card {
+        background: var(--color-surface);
+        border: 1px solid var(--color-elevated);
+        padding: var(--space-lg);
+        position: relative;
+    }
+
+    .method-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: var(--color-matrix);
+    }
+
+    .method-card h4 {
+        color: var(--color-matrix);
+        margin-bottom: var(--space-sm);
+    }
+
+    .platform-badge {
+        display: inline-block;
+        padding: var(--space-xs) var(--space-sm);
+        background: var(--color-elevated);
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--color-text-dim);
+        margin-bottom: var(--space-sm);
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <section class="section-header">
     <h1>&#128247; EXIF-Daten entfernen</h1>
@@ -10,87 +136,208 @@
     </p>
 </section>
 
+<!-- Infographic -->
+<div class="infographic-container">
+    <img
+        src="{{ url_for('static', filename='img/exif-removal-guide.png') }}"
+        alt="Anleitung zum Entfernen von Bild-Metadaten: Desktop-Lösungen, Mobile Methoden und Profi-Tools"
+        class="infographic-image"
+        onclick="openImageModal(this)"
+        loading="lazy"
+    >
+    <p class="infographic-caption">
+        &#128269; Klicke auf das Bild zum Vergrößern
+    </p>
+</div>
+
+<!-- Image Modal -->
+<div class="image-modal" id="imageModal" onclick="closeImageModal()">
+    <button class="image-modal-close" aria-label="Schließen">&times;</button>
+    <img src="{{ url_for('static', filename='img/exif-removal-guide.png') }}" alt="Infografik vergrößert">
+</div>
+
 <section class="card">
-    <h2>Was sind EXIF-Daten?</h2>
+    <h2>&#9888; Was sind EXIF-Daten?</h2>
     <p>
         EXIF (Exchangeable Image File Format) sind Metadaten, die automatisch in jedes Foto
-        eingebettet werden. Sie können enthalten:
+        eingebettet werden. Sie können sensible Informationen enthalten:
     </p>
     <ul class="checklist">
-        <li><strong>GPS-Koordinaten</strong> – Exakter Aufnahmeort</li>
-        <li><strong>Datum & Uhrzeit</strong> – Wann das Foto aufgenommen wurde</li>
-        <li><strong>Kameramodell</strong> – Welches Gerät verwendet wurde</li>
-        <li><strong>Einstellungen</strong> – Blende, Belichtung, ISO</li>
-        <li><strong>Seriennummer</strong> – Eindeutige Geräte-ID</li>
-        <li><strong>Software</strong> – Verwendete Bearbeitungsprogramme</li>
+        <li><strong>GPS-Koordinaten</strong> — Exakter Aufnahmeort (bis auf wenige Meter genau!)</li>
+        <li><strong>Datum & Uhrzeit</strong> — Wann das Foto aufgenommen wurde</li>
+        <li><strong>Kameramodell</strong> — Welches Gerät verwendet wurde</li>
+        <li><strong>Seriennummer</strong> — Eindeutige Geräte-ID zur Identifikation</li>
+        <li><strong>Software</strong> — Verwendete Bearbeitungsprogramme</li>
+        <li><strong>Thumbnail</strong> — Kann Originalausschnitt zeigen (auch nach Zuschneiden!)</li>
     </ul>
 </section>
 
-<section class="card mt-lg">
-    <h2>&#9888; Warum ist das problematisch?</h2>
-    <p>
-        Wenn du ein Foto mit EXIF-Daten teilst, können andere:
-    </p>
-    <ul class="checklist">
-        <li>Deinen genauen Standort zum Aufnahmezeitpunkt ermitteln</li>
-        <li>Deine Bewegungsmuster analysieren (bei mehreren Fotos)</li>
-        <li>Dein Gerät identifizieren und dich über mehrere Fotos verfolgen</li>
-        <li>Bei Demos: Deinen Aufenthaltsort und Zeitpunkt beweisen</li>
-    </ul>
+<section class="alert alert-warning mt-lg">
+    <strong>&#128679; Gefahr bei Demos:</strong> Wenn du Demo-Fotos mit EXIF-Daten teilst, können
+    Behörden oder Gegner deinen exakten Standort und Zeitpunkt nachweisen. Das kann gegen dich
+    oder andere verwendet werden!
 </section>
 
-<section class="card mt-lg">
-    <h2>&#128736; So entfernst du EXIF-Daten</h2>
+<!-- Method Cards -->
+<h2 class="mt-xl">&#128736; Methoden zum Entfernen</h2>
 
-    <h3 class="mt-lg">&#128241; Auf dem Smartphone</h3>
+<div class="method-grid">
+    <div class="method-card">
+        <span class="platform-badge">WINDOWS</span>
+        <h4>Windows Bordmittel</h4>
+        <p class="text-secondary">Ohne zusätzliche Software:</p>
+        <ol style="color: var(--color-text-dim); padding-left: var(--space-lg);">
+            <li>Rechtsklick auf das Bild</li>
+            <li>„Eigenschaften" wählen</li>
+            <li>Tab „Details" öffnen</li>
+            <li>„Eigenschaften und persönliche Informationen entfernen" klicken</li>
+        </ol>
+    </div>
 
-    <h4>Android:</h4>
-    <ul class="checklist">
-        <li><strong>Scrambled Exif</strong> (F-Droid) – Kostenlos, Open Source</li>
-        <li><strong>Photo Exif Editor</strong> – Einfach zu bedienen</li>
-        <li><strong>Imagepipe</strong> (F-Droid) – Entfernt EXIF beim Teilen</li>
-    </ul>
+    <div class="method-card">
+        <span class="platform-badge">MAC</span>
+        <h4>Mac Vorschau-Funktion</h4>
+        <p class="text-secondary">In der Vorschau-App:</p>
+        <ol style="color: var(--color-text-dim); padding-left: var(--space-lg);">
+            <li>Bild in Vorschau öffnen</li>
+            <li>Werkzeuge → Informationen einblenden</li>
+            <li>GPS-Tab auswählen</li>
+            <li>„Ort entfernen" klicken</li>
+        </ol>
+    </div>
 
-    <h4 class="mt-md">iOS:</h4>
-    <ul class="checklist">
-        <li><strong>Metapho</strong> – EXIF anzeigen und löschen</li>
-        <li><strong>ViewExif</strong> – Metadaten inspizieren</li>
-        <li>Tipp: In den Einstellungen unter Fotos „Standort" deaktivieren</li>
-    </ul>
+    <div class="method-card">
+        <span class="platform-badge">ANDROID</span>
+        <h4>Scrambled Exif</h4>
+        <p class="text-secondary">Kostenlose App (F-Droid):</p>
+        <ul style="color: var(--color-text-dim); padding-left: var(--space-lg);">
+            <li>Bild über die App teilen</li>
+            <li>Alle EXIF-Daten werden automatisch entfernt</li>
+            <li>Keine manuelle Arbeit nötig</li>
+        </ul>
+        <a href="https://f-droid.org/packages/com.jarsilio.android.scrambledeggsif/" target="_blank" rel="noopener" class="btn btn-secondary mt-md" style="font-size: var(--text-xs);">
+            F-Droid Download
+        </a>
+    </div>
 
-    <h3 class="mt-lg">&#128187; Am Computer</h3>
+    <div class="method-card">
+        <span class="platform-badge">IOS</span>
+        <h4>iOS Standort deaktivieren</h4>
+        <p class="text-secondary">Beim Teilen ab iOS 16:</p>
+        <ol style="color: var(--color-text-dim); padding-left: var(--space-lg);">
+            <li>Foto zum Teilen auswählen</li>
+            <li>Auf „Optionen" tippen</li>
+            <li>„Standort" deaktivieren</li>
+            <li>Dann erst teilen</li>
+        </ol>
+    </div>
+</div>
 
-    <h4>Windows:</h4>
-    <ul class="checklist">
-        <li>Rechtsklick → Eigenschaften → Details → „Eigenschaften und persönliche Informationen entfernen"</li>
-        <li><strong>ExifTool</strong> (Kommandozeile) – Mächtig, aber technisch</li>
-    </ul>
-
-    <h4 class="mt-md">Linux/Mac:</h4>
-    <pre><code># ExifTool installieren und nutzen
+<section class="card mt-xl">
+    <h2>&#128187; Profi-Tools</h2>
+    <div class="grid grid-2">
+        <div>
+            <h4 class="text-primary">ExifTool (Kommandozeile)</h4>
+            <p class="text-secondary">Maximale Kontrolle für Fortgeschrittene:</p>
+            <pre><code># Alle Metadaten aus einem Bild entfernen
 exiftool -all= foto.jpg
 
-# Alle Fotos in einem Ordner
-exiftool -all= *.jpg</code></pre>
+# Alle Bilder in einem Ordner
+exiftool -all= *.jpg
 
-    <h3 class="mt-lg">&#127760; Online (ohne Upload)</h3>
-    <p class="text-secondary">
-        <strong>Achtung:</strong> Online-Tools laden deine Fotos hoch. Nutze sie nur für unkritische Bilder.
-        Für sensible Fotos immer lokale Tools verwenden!
-    </p>
+# Nur GPS-Daten entfernen
+exiftool -gps:all= foto.jpg</code></pre>
+            <a href="https://exiftool.org/" target="_blank" rel="noopener" class="btn btn-secondary mt-sm">
+                exiftool.org
+            </a>
+        </div>
+        <div>
+            <h4 class="text-primary">GIMP</h4>
+            <p class="text-secondary">Beim Export Metadaten entfernen:</p>
+            <ul class="checklist">
+                <li>Bild öffnen und bearbeiten</li>
+                <li>Datei → Exportieren als...</li>
+                <li>Im Export-Dialog: „Metadaten-Häkchen entfernen"</li>
+                <li>Speichern</li>
+            </ul>
+            <a href="https://www.gimp.org/" target="_blank" rel="noopener" class="btn btn-secondary mt-sm">
+                gimp.org
+            </a>
+        </div>
+    </div>
 </section>
 
 <section class="card mt-lg">
     <h2>&#128161; Prävention: EXIF gar nicht erst speichern</h2>
     <ul class="checklist">
-        <li><strong>Standort deaktivieren</strong> – In der Kamera-App GPS ausschalten</li>
-        <li><strong>Metadaten-freie Kamera-Apps</strong> – z.B. Open Camera (Android)</li>
-        <li><strong>Signal nutzen</strong> – Entfernt automatisch EXIF beim Versenden</li>
+        <li><strong>Standort deaktivieren</strong> — In der Kamera-App GPS ausschalten</li>
+        <li><strong>Open Camera</strong> — Android-App ohne Metadaten (F-Droid)</li>
+        <li><strong>Signal nutzen</strong> — Entfernt automatisch EXIF beim Versenden</li>
+        <li><strong>Screenshot statt Original</strong> — Screenshots haben keine EXIF-Daten</li>
     </ul>
 </section>
 
-<section class="alert alert-warning mt-xl">
-    <strong>&#9888; Demo-Tipp:</strong> Entferne EXIF-Daten IMMER bevor du Demo-Fotos online stellst.
-    Andernfalls können Standort und Zeit für dich oder andere zum Problem werden.
+<section class="alert alert-info mt-lg">
+    <strong>&#128274; Demo-Tipp:</strong> Entferne EXIF-Daten <strong>IMMER</strong> bevor du Demo-Fotos
+    online stellst. Nutze am besten Signal zum Versenden – dort werden Metadaten automatisch entfernt.
 </section>
+
+<!-- Comparison Table -->
+<section class="card mt-xl">
+    <h2>&#128202; Vergleich der Methoden</h2>
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: var(--text-sm);">
+            <thead>
+                <tr style="border-bottom: 2px solid var(--color-matrix);">
+                    <th style="text-align: left; padding: var(--space-sm); color: var(--color-matrix);">Methode</th>
+                    <th style="text-align: left; padding: var(--space-sm); color: var(--color-matrix);">Aufwand</th>
+                    <th style="text-align: left; padding: var(--space-sm); color: var(--color-matrix);">Was wird entfernt?</th>
+                </tr>
+            </thead>
+            <tbody style="color: var(--color-text-dim);">
+                <tr style="border-bottom: 1px solid var(--color-elevated);">
+                    <td style="padding: var(--space-sm);">Google Fotos / iOS</td>
+                    <td style="padding: var(--space-sm);"><span class="text-primary">Sehr einfach</span></td>
+                    <td style="padding: var(--space-sm);">Nur GPS-Daten</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--color-elevated);">
+                    <td style="padding: var(--space-sm);">Scrambled Exif</td>
+                    <td style="padding: var(--space-sm);"><span class="text-primary">Einfach</span></td>
+                    <td style="padding: var(--space-sm);">Alle EXIF-Daten</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--color-elevated);">
+                    <td style="padding: var(--space-sm);">Metapho (iOS)</td>
+                    <td style="padding: var(--space-sm);"><span class="text-primary">Einfach</span></td>
+                    <td style="padding: var(--space-sm);">Alle EXIF-Daten</td>
+                </tr>
+                <tr>
+                    <td style="padding: var(--space-sm);">ExifTool</td>
+                    <td style="padding: var(--space-sm);">Technisch</td>
+                    <td style="padding: var(--space-sm);"><span class="text-primary">Volle Kontrolle</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function openImageModal(img) {
+    document.getElementById('imageModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeImageModal() {
+    document.getElementById('imageModal').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Close on Escape
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeImageModal();
+    }
+});
+</script>
 {% endblock %}
