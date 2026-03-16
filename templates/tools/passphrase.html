@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}Passphrase-Generator{% endblock %}
+
+{% block content %}
+<section class="section-header">
+    <h1>&#128272; Passphrase-Generator</h1>
+    <p class="section-subtitle">
+        Generiere sichere, merkbare Passphrasen. Alles passiert lokal in deinem Browser.
+    </p>
+</section>
+
+<div class="grid grid-2">
+    <!-- Generator -->
+    <div class="card">
+        <h2>&#127922; Passphrase generieren</h2>
+
+        <div class="form-group">
+            <label class="form-label">Anzahl Wörter</label>
+            <select id="word-count" class="form-select">
+                <option value="4">4 Wörter (gut)</option>
+                <option value="5" selected>5 Wörter (stark)</option>
+                <option value="6">6 Wörter (sehr stark)</option>
+                <option value="7">7 Wörter (extrem stark)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Trennzeichen</label>
+            <select id="separator" class="form-select">
+                <option value="-">Bindestrich (-)</option>
+                <option value=" ">Leerzeichen</option>
+                <option value="_">Unterstrich (_)</option>
+                <option value=".">Punkt (.)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <div class="form-check">
+                <input type="checkbox" id="add-number">
+                <label for="add-number">Zahl hinzufügen</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" id="capitalize">
+                <label for="capitalize">Wörter großschreiben</label>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="generatePassphrase()">
+            &#128260; Neue Passphrase
+        </button>
+
+        <div id="generated-passphrase" class="mt-lg hidden">
+            <label class="form-label">Deine Passphrase:</label>
+            <div style="display: flex; gap: var(--spacing-sm);">
+                <input type="text" id="passphrase-output" class="form-input" readonly>
+                <button class="btn btn-secondary" onclick="copyPassphrase()">Kopieren</button>
+            </div>
+            <p class="text-secondary mt-sm" id="entropy-info"></p>
+        </div>
+    </div>
+
+    <!-- Strength Tester -->
+    <div class="card">
+        <h2>&#128170; Passphrase testen</h2>
+        <p class="text-secondary">
+            Teste die Stärke einer bestehenden Passphrase.
+            Eingaben werden NICHT gespeichert oder gesendet.
+        </p>
+
+        <div class="form-group">
+            <label class="form-label">Passphrase eingeben</label>
+            <input type="password" id="test-passphrase" class="form-input"
+                   placeholder="Deine Passphrase..." oninput="testPassphrase()">
+            <button type="button" class="btn btn-secondary mt-sm" onclick="toggleVisibility()">
+                &#128065; Anzeigen/Verbergen
+            </button>
+        </div>
+
+        <div id="strength-result" class="mt-lg hidden">
+            <div class="strength-meter">
+                <div id="strength-bar" class="strength-bar"></div>
+            </div>
+            <p id="strength-label" class="mt-sm"></p>
+            <ul id="strength-tips" class="mt-md"></ul>
+        </div>
+    </div>
+</div>
+
+<section class="card mt-xl">
+    <h2>&#128161; Tipps für gute Passphrasen</h2>
+    <ul class="checklist">
+        <li><strong>Länge zählt</strong> – Eine 5-Wort-Passphrase ist sicherer als ein komplexes 8-Zeichen-Passwort</li>
+        <li><strong>Zufällig</strong> – Nutze den Generator, keine eigenen Wortsammlungen</li>
+        <li><strong>Einzigartig</strong> – Jeder Dienst bekommt eine eigene Passphrase</li>
+        <li><strong>Passwort-Manager</strong> – Speichere Passphrasen in Bitwarden oder KeePassXC</li>
+        <li><strong>Merkbar</strong> – Baue eine Geschichte um die Wörter</li>
+    </ul>
+</section>
+
+<section class="alert alert-info mt-lg">
+    <strong>&#128274; Sicherheit:</strong> Dieser Generator nutzt <code>crypto.getRandomValues()</code>
+    für kryptographisch sichere Zufallszahlen. Keine Daten verlassen deinen Browser.
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/passphrase.js') }}"></script>
+<style>
+    .strength-meter {
+        height: 10px;
+        background: var(--color-bg-secondary);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+    }
+
+    .strength-bar {
+        height: 100%;
+        width: 0%;
+        transition: all var(--transition-base);
+        border-radius: var(--radius-md);
+    }
+
+    .strength-weak { background: var(--color-accent-secondary); width: 25%; }
+    .strength-fair { background: #ffa500; width: 50%; }
+    .strength-good { background: #9acd32; width: 75%; }
+    .strength-strong { background: var(--color-accent-primary); width: 100%; }
+</style>
+{% endblock %}

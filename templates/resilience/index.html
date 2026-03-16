@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Resilienz{% endblock %}
+
+{% block content %}
+<section class="section-header">
+    <h1>&#129504; Resilienz gegen Propaganda</h1>
+    <p class="section-subtitle">
+        Werkzeuge, um Desinformation zu erkennen und kritisch zu denken.
+    </p>
+</section>
+
+<div class="grid grid-2">
+    <a href="{{ url_for('resilience_sift') }}" class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128270;</span>
+            <h3 class="card-title">SIFT-Methode</h3>
+        </div>
+        <p class="card-body">
+            <strong>S</strong>top – <strong>I</strong>nvestigate – <strong>F</strong>ind – <strong>T</strong>race.
+            Die erweiterte Methode zur Quellenprüfung.
+        </p>
+    </a>
+
+    <a href="{{ url_for('resilience_prebunking') }}" class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128737;</span>
+            <h3 class="card-title">Prebunking</h3>
+        </div>
+        <p class="card-body">
+            Impfung gegen Desinformation: Erkenne Manipulationstechniken,
+            bevor du ihnen begegnest.
+        </p>
+    </a>
+
+    <a href="{{ url_for('resilience_sources') }}" class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128240;</span>
+            <h3 class="card-title">Unabhängige Quellen</h3>
+        </div>
+        <p class="card-body">
+            Kuratierte Liste unabhängiger Medien mit Transparenz-Informationen
+            zur Finanzierung und Ausrichtung.
+        </p>
+    </a>
+
+    <div class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128483;</span>
+            <h3 class="card-title">Euphemismen entlarven</h3>
+        </div>
+        <p class="card-body">
+            „Kollateralschaden", „Sonderoperation", „Sicherheitsmaßnahme" –
+            Was wirklich gemeint ist.
+        </p>
+        <span class="text-muted">(In Arbeit)</span>
+    </div>
+</div>
+
+<section class="card mt-xl">
+    <div class="card-header">
+        <span class="card-icon">&#128218;</span>
+        <h3 class="card-title">Chomsky-inspirierte Analyse</h3>
+    </div>
+    <div class="card-body">
+        <p>
+            Fragen zur Macht-Analyse nach Noam Chomsky:
+        </p>
+        <ul class="checklist">
+            <li><strong>Wem nützt es?</strong> – Cui bono?</li>
+            <li><strong>Wer finanziert?</strong> – Folge dem Geld</li>
+            <li><strong>Welche Stimmen fehlen?</strong> – Wer wird nicht gehört?</li>
+            <li><strong>Welches Framing wird verwendet?</strong> – Wie wird das Thema gerahmt?</li>
+            <li><strong>Welche Alternativen werden verschwiegen?</strong></li>
+        </ul>
+    </div>
+</section>
+
+<section class="alert alert-info mt-lg">
+    <strong>&#128161; Merke:</strong> Kritisches Denken bedeutet nicht, allem zu misstrauen.
+    Es bedeutet, Behauptungen zu prüfen – auch die eigenen.
+</section>
+{% endblock %}

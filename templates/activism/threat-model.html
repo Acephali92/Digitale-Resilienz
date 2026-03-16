@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Bedrohungsanalyse{% endblock %}
+{% block content %}
+<section class="section-header">
+    <h1>&#128200; Bedrohungsanalyse</h1>
+    <p class="section-subtitle">Threat Modeling – verstehe deine Risiken.</p>
+</section>
+
+<section class="card">
+    <h2>Die fünf Grundfragen</h2>
+    <ol>
+        <li><strong>Was will ich schützen?</strong> (Daten, Kommunikation, Identität)</li>
+        <li><strong>Vor wem will ich es schützen?</strong> (Staat, Konzerne, Hacker, Gegner)</li>
+        <li><strong>Wie wahrscheinlich ist ein Angriff?</strong></li>
+        <li><strong>Was sind die Konsequenzen bei Versagen?</strong></li>
+        <li><strong>Wie viel Aufwand bin ich bereit zu investieren?</strong></li>
+    </ol>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128101; Typische Bedrohungsakteure</h2>
+    <div class="grid grid-2">
+        <div class="alert alert-info">
+            <strong>Niedrig bis Mittel:</strong>
+            <ul><li>Neugierige Mitmenschen</li><li>Arbeitgeber</li><li>Stalker</li><li>Script Kiddies</li></ul>
+        </div>
+        <div class="alert alert-warning">
+            <strong>Hoch:</strong>
+            <ul><li>Polizei/Staatsanwaltschaft</li><li>Geheimdienste</li><li>Organisierte Kriminalität</li><li>Staatliche Akteure</li></ul>
+        </div>
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128736; Schutzmaßnahmen nach Risiko</h2>
+    <ul class="checklist">
+        <li><strong>Basis:</strong> Passwort-Manager, 2FA, Signal, Verschlüsselung</li>
+        <li><strong>Erhöht:</strong> VPN, GrapheneOS, Biometrie deaktiviert</li>
+        <li><strong>Hoch:</strong> Tor, Tails OS, separate Geräte, Burner-Phones</li>
+    </ul>
+</section>
+{% endblock %}

@@ -1,0 +1,24 @@
+# Widerstands-Toolkit Dependencies
+# ================================
+# Minimale Abhängigkeiten für maximale Sicherheit
+
+# Core Framework
+Flask==3.0.0
+
+# Security
+Werkzeug>=3.0.0
+
+# Production Server (optional)
+gunicorn==21.2.0
+waitress==2.1.2
+
+# Testing
+pytest==7.4.3
+pytest-flask==1.3.0
+
+# Security Scanning (dev only)
+bandit==1.7.6
+
+# Code Quality (dev only)
+flake8==6.1.0
+black==23.11.0

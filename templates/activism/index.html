@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Aktivismus{% endblock %}
+
+{% block content %}
+<section class="section-header">
+    <h1>&#9994; Aktivismus-Detox</h1>
+    <p class="section-subtitle">
+        Sicher und effektiv aktiv sein – mit klarem Kopf und guter Vorbereitung.
+    </p>
+</section>
+
+<div class="grid grid-2">
+    <a href="{{ url_for('activism_threat_model') }}" class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128200;</span>
+            <h3 class="card-title">Bedrohungsanalyse</h3>
+        </div>
+        <p class="card-body">
+            Interaktive Threat-Modeling-Matrix: Wer könnte an deinen Daten interessiert sein?
+            Welche Risiken sind real?
+        </p>
+    </a>
+
+    <a href="{{ url_for('activism_demo_checklist') }}" class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128221;</span>
+            <h3 class="card-title">Demo-Checkliste</h3>
+        </div>
+        <p class="card-body">
+            Was du vor, während und nach einer Demo beachten solltest.
+            Inklusive „Amiras Demo-Tag"-Simulator.
+        </p>
+    </a>
+
+    <a href="{{ url_for('activism_seizure_rights') }}" class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128275;</span>
+            <h3 class="card-title">Rechte bei Beschlagnahmung</h3>
+        </div>
+        <p class="card-body">
+            Was tun, wenn dein Handy beschlagnahmt wird?
+            Deine Rechte und praktische Tipps.
+        </p>
+    </a>
+
+    <div class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128101;</span>
+            <h3 class="card-title">Bezugsgruppen</h3>
+        </div>
+        <p class="card-body">
+            Sichere Strukturen für Aktionen:
+            Wie Bezugsgruppen funktionieren und kommunizieren.
+        </p>
+        <span class="text-muted">(In Arbeit)</span>
+    </div>
+</div>
+
+<section class="card mt-xl">
+    <div class="card-header">
+        <span class="card-icon">&#9888;</span>
+        <h3 class="card-title">Schnell-Check: Bin ich vorbereitet?</h3>
+    </div>
+    <div class="card-body">
+        <ul class="checklist">
+            <li>Handy vor der Demo neu gestartet (BFU-Zustand)?</li>
+            <li>Biometrie deaktiviert, nur PIN aktiv?</li>
+            <li>EA-Nummer (Ermittlungsausschuss) notiert?</li>
+            <li>Bezugsperson informiert, wann ich zurück sein sollte?</li>
+            <li>Bargeld dabei (keine Karte auf der Demo)?</li>
+            <li>Keine sensiblen Chats auf dem Demo-Handy?</li>
+        </ul>
+        <a href="{{ url_for('activism_demo_checklist') }}" class="btn btn-primary mt-md">
+            Zur vollständigen Checkliste
+        </a>
+    </div>
+</section>
+
+<section class="alert alert-warning mt-lg">
+    <strong>&#128679; Rechtshilfe:</strong> Bei Festnahme oder rechtlichen Problemen:
+    <a href="https://www.rote-hilfe.de/" target="_blank" rel="noopener noreferrer">Rote Hilfe e.V.</a>
+    – Bundesweite EA-Nummern findest du vor Ort.
+</section>
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block title %}Bist du trackbar?{% endblock %}
+
+{% block content %}
+<section class="section-header">
+    <h1>&#128269; Bist du trackbar?</h1>
+    <p class="section-subtitle">
+        Teste anonym, wie sichtbar du im digitalen Raum bist.
+        Keine Daten werden gespeichert oder gesendet.
+    </p>
+</section>
+
+<div class="card" id="quiz-container">
+    <!-- Quiz Start -->
+    <div id="quiz-start">
+        <h2>Der Trackbarkeits-Test</h2>
+        <p>
+            Dieser Test hilft dir einzuschätzen, wie viele digitale Spuren du hinterlässt.
+            Beantworte 10 Fragen ehrlich – nur du siehst das Ergebnis.
+        </p>
+        <button class="btn btn-primary" onclick="startQuiz()">
+            &#127919; Test starten
+        </button>
+    </div>
+
+    <!-- Quiz Questions -->
+    <div id="quiz-questions" class="hidden">
+        <div class="quiz-progress">
+            <span id="current-question">1</span> / <span id="total-questions">10</span>
+        </div>
+
+        <div id="question-container">
+            <!-- Questions will be inserted here -->
+        </div>
+
+        <div class="quiz-navigation mt-lg">
+            <button class="btn btn-secondary" id="prev-btn" onclick="prevQuestion()" disabled>
+                &#8592; Zurück
+            </button>
+            <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()">
+                Weiter &#8594;
+            </button>
+        </div>
+    </div>
+
+    <!-- Quiz Results -->
+    <div id="quiz-results" class="hidden">
+        <h2>Dein Ergebnis</h2>
+        <div id="score-display" class="text-center mt-lg">
+            <div id="score-circle" class="score-circle">
+                <span id="score-value">0</span>
+            </div>
+            <p id="score-label" class="mt-md"></p>
+        </div>
+
+        <div id="recommendations" class="mt-xl">
+            <!-- Recommendations will be inserted here -->
+        </div>
+
+        <div class="text-center mt-xl">
+            <button class="btn btn-secondary" onclick="restartQuiz()">
+                &#128260; Test wiederholen
+            </button>
+            <a href="{{ url_for('security_index') }}" class="btn btn-primary">
+                &#128737; Sicherheit verbessern
+            </a>
+        </div>
+    </div>
+</div>
+
+<section class="alert alert-info mt-xl">
+    <strong>&#128274; Datenschutz:</strong> Dieser Test läuft vollständig in deinem Browser.
+    Keine Antworten werden gespeichert, gesendet oder getrackt.
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
+<style>
+    .quiz-progress {
+        text-align: center;
+        font-family: var(--font-family-mono);
+        color: var(--color-accent-primary);
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .quiz-option {
+        display: block;
+        width: 100%;
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-sm);
+        background: var(--color-bg-secondary);
+        border: 2px solid var(--color-border);
+        border-radius: var(--radius-md);
+        color: var(--color-text-primary);
+        text-align: left;
+        cursor: pointer;
+        transition: all var(--transition-fast);
+    }
+
+    .quiz-option:hover {
+        border-color: var(--color-accent-primary);
+    }
+
+    .quiz-option.selected {
+        border-color: var(--color-accent-primary);
+        background: rgba(0, 255, 65, 0.1);
+    }
+
+    .score-circle {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 8px solid var(--color-accent-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        font-family: var(--font-family-mono);
+        font-size: var(--font-size-4xl);
+        font-weight: bold;
+    }
+
+    .score-low { border-color: var(--color-accent-primary); color: var(--color-accent-primary); }
+    .score-medium { border-color: #ffa500; color: #ffa500; }
+    .score-high { border-color: var(--color-accent-secondary); color: var(--color-accent-secondary); }
+
+    .quiz-navigation {
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
+{% endblock %}

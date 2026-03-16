@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}48h-Notfallplan{% endblock %}
+{% block content %}
+<section class="section-header">
+    <h1>&#128197; 48h-Notfallplan</h1>
+    <p class="section-subtitle">Erstelle deinen persönlichen Notfallplan für kritische Situationen.</p>
+</section>
+
+<div class="card">
+    <h2>&#128221; Dein Notfallplan</h2>
+    <p class="text-secondary">Fülle die Felder aus und drucke/speichere den Plan. Nichts wird übertragen.</p>
+
+    <form id="emergency-plan" onsubmit="return false;">
+        <h3 class="mt-lg">&#128222; Wichtige Kontakte</h3>
+        <div class="form-group">
+            <label class="form-label">Vertrauensperson 1 (Name, Telefon)</label>
+            <input type="text" class="form-input" id="contact1" placeholder="Name: ... Tel: ...">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Vertrauensperson 2</label>
+            <input type="text" class="form-input" id="contact2" placeholder="Name: ... Tel: ...">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Anwältin</label>
+            <input type="text" class="form-input" id="lawyer" placeholder="Name: ... Tel: ...">
+        </div>
+        <div class="form-group">
+            <label class="form-label">EA-Nummer (falls relevant)</label>
+            <input type="text" class="form-input" id="ea" placeholder="Ermittlungsausschuss">
+        </div>
+
+        <h3 class="mt-lg">&#128274; Digitale Sicherheit</h3>
+        <div class="form-group">
+            <label class="form-label">Wer hat Zugang zu meinen Passwörtern im Notfall?</label>
+            <input type="text" class="form-input" id="passwords" placeholder="Name der Person">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Welche Accounts müssen im Notfall gesichert/gelöscht werden?</label>
+            <textarea class="form-textarea" id="accounts" placeholder="Social Media, E-Mail, Cloud..."></textarea>
+        </div>
+
+        <h3 class="mt-lg">&#128218; Dokumente</h3>
+        <div class="form-group">
+            <label class="form-label">Wichtige Dokumente (Aufbewahrungsort)</label>
+            <textarea class="form-textarea" id="documents" placeholder="Ausweis-Kopie, Vollmacht, etc."></textarea>
+        </div>
+
+        <div class="mt-xl">
+            <button type="button" class="btn btn-primary" onclick="window.print()">
+                &#128424; Drucken / Als PDF speichern
+            </button>
+        </div>
+    </form>
+</div>
+
+<section class="alert alert-info mt-lg">
+    <strong>&#128274; Datenschutz:</strong> Dieses Formular funktioniert komplett offline. Keine Daten werden gespeichert oder übertragen.
+</section>
+{% endblock %}

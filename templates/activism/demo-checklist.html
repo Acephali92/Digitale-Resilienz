@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}Demo-Checkliste{% endblock %}
+
+{% block content %}
+<section class="section-header">
+    <h1>&#128221; Demo-Checkliste</h1>
+    <p class="section-subtitle">
+        Alles, was du vor, während und nach einer Demo beachten solltest.
+    </p>
+</section>
+
+<!-- Before Demo -->
+<section class="card">
+    <div class="card-header">
+        <span class="card-icon">&#128197;</span>
+        <h2 class="card-title">Vor der Demo</h2>
+    </div>
+    <div class="card-body">
+        <h3 class="mt-md">&#128241; Digitale Vorbereitung</h3>
+        <ul class="checklist">
+            <li>
+                <strong>Handy neu starten</strong> – Versetzt das Gerät in BFU-Zustand
+                (Before First Unlock), Daten sind dann besser geschützt
+            </li>
+            <li>
+                <strong>Biometrie deaktivieren</strong> – Nur PIN/Passwort aktivieren
+                (rechtlich besser geschützt als Fingerabdruck/Face ID)
+            </li>
+            <li>
+                <strong>Sensitive Apps abmelden</strong> – E-Mail, Social Media, Banking ausloggen
+            </li>
+            <li>
+                <strong>Chat-Verläufe löschen</strong> – Besonders Gruppen-Chats zur Demo
+            </li>
+            <li>
+                <strong>Demo-Handy nutzen</strong> – Falls möglich, ein zweites Gerät nur für Demos
+            </li>
+            <li>
+                <strong>Flugmodus oder aus</strong> – Überlege, ob du Handy überhaupt brauchst
+            </li>
+        </ul>
+
+        <h3 class="mt-lg">&#128188; Was mitnehmen?</h3>
+        <ul class="checklist">
+            <li><strong>Bargeld</strong> – Keine EC-/Kreditkarte (hinterlässt Spuren)</li>
+            <li><strong>Personalausweis</strong> – Pflicht in Deutschland</li>
+            <li><strong>EA-Nummer notiert</strong> – Ermittlungsausschuss-Telefonnummer (auf Papier!)</li>
+            <li><strong>Wasser & Snacks</strong> – Lange Demos erfordern Ausdauer</li>
+            <li><strong>Wetter-angepasste Kleidung</strong> – Unauffällig, praktisch</li>
+            <li><strong>FFP2-Maske</strong> – Gesichtserkennung erschweren, Gesundheit</li>
+            <li><strong>Erste-Hilfe-Grundausstattung</strong> – Pflaster, Augenspülung</li>
+        </ul>
+
+        <h3 class="mt-lg">&#128101; Soziale Vorbereitung</h3>
+        <ul class="checklist">
+            <li><strong>Bezugsperson informieren</strong> – Wann du spätestens zurück sein solltest</li>
+            <li><strong>Bezugsgruppe haben</strong> – Nicht alleine auf Demos gehen</li>
+            <li><strong>Treffpunkt ausmachen</strong> – Falls ihr euch verliert</li>
+            <li><strong>Rechtshilfe-Kontakt</strong> – Anwältin oder Rote Hilfe</li>
+        </ul>
+    </div>
+</section>
+
+<!-- During Demo -->
+<section class="card mt-lg">
+    <div class="card-header">
+        <span class="card-icon">&#128587;</span>
+        <h2 class="card-title">Während der Demo</h2>
+    </div>
+    <div class="card-body">
+        <h3>&#128065; Dokumentation</h3>
+        <ul class="checklist">
+            <li><strong>Fotos/Videos</strong> – EXIF-Daten werden später entfernt</li>
+            <li><strong>Keine Gesichter</strong> – Andere Teilnehmer*innen nicht erkennbar fotografieren</li>
+            <li><strong>Polizei dokumentieren</strong> – Dienstnummern, Verhalten (wenn sicher)</li>
+            <li><strong>Zeug*innen merken</strong> – Bei Vorfällen</li>
+        </ul>
+
+        <h3 class="mt-lg">&#9888; Bei Polizeikontakt</h3>
+        <ul class="checklist">
+            <li><strong>Ruhe bewahren</strong> – Keine hektischen Bewegungen</li>
+            <li><strong>Nur Pflichtangaben</strong> – Name, Adresse, Geburtsdatum</li>
+            <li><strong>Keine Aussage zur Sache</strong> – „Dazu sage ich nichts"</li>
+            <li><strong>Handy nicht entsperren</strong> – Du musst nicht</li>
+            <li><strong>Durchsuchung protokollieren</strong> – Was wurde durchsucht/mitgenommen?</li>
+            <li><strong>EA anrufen</strong> – Sobald wie möglich</li>
+        </ul>
+
+        <div class="alert alert-warning mt-md">
+            <strong>&#128275; PIN vs. Biometrie:</strong> Nach BGH-Rechtsprechung (2025) kannst du
+            zur Entsperrung per Biometrie gezwungen werden. Bei PIN/Passwort besteht
+            Aussageverweigerungsrecht!
+        </div>
+    </div>
+</section>
+
+<!-- After Demo -->
+<section class="card mt-lg">
+    <div class="card-header">
+        <span class="card-icon">&#127968;</span>
+        <h2 class="card-title">Nach der Demo</h2>
+    </div>
+    <div class="card-body">
+        <ul class="checklist">
+            <li><strong>Check-in mit Bezugsperson</strong> – Melde dich als sicher</li>
+            <li><strong>Fotos sichten</strong> – EXIF entfernen vor dem Teilen</li>
+            <li><strong>Keine Details posten</strong> – Warte mindestens 48h</li>
+            <li><strong>Debrief mit Gruppe</strong> – Was lief gut, was nicht?</li>
+            <li><strong>Selbstfürsorge</strong> – Ruhe dich aus, verarbeite Erlebtes</li>
+            <li><strong>Bei Festnahmen</strong> – Protokoll schreiben, Anwältin kontaktieren</li>
+        </ul>
+    </div>
+</section>
+
+<!-- EA Numbers -->
+<section class="card mt-lg">
+    <div class="card-header">
+        <span class="card-icon">&#128222;</span>
+        <h2 class="card-title">Ermittlungsausschuss (EA)</h2>
+    </div>
+    <div class="card-body">
+        <p>
+            Der EA ist ein Zusammenschluss von Aktivist*innen, die bei Demos erreichbar sind,
+            um bei Festnahmen zu helfen. Notiere dir die Nummer <strong>auf Papier</strong>!
+        </p>
+        <p class="mt-md">
+            <a href="https://www.rote-hilfe.de/" target="_blank" rel="noopener" class="btn btn-secondary">
+                &#127760; Rote Hilfe e.V.
+            </a>
+        </p>
+        <p class="text-secondary mt-sm">
+            EA-Nummern werden meist auf Demo-Ankündigungen bekannt gegeben.
+        </p>
+    </div>
+</section>
+
+<section class="alert alert-info mt-xl">
+    <strong>&#128229; Download:</strong> Diese Checkliste als PDF herunterladen und ausdrucken?
+    <a href="{{ url_for('tools_downloads') }}">Zum Download-Bereich</a>
+</section>
+{% endblock %}

@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}Offline-Downloads{% endblock %}
+
+{% block content %}
+<section class="section-header">
+    <h1>&#128229; Offline-Downloads</h1>
+    <p class="section-subtitle">
+        Alle Materialien als PDF – auch ohne Internet nutzbar.
+    </p>
+</section>
+
+<div class="alert alert-info">
+    <strong>&#128679; Hinweis:</strong> Die PDF-Downloads werden noch erstellt.
+    Bis dahin kannst du die Seiten mit Strg+P als PDF speichern.
+</div>
+
+<div class="grid grid-2 mt-xl">
+    <div class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128221;</span>
+            <h3 class="card-title">Demo-Checkliste</h3>
+        </div>
+        <p class="card-body">
+            Vor, während und nach der Demo – alle wichtigen Punkte auf einen Blick.
+        </p>
+        <a href="{{ url_for('activism_demo_checklist') }}" class="btn btn-secondary">
+            &#128065; Online ansehen
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128220;</span>
+            <h3 class="card-title">DSGVO-Vorlagen</h3>
+        </div>
+        <p class="card-body">
+            Auskunfts- und Löschanfragen nach DSGVO – fertig zum Ausfüllen.
+        </p>
+        <a href="{{ url_for('privacy_dsgvo') }}" class="btn btn-secondary">
+            &#128065; Online ansehen
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128275;</span>
+            <h3 class="card-title">Rechte bei Beschlagnahmung</h3>
+        </div>
+        <p class="card-body">
+            Was du wissen musst, wenn dein Gerät beschlagnahmt wird.
+        </p>
+        <a href="{{ url_for('activism_seizure_rights') }}" class="btn btn-secondary">
+            &#128065; Online ansehen
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128197;</span>
+            <h3 class="card-title">48h-Notfallplan</h3>
+        </div>
+        <p class="card-body">
+            Personalisierter Notfallplan für kritische Situationen.
+        </p>
+        <a href="{{ url_for('tools_plan48h') }}" class="btn btn-secondary">
+            &#128065; Generator öffnen
+        </a>
+    </div>
+</div>
+
+<section class="card mt-xl">
+    <div class="card-header">
+        <span class="card-icon">&#128161;</span>
+        <h3 class="card-title">Seiten als PDF speichern</h3>
+    </div>
+    <div class="card-body">
+        <p>
+            Jede Seite dieses Toolkits kann als PDF gespeichert werden:
+        </p>
+        <ol>
+            <li>Öffne die gewünschte Seite</li>
+            <li>Drücke <kbd>Strg</kbd> + <kbd>P</kbd> (Windows/Linux) oder <kbd>Cmd</kbd> + <kbd>P</kbd> (Mac)</li>
+            <li>Wähle „Als PDF speichern" als Drucker</li>
+            <li>Klicke „Speichern"</li>
+        </ol>
+        <p class="mt-md text-secondary">
+            Die Seiten sind für den Druck optimiert – Navigation und unwichtige Elemente werden ausgeblendet.
+        </p>
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <div class="card-header">
+        <span class="card-icon">&#127760;</span>
+        <h3 class="card-title">Externe Ressourcen</h3>
+    </div>
+    <div class="card-body">
+        <ul class="checklist">
+            <li>
+                <a href="https://ssd.eff.org/" target="_blank" rel="noopener">
+                    EFF Surveillance Self-Defense
+                </a> – Umfassender Leitfaden (englisch)
+            </li>
+            <li>
+                <a href="https://securityinabox.org/de/" target="_blank" rel="noopener">
+                    Security in a Box
+                </a> – Digitale Sicherheit (deutsch)
+            </li>
+            <li>
+                <a href="https://datadetoxkit.org/de/" target="_blank" rel="noopener">
+                    Data Detox Kit
+                </a> – Datenspuren reduzieren (deutsch)
+            </li>
+            <li>
+                <a href="https://www.datenanfragen.de/" target="_blank" rel="noopener">
+                    datenanfragen.de
+                </a> – DSGVO-Anfragen Generator
+            </li>
+        </ul>
+    </div>
+</section>
+{% endblock %}

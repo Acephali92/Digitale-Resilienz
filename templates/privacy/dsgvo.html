@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}DSGVO-Anfragen{% endblock %}
+
+{% block content %}
+<section class="section-header">
+    <h1>&#128220; DSGVO-Anfragen</h1>
+    <p class="section-subtitle">
+        Nutze deine Rechte nach der Datenschutz-Grundverordnung.
+    </p>
+</section>
+
+<section class="card">
+    <h2>Deine Rechte nach DSGVO</h2>
+    <ul class="checklist">
+        <li><strong>Art. 15 – Auskunftsrecht</strong>: Welche Daten hat ein Unternehmen über dich?</li>
+        <li><strong>Art. 17 – Recht auf Löschung</strong>: Daten löschen lassen ("Recht auf Vergessenwerden")</li>
+        <li><strong>Art. 20 – Datenübertragbarkeit</strong>: Deine Daten in einem lesbaren Format erhalten</li>
+        <li><strong>Art. 21 – Widerspruchsrecht</strong>: Verarbeitung deiner Daten widersprechen</li>
+    </ul>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128295; So stellst du eine Anfrage</h2>
+    <p>
+        Der einfachste Weg ist über <a href="https://www.datenanfragen.de/" target="_blank" rel="noopener">datenanfragen.de</a>:
+    </p>
+    <ol>
+        <li>Besuche <a href="https://www.datenanfragen.de/generator" target="_blank" rel="noopener">datenanfragen.de/generator</a></li>
+        <li>Wähle das Unternehmen aus der Datenbank</li>
+        <li>Wähle die Art der Anfrage (Auskunft, Löschung, etc.)</li>
+        <li>Fülle das Formular aus</li>
+        <li>Sende die generierte E-Mail oder den Brief</li>
+    </ol>
+
+    <div class="mt-lg">
+        <a href="https://www.datenanfragen.de/generator" target="_blank" rel="noopener" class="btn btn-primary">
+            &#127760; Zu datenanfragen.de
+        </a>
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128172; Muster-Anfrage (Auskunft)</h2>
+    <pre><code>Sehr geehrte Damen und Herren,
+
+ich bitte um Auskunft gemäß Art. 15 DSGVO über die zu meiner Person
+gespeicherten personenbezogenen Daten.
+
+Bitte teilen Sie mir mit:
+- welche Daten Sie über mich gespeichert haben
+- die Verarbeitungszwecke
+- die Kategorien der Daten
+- die Empfänger oder Kategorien von Empfängern
+- die Speicherdauer oder Kriterien für deren Festlegung
+- die Herkunft der Daten
+
+Bitte antworten Sie mir innerhalb der gesetzlichen Frist von einem Monat.
+
+Mit freundlichen Grüßen
+[Dein Name]
+[Adresse]
+[Geburtsdatum zur Identifikation]</code></pre>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#9200; Fristen und Reaktionen</h2>
+    <ul class="checklist">
+        <li><strong>Antwortfrist</strong>: Unternehmen müssen innerhalb von 1 Monat antworten</li>
+        <li><strong>Keine Antwort?</strong>: Beschwerde bei der zuständigen Datenschutzbehörde einreichen</li>
+        <li><strong>Kosten</strong>: Die erste Auskunft ist immer kostenlos</li>
+        <li><strong>Format</strong>: E-Mail reicht aus, Brief empfohlen bei wichtigen Anfragen</li>
+    </ul>
+</section>
+
+<section class="alert alert-info mt-lg">
+    <strong>&#128161; Tipp:</strong> Beginne mit den großen Datenkraken: Google, Facebook, Amazon, dein
+    Mobilfunkanbieter, deine Bank. Du wirst überrascht sein, wie viel sie wissen.
+</section>
+{% endblock %}

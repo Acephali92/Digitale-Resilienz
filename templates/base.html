@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Widerstands-Toolkit - Digitale Resilienz für Aktivist*innen. Schütze dich vor dem System.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="referrer" content="no-referrer">
+
+    <!-- Keine externen Ressourcen - alles lokal -->
+    <title>{% block title %}Widerstands-Toolkit{% endblock %} | Digitale Resilienz</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/logo.svg') }}">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Kein JavaScript für kritische Funktionen - Tor-kompatibel -->
+    <noscript>
+        <style>
+            .js-only { display: none !important; }
+            .nojs-show { display: block !important; }
+        </style>
+    </noscript>
+
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <!-- Skip Link für Barrierefreiheit -->
+    <a href="#main" class="skip-link">Zum Hauptinhalt springen</a>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <nav class="main-nav" aria-label="Hauptnavigation">
+                <a href="{{ url_for('index') }}" class="logo" aria-label="Startseite">
+                    <span class="logo-icon">&#128274;</span>
+                    <span class="logo-text">Widerstands-Toolkit</span>
+                </a>
+
+                <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
+                    <span class="nav-toggle-bar"></span>
+                    <span class="nav-toggle-bar"></span>
+                    <span class="nav-toggle-bar"></span>
+                </button>
+
+                <ul class="nav-menu" id="nav-menu">
+                    <li class="nav-item">
+                        <a href="{{ url_for('privacy_index') }}" class="nav-link {% if request.path.startswith('/privacy') %}active{% endif %}">
+                            <span class="nav-icon">&#128065;</span>
+                            Privatsphäre
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('security_index') }}" class="nav-link {% if request.path.startswith('/security') %}active{% endif %}">
+                            <span class="nav-icon">&#128737;</span>
+                            Sicherheit
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('resilience_index') }}" class="nav-link {% if request.path.startswith('/resilience') %}active{% endif %}">
+                            <span class="nav-icon">&#129504;</span>
+                            Resilienz
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('activism_index') }}" class="nav-link {% if request.path.startswith('/activism') %}active{% endif %}">
+                            <span class="nav-icon">&#9994;</span>
+                            Aktivismus
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('conspiracy_index') }}" class="nav-link {% if request.path.startswith('/conspiracy') %}active{% endif %}">
+                            <span class="nav-icon">&#128269;</span>
+                            Faktencheck
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('peace_index') }}" class="nav-link {% if request.path.startswith('/peace') %}active{% endif %}">
+                            <span class="nav-icon">&#9774;</span>
+                            Frieden
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('tools_index') }}" class="nav-link {% if request.path.startswith('/tools') %}active{% endif %}">
+                            <span class="nav-icon">&#128295;</span>
+                            Tools
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main" class="main-content">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Über dieses Toolkit</h3>
+                    <p>
+                        Ein Projekt der Zivilgesellschaft für digitale Selbstverteidigung.
+                        Keine Tracker. Keine Überwachung. Open Source.
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Wichtige Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="{{ url_for('tools_downloads') }}">Offline-Downloads</a></li>
+                        <li><a href="https://github.com/Acephali92/Digitale-Resilienz" target="_blank" rel="noopener noreferrer">Quellcode (GitHub)</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Rechtliches</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Impressum</a></li>
+                        <li><a href="#">Datenschutz</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-slogan">
+                    &#128274; Widerstand ist fruchtbar. Schütze dich. Vernetze dich. Bleib wachsam.
+                </p>
+                <p class="footer-meta">
+                    <small>Diese Seite sammelt keine Daten. Keine Cookies. Keine Tracker. Versprochen.</small>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Minimal JavaScript - not required for core functionality -->
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

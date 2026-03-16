@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Sicherheit{% endblock %}
+
+{% block content %}
+<section class="section-header">
+    <h1>&#128737; Aktivisten-Sicherheit</h1>
+    <p class="section-subtitle">
+        Digitale Werkzeuge für sichere Kommunikation und Datenschutz.
+    </p>
+</section>
+
+<div class="grid grid-2">
+    <a href="{{ url_for('security_passwords') }}" class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128272;</span>
+            <h3 class="card-title">Passwort-Manager</h3>
+        </div>
+        <p class="card-body">
+            Bitwarden, KeePassXC und andere sichere Passwort-Manager.
+            Schluss mit unsicheren Passwörtern.
+        </p>
+    </a>
+
+    <a href="{{ url_for('security_messengers') }}" class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128172;</span>
+            <h3 class="card-title">Sichere Messenger</h3>
+        </div>
+        <p class="card-body">
+            Signal, Threema, Briar im Vergleich.
+            Welcher Messenger passt zu deinen Bedürfnissen?
+        </p>
+    </a>
+
+    <a href="{{ url_for('security_devices') }}" class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128241;</span>
+            <h3 class="card-title">Gerätesicherheit</h3>
+        </div>
+        <p class="card-body">
+            GrapheneOS, BFU/AFU-Zustände, Vollverschlüsselung.
+            Dein Smartphone sicher machen.
+        </p>
+    </a>
+
+    <a href="{{ url_for('security_legal') }}" class="card">
+        <div class="card-header">
+            <span class="card-icon">&#9878;</span>
+            <h3 class="card-title">Rechtliche Tipps</h3>
+        </div>
+        <p class="card-body">
+            PIN vs. Biometrie (BGH 2025), Aussageverweigerung,
+            Rechte bei Polizeikontrollen.
+        </p>
+    </a>
+</div>
+
+<section class="card mt-xl">
+    <div class="card-header">
+        <span class="card-icon">&#127760;</span>
+        <h3 class="card-title">VPN & Tor</h3>
+    </div>
+    <div class="card-body">
+        <p>
+            Anonymes Surfen mit Mullvad VPN und dem Tor-Browser.
+            Wann welches Tool sinnvoll ist.
+        </p>
+        <ul class="checklist">
+            <li><strong>Mullvad VPN</strong> – Keine Logs, anonyme Zahlung möglich</li>
+            <li><strong>Tor Browser</strong> – Höchste Anonymität, aber langsamer</li>
+            <li><strong>Tails OS</strong> – Komplettes Betriebssystem für maximale Privatsphäre</li>
+        </ul>
+    </div>
+</section>
+
+<section class="alert alert-warning mt-lg">
+    <strong>&#9888; Wichtig:</strong> Sichere Tools helfen nur, wenn sie richtig angewendet werden.
+    Lies die Anleitungen sorgfältig und übe vor dem Ernstfall.
+</section>
+{% endblock %}

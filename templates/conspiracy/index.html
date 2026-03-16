@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Faktencheck{% endblock %}
+
+{% block content %}
+<section class="section-header">
+    <h1>&#128269; Verschwörungs-Check</h1>
+    <p class="section-subtitle">
+        Signal vom Rauschen trennen – kritisch denken ohne paranoid zu werden.
+    </p>
+</section>
+
+<div class="grid grid-2">
+    <a href="{{ url_for('conspiracy_filter') }}" class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128246;</span>
+            <h3 class="card-title">Signal vs. Rauschen</h3>
+        </div>
+        <p class="card-body">
+            Interaktiver Filter: Ist diese Information ein echtes Signal
+            oder nur Rauschen? Checkliste zur Einordnung.
+        </p>
+    </a>
+
+    <div class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128218;</span>
+            <h3 class="card-title">Narrativ-Analyse</h3>
+        </div>
+        <p class="card-body">
+            Wer profitiert von dieser Erzählung?
+            Machtfluss-Analyse nach Chomsky.
+        </p>
+        <span class="text-muted">(In Arbeit)</span>
+    </div>
+</div>
+
+<section class="card mt-xl">
+    <div class="card-header">
+        <span class="card-icon">&#129300;</span>
+        <h3 class="card-title">Gesunde Skepsis vs. Verschwörungsdenken</h3>
+    </div>
+    <div class="card-body">
+        <p>
+            Es gibt echte Verschwörungen (COINTELPRO, NSA-Überwachung, Watergate)
+            und es gibt Verschwörungsmythen. Der Unterschied:
+        </p>
+
+        <div class="grid grid-2 mt-md">
+            <div class="alert alert-success">
+                <strong>&#9989; Gesunde Skepsis:</strong>
+                <ul>
+                    <li>Prüfbare Behauptungen</li>
+                    <li>Quellenangaben</li>
+                    <li>Bereitschaft zur Korrektur</li>
+                    <li>Differenzierte Analyse</li>
+                    <li>Ockhams Rasiermesser anwenden</li>
+                </ul>
+            </div>
+
+            <div class="alert alert-warning">
+                <strong>&#10060; Verschwörungsdenken:</strong>
+                <ul>
+                    <li>Unprüfbare Behauptungen</li>
+                    <li>„Tu deine eigene Recherche"</li>
+                    <li>Immun gegen Widerlegung</li>
+                    <li>Alles ist verbunden</li>
+                    <li>Je größer die Verschwörung, desto wahrer</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <div class="card-header">
+        <span class="card-icon">&#128161;</span>
+        <h3 class="card-title">Fragen, die helfen</h3>
+    </div>
+    <div class="card-body">
+        <ul class="checklist">
+            <li><strong>Falsifizierbar?</strong> – Kann diese Behauptung widerlegt werden?</li>
+            <li><strong>Experten?</strong> – Was sagen unabhängige Fachleute?</li>
+            <li><strong>Belege?</strong> – Gibt es überprüfbare Dokumente?</li>
+            <li><strong>Einfachere Erklärung?</strong> – Gibt es eine banalere Alternative?</li>
+            <li><strong>Wem nützt es?</strong> – Wer profitiert von dieser Erzählung?</li>
+            <li><strong>Emotionale Reaktion?</strong> – Soll ich wütend/ängstlich werden?</li>
+        </ul>
+    </div>
+</section>
+
+<section class="alert alert-info mt-lg">
+    <strong>&#128218; Lesetipp:</strong> „Nichts ist, wie es scheint" von Michael Butter –
+    Eine wissenschaftliche Einführung in Verschwörungstheorien.
+</section>
+{% endblock %}

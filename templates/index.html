@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block title %}Startseite{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <h1 class="hero-title">&#128274; Schütze dich vor dem System</h1>
+    <p class="hero-subtitle">
+        Das Widerstands-Toolkit ist dein Leitfaden für digitale Selbstverteidigung.
+        Praktische Werkzeuge und Wissen für Aktivist*innen, Friedensbewegung und kritische Bürger*innen.
+    </p>
+    <div class="hero-actions">
+        <a href="{{ url_for('security_index') }}" class="btn btn-primary">
+            &#128737; Sicherheit starten
+        </a>
+        <a href="{{ url_for('tools_downloads') }}" class="btn btn-secondary">
+            &#128229; Offline-Downloads
+        </a>
+    </div>
+</section>
+
+<!-- Feature Grid -->
+<section class="feature-grid">
+    <!-- Privacy -->
+    <a href="{{ url_for('privacy_index') }}" class="feature-card">
+        <div class="feature-icon">&#128065;</div>
+        <h3 class="feature-title">Privatsphäre</h3>
+        <p class="feature-description">
+            EXIF-Daten entfernen, DSGVO-Anfragen stellen, Tracking vermeiden.
+            Teste: Bist du trackbar?
+        </p>
+    </a>
+
+    <!-- Security -->
+    <a href="{{ url_for('security_index') }}" class="feature-card">
+        <div class="feature-icon">&#128737;</div>
+        <h3 class="feature-title">Sicherheit</h3>
+        <p class="feature-description">
+            Passwort-Manager, 2FA, sichere Messenger, Geräteverschlüsselung.
+            Deine Rechte bei PIN vs. Biometrie.
+        </p>
+    </a>
+
+    <!-- Resilience -->
+    <a href="{{ url_for('resilience_index') }}" class="feature-card">
+        <div class="feature-icon">&#129504;</div>
+        <h3 class="feature-title">Resilienz</h3>
+        <p class="feature-description">
+            Propaganda erkennen, Fakten prüfen, unabhängige Quellen finden.
+            SIFT-Methode und Prebunking.
+        </p>
+    </a>
+
+    <!-- Activism -->
+    <a href="{{ url_for('activism_index') }}" class="feature-card">
+        <div class="feature-icon">&#9994;</div>
+        <h3 class="feature-title">Aktivismus</h3>
+        <p class="feature-description">
+            Bedrohungsanalyse, Demo-Checklisten, Rechte bei Beschlagnahmung.
+            Sicher und effektiv aktiv sein.
+        </p>
+    </a>
+
+    <!-- Conspiracy Check -->
+    <a href="{{ url_for('conspiracy_index') }}" class="feature-card">
+        <div class="feature-icon">&#128269;</div>
+        <h3 class="feature-title">Faktencheck</h3>
+        <p class="feature-description">
+            Signal vs. Rauschen unterscheiden, Narrative analysieren.
+            Kritisch denken ohne paranoid zu werden.
+        </p>
+    </a>
+
+    <!-- Peace Tools -->
+    <a href="{{ url_for('peace_index') }}" class="feature-card">
+        <div class="feature-icon">&#9774;</div>
+        <h3 class="feature-title">Frieden</h3>
+        <p class="feature-description">
+            Petitions-Tools, Anti-Kriegs-Netzwerke, Burnout-Prävention.
+            Nachhaltig für den Frieden arbeiten.
+        </p>
+    </a>
+</section>
+
+<!-- Info Section -->
+<section class="card mt-xl">
+    <div class="card-header">
+        <span class="card-icon">&#128161;</span>
+        <h2 class="card-title">Warum dieses Toolkit?</h2>
+    </div>
+    <div class="card-body">
+        <p>
+            In einer Zeit von zunehmender Überwachung, Desinformation und digitaler Repression
+            brauchen engagierte Menschen praktische Werkzeuge, um sich zu schützen.
+        </p>
+        <p>
+            Dieses Toolkit wurde von und für die Zivilgesellschaft entwickelt. Es ist:
+        </p>
+        <ul class="checklist">
+            <li><strong>Open Source</strong> – Der gesamte Code ist öffentlich einsehbar</li>
+            <li><strong>Keine Tracker</strong> – Wir sammeln keine Daten über dich</li>
+            <li><strong>DSGVO-konform</strong> – Datenschutz ist kein Lippenbekenntnis</li>
+            <li><strong>Offline-fähig</strong> – Alle Materialien als PDF downloadbar</li>
+            <li><strong>Tor-kompatibel</strong> – Funktioniert auch ohne JavaScript</li>
+            <li><strong>Mobil-optimiert</strong> – Für unterwegs konzipiert</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Warning Section -->
+<section class="alert alert-info mt-lg">
+    <strong>&#9888; Hinweis:</strong> Dieses Toolkit dient der legalen Selbstverteidigung und
+    dem Schutz deiner Grundrechte. Wir ermutigen zu keinen illegalen Aktivitäten.
+    Bei rechtlichen Fragen wende dich an Organisationen wie die
+    <a href="https://www.rote-hilfe.de/" target="_blank" rel="noopener noreferrer">Rote Hilfe</a>.
+</section>
+
+<!-- Quick Actions -->
+<section class="grid grid-3 mt-xl">
+    <div class="card text-center">
+        <h3>&#128197; Demo-Vorbereitung</h3>
+        <p class="text-secondary">Checkliste für den Demo-Tag</p>
+        <a href="{{ url_for('activism_demo_checklist') }}" class="btn btn-secondary">Zur Checkliste</a>
+    </div>
+
+    <div class="card text-center">
+        <h3>&#128272; Passwort-Check</h3>
+        <p class="text-secondary">Teste deine Passphrase</p>
+        <a href="{{ url_for('tools_passphrase') }}" class="btn btn-secondary">Zum Tool</a>
+    </div>
+
+    <div class="card text-center">
+        <h3>&#128240; Quellen-Check</h3>
+        <p class="text-secondary">Unabhängige Medien finden</p>
+        <a href="{{ url_for('resilience_sources') }}" class="btn btn-secondary">Zu den Quellen</a>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Serverfehler{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1 class="hero-title">&#9888; 500 – Serverfehler</h1>
+    <p class="hero-subtitle">
+        Etwas ist schiefgelaufen. Keine Sorge – wir speichern keine Daten über dich.
+    </p>
+    <div class="hero-actions">
+        <a href="{{ url_for('index') }}" class="btn btn-primary">
+            &#127968; Zur Startseite
+        </a>
+    </div>
+</section>
+
+<section class="alert alert-warning mt-xl">
+    <strong>&#128679; Technischer Fehler:</strong> Falls dieser Fehler wiederholt auftritt,
+    melde ihn bitte auf <a href="https://github.com/Acephali92/Digitale-Resilienz/issues" target="_blank" rel="noopener">GitHub</a>.
+</section>
+{% endblock %}

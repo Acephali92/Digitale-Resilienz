@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}EXIF-Daten entfernen{% endblock %}
+
+{% block content %}
+<section class="section-header">
+    <h1>&#128247; EXIF-Daten entfernen</h1>
+    <p class="section-subtitle">
+        Fotos enthalten versteckte Metadaten – lerne, wie du sie vor dem Teilen entfernst.
+    </p>
+</section>
+
+<section class="card">
+    <h2>Was sind EXIF-Daten?</h2>
+    <p>
+        EXIF (Exchangeable Image File Format) sind Metadaten, die automatisch in jedes Foto
+        eingebettet werden. Sie können enthalten:
+    </p>
+    <ul class="checklist">
+        <li><strong>GPS-Koordinaten</strong> – Exakter Aufnahmeort</li>
+        <li><strong>Datum & Uhrzeit</strong> – Wann das Foto aufgenommen wurde</li>
+        <li><strong>Kameramodell</strong> – Welches Gerät verwendet wurde</li>
+        <li><strong>Einstellungen</strong> – Blende, Belichtung, ISO</li>
+        <li><strong>Seriennummer</strong> – Eindeutige Geräte-ID</li>
+        <li><strong>Software</strong> – Verwendete Bearbeitungsprogramme</li>
+    </ul>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#9888; Warum ist das problematisch?</h2>
+    <p>
+        Wenn du ein Foto mit EXIF-Daten teilst, können andere:
+    </p>
+    <ul class="checklist">
+        <li>Deinen genauen Standort zum Aufnahmezeitpunkt ermitteln</li>
+        <li>Deine Bewegungsmuster analysieren (bei mehreren Fotos)</li>
+        <li>Dein Gerät identifizieren und dich über mehrere Fotos verfolgen</li>
+        <li>Bei Demos: Deinen Aufenthaltsort und Zeitpunkt beweisen</li>
+    </ul>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128736; So entfernst du EXIF-Daten</h2>
+
+    <h3 class="mt-lg">&#128241; Auf dem Smartphone</h3>
+
+    <h4>Android:</h4>
+    <ul class="checklist">
+        <li><strong>Scrambled Exif</strong> (F-Droid) – Kostenlos, Open Source</li>
+        <li><strong>Photo Exif Editor</strong> – Einfach zu bedienen</li>
+        <li><strong>Imagepipe</strong> (F-Droid) – Entfernt EXIF beim Teilen</li>
+    </ul>
+
+    <h4 class="mt-md">iOS:</h4>
+    <ul class="checklist">
+        <li><strong>Metapho</strong> – EXIF anzeigen und löschen</li>
+        <li><strong>ViewExif</strong> – Metadaten inspizieren</li>
+        <li>Tipp: In den Einstellungen unter Fotos „Standort" deaktivieren</li>
+    </ul>
+
+    <h3 class="mt-lg">&#128187; Am Computer</h3>
+
+    <h4>Windows:</h4>
+    <ul class="checklist">
+        <li>Rechtsklick → Eigenschaften → Details → „Eigenschaften und persönliche Informationen entfernen"</li>
+        <li><strong>ExifTool</strong> (Kommandozeile) – Mächtig, aber technisch</li>
+    </ul>
+
+    <h4 class="mt-md">Linux/Mac:</h4>
+    <pre><code># ExifTool installieren und nutzen
+exiftool -all= foto.jpg
+
+# Alle Fotos in einem Ordner
+exiftool -all= *.jpg</code></pre>
+
+    <h3 class="mt-lg">&#127760; Online (ohne Upload)</h3>
+    <p class="text-secondary">
+        <strong>Achtung:</strong> Online-Tools laden deine Fotos hoch. Nutze sie nur für unkritische Bilder.
+        Für sensible Fotos immer lokale Tools verwenden!
+    </p>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128161; Prävention: EXIF gar nicht erst speichern</h2>
+    <ul class="checklist">
+        <li><strong>Standort deaktivieren</strong> – In der Kamera-App GPS ausschalten</li>
+        <li><strong>Metadaten-freie Kamera-Apps</strong> – z.B. Open Camera (Android)</li>
+        <li><strong>Signal nutzen</strong> – Entfernt automatisch EXIF beim Versenden</li>
+    </ul>
+</section>
+
+<section class="alert alert-warning mt-xl">
+    <strong>&#9888; Demo-Tipp:</strong> Entferne EXIF-Daten IMMER bevor du Demo-Fotos online stellst.
+    Andernfalls können Standort und Zeit für dich oder andere zum Problem werden.
+</section>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Seite nicht gefunden{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1 class="hero-title">&#128683; 404 – Nicht gefunden</h1>
+    <p class="hero-subtitle">
+        Diese Seite existiert nicht oder wurde verschoben.
+        Vielleicht wurde sie auch von der Überwachung verschluckt.
+    </p>
+    <div class="hero-actions">
+        <a href="{{ url_for('index') }}" class="btn btn-primary">
+            &#127968; Zur Startseite
+        </a>
+        <a href="{{ url_for('tools_index') }}" class="btn btn-secondary">
+            &#128295; Zu den Tools
+        </a>
+    </div>
+</section>
+
+<section class="alert alert-info mt-xl">
+    <strong>&#128161; Tipp:</strong> Wenn du nach einer bestimmten Funktion suchst,
+    nutze die Navigation oben oder besuche unsere <a href="{{ url_for('index') }}">Startseite</a>.
+</section>
+{% endblock %}

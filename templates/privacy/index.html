@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Privatsphäre{% endblock %}
+
+{% block content %}
+<section class="section-header">
+    <h1>&#128065; Privatsphäre schützen</h1>
+    <p class="section-subtitle">
+        Lerne, wie du deine digitalen Spuren minimierst und deine Daten kontrollierst.
+    </p>
+</section>
+
+<div class="grid grid-2">
+    <a href="{{ url_for('privacy_exif') }}" class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128247;</span>
+            <h3 class="card-title">EXIF-Daten entfernen</h3>
+        </div>
+        <p class="card-body">
+            Fotos enthalten versteckte Metadaten wie GPS-Koordinaten, Kameramodell und Zeitstempel.
+            Lerne, wie du sie entfernst, bevor du Bilder teilst.
+        </p>
+    </a>
+
+    <a href="{{ url_for('privacy_dsgvo') }}" class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128220;</span>
+            <h3 class="card-title">DSGVO-Anfragen</h3>
+        </div>
+        <p class="card-body">
+            Nutze dein Recht auf Auskunft, Löschung und Datenübertragbarkeit.
+            Mit Vorlagen für datenanfragen.de.
+        </p>
+    </a>
+
+    <a href="{{ url_for('privacy_quiz') }}" class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128269;</span>
+            <h3 class="card-title">Bist du trackbar?</h3>
+        </div>
+        <p class="card-body">
+            Interaktiver Test: Wie viel verrätst du über dich im Netz?
+            Finde heraus, welche Spuren du hinterlässt.
+        </p>
+    </a>
+
+    <div class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128225;</span>
+            <h3 class="card-title">Tracking vermeiden</h3>
+        </div>
+        <p class="card-body">
+            IMEI-Blocker, Browser-Fingerprinting, 5G-Mythen entlarvt.
+            Praktische Tipps für den Alltag.
+        </p>
+        <span class="text-muted">(In Arbeit)</span>
+    </div>
+</div>
+
+<section class="alert alert-info mt-xl">
+    <strong>&#128161; Wusstest du?</strong> Allein durch dein Smartphone-Verhalten
+    können Unternehmen und Behörden ein detailliertes Profil von dir erstellen –
+    auch ohne GPS-Daten.
+</section>
+{% endblock %}

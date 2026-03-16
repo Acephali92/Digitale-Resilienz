@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Sichere Messenger{% endblock %}
+
+{% block content %}
+<section class="section-header">
+    <h1>&#128172; Sichere Messenger</h1>
+    <p class="section-subtitle">
+        Vergleich der sichersten Messenger für aktivistische Kommunikation.
+    </p>
+</section>
+
+<section class="grid grid-3 mt-xl">
+    <div class="card">
+        <h3 class="text-primary">&#128274; Signal</h3>
+        <p><strong>Empfehlung für die meisten</strong></p>
+        <ul class="checklist">
+            <li>Ende-zu-Ende-verschlüsselt</li>
+            <li>Open Source</li>
+            <li>Minimale Metadaten</li>
+            <li>Telefonnummer nötig</li>
+            <li>Selbstlöschende Nachrichten</li>
+        </ul>
+        <a href="https://signal.org/" target="_blank" rel="noopener" class="btn btn-primary mt-md">
+            signal.org
+        </a>
+    </div>
+
+    <div class="card">
+        <h3>&#128274; Threema</h3>
+        <p><strong>Ohne Telefonnummer</strong></p>
+        <ul class="checklist">
+            <li>Ende-zu-Ende-verschlüsselt</li>
+            <li>Keine Telefonnummer nötig</li>
+            <li>Schweizer Server</li>
+            <li>Einmalige Kosten (~5€)</li>
+            <li>Open Source</li>
+        </ul>
+        <a href="https://threema.ch/" target="_blank" rel="noopener" class="btn btn-secondary mt-md">
+            threema.ch
+        </a>
+    </div>
+
+    <div class="card">
+        <h3>&#128274; Briar</h3>
+        <p><strong>Für höchste Sicherheit</strong></p>
+        <ul class="checklist">
+            <li>Peer-to-Peer (kein Server)</li>
+            <li>Tor-Netzwerk integriert</li>
+            <li>Funktioniert ohne Internet</li>
+            <li>Nur Android</li>
+            <li>Für erfahrene Nutzer</li>
+        </ul>
+        <a href="https://briarproject.org/" target="_blank" rel="noopener" class="btn btn-secondary mt-md">
+            briarproject.org
+        </a>
+    </div>
+</section>
+
+<section class="card mt-xl">
+    <h2>&#10060; Was du NICHT nutzen solltest</h2>
+    <ul class="checklist">
+        <li><strong>WhatsApp</strong> – Meta/Facebook, Metadaten werden gesammelt</li>
+        <li><strong>Telegram</strong> – Standardmäßig NICHT Ende-zu-Ende-verschlüsselt</li>
+        <li><strong>Facebook Messenger</strong> – Keine echte Verschlüsselung, Meta-Tracking</li>
+        <li><strong>SMS</strong> – Unverschlüsselt, von Behörden trivial abfangbar</li>
+    </ul>
+</section>
+
+<section class="alert alert-info mt-lg">
+    <strong>&#128161; Tipp:</strong> Aktiviere bei Signal die selbstlöschenden Nachrichten
+    (Einstellungen → Datenschutz → Verschwindende Nachrichten).
+</section>
+{% endblock %}

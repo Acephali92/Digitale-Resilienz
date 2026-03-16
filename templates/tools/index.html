@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Tools{% endblock %}
+
+{% block content %}
+<section class="section-header">
+    <h1>&#128295; Interaktive Tools</h1>
+    <p class="section-subtitle">
+        Praktische Werkzeuge für deine digitale Sicherheit – alle lokal, kein Tracking.
+    </p>
+</section>
+
+<div class="grid grid-3">
+    <a href="{{ url_for('tools_passphrase') }}" class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128272;</span>
+            <h3 class="card-title">Passphrase-Generator</h3>
+        </div>
+        <p class="card-body">
+            Generiere und teste sichere Passphrasen.
+            Alles passiert in deinem Browser.
+        </p>
+    </a>
+
+    <a href="{{ url_for('tools_plan48h') }}" class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128197;</span>
+            <h3 class="card-title">48h-Notfallplan</h3>
+        </div>
+        <p class="card-body">
+            Erstelle deinen persönlichen Notfallplan
+            für den Worst Case.
+        </p>
+    </a>
+
+    <a href="{{ url_for('tools_downloads') }}" class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128229;</span>
+            <h3 class="card-title">Offline-Downloads</h3>
+        </div>
+        <p class="card-body">
+            Alle Materialien als PDF herunterladen.
+            Funktioniert ohne Internet.
+        </p>
+    </a>
+</div>
+
+<section class="card mt-xl">
+    <div class="card-header">
+        <span class="card-icon">&#128274;</span>
+        <h3 class="card-title">Privatsphäre-Versprechen</h3>
+    </div>
+    <div class="card-body">
+        <p>
+            Alle unsere Tools funktionieren <strong>vollständig lokal</strong> in deinem Browser:
+        </p>
+        <ul class="checklist">
+            <li><strong>Keine Serverübertragung</strong> – Deine Daten verlassen nie deinen Computer</li>
+            <li><strong>Kein Tracking</strong> – Wir wissen nicht, wer du bist oder was du eingibst</li>
+            <li><strong>Open Source</strong> – Der gesamte Code ist auf GitHub einsehbar</li>
+            <li><strong>Offline-fähig</strong> – Funktioniert auch ohne Internetverbindung</li>
+        </ul>
+    </div>
+</section>
+
+<section class="grid grid-2 mt-xl">
+    <div class="card">
+        <h3>&#128218; Externe Tools (empfohlen)</h3>
+        <ul class="checklist">
+            <li><a href="https://www.datenanfragen.de/" target="_blank" rel="noopener">datenanfragen.de</a> – DSGVO-Anfragen</li>
+            <li><a href="https://haveibeenpwned.com/" target="_blank" rel="noopener">Have I Been Pwned</a> – Datenleck-Check</li>
+            <li><a href="https://www.eff.org/pages/surveillance-self-defense" target="_blank" rel="noopener">EFF SSD</a> – Surveillance Self-Defense</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>&#128240; Weiterführende Ressourcen</h3>
+        <ul class="checklist">
+            <li><a href="https://ssd.eff.org/" target="_blank" rel="noopener">Surveillance Self-Defense</a></li>
+            <li><a href="https://securityinabox.org/de/" target="_blank" rel="noopener">Security in a Box</a></li>
+            <li><a href="https://datadetoxkit.org/" target="_blank" rel="noopener">Data Detox Kit</a></li>
+        </ul>
+    </div>
+</section>
+{% endblock %}

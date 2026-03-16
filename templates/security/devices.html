@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Gerätesicherheit{% endblock %}
+{% block content %}
+<section class="section-header">
+    <h1>&#128241; Gerätesicherheit</h1>
+    <p class="section-subtitle">Smartphone und Computer härten für maximalen Schutz.</p>
+</section>
+
+<section class="card">
+    <h2>BFU vs. AFU – Warum Neustart wichtig ist</h2>
+    <p><strong>BFU (Before First Unlock)</strong>: Nach dem Neustart, bevor du das erste Mal entsperrst. In diesem Zustand sind deine Daten am besten geschützt – die Entschlüsselungskeys sind noch nicht im Speicher.</p>
+    <p><strong>AFU (After First Unlock)</strong>: Nach dem ersten Entsperren. Selbst wenn das Gerät gesperrt ist, sind die Schlüssel im Speicher und können theoretisch extrahiert werden.</p>
+    <div class="alert alert-warning mt-md">
+        <strong>&#9888; Vor der Demo:</strong> Starte dein Handy neu und entsperre es erst, wenn du es wirklich brauchst. Bei einer Beschlagnahmung ist BFU deutlich sicherer.
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128187; GrapheneOS</h2>
+    <p>Das sicherste Android-Betriebssystem, entwickelt für Pixel-Phones:</p>
+    <ul class="checklist">
+        <li>Gehärteter Android-Kernel</li>
+        <li>Sandboxed Google Play (optional)</li>
+        <li>Keine Google-Dienste standardmäßig</li>
+        <li>Automatische Sicherheitsupdates</li>
+    </ul>
+    <a href="https://grapheneos.org/" target="_blank" rel="noopener" class="btn btn-secondary mt-md">grapheneos.org</a>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128274; Verschlüsselung aktivieren</h2>
+    <ul class="checklist">
+        <li><strong>Android</strong>: Einstellungen → Sicherheit → Verschlüsselung (meist Standard)</li>
+        <li><strong>iPhone</strong>: Automatisch aktiv wenn Passcode gesetzt</li>
+        <li><strong>Windows</strong>: BitLocker aktivieren</li>
+        <li><strong>Linux</strong>: LUKS bei Installation wählen</li>
+        <li><strong>Mac</strong>: FileVault aktivieren</li>
+    </ul>
+</section>
+{% endblock %}

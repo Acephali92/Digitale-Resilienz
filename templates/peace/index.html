@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Frieden{% endblock %}
+
+{% block content %}
+<section class="section-header">
+    <h1>&#9774; Friedens-Tools</h1>
+    <p class="section-subtitle">
+        Ressourcen für nachhaltige Friedensarbeit und Selbstfürsorge.
+    </p>
+</section>
+
+<div class="grid grid-2">
+    <a href="{{ url_for('peace_petitions') }}" class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128221;</span>
+            <h3 class="card-title">Petitions-Tools</h3>
+        </div>
+        <p class="card-body">
+            Wirksame Petitionen starten und unterstützen.
+            Plattformen und Best Practices.
+        </p>
+    </a>
+
+    <a href="{{ url_for('peace_burnout') }}" class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128150;</span>
+            <h3 class="card-title">Burnout-Prävention</h3>
+        </div>
+        <p class="card-body">
+            Nachhaltig aktiv bleiben: Selbstfürsorge für Aktivist*innen.
+            Warnsignale erkennen.
+        </p>
+    </a>
+
+    <div class="card">
+        <div class="card-header">
+            <span class="card-icon">&#127760;</span>
+            <h3 class="card-title">Anti-Kriegs-Netzwerke</h3>
+        </div>
+        <p class="card-body">
+            Vernetze dich mit anderen Friedensbewegungen.
+            Internationale Solidarität.
+        </p>
+        <span class="text-muted">(In Arbeit)</span>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128226;</span>
+            <h3 class="card-title">Kommunikationsstrategien</h3>
+        </div>
+        <p class="card-body">
+            Wie kommuniziert man Friedensbotschaften effektiv?
+            Gegen Narrative arbeiten.
+        </p>
+        <span class="text-muted">(In Arbeit)</span>
+    </div>
+</div>
+
+<section class="card mt-xl">
+    <div class="card-header">
+        <span class="card-icon">&#127793;</span>
+        <h3 class="card-title">Selbstfürsorge ist politisch</h3>
+    </div>
+    <div class="card-body">
+        <p>
+            Audre Lorde schrieb: „Caring for myself is not self-indulgence, it is self-preservation,
+            and that is an act of political warfare."
+        </p>
+        <p>
+            Nachhaltige Friedensarbeit erfordert, dass wir auf uns selbst achten:
+        </p>
+        <ul class="checklist">
+            <li><strong>Nachrichten-Diät</strong> – Nicht alles 24/7 verfolgen</li>
+            <li><strong>Gemeinschaft</strong> – Nicht alleine kämpfen</li>
+            <li><strong>Erfolge feiern</strong> – Auch kleine Siege zählen</li>
+            <li><strong>Grenzen setzen</strong> – Nein sagen ist okay</li>
+            <li><strong>Körper</strong> – Schlaf, Bewegung, Ernährung</li>
+            <li><strong>Hoffnung pflegen</strong> – Verbindung zur Vision halten</li>
+        </ul>
+    </div>
+</section>
+
+<section class="alert alert-info mt-lg">
+    <strong>&#128222; Hilfe:</strong> Bei akuten Krisen: Telefonseelsorge 0800 111 0 111 (kostenlos, anonym).
+</section>
+{% endblock %}
