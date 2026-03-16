@@ -2,11 +2,80 @@
 
 {% block title %}Faktencheck{% endblock %}
 
+{% block head %}
+<style>
+    .book-card {
+        background: var(--color-surface);
+        border: 1px solid var(--color-elevated);
+        padding: var(--space-lg);
+        position: relative;
+        margin-bottom: var(--space-md);
+    }
+
+    .book-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: var(--color-matrix);
+    }
+
+    .book-title {
+        color: var(--color-matrix);
+        font-family: var(--font-display);
+        margin-bottom: var(--space-xs);
+    }
+
+    .book-author {
+        color: var(--color-text-dim);
+        font-size: var(--text-sm);
+        margin-bottom: var(--space-sm);
+    }
+
+    .archive-link {
+        display: inline-block;
+        padding: var(--space-xs) var(--space-sm);
+        background: var(--color-elevated);
+        border: 1px solid var(--color-matrix);
+        color: var(--color-matrix);
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        text-decoration: none;
+        margin-right: var(--space-sm);
+        margin-top: var(--space-sm);
+        transition: all 0.3s ease;
+    }
+
+    .archive-link:hover {
+        background: var(--color-matrix);
+        color: var(--color-void);
+    }
+
+    .quote-block {
+        border-left: 3px solid var(--color-matrix);
+        padding-left: var(--space-md);
+        margin: var(--space-lg) 0;
+        font-style: italic;
+        color: var(--color-text-dim);
+    }
+
+    .quote-block cite {
+        display: block;
+        margin-top: var(--space-sm);
+        font-style: normal;
+        color: var(--color-matrix);
+        font-size: var(--text-sm);
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <section class="section-header">
     <h1>&#128269; Verschwörungs-Check</h1>
     <p class="section-subtitle">
-        Signal vom Rauschen trennen – kritisch denken ohne paranoid zu werden.
+        Fiktion von Wahrheit trennen – Ereignisse in langfristige Machtmuster einbetten.
     </p>
 </section>
 
@@ -18,79 +87,204 @@
         </div>
         <p class="card-body">
             Interaktiver Filter: Ist diese Information ein echtes Signal
-            oder nur Rauschen? Checkliste zur Einordnung.
+            oder nur Ablenkung? Checkliste zur kritischen Einordnung.
         </p>
     </a>
 
     <div class="card">
         <div class="card-header">
-            <span class="card-icon">&#128218;</span>
-            <h3 class="card-title">Narrativ-Analyse</h3>
+            <span class="card-icon">&#128176;</span>
+            <h3 class="card-title">Cui Bono?</h3>
         </div>
         <p class="card-body">
-            Wer profitiert von dieser Erzählung?
-            Machtfluss-Analyse nach Chomsky.
+            Wer profitiert von dieser Erzählung? Folge dem Geld,
+            analysiere Machtstrukturen, nicht Schattenmänner.
         </p>
-        <span class="text-muted">(In Arbeit)</span>
     </div>
 </div>
 
+<!-- Real vs. Imagined Section -->
 <section class="card mt-xl">
     <div class="card-header">
-        <span class="card-icon">&#129300;</span>
-        <h3 class="card-title">Gesunde Skepsis vs. Verschwörungsdenken</h3>
+        <span class="card-icon">&#9878;</span>
+        <h3 class="card-title">Reale Machtstrukturen vs. Verschwörungsmythen</h3>
     </div>
     <div class="card-body">
         <p>
-            Es gibt echte Verschwörungen (COINTELPRO, NSA-Überwachung, Watergate)
-            und es gibt Verschwörungsmythen. Der Unterschied:
+            Es gibt <strong>dokumentierte, systematische Machtmissbräuche</strong> (NSA-Überwachung,
+            COINTELPRO, Iran-Contra, Irak-Krieg-Lügen) und es gibt <strong>unbelegbare Verschwörungsmythen</strong>.
+            Der entscheidende Unterschied liegt in der Methodik:
         </p>
 
         <div class="grid grid-2 mt-md">
             <div class="alert alert-success">
-                <strong>&#9989; Gesunde Skepsis:</strong>
+                <strong>&#9989; Systemkritische Analyse:</strong>
                 <ul>
-                    <li>Prüfbare Behauptungen</li>
-                    <li>Quellenangaben</li>
-                    <li>Bereitschaft zur Korrektur</li>
-                    <li>Differenzierte Analyse</li>
-                    <li>Ockhams Rasiermesser anwenden</li>
+                    <li>Folgt dokumentierten Kapital- und Machtflüssen</li>
+                    <li>Stützt sich auf Primärquellen und Archive</li>
+                    <li>Bettet Ereignisse in historische Muster ein</li>
+                    <li>Benennt konkrete Institutionen und Interessen</li>
+                    <li>Ist offen für neue Belege und Korrekturen</li>
                 </ul>
             </div>
 
             <div class="alert alert-warning">
                 <strong>&#10060; Verschwörungsdenken:</strong>
                 <ul>
-                    <li>Unprüfbare Behauptungen</li>
-                    <li>„Tu deine eigene Recherche"</li>
+                    <li>Vermutet geheime Kabalen ohne Belege</li>
+                    <li>„Tu deine eigene Recherche" ohne Quellen</li>
                     <li>Immun gegen Widerlegung</li>
-                    <li>Alles ist verbunden</li>
-                    <li>Je größer die Verschwörung, desto wahrer</li>
+                    <li>Alles ist Teil des „großen Plans"</li>
+                    <li>Ablenkung von realen Machtstrukturen</li>
                 </ul>
             </div>
         </div>
     </div>
 </section>
 
+<!-- Documented Conspiracies -->
 <section class="card mt-lg">
     <div class="card-header">
-        <span class="card-icon">&#128161;</span>
-        <h3 class="card-title">Fragen, die helfen</h3>
+        <span class="card-icon">&#128220;</span>
+        <h3 class="card-title">Dokumentierte „Verschwörungen" durch Kapitalinteressen</h3>
     </div>
     <div class="card-body">
-        <ul class="checklist">
-            <li><strong>Falsifizierbar?</strong> – Kann diese Behauptung widerlegt werden?</li>
-            <li><strong>Experten?</strong> – Was sagen unabhängige Fachleute?</li>
-            <li><strong>Belege?</strong> – Gibt es überprüfbare Dokumente?</li>
-            <li><strong>Einfachere Erklärung?</strong> – Gibt es eine banalere Alternative?</li>
-            <li><strong>Wem nützt es?</strong> – Wer profitiert von dieser Erzählung?</li>
-            <li><strong>Emotionale Reaktion?</strong> – Soll ich wütend/ängstlich werden?</li>
+        <p class="mb-md">
+            Diese Bücher enthüllen <strong>reale, belegbare Machtmechanismen</strong> – keine Fantasien,
+            sondern systematische Ausbeutung mit Quellenangaben:
+        </p>
+
+        <div class="book-card">
+            <h4 class="book-title">„The Shock Doctrine" (Die Schock-Strategie)</h4>
+            <p class="book-author">Naomi Klein, 2007</p>
+            <p>
+                Zeigt, wie Krisen (Naturkatastrophen, Kriege, Wirtschaftscrashes) von Mächtigen
+                <strong>systematisch genutzt</strong> werden, um neoliberale Politiken durchzusetzen –
+                Privatisierung, Deregulierung, Sozialabbau. Von Chile 1973 über den Irak bis zur
+                Finanzkrise 2008: Das Muster ist dokumentiert.
+            </p>
+        </div>
+
+        <div class="book-card">
+            <h4 class="book-title">„Confessions of an Economic Hit Man"</h4>
+            <p class="book-author">John Perkins, 2004</p>
+            <p>
+                Ein Insider enthüllt, wie <strong>IWF, Weltbank und US-Konzerne</strong> systematisch
+                Länder des Globalen Südens in Schuldenfallen locken. Erst kommen die „Economic Hit Men"
+                mit Krediten für Großprojekte, dann die Abhängigkeit, dann die Privatisierung der Ressourcen.
+            </p>
+        </div>
+
+        <div class="book-card">
+            <h4 class="book-title">„A People's History of the United States"</h4>
+            <p class="book-author">Howard Zinn, 1980</p>
+            <p>
+                Geschichte aus der Perspektive der Unterdrückten – entlarvt Narrative wie
+                „<strong>Demokratieexport</strong>" als das, was sie sind: Propaganda zur Rechtfertigung
+                von Imperialismus und Kapitalinteressen. Dokumentiert mit Primärquellen.
+            </p>
+        </div>
+
+        <div class="quote-block">
+            „Die beste Art, die Zukunft vorherzusagen, ist, die Vergangenheit zu verstehen –
+            nicht durch Verschwörungstheorien, sondern durch das Studium dokumentierter Machtstrukturen."
+            <cite>— Methodischer Grundsatz kritischer Geschichtsschreibung</cite>
+        </div>
+    </div>
+</section>
+
+<!-- Archives and Sources -->
+<section class="card mt-lg">
+    <div class="card-header">
+        <span class="card-icon">&#127981;</span>
+        <h3 class="card-title">Primärquellen und Archive</h3>
+    </div>
+    <div class="card-body">
+        <p>
+            <strong>Methode:</strong> Nutze Archive mit freigegebenen Dokumenten, um offizielle
+            Narrative zu prüfen. Geheimdienst-Dokumente werden nach Jahrzehnten freigegeben und
+            entlarven oft die Lügen ihrer Zeit:
+        </p>
+
+        <div class="mt-md">
+            <a href="https://nsarchive.gwu.edu/" target="_blank" rel="noopener" class="archive-link">
+                &#128194; National Security Archive (USA)
+            </a>
+            <a href="https://wikileaks.org/" target="_blank" rel="noopener" class="archive-link">
+                &#128194; WikiLeaks
+            </a>
+            <a href="https://www.documentcloud.org/" target="_blank" rel="noopener" class="archive-link">
+                &#128194; DocumentCloud
+            </a>
+            <a href="https://www.icij.org/" target="_blank" rel="noopener" class="archive-link">
+                &#128194; ICIJ (Panama/Pandora Papers)
+            </a>
+        </div>
+
+        <ul class="checklist mt-lg">
+            <li><strong>COINTELPRO-Akten</strong> – FBI-Überwachung und Zersetzung von Bürgerrechtsbewegungen</li>
+            <li><strong>Pentagon Papers</strong> – Belege für systematische Lügen im Vietnam-Krieg</li>
+            <li><strong>Church Committee Reports</strong> – CIA-Verbrechen von Putsch bis Drogenhandel</li>
+            <li><strong>Torture Memos</strong> – Legitimierung von Folter durch US-Juristen</li>
         </ul>
     </div>
 </section>
 
+<!-- Critical Questions -->
+<section class="card mt-lg">
+    <div class="card-header">
+        <span class="card-icon">&#128161;</span>
+        <h3 class="card-title">Kritische Fragen an jede Erzählung</h3>
+    </div>
+    <div class="card-body">
+        <ul class="checklist">
+            <li><strong>Cui bono?</strong> – Wer profitiert materiell von dieser Politik/Erzählung?</li>
+            <li><strong>Kapitalfluss?</strong> – Wohin fließt das Geld? Wer besitzt was?</li>
+            <li><strong>Historisches Muster?</strong> – Gab es ähnliche Situationen? Was geschah danach?</li>
+            <li><strong>Primärquellen?</strong> – Gibt es Dokumente, Verträge, freigegebene Akten?</li>
+            <li><strong>Strukturelle Erklärung?</strong> – Erklärt Kapitalinteresse das Verhalten besser als eine Verschwörung?</li>
+            <li><strong>Ablenkungsfunktion?</strong> – Lenkt diese Theorie von realen Machtstrukturen ab?</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Warning -->
 <section class="alert alert-info mt-lg">
-    <strong>&#128218; Lesetipp:</strong> „Nichts ist, wie es scheint" von Michael Butter –
-    Eine wissenschaftliche Einführung in Verschwörungstheorien.
+    <strong>&#9888; Wichtig:</strong> Verschwörungsmythen (Chemtrails, QAnon, Great Reset-Fantasien)
+    <strong>lenken ab</strong> von den dokumentierten, realen Mechanismen der Macht.
+    Während Menschen geheime Kabalen jagen, plündern Konzerne ganz offen – mit Lobbyisten,
+    nicht mit Geheimbünden. <strong>Folge dem Geld, nicht den Schatten.</strong>
+</section>
+
+<!-- Methodology -->
+<section class="card mt-lg" style="border-color: var(--color-matrix);">
+    <div class="card-header">
+        <span class="card-icon">&#128736;</span>
+        <h3 class="card-title">Methodik: So entlarvst du Propaganda</h3>
+    </div>
+    <div class="card-body">
+        <ol>
+            <li class="mb-sm">
+                <strong>Historischen Kontext recherchieren</strong> –
+                Nutze Archive und kritische Geschichtsschreibung (Zinn, Chomsky, Klein)
+            </li>
+            <li class="mb-sm">
+                <strong>Kapitalinteressen identifizieren</strong> –
+                Wer besitzt die Medien? Wer finanziert die Think-Tanks?
+            </li>
+            <li class="mb-sm">
+                <strong>Muster erkennen</strong> –
+                „Demokratieexport" = Regime Change für Rohstoffzugang (dokumentiert)
+            </li>
+            <li class="mb-sm">
+                <strong>Primärquellen prüfen</strong> –
+                Freigegebene Dokumente > Meinungsartikel
+            </li>
+            <li>
+                <strong>Strukturell denken</strong> –
+                Systeme reproduzieren sich ohne zentrale Verschwörung
+            </li>
+        </ol>
+    </div>
 </section>
 {% endblock %}

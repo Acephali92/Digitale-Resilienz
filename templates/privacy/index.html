@@ -2,6 +2,150 @@
 
 {% block title %}Privatsphäre{% endblock %}
 
+{% block head %}
+<style>
+    .case-study {
+        background: var(--color-surface);
+        border: 1px solid var(--color-elevated);
+        padding: var(--space-xl);
+        margin: var(--space-xl) 0;
+        position: relative;
+    }
+
+    .case-study::before {
+        content: '// GRUNDKONZEPT';
+        position: absolute;
+        top: var(--space-sm);
+        left: var(--space-md);
+        font-family: var(--font-display);
+        font-size: var(--text-xs);
+        color: var(--color-matrix);
+        letter-spacing: 0.1em;
+        opacity: 0.7;
+    }
+
+    .infographic-container {
+        margin: var(--space-xl) 0;
+        padding: var(--space-lg);
+        background: var(--color-surface);
+        border: 1px solid var(--color-elevated);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .infographic-container::before {
+        content: '// INFOGRAFIK';
+        position: absolute;
+        top: var(--space-sm);
+        left: var(--space-md);
+        font-family: var(--font-display);
+        font-size: var(--text-xs);
+        color: var(--color-matrix);
+        letter-spacing: 0.1em;
+        opacity: 0.7;
+    }
+
+    .infographic-image {
+        width: 100%;
+        height: auto;
+        display: block;
+        border: 2px solid var(--color-elevated);
+        transition: all 0.3s var(--ease-out-expo);
+        cursor: zoom-in;
+    }
+
+    .infographic-image:hover {
+        border-color: var(--color-matrix);
+        box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
+    }
+
+    .infographic-caption {
+        margin-top: var(--space-md);
+        font-family: var(--font-mono);
+        font-size: var(--text-sm);
+        color: var(--color-text-dim);
+        text-align: center;
+    }
+
+    .spectrum-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: var(--font-mono);
+        font-size: var(--text-sm);
+        margin: var(--space-lg) 0;
+    }
+
+    .spectrum-table thead tr {
+        border-bottom: 2px solid var(--color-matrix);
+    }
+
+    .spectrum-table th {
+        text-align: left;
+        padding: var(--space-sm) var(--space-md);
+        color: var(--color-matrix);
+        font-weight: 600;
+    }
+
+    .spectrum-table tbody tr {
+        border-bottom: 1px solid var(--color-elevated);
+    }
+
+    .spectrum-table td {
+        padding: var(--space-sm) var(--space-md);
+        color: var(--color-text-dim);
+    }
+
+    .status-pseudonym {
+        color: var(--color-warning);
+        font-weight: 600;
+    }
+
+    .status-anonym {
+        color: var(--color-matrix);
+        font-weight: 600;
+    }
+
+    .image-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(5, 5, 5, 0.95);
+        z-index: 10000;
+        cursor: zoom-out;
+        padding: var(--space-xl);
+        overflow: auto;
+    }
+
+    .image-modal.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .image-modal img {
+        max-width: 100%;
+        max-height: 100%;
+        border: 2px solid var(--color-matrix);
+        box-shadow: var(--glow-lg);
+    }
+
+    .image-modal-close {
+        position: fixed;
+        top: var(--space-lg);
+        right: var(--space-lg);
+        font-size: var(--text-2xl);
+        color: var(--color-matrix);
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 10001;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <section class="section-header">
     <h1>&#128065; Privatsphäre schützen</h1>
@@ -10,6 +154,73 @@
     </p>
 </section>
 
+<!-- Anonym vs. Pseudonym Section -->
+<div class="case-study">
+    <!-- Infographic -->
+    <div class="infographic-container">
+        <img
+            src="{{ url_for('static', filename='img/anonym-vs-pseudonym.png') }}"
+            alt="Anonym vs. Pseudonym: Den Unterschied verstehen - Vergleich von anonymen und pseudonymen Daten"
+            class="infographic-image"
+            onclick="openImageModal(this)"
+            loading="lazy"
+        >
+        <p class="infographic-caption">
+            &#128270; Klicke auf das Bild zum Vergrößern
+        </p>
+    </div>
+
+    <!-- Spectrum Table -->
+    <h3 class="mt-xl" style="color: var(--color-text);">&#128202; Das Spektrum in der Praxis</h3>
+
+    <div style="overflow-x: auto;">
+        <table class="spectrum-table">
+            <thead>
+                <tr>
+                    <th>Situation</th>
+                    <th>Status</th>
+                    <th>Schwachstelle</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Proton Mail, Kreditkarte, ohne Tor</td>
+                    <td class="status-pseudonym">Pseudonym</td>
+                    <td>Zahlungsweg → Identität</td>
+                </tr>
+                <tr>
+                    <td>Proton Mail, Monero oder bar, über Tor</td>
+                    <td class="status-anonym">Annähernd anonym</td>
+                    <td>Bedienungsfehler möglich</td>
+                </tr>
+                <tr>
+                    <td>Signal mit Handynummer</td>
+                    <td class="status-pseudonym">Pseudonym</td>
+                    <td>Nummer ist Identitätsanker</td>
+                </tr>
+                <tr>
+                    <td>Threema, bar gekauft, kein Login-Gerät verknüpft</td>
+                    <td class="status-anonym">Annähernd anonym</td>
+                    <td>Gerät als verbleibende Schwachstelle</td>
+                </tr>
+                <tr>
+                    <td>Proton Drive / Proton Calendar (selbes Abo)</td>
+                    <td class="status-pseudonym">Pseudonym</td>
+                    <td>Zahlungsweg verbindet alle Dienste</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- Image Modal -->
+<div class="image-modal" id="imageModal" onclick="closeImageModal()">
+    <button class="image-modal-close" aria-label="Schließen">&times;</button>
+    <img id="modalImage" src="" alt="Infografik vergrößert">
+</div>
+
+<!-- Navigation Grid -->
 <div class="grid grid-2">
     <a href="{{ url_for('privacy_exif') }}" class="card">
         <div class="card-header">
@@ -58,8 +269,32 @@
 </div>
 
 <section class="alert alert-info mt-xl">
-    <strong>&#128161; Wusstest du?</strong> Allein durch dein Smartphone-Verhalten
-    können Unternehmen und Behörden ein detailliertes Profil von dir erstellen –
-    auch ohne GPS-Daten.
+    <strong>&#128161; Merke:</strong> Die Frage ist nicht „Bin ich anonym?" sondern
+    „<strong>Vor wem</strong> bin ich geschützt und <strong>vor wem nicht</strong>?" –
+    Das bestimmt, welche Maßnahmen für dein Risikoprofil sinnvoll sind.
 </section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function openImageModal(img) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    modalImg.src = img.src;
+    modalImg.alt = img.alt + ' (vergrößert)';
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeImageModal() {
+    document.getElementById('imageModal').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeImageModal();
+    }
+});
+</script>
 {% endblock %}

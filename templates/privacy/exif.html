@@ -136,7 +136,21 @@
     </p>
 </section>
 
-<!-- Infographic -->
+<!-- What Photos Reveal Infographic -->
+<div class="infographic-container">
+    <img
+        src="{{ url_for('static', filename='img/photo-metadata-risks.png') }}"
+        alt="Unsichtbare Spuren: Was deine Fotos verraten - GPS-Koordinaten, Zeitstempel, Kamera-Identifikation und mehr"
+        class="infographic-image"
+        onclick="openImageModal(this)"
+        loading="lazy"
+    >
+    <p class="infographic-caption">
+        &#128270; Was deine Fotos wirklich über dich verraten – Klicke zum Vergrößern
+    </p>
+</div>
+
+<!-- EXIF Removal Guide Infographic -->
 <div class="infographic-container">
     <img
         src="{{ url_for('static', filename='img/exif-removal-guide.png') }}"
@@ -153,7 +167,7 @@
 <!-- Image Modal -->
 <div class="image-modal" id="imageModal" onclick="closeImageModal()">
     <button class="image-modal-close" aria-label="Schließen">&times;</button>
-    <img src="{{ url_for('static', filename='img/exif-removal-guide.png') }}" alt="Infografik vergrößert">
+    <img id="modalImage" src="" alt="Infografik vergrößert">
 </div>
 
 <section class="card">
@@ -324,7 +338,11 @@ exiftool -gps:all= foto.jpg</code></pre>
 {% block scripts %}
 <script>
 function openImageModal(img) {
-    document.getElementById('imageModal').classList.add('active');
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    modalImg.src = img.src;
+    modalImg.alt = img.alt + ' (vergrößert)';
+    modal.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
 
