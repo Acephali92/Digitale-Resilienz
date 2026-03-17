@@ -1,0 +1,116 @@
+{
+  "sources": [
+    {
+      "name": "Correctiv",
+      "url": "https://correctiv.org",
+      "rss_url": "https://correctiv.org/feed/",
+      "kategorie": "investigativ",
+      "finanzierung": {
+        "typ": "Community",
+        "details": "Spendenfinanziert, keine Werbung. Transparente Spenderliste auf der Website."
+      },
+      "machtstruktur_analyse": {
+        "besitzverhaeltnis": "Gemeinnuetzige GmbH. Keine Gesellschafter mit Gewinnabsicht.",
+        "verflechtung": "Keine direkte Regierungs- oder Konzernbindung. Partner des ICIJ (International Consortium of Investigative Journalists)."
+      }
+    },
+    {
+      "name": "netzpolitik.org",
+      "url": "https://netzpolitik.org",
+      "rss_url": "https://netzpolitik.org/feed/",
+      "kategorie": "investigativ",
+      "finanzierung": {
+        "typ": "Community",
+        "details": "Zu 99% spendenfinanziert. Keine Werbung, keine Paywall. Transparenzbericht jaehrlich."
+      },
+      "machtstruktur_analyse": {
+        "besitzverhaeltnis": "netzpolitik.org e.V. Gemeinnuetziger Verein.",
+        "verflechtung": "Unabhaengig von Parteien und Konzernen. Gruender Markus Beckedahl ist Netzaktivist ohne Regierungsbindung."
+      }
+    },
+    {
+      "name": "FragDenStaat",
+      "url": "https://fragdenstaat.de",
+      "rss_url": "https://fragdenstaat.de/feed/",
+      "kategorie": "buergerrechte",
+      "finanzierung": {
+        "typ": "Stiftung",
+        "details": "Betrieben von Open Knowledge Foundation Deutschland e.V. Finanziert durch Spenden und Stiftungsgelder."
+      },
+      "machtstruktur_analyse": {
+        "besitzverhaeltnis": "Open Knowledge Foundation Deutschland e.V. Gemeinnuetziger Verein.",
+        "verflechtung": "Teil des internationalen Open Knowledge Netzwerks. Keine Regierungs- oder Konzernbeteiligung."
+      }
+    },
+    {
+      "name": "Digitalcourage",
+      "url": "https://digitalcourage.de",
+      "rss_url": "https://digitalcourage.de/rss.xml",
+      "kategorie": "buergerrechte",
+      "finanzierung": {
+        "typ": "Community",
+        "details": "Mitgliedsbeitraege und Spenden. Vergibt jaehrlich die BigBrotherAwards."
+      },
+      "machtstruktur_analyse": {
+        "besitzverhaeltnis": "Digitalcourage e.V. Gemeinnuetziger Verein seit 1987 (frueher FoeBuD).",
+        "verflechtung": "Keine Konzern- oder Regierungsbindung. Aktivistische Ausrichtung, kritisch gegenueber staatlicher Ueberwachung."
+      }
+    },
+    {
+      "name": "Tagesschau",
+      "url": "https://www.tagesschau.de",
+      "rss_url": "https://www.tagesschau.de/xml/rss2/",
+      "kategorie": "medien",
+      "finanzierung": {
+        "typ": "Staat",
+        "details": "Oeffentlich-rechtlich, finanziert durch Rundfunkbeitrag (ca. 8 Mrd. EUR/Jahr fuer ARD gesamt)."
+      },
+      "machtstruktur_analyse": {
+        "besitzverhaeltnis": "ARD (Arbeitsgemeinschaft der oeffentlich-rechtlichen Rundfunkanstalten). Staatsvertrag-basiert.",
+        "verflechtung": "Rundfunkraete mit Vertretern aus Politik, Kirchen, Gewerkschaften. Kritik an Staatsferne vs. Staatsnaehe umstritten."
+      }
+    },
+    {
+      "name": "The Intercept",
+      "url": "https://theintercept.com",
+      "rss_url": "https://theintercept.com/feed/?rss",
+      "kategorie": "investigativ",
+      "finanzierung": {
+        "typ": "Stiftung",
+        "details": "Gegruendet von First Look Media (Pierre Omidyar/eBay). Keine Werbung."
+      },
+      "machtstruktur_analyse": {
+        "besitzverhaeltnis": "First Look Media, gegruendet von Pierre Omidyar (eBay-Gruender, Milliardaer).",
+        "verflechtung": "Omidyar Network hat Verbindungen zu US-Regierungsprogrammen (USAID). Redaktionelle Unabhaengigkeit betont, aber Eigentuemer ist Tech-Milliardaer."
+      }
+    },
+    {
+      "name": "Telepolis",
+      "url": "https://www.telepolis.de",
+      "rss_url": "https://www.telepolis.de/rss/news-atom.xml",
+      "kategorie": "medien",
+      "finanzierung": {
+        "typ": "Konzern",
+        "details": "Gehoert zu Heise Medien. Finanziert durch Werbung und Heise-Gruppe."
+      },
+      "machtstruktur_analyse": {
+        "besitzverhaeltnis": "Heise Medien GmbH & Co. KG. Familienunternehmen (Familie Heise).",
+        "verflechtung": "Keine direkte Konzern- oder Regierungsbindung. Redaktionell eigenstaendig innerhalb des Heise-Verlags."
+      }
+    },
+    {
+      "name": "Jacobin Magazin",
+      "url": "https://jacobin.de",
+      "rss_url": "https://jacobin.de/feed/",
+      "kategorie": "medien",
+      "finanzierung": {
+        "typ": "Abo",
+        "details": "Abo-Modell plus Spenden. Keine Werbung. Traegerverein fuer deutsche Ausgabe."
+      },
+      "machtstruktur_analyse": {
+        "besitzverhaeltnis": "Jacobin Foundation (USA) / Traegerverein (DE). Sozialistisch orientiert.",
+        "verflechtung": "Keine Konzernbindung. Naehe zu demokratisch-sozialistischen Bewegungen (DSA in USA). Klare ideologische Positionierung."
+      }
+    }
+  ]
+}

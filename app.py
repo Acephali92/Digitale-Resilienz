@@ -8,6 +8,7 @@ Keine Tracker. Keine Überwachung. Deine Daten bleiben bei dir.
 """
 
 import os
+import json
 from flask import Flask, render_template, send_from_directory, request
 from functools import wraps
 
@@ -149,7 +150,21 @@ def resilience_prebunking():
 @app.route('/resilience/sources')
 def resilience_sources():
     """Independent news sources with transparency info."""
-    return render_template('resilience/sources.html')
+    # Load sources from JSON file
+    sources_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'news_sources.json')
+    print(f"DEBUG: Loading sources from {sources_file}", flush=True)
+    sources = []
+    try:
+        if os.path.exists(sources_file):
+            with open(sources_file, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                sources = data.get('sources', [])
+                print(f"DEBUG: Loaded {len(sources)} sources", flush=True)
+        else:
+            print(f"DEBUG: File not found: {sources_file}", flush=True)
+    except Exception as e:
+        print(f"Error loading sources: {e}")
+    return render_template('resilience/sources.html', sources=sources)
 
 
 # ============================================================================
@@ -295,5 +310,6 @@ if __name__ == '__main__':
     app.run(
         host='127.0.0.1',
         port=5000,
-        debug=True
+        debug=True,
+        use_reloader=False
     )

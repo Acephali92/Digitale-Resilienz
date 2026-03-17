@@ -2,7 +2,149 @@
 
 {% block title %}DSGVO-Anfragen{% endblock %}
 
+{% block head %}
+<style>
+    .dsgvo-hero {
+        position: relative;
+        margin: calc(-1 * var(--space-xl)) calc(-1 * var(--space-lg)) var(--space-xl);
+        overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+        .dsgvo-hero {
+            margin: calc(-1 * var(--space-xl)) calc(-1 * var(--space-xl)) var(--space-xl);
+        }
+    }
+
+    .dsgvo-hero-inner {
+        position: relative;
+        display: block;
+        background: linear-gradient(135deg, #1a2744 0%, #0f1a2e 100%);
+        border: 1px solid var(--color-elevated);
+        overflow: hidden;
+        text-decoration: none;
+        transition: all 0.4s var(--ease-out-expo);
+    }
+
+    .dsgvo-hero-inner:hover {
+        border-color: var(--color-matrix);
+        box-shadow: 0 0 40px rgba(0, 255, 65, 0.15);
+        transform: translateY(-2px);
+    }
+
+    .dsgvo-hero-inner::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:
+            linear-gradient(90deg, transparent 0%, rgba(0, 255, 65, 0.03) 50%, transparent 100%),
+            repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 65, 0.02) 2px, rgba(0, 255, 65, 0.02) 4px);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .dsgvo-hero-inner::after {
+        content: '// PARTNER-TOOL';
+        position: absolute;
+        top: var(--space-sm);
+        right: var(--space-md);
+        font-family: var(--font-display);
+        font-size: var(--text-xs);
+        color: var(--color-matrix);
+        letter-spacing: 0.1em;
+        opacity: 0.7;
+        z-index: 2;
+    }
+
+    .dsgvo-hero-image {
+        width: 100%;
+        height: auto;
+        display: block;
+        opacity: 0.95;
+        transition: opacity 0.3s ease;
+    }
+
+    .dsgvo-hero-inner:hover .dsgvo-hero-image {
+        opacity: 1;
+    }
+
+    .dsgvo-hero-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: var(--space-lg);
+        background: linear-gradient(to top, rgba(5, 5, 5, 0.95) 0%, rgba(5, 5, 5, 0.7) 50%, transparent 100%);
+        z-index: 2;
+    }
+
+    .dsgvo-hero-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-sm);
+        padding: var(--space-sm) var(--space-lg);
+        background: var(--color-matrix);
+        color: var(--color-void);
+        font-family: var(--font-display);
+        font-size: var(--text-sm);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border: none;
+        transition: all 0.3s ease;
+    }
+
+    .dsgvo-hero-inner:hover .dsgvo-hero-cta {
+        background: #fff;
+        box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+    }
+
+    .dsgvo-hero-subtitle {
+        margin-top: var(--space-sm);
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--color-text-dim);
+    }
+
+    .dsgvo-hero-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(ellipse at center, rgba(0, 255, 65, 0.05) 0%, transparent 50%);
+        pointer-events: none;
+        z-index: 0;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
+<!-- Hero Banner -->
+<div class="dsgvo-hero">
+    <a href="https://www.datenanfragen.de/generator" target="_blank" rel="noopener" class="dsgvo-hero-inner">
+        <div class="dsgvo-hero-glow"></div>
+        <img
+            src="{{ url_for('static', filename='img/datenanfragen-header.png') }}"
+            alt="Du hast ein Recht auf Datenschutz - Datenanfragen.de"
+            class="dsgvo-hero-image"
+            loading="eager"
+        >
+        <div class="dsgvo-hero-overlay">
+            <span class="dsgvo-hero-cta">
+                &#128640; Jetzt Anfrage stellen
+            </span>
+            <p class="dsgvo-hero-subtitle">
+                Kostenloser Generator für DSGVO-Anfragen an über 10.000 Unternehmen
+            </p>
+        </div>
+    </a>
+</div>
+
 <section class="section-header">
     <h1>&#128220; DSGVO-Anfragen</h1>
     <p class="section-subtitle">
@@ -38,29 +180,6 @@
             &#127760; Zu datenanfragen.de
         </a>
     </div>
-</section>
-
-<section class="card mt-lg">
-    <h2>&#128172; Muster-Anfrage (Auskunft)</h2>
-    <pre><code>Sehr geehrte Damen und Herren,
-
-ich bitte um Auskunft gemäß Art. 15 DSGVO über die zu meiner Person
-gespeicherten personenbezogenen Daten.
-
-Bitte teilen Sie mir mit:
-- welche Daten Sie über mich gespeichert haben
-- die Verarbeitungszwecke
-- die Kategorien der Daten
-- die Empfänger oder Kategorien von Empfängern
-- die Speicherdauer oder Kriterien für deren Festlegung
-- die Herkunft der Daten
-
-Bitte antworten Sie mir innerhalb der gesetzlichen Frist von einem Monat.
-
-Mit freundlichen Grüßen
-[Dein Name]
-[Adresse]
-[Geburtsdatum zur Identifikation]</code></pre>
 </section>
 
 <section class="card mt-lg">
