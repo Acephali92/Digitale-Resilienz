@@ -149,22 +149,27 @@ def resilience_prebunking():
 
 @app.route('/resilience/sources')
 def resilience_sources():
-    """Independent news sources with transparency info."""
+    """Independent news sources with transparency info - SecuChart style."""
+    import traceback
     # Load sources from JSON file
     sources_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'news_sources.json')
-    print(f"DEBUG: Loading sources from {sources_file}", flush=True)
-    sources = []
+    data = {'sources': [], 'properties_meta': {}}
     try:
         if os.path.exists(sources_file):
             with open(sources_file, 'r', encoding='utf-8') as f:
                 data = json.load(f)
-                sources = data.get('sources', [])
-                print(f"DEBUG: Loaded {len(sources)} sources", flush=True)
-        else:
-            print(f"DEBUG: File not found: {sources_file}", flush=True)
+        print(f"DEBUG: Loaded {len(data.get('sources', []))} sources", flush=True)
+        print(f"DEBUG: properties_meta keys: {data.get('properties_meta', {}).keys()}", flush=True)
+        result = render_template('resilience/sources.html',
+                         sources=data.get('sources', []),
+                         properties_meta=data.get('properties_meta', {}),
+                         data_json=json.dumps(data))
+        print("DEBUG: Template rendered successfully", flush=True)
+        return result
     except Exception as e:
-        print(f"Error loading sources: {e}")
-    return render_template('resilience/sources.html', sources=sources)
+        print(f"ERROR in resilience_sources: {e}", flush=True)
+        traceback.print_exc()
+        raise
 
 
 # ============================================================================

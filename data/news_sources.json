@@ -1,115 +1,219 @@
 {
+  "properties_meta": {
+    "categories": [
+      {
+        "id": "transparenz",
+        "name": "Transparenz",
+        "properties": ["impressum", "finanzierung_transparent", "besitz_transparent", "verflechtung_dokumentiert"]
+      },
+      {
+        "id": "unabhaengigkeit",
+        "name": "Unabhaengigkeit",
+        "properties": ["keine_konzernbindung", "keine_staatsnaehe", "keine_parteinaehe", "spendenfinanziert"]
+      },
+      {
+        "id": "technisch",
+        "name": "Technisch",
+        "properties": ["rss_feed", "open_source", "werbefrei", "dsgvo_konform", "tor_kompatibel"]
+      }
+    ],
+    "properties": {
+      "impressum": { "name": "Impressum", "description": "Impressum vorhanden und vollstaendig" },
+      "finanzierung_transparent": { "name": "Finanzierung offen", "description": "Finanzierungsquellen offengelegt" },
+      "besitz_transparent": { "name": "Besitz offen", "description": "Eigentuemer-Struktur dokumentiert" },
+      "verflechtung_dokumentiert": { "name": "Verflechtung offen", "description": "Verbindungen zu anderen Organisationen offengelegt" },
+      "keine_konzernbindung": { "name": "Konzernfrei", "description": "Keine direkte Konzernabhaengigkeit" },
+      "keine_staatsnaehe": { "name": "Staatsfern", "description": "Keine staatliche Finanzierung/Kontrolle" },
+      "keine_parteinaehe": { "name": "Parteifern", "description": "Keine Parteibindung" },
+      "spendenfinanziert": { "name": "Spendenfinanziert", "description": "Hauptsaechlich durch Spenden/Mitglieder finanziert" },
+      "rss_feed": { "name": "RSS Feed", "description": "RSS/Atom Feed verfuegbar" },
+      "open_source": { "name": "Open Source", "description": "Quellcode oeffentlich" },
+      "werbefrei": { "name": "Werbefrei", "description": "Keine Werbung auf der Seite" },
+      "dsgvo_konform": { "name": "DSGVO-konform", "description": "DSGVO-konform, keine Tracker" },
+      "tor_kompatibel": { "name": "Tor-kompatibel", "description": "Ueber Tor-Browser nutzbar" }
+    },
+    "status_values": {
+      "yes": { "label": "Ja", "symbol": "✓", "color": "green" },
+      "partial": { "label": "Teilweise", "symbol": "~", "color": "yellow" },
+      "no": { "label": "Nein", "symbol": "✗", "color": "red" },
+      "unknown": { "label": "Unbekannt", "symbol": "?", "color": "gray" }
+    }
+  },
   "sources": [
     {
+      "id": "correctiv",
       "name": "Correctiv",
       "url": "https://correctiv.org",
       "rss_url": "https://correctiv.org/feed/",
       "kategorie": "investigativ",
-      "finanzierung": {
-        "typ": "Community",
-        "details": "Spendenfinanziert, keine Werbung. Transparente Spenderliste auf der Website."
-      },
-      "machtstruktur_analyse": {
-        "besitzverhaeltnis": "Gemeinnuetzige GmbH. Keine Gesellschafter mit Gewinnabsicht.",
-        "verflechtung": "Keine direkte Regierungs- oder Konzernbindung. Partner des ICIJ (International Consortium of Investigative Journalists)."
+      "properties": {
+        "impressum": { "status": "yes", "note": "Vollstaendiges Impressum" },
+        "finanzierung_transparent": { "status": "yes", "note": "Spenderliste auf der Website" },
+        "besitz_transparent": { "status": "yes", "note": "Gemeinnuetzige GmbH dokumentiert" },
+        "verflechtung_dokumentiert": { "status": "yes", "note": "ICIJ-Partnerschaft offen" },
+        "keine_konzernbindung": { "status": "yes", "note": "Keine Konzernbeteiligung" },
+        "keine_staatsnaehe": { "status": "yes", "note": "Keine staatliche Finanzierung" },
+        "keine_parteinaehe": { "status": "yes", "note": "Keine Parteibindung" },
+        "spendenfinanziert": { "status": "yes", "note": "100% spendenfinanziert" },
+        "rss_feed": { "status": "yes", "note": "" },
+        "open_source": { "status": "no", "note": "Kein oeffentlicher Quellcode" },
+        "werbefrei": { "status": "yes", "note": "Keine Werbung" },
+        "dsgvo_konform": { "status": "partial", "note": "Einige Tracker vorhanden" },
+        "tor_kompatibel": { "status": "yes", "note": "" }
       }
     },
     {
+      "id": "netzpolitik",
       "name": "netzpolitik.org",
       "url": "https://netzpolitik.org",
       "rss_url": "https://netzpolitik.org/feed/",
       "kategorie": "investigativ",
-      "finanzierung": {
-        "typ": "Community",
-        "details": "Zu 99% spendenfinanziert. Keine Werbung, keine Paywall. Transparenzbericht jaehrlich."
-      },
-      "machtstruktur_analyse": {
-        "besitzverhaeltnis": "netzpolitik.org e.V. Gemeinnuetziger Verein.",
-        "verflechtung": "Unabhaengig von Parteien und Konzernen. Gruender Markus Beckedahl ist Netzaktivist ohne Regierungsbindung."
+      "properties": {
+        "impressum": { "status": "yes", "note": "Vollstaendiges Impressum" },
+        "finanzierung_transparent": { "status": "yes", "note": "Jaehrlicher Transparenzbericht" },
+        "besitz_transparent": { "status": "yes", "note": "e.V. Struktur dokumentiert" },
+        "verflechtung_dokumentiert": { "status": "yes", "note": "Keine relevanten Verflechtungen" },
+        "keine_konzernbindung": { "status": "yes", "note": "Unabhaengig" },
+        "keine_staatsnaehe": { "status": "yes", "note": "Keine staatliche Finanzierung" },
+        "keine_parteinaehe": { "status": "yes", "note": "Keine Parteibindung" },
+        "spendenfinanziert": { "status": "yes", "note": "99% spendenfinanziert" },
+        "rss_feed": { "status": "yes", "note": "" },
+        "open_source": { "status": "partial", "note": "Einige Tools open source" },
+        "werbefrei": { "status": "yes", "note": "Keine Werbung" },
+        "dsgvo_konform": { "status": "yes", "note": "Minimale Tracker" },
+        "tor_kompatibel": { "status": "yes", "note": "" }
       }
     },
     {
+      "id": "fragdenstaat",
       "name": "FragDenStaat",
       "url": "https://fragdenstaat.de",
       "rss_url": "https://fragdenstaat.de/feed/",
       "kategorie": "buergerrechte",
-      "finanzierung": {
-        "typ": "Stiftung",
-        "details": "Betrieben von Open Knowledge Foundation Deutschland e.V. Finanziert durch Spenden und Stiftungsgelder."
-      },
-      "machtstruktur_analyse": {
-        "besitzverhaeltnis": "Open Knowledge Foundation Deutschland e.V. Gemeinnuetziger Verein.",
-        "verflechtung": "Teil des internationalen Open Knowledge Netzwerks. Keine Regierungs- oder Konzernbeteiligung."
+      "properties": {
+        "impressum": { "status": "yes", "note": "Vollstaendiges Impressum" },
+        "finanzierung_transparent": { "status": "yes", "note": "Transparenzbericht verfuegbar" },
+        "besitz_transparent": { "status": "yes", "note": "OKF Deutschland e.V." },
+        "verflechtung_dokumentiert": { "status": "yes", "note": "Open Knowledge Netzwerk" },
+        "keine_konzernbindung": { "status": "yes", "note": "Keine Konzernbeteiligung" },
+        "keine_staatsnaehe": { "status": "yes", "note": "Unabhaengig vom Staat" },
+        "keine_parteinaehe": { "status": "yes", "note": "Keine Parteibindung" },
+        "spendenfinanziert": { "status": "yes", "note": "Spenden und Stiftungsgelder" },
+        "rss_feed": { "status": "yes", "note": "" },
+        "open_source": { "status": "yes", "note": "Plattform ist Open Source" },
+        "werbefrei": { "status": "yes", "note": "Keine Werbung" },
+        "dsgvo_konform": { "status": "yes", "note": "Vorbildlich" },
+        "tor_kompatibel": { "status": "yes", "note": "" }
       }
     },
     {
+      "id": "digitalcourage",
       "name": "Digitalcourage",
       "url": "https://digitalcourage.de",
       "rss_url": "https://digitalcourage.de/rss.xml",
       "kategorie": "buergerrechte",
-      "finanzierung": {
-        "typ": "Community",
-        "details": "Mitgliedsbeitraege und Spenden. Vergibt jaehrlich die BigBrotherAwards."
-      },
-      "machtstruktur_analyse": {
-        "besitzverhaeltnis": "Digitalcourage e.V. Gemeinnuetziger Verein seit 1987 (frueher FoeBuD).",
-        "verflechtung": "Keine Konzern- oder Regierungsbindung. Aktivistische Ausrichtung, kritisch gegenueber staatlicher Ueberwachung."
+      "properties": {
+        "impressum": { "status": "yes", "note": "Vollstaendiges Impressum" },
+        "finanzierung_transparent": { "status": "yes", "note": "Mitgliedsbeitraege dokumentiert" },
+        "besitz_transparent": { "status": "yes", "note": "e.V. seit 1987" },
+        "verflechtung_dokumentiert": { "status": "yes", "note": "Aktivistische Vernetzung offen" },
+        "keine_konzernbindung": { "status": "yes", "note": "Konzernkritisch" },
+        "keine_staatsnaehe": { "status": "yes", "note": "Staatskritisch" },
+        "keine_parteinaehe": { "status": "yes", "note": "Keine Parteibindung" },
+        "spendenfinanziert": { "status": "yes", "note": "Mitglieder und Spenden" },
+        "rss_feed": { "status": "yes", "note": "" },
+        "open_source": { "status": "partial", "note": "Einige Projekte" },
+        "werbefrei": { "status": "yes", "note": "Keine Werbung" },
+        "dsgvo_konform": { "status": "yes", "note": "Vorbildlich, BigBrotherAward-Vergeber" },
+        "tor_kompatibel": { "status": "yes", "note": "" }
       }
     },
     {
+      "id": "tagesschau",
       "name": "Tagesschau",
       "url": "https://www.tagesschau.de",
       "rss_url": "https://www.tagesschau.de/xml/rss2/",
       "kategorie": "medien",
-      "finanzierung": {
-        "typ": "Staat",
-        "details": "Oeffentlich-rechtlich, finanziert durch Rundfunkbeitrag (ca. 8 Mrd. EUR/Jahr fuer ARD gesamt)."
-      },
-      "machtstruktur_analyse": {
-        "besitzverhaeltnis": "ARD (Arbeitsgemeinschaft der oeffentlich-rechtlichen Rundfunkanstalten). Staatsvertrag-basiert.",
-        "verflechtung": "Rundfunkraete mit Vertretern aus Politik, Kirchen, Gewerkschaften. Kritik an Staatsferne vs. Staatsnaehe umstritten."
+      "properties": {
+        "impressum": { "status": "yes", "note": "ARD Impressum" },
+        "finanzierung_transparent": { "status": "yes", "note": "Rundfunkbeitrag bekannt" },
+        "besitz_transparent": { "status": "yes", "note": "Oeffentlich-rechtlich" },
+        "verflechtung_dokumentiert": { "status": "partial", "note": "Rundfunkraete oeffentlich, aber komplex" },
+        "keine_konzernbindung": { "status": "yes", "note": "Kein Konzern" },
+        "keine_staatsnaehe": { "status": "no", "note": "Staatsvertrag-basiert, Rundfunkraete" },
+        "keine_parteinaehe": { "status": "partial", "note": "Parteienvertreter in Gremien" },
+        "spendenfinanziert": { "status": "no", "note": "Rundfunkbeitrag (Zwangsabgabe)" },
+        "rss_feed": { "status": "yes", "note": "" },
+        "open_source": { "status": "no", "note": "Nicht open source" },
+        "werbefrei": { "status": "yes", "note": "Keine Werbung im Web" },
+        "dsgvo_konform": { "status": "partial", "note": "Einige Tracker" },
+        "tor_kompatibel": { "status": "yes", "note": "" }
       }
     },
     {
+      "id": "theintercept",
       "name": "The Intercept",
       "url": "https://theintercept.com",
       "rss_url": "https://theintercept.com/feed/?rss",
       "kategorie": "investigativ",
-      "finanzierung": {
-        "typ": "Stiftung",
-        "details": "Gegruendet von First Look Media (Pierre Omidyar/eBay). Keine Werbung."
-      },
-      "machtstruktur_analyse": {
-        "besitzverhaeltnis": "First Look Media, gegruendet von Pierre Omidyar (eBay-Gruender, Milliardaer).",
-        "verflechtung": "Omidyar Network hat Verbindungen zu US-Regierungsprogrammen (USAID). Redaktionelle Unabhaengigkeit betont, aber Eigentuemer ist Tech-Milliardaer."
+      "properties": {
+        "impressum": { "status": "yes", "note": "US-Impressum" },
+        "finanzierung_transparent": { "status": "partial", "note": "Omidyar-Finanzierung bekannt" },
+        "besitz_transparent": { "status": "yes", "note": "First Look Media" },
+        "verflechtung_dokumentiert": { "status": "partial", "note": "Omidyar Network Verbindungen" },
+        "keine_konzernbindung": { "status": "no", "note": "Gehoert Tech-Milliardaer" },
+        "keine_staatsnaehe": { "status": "partial", "note": "Omidyar Network - USAID Verbindungen" },
+        "keine_parteinaehe": { "status": "yes", "note": "Keine direkte Parteibindung" },
+        "spendenfinanziert": { "status": "no", "note": "Milliardaers-finanziert" },
+        "rss_feed": { "status": "yes", "note": "" },
+        "open_source": { "status": "no", "note": "Nicht open source" },
+        "werbefrei": { "status": "yes", "note": "Keine Werbung" },
+        "dsgvo_konform": { "status": "partial", "note": "US-basiert" },
+        "tor_kompatibel": { "status": "yes", "note": "" }
       }
     },
     {
+      "id": "telepolis",
       "name": "Telepolis",
       "url": "https://www.telepolis.de",
       "rss_url": "https://www.telepolis.de/rss/news-atom.xml",
       "kategorie": "medien",
-      "finanzierung": {
-        "typ": "Konzern",
-        "details": "Gehoert zu Heise Medien. Finanziert durch Werbung und Heise-Gruppe."
-      },
-      "machtstruktur_analyse": {
-        "besitzverhaeltnis": "Heise Medien GmbH & Co. KG. Familienunternehmen (Familie Heise).",
-        "verflechtung": "Keine direkte Konzern- oder Regierungsbindung. Redaktionell eigenstaendig innerhalb des Heise-Verlags."
+      "properties": {
+        "impressum": { "status": "yes", "note": "Heise Impressum" },
+        "finanzierung_transparent": { "status": "partial", "note": "Heise-Gruppe, nicht detailliert" },
+        "besitz_transparent": { "status": "yes", "note": "Heise Medien GmbH & Co. KG" },
+        "verflechtung_dokumentiert": { "status": "yes", "note": "Familienunternehmen" },
+        "keine_konzernbindung": { "status": "partial", "note": "Heise-Gruppe ist Medienkonzern" },
+        "keine_staatsnaehe": { "status": "yes", "note": "Keine Staatsnaehe" },
+        "keine_parteinaehe": { "status": "yes", "note": "Keine Parteibindung" },
+        "spendenfinanziert": { "status": "no", "note": "Werbefinanziert" },
+        "rss_feed": { "status": "yes", "note": "" },
+        "open_source": { "status": "no", "note": "Nicht open source" },
+        "werbefrei": { "status": "no", "note": "Werbung vorhanden" },
+        "dsgvo_konform": { "status": "partial", "note": "Werbe-Tracker" },
+        "tor_kompatibel": { "status": "yes", "note": "" }
       }
     },
     {
+      "id": "jacobin",
       "name": "Jacobin Magazin",
       "url": "https://jacobin.de",
       "rss_url": "https://jacobin.de/feed/",
       "kategorie": "medien",
-      "finanzierung": {
-        "typ": "Abo",
-        "details": "Abo-Modell plus Spenden. Keine Werbung. Traegerverein fuer deutsche Ausgabe."
-      },
-      "machtstruktur_analyse": {
-        "besitzverhaeltnis": "Jacobin Foundation (USA) / Traegerverein (DE). Sozialistisch orientiert.",
-        "verflechtung": "Keine Konzernbindung. Naehe zu demokratisch-sozialistischen Bewegungen (DSA in USA). Klare ideologische Positionierung."
+      "properties": {
+        "impressum": { "status": "yes", "note": "Deutsches Impressum" },
+        "finanzierung_transparent": { "status": "yes", "note": "Abo-Modell offen" },
+        "besitz_transparent": { "status": "yes", "note": "Traegerverein dokumentiert" },
+        "verflechtung_dokumentiert": { "status": "yes", "note": "DSA-Naehe bekannt" },
+        "keine_konzernbindung": { "status": "yes", "note": "Kein Konzern" },
+        "keine_staatsnaehe": { "status": "yes", "note": "Keine Staatsnaehe" },
+        "keine_parteinaehe": { "status": "partial", "note": "Sozialistisch positioniert" },
+        "spendenfinanziert": { "status": "partial", "note": "Abo + Spenden" },
+        "rss_feed": { "status": "yes", "note": "" },
+        "open_source": { "status": "no", "note": "Nicht open source" },
+        "werbefrei": { "status": "yes", "note": "Keine Werbung" },
+        "dsgvo_konform": { "status": "partial", "note": "Einige Tracker" },
+        "tor_kompatibel": { "status": "yes", "note": "" }
       }
     }
   ]

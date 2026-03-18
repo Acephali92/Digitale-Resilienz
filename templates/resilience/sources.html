@@ -2,588 +2,129 @@
 {% block title %}Unabhaengige Quellen{% endblock %}
 
 {% block head %}
-<style>
-    /* Filter Bar */
-    .filter-bar {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--space-sm);
-        margin-bottom: var(--space-xl);
-        padding: var(--space-md);
-        background: var(--color-surface);
-        border: 1px solid var(--color-elevated);
-    }
-
-    .filter-btn {
-        padding: var(--space-xs) var(--space-md);
-        background: var(--color-elevated);
-        border: 1px solid var(--color-elevated);
-        color: var(--color-text-dim);
-        font-family: var(--font-mono);
-        font-size: var(--text-xs);
-        cursor: pointer;
-        transition: all 0.2s ease;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-    }
-
-    .filter-btn:hover,
-    .filter-btn.active {
-        background: var(--color-matrix);
-        color: var(--color-void);
-        border-color: var(--color-matrix);
-    }
-
-    .filter-btn[data-filter="Staat"].active,
-    .filter-btn[data-filter="Konzern"].active {
-        background: var(--color-warning);
-        border-color: var(--color-warning);
-    }
-
-    /* Sources Grid */
-    .sources-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-        gap: var(--space-lg);
-        margin-bottom: var(--space-xl);
-    }
-
-    /* Source Card */
-    .source-card {
-        background: var(--color-surface);
-        border: 1px solid var(--color-elevated);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .source-card[data-finanzierung="Community"] { border-top: 3px solid var(--color-matrix); }
-    .source-card[data-finanzierung="Stiftung"] { border-top: 3px solid var(--color-info); }
-    .source-card[data-finanzierung="Abo"] { border-top: 3px solid #9966ff; }
-    .source-card[data-finanzierung="Staat"] { border-top: 3px solid var(--color-warning); }
-    .source-card[data-finanzierung="Konzern"] { border-top: 3px solid var(--color-danger); }
-
-    .source-badge {
-        position: absolute;
-        top: var(--space-sm);
-        right: var(--space-sm);
-        padding: var(--space-xs) var(--space-sm);
-        font-family: var(--font-display);
-        font-size: var(--text-xs);
-        letter-spacing: 0.1em;
-    }
-
-    .source-badge[data-typ="Community"] { background: var(--color-matrix); color: var(--color-void); }
-    .source-badge[data-typ="Stiftung"] { background: var(--color-info); color: var(--color-void); }
-    .source-badge[data-typ="Abo"] { background: #9966ff; color: #fff; }
-    .source-badge[data-typ="Staat"] { background: var(--color-warning); color: var(--color-void); }
-    .source-badge[data-typ="Konzern"] { background: var(--color-danger); color: #fff; }
-
-    .source-header {
-        padding: var(--space-lg);
-        padding-right: calc(var(--space-lg) + 80px);
-        border-bottom: 1px solid var(--color-elevated);
-    }
-
-    .source-name {
-        font-family: var(--font-display);
-        font-size: var(--text-lg);
-        color: var(--color-text);
-        margin-bottom: var(--space-xs);
-    }
-
-    .source-kategorie {
-        font-family: var(--font-mono);
-        font-size: var(--text-xs);
-        color: var(--color-text-dim);
-        text-transform: uppercase;
-    }
-
-    .source-section {
-        padding: var(--space-md) var(--space-lg);
-        border-bottom: 1px solid var(--color-elevated);
-    }
-
-    .source-section:last-of-type {
-        border-bottom: none;
-    }
-
-    .source-section-title {
-        font-family: var(--font-display);
-        font-size: var(--text-xs);
-        color: var(--color-matrix);
-        margin-bottom: var(--space-xs);
-        display: flex;
-        align-items: center;
-        gap: var(--space-xs);
-    }
-
-    .source-section-content {
-        font-size: var(--text-sm);
-        color: var(--color-text-dim);
-        line-height: 1.5;
-    }
-
-    .source-links {
-        display: flex;
-        gap: var(--space-sm);
-        padding: var(--space-md) var(--space-lg);
-        background: var(--color-elevated);
-    }
-
-    .source-link {
-        padding: var(--space-xs) var(--space-sm);
-        font-family: var(--font-mono);
-        font-size: var(--text-xs);
-        background: var(--color-surface);
-        border: 1px solid var(--color-matrix);
-        color: var(--color-matrix);
-        text-decoration: none;
-        transition: all 0.2s ease;
-    }
-
-    .source-link:hover {
-        background: var(--color-matrix);
-        color: var(--color-void);
-    }
-
-    /* Submission Helper */
-    .submission-helper {
-        background: var(--color-surface);
-        border: 1px solid var(--color-elevated);
-        margin-top: var(--space-xl);
-    }
-
-    .submission-header {
-        padding: var(--space-lg);
-        border-bottom: 1px solid var(--color-elevated);
-        position: relative;
-    }
-
-    .submission-header::before {
-        content: '// SUBMISSION-HELPER';
-        position: absolute;
-        top: var(--space-sm);
-        right: var(--space-md);
-        font-family: var(--font-display);
-        font-size: var(--text-xs);
-        color: var(--color-matrix);
-        opacity: 0.7;
-    }
-
-    .submission-header h2 {
-        color: var(--color-matrix);
-        margin-bottom: var(--space-sm);
-    }
-
-    .submission-content {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: var(--space-lg);
-    }
-
-    @media (max-width: 900px) {
-        .submission-content {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    .submission-form {
-        padding: var(--space-lg);
-    }
-
-    .form-group {
-        margin-bottom: var(--space-md);
-    }
-
-    .form-label {
-        display: block;
-        font-family: var(--font-mono);
-        font-size: var(--text-xs);
-        color: var(--color-matrix);
-        margin-bottom: var(--space-xs);
-        text-transform: uppercase;
-    }
-
-    .form-label .required {
-        color: var(--color-danger);
-    }
-
-    .form-input,
-    .form-select,
-    .form-textarea {
-        width: 100%;
-        padding: var(--space-sm);
-        background: var(--color-elevated);
-        border: 1px solid var(--color-elevated);
-        color: var(--color-text);
-        font-family: var(--font-mono);
-        font-size: var(--text-sm);
-        transition: border-color 0.2s ease;
-    }
-
-    .form-input:focus,
-    .form-select:focus,
-    .form-textarea:focus {
-        outline: none;
-        border-color: var(--color-matrix);
-    }
-
-    .form-textarea {
-        min-height: 80px;
-        resize: vertical;
-    }
-
-    .char-count {
-        font-size: var(--text-xs);
-        color: var(--color-text-dim);
-        text-align: right;
-        margin-top: var(--space-xs);
-    }
-
-    .char-count.warning {
-        color: var(--color-warning);
-    }
-
-    .char-count.error {
-        color: var(--color-danger);
-    }
-
-    .submission-preview {
-        padding: var(--space-lg);
-        background: var(--color-elevated);
-        border-left: 1px solid var(--color-elevated);
-    }
-
-    .preview-title {
-        font-family: var(--font-display);
-        font-size: var(--text-sm);
-        color: var(--color-matrix);
-        margin-bottom: var(--space-md);
-    }
-
-    .preview-json {
-        background: var(--color-void);
-        padding: var(--space-md);
-        font-family: var(--font-mono);
-        font-size: var(--text-xs);
-        color: var(--color-text);
-        overflow-x: auto;
-        white-space: pre-wrap;
-        word-break: break-all;
-        max-height: 400px;
-        overflow-y: auto;
-        border: 1px solid var(--color-surface);
-    }
-
-    .copy-btn {
-        margin-top: var(--space-md);
-        width: 100%;
-        padding: var(--space-sm) var(--space-lg);
-        background: var(--color-matrix);
-        border: none;
-        color: var(--color-void);
-        font-family: var(--font-display);
-        font-size: var(--text-sm);
-        cursor: pointer;
-        transition: all 0.2s ease;
-    }
-
-    .copy-btn:hover {
-        background: #fff;
-        box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
-    }
-
-    .copy-btn.success {
-        background: var(--color-matrix);
-    }
-
-    .submission-note {
-        padding: var(--space-md) var(--space-lg);
-        background: var(--color-elevated);
-        border-top: 1px solid var(--color-surface);
-        font-size: var(--text-sm);
-        color: var(--color-text-dim);
-    }
-
-    .submission-note a {
-        color: var(--color-matrix);
-    }
-
-    /* Hidden sources */
-    .source-card.hidden {
-        display: none;
-    }
-</style>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/secuchart.css') }}">
 {% endblock %}
 
 {% block content %}
 <section class="section-header">
     <h1>&#128240; Unabhaengige Quellen</h1>
     <p class="section-subtitle">
-        Kuratierte Liste mit <strong>transparenter Machtstruktur-Analyse</strong>.
-        Pruefe selbst, wie "unabhaengig" eine Quelle wirklich ist.
+        Interaktive Vergleichstabelle mit <strong>transparenter Machtstruktur-Analyse</strong>.
+        Klicke auf eine Zelle, um den Status zu aendern und Aenderungen als Patch einzureichen.
     </p>
 </section>
 
-<!-- Filter Bar -->
-<div class="filter-bar">
-    <span style="color: var(--color-text-dim); font-size: var(--text-xs); margin-right: var(--space-sm);">FILTER:</span>
-    <button class="filter-btn active" data-filter="all">Alle</button>
-    <button class="filter-btn" data-filter="Community">Community</button>
-    <button class="filter-btn" data-filter="Stiftung">Stiftung</button>
-    <button class="filter-btn" data-filter="Abo">Abo</button>
-    <button class="filter-btn" data-filter="Staat">Staat</button>
-    <button class="filter-btn" data-filter="Konzern">Konzern</button>
-</div>
-
-<!-- Sources Grid -->
-<div class="sources-grid" id="sourcesGrid">
-    {% for source in sources %}
-    <div class="source-card" data-finanzierung="{{ source.finanzierung.typ }}" data-kategorie="{{ source.kategorie }}">
-        <span class="source-badge" data-typ="{{ source.finanzierung.typ }}">{{ source.finanzierung.typ }}</span>
-
-        <div class="source-header">
-            <h3 class="source-name">{{ source.name }}</h3>
-            <span class="source-kategorie">{{ source.kategorie }}</span>
-        </div>
-
-        <div class="source-section">
-            <div class="source-section-title">
-                &#128202; BESITZVERHAELTNIS
-            </div>
-            <div class="source-section-content">
-                {{ source.machtstruktur_analyse.besitzverhaeltnis }}
-            </div>
-        </div>
-
-        <div class="source-section">
-            <div class="source-section-title">
-                &#128279; VERFLECHTUNG
-            </div>
-            <div class="source-section-content">
-                {{ source.machtstruktur_analyse.verflechtung }}
-            </div>
-        </div>
-
-        <div class="source-section">
-            <div class="source-section-title">
-                &#128176; FINANZIERUNG
-            </div>
-            <div class="source-section-content">
-                {{ source.finanzierung.details }}
-            </div>
-        </div>
-
-        <div class="source-links">
-            <a href="{{ source.url }}" target="_blank" rel="noopener" class="source-link">
-                &#127760; Website
-            </a>
-            {% if source.rss_url %}
-            <a href="{{ source.rss_url }}" target="_blank" rel="noopener" class="source-link">
-                &#128246; RSS Feed
-            </a>
-            {% endif %}
-        </div>
+<!-- Legend -->
+<div class="secuchart-legend">
+    <div class="legend-item">
+        <span class="status-indicator status-yes">&#10003;</span>
+        <span>Ja / Erfuellt</span>
     </div>
-    {% endfor %}
-</div>
-
-<!-- Submission Helper -->
-<div class="submission-helper">
-    <div class="submission-header">
-        <h2>&#10133; Quelle vorschlagen</h2>
-        <p class="text-secondary">
-            Fuege eine neue Quelle zur Liste hinzu. Das generierte JSON kannst du per
-            GitHub Issue oder Pull Request einreichen.
-        </p>
+    <div class="legend-item">
+        <span class="status-indicator status-partial">~</span>
+        <span>Teilweise / Unklar</span>
     </div>
-
-    <div class="submission-content">
-        <div class="submission-form">
-            <div class="form-group">
-                <label class="form-label">Name <span class="required">*</span></label>
-                <input type="text" class="form-input" id="inputName" placeholder="z.B. Correctiv" required>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Website URL <span class="required">*</span></label>
-                <input type="url" class="form-input" id="inputUrl" placeholder="https://example.org">
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">RSS Feed URL</label>
-                <input type="url" class="form-input" id="inputRss" placeholder="https://example.org/feed/">
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Kategorie <span class="required">*</span></label>
-                <select class="form-select" id="inputKategorie">
-                    <option value="investigativ">Investigativ</option>
-                    <option value="faktencheck">Faktencheck</option>
-                    <option value="buergerrechte">Buergerrechte</option>
-                    <option value="medien">Medien</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Finanzierungstyp <span class="required">*</span></label>
-                <select class="form-select" id="inputFinanzTyp">
-                    <option value="Community">Community (Spenden)</option>
-                    <option value="Stiftung">Stiftung</option>
-                    <option value="Abo">Abo-Modell</option>
-                    <option value="Staat">Staatlich/OEffentlich-rechtlich</option>
-                    <option value="Konzern">Konzern</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Finanzierung Details <span class="required">*</span></label>
-                <textarea class="form-textarea" id="inputFinanzDetails" maxlength="200"
-                    placeholder="Beschreibe die Finanzierungsstruktur (max. 200 Zeichen)"></textarea>
-                <div class="char-count" id="finanzCharCount">0 / 200</div>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Besitzverhaeltnis <span class="required">*</span></label>
-                <textarea class="form-textarea" id="inputBesitz"
-                    placeholder="Wer haelt die Anteile? Welche Rechtsform?"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Verflechtung <span class="required">*</span></label>
-                <textarea class="form-textarea" id="inputVerflechtung"
-                    placeholder="Think-Tank-Naehe? Regierungsbindung? Konzernverbindungen?"></textarea>
-            </div>
-        </div>
-
-        <div class="submission-preview">
-            <div class="preview-title">&#128196; Live JSON Vorschau</div>
-            <pre class="preview-json" id="jsonPreview">{}</pre>
-            <button class="copy-btn" id="copyBtn" onclick="copyJson()">
-                &#128203; JSON kopieren
-            </button>
-        </div>
+    <div class="legend-item">
+        <span class="status-indicator status-no">&#10007;</span>
+        <span>Nein / Nicht erfuellt</span>
     </div>
-
-    <div class="submission-note">
-        <strong>&#128161; So reichst du ein:</strong>
-        Kopiere das JSON und erstelle ein
-        <a href="https://github.com/Acephali92/Digitale-Resilienz/issues/new" target="_blank" rel="noopener">GitHub Issue</a>
-        oder einen Pull Request mit dem neuen Eintrag fuer <code>data/news_sources.json</code>.
+    <div class="legend-item">
+        <span class="status-indicator status-unknown">?</span>
+        <span>Unbekannt / Nicht geprueft</span>
+    </div>
+    <div class="legend-item" style="margin-left: auto;">
+        <span style="color: var(--color-text-dim);">&#128221; Klicke auf Zellen zum Bearbeiten</span>
     </div>
 </div>
 
+<!-- SecuChart Table -->
+<div class="secuchart-container" id="secuchartTable">
+    <table class="secuchart">
+        <thead>
+            <tr>
+                <th class="property-header">Eigenschaft</th>
+                {% for source in sources %}
+                <th class="source-header">
+                    <a href="{{ source.url }}" target="_blank" rel="noopener">{{ source.name }}</a>
+                    <span class="kategorie-badge">{{ source.kategorie }}</span>
+                </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in properties_meta.get('categories', []) %}
+            <!-- Category Header -->
+            <tr class="category-row">
+                <td colspan="{{ sources|length + 1 }}">{{ category.name }}</td>
+            </tr>
+            {% for prop_id in category.properties %}
+            {% set prop = properties_meta.get('properties', {}).get(prop_id, {'name': prop_id, 'description': ''}) %}
+            <tr>
+                <td class="property-name">
+                    {{ prop.name }}
+                    <span class="property-hint">{{ prop.description }}</span>
+                </td>
+                {% for source in sources %}
+                {% set prop_data = source.properties.get(prop_id, {}) if source.properties else {} %}
+                {% set status = prop_data.get('status', 'unknown') %}
+                {% set note = prop_data.get('note', '') %}
+                <td class="status-cell"
+                    data-source="{{ source.id }}"
+                    data-property="{{ prop_id }}">
+                    <span class="status-indicator status-{{ status }}">
+                        {% if status == 'yes' %}&#10003;{% elif status == 'partial' %}~{% elif status == 'no' %}&#10007;{% else %}?{% endif %}
+                    </span>
+                    {% if note %}<span class="note-indicator">&#128221;</span>{% endif %}
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Changes Panel -->
+<div class="changes-panel hidden" id="changesPanel">
+    <div class="changes-header">
+        <div class="changes-count">
+            <span id="changesCount">0</span> Aenderung(en)
+        </div>
+        <div class="changes-actions">
+            <button class="changes-btn btn-diff" id="btnShowDiff">&#128269; Diff anzeigen</button>
+            <button class="changes-btn btn-copy" id="btnCopyPatch">&#128203; Patch kopieren</button>
+            <button class="changes-btn btn-discard" id="btnDiscard">&#128465; Verwerfen</button>
+        </div>
+    </div>
+    <div class="diff-display" id="diffDisplay"></div>
+    <div class="json-output" id="jsonOutput"></div>
+</div>
+
+<!-- Submission Info -->
 <section class="alert alert-info mt-lg">
-    <strong>&#9888; Hinweis:</strong> Diese Liste erhebt keinen Anspruch auf Vollstaendigkeit.
-    Die Machtstruktur-Analyse basiert auf oeffentlich zugaenglichen Informationen und
-    soll zur <strong>eigenen kritischen Pruefung</strong> anregen, nicht als abschliessende Bewertung dienen.
+    <strong>&#128161; So reichst du Aenderungen ein:</strong>
+    <ol style="margin-top: var(--space-sm); margin-bottom: 0; padding-left: var(--space-lg);">
+        <li>Klicke auf Zellen und aendere den Status</li>
+        <li>Klicke auf "Patch kopieren" um die Aenderungen zu exportieren</li>
+        <li>Erstelle ein <a href="https://github.com/Acephali92/Digitale-Resilienz/issues/new" target="_blank" rel="noopener">GitHub Issue</a> und fuege den Patch ein</li>
+    </ol>
 </section>
+
+<section class="alert alert-warning mt-md">
+    <strong>&#9888; Hinweis:</strong> Diese Liste erhebt keinen Anspruch auf Vollstaendigkeit.
+    Die Bewertungen basieren auf oeffentlich zugaenglichen Informationen und sollen zur
+    <strong>eigenen kritischen Pruefung</strong> anregen.
+</section>
+
+<!-- Data for JavaScript -->
+<script type="application/json" id="secuchartData">{{ data_json|safe }}</script>
+
+<!-- Unsaved Warning -->
+<div class="unsaved-warning" id="unsavedWarning">
+    &#9888; Ungespeicherte Aenderungen
+</div>
 {% endblock %}
 
 {% block scripts %}
-<script>
-// Filter functionality
-document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        // Update active state
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-
-        const filter = this.dataset.filter;
-        const cards = document.querySelectorAll('.source-card');
-
-        cards.forEach(card => {
-            if (filter === 'all' || card.dataset.finanzierung === filter) {
-                card.classList.remove('hidden');
-            } else {
-                card.classList.add('hidden');
-            }
-        });
-    });
-});
-
-// Character counter for finanzierung details
-const finanzDetails = document.getElementById('inputFinanzDetails');
-const charCount = document.getElementById('finanzCharCount');
-
-finanzDetails.addEventListener('input', function() {
-    const count = this.value.length;
-    charCount.textContent = count + ' / 200';
-    charCount.className = 'char-count';
-    if (count > 180) charCount.classList.add('warning');
-    if (count >= 200) charCount.classList.add('error');
-    updatePreview();
-});
-
-// Live JSON preview
-const inputs = ['inputName', 'inputUrl', 'inputRss', 'inputKategorie',
-                'inputFinanzTyp', 'inputFinanzDetails', 'inputBesitz', 'inputVerflechtung'];
-
-inputs.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.addEventListener('input', updatePreview);
-    if (el) el.addEventListener('change', updatePreview);
-});
-
-function updatePreview() {
-    const data = {
-        name: document.getElementById('inputName').value || '',
-        url: document.getElementById('inputUrl').value || '',
-        rss_url: document.getElementById('inputRss').value || '',
-        kategorie: document.getElementById('inputKategorie').value,
-        finanzierung: {
-            typ: document.getElementById('inputFinanzTyp').value,
-            details: document.getElementById('inputFinanzDetails').value || ''
-        },
-        machtstruktur_analyse: {
-            besitzverhaeltnis: document.getElementById('inputBesitz').value || '',
-            verflechtung: document.getElementById('inputVerflechtung').value || ''
-        }
-    };
-
-    // Remove empty rss_url
-    if (!data.rss_url) delete data.rss_url;
-
-    document.getElementById('jsonPreview').textContent = JSON.stringify(data, null, 2);
-}
-
-function copyJson() {
-    const json = document.getElementById('jsonPreview').textContent;
-    const btn = document.getElementById('copyBtn');
-
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(json).then(() => {
-            btn.innerHTML = '&#10003; Kopiert!';
-            btn.classList.add('success');
-            setTimeout(() => {
-                btn.innerHTML = '&#128203; JSON kopieren';
-                btn.classList.remove('success');
-            }, 2000);
-        });
-    } else {
-        // Fallback
-        const textarea = document.createElement('textarea');
-        textarea.value = json;
-        textarea.style.position = 'fixed';
-        textarea.style.left = '-9999px';
-        document.body.appendChild(textarea);
-        textarea.select();
-        try {
-            document.execCommand('copy');
-            btn.innerHTML = '&#10003; Kopiert!';
-            btn.classList.add('success');
-            setTimeout(() => {
-                btn.innerHTML = '&#128203; JSON kopieren';
-                btn.classList.remove('success');
-            }, 2000);
-        } catch (e) {
-            btn.innerHTML = '&#10007; Fehler';
-        }
-        document.body.removeChild(textarea);
-    }
-}
-
-// Initialize preview
-updatePreview();
-</script>
+<script src="{{ url_for('static', filename='js/secuchart.js') }}"></script>
 {% endblock %}
