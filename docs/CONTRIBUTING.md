@@ -8,7 +8,7 @@
 
 Du hast dieses Repository gefunden, weil du verstehst: Wir leben in einer Welt, in der Überwachung nicht die Ausnahme, sondern die Infrastruktur ist. Konzerne sammeln, Staaten aggregieren, Algorithmen kategorisieren. Dieses Projekt existiert, um dem etwas entgegenzusetzen.
 
-Das **Widerstands-Toolkit** baut Werkzeuge für Menschen, die ihre digitale Selbstbestimmung nicht an der Garderobe abgeben wollen. Für Aktivist\*innen, die auf Demos gehen. Für Journalist\*innen, die unbequeme Fragen stellen. Für alle, die verstanden haben, dass „Ich habe nichts zu verbergen" der Satz derer ist, die noch nie Ziel eines Machtapparats waren.
+Das **Widerstands-Toolkit** baut Werkzeuge für Menschen, die ihre digitale Selbstbestimmung nicht an der Garderobe abgeben wollen. Für Aktivisten, die auf Demos gehen. Für Journalisten, die unbequeme Fragen stellen. Für alle, die verstanden haben, dass „Ich habe nichts zu verbergen" der Satz derer ist, die noch nie Ziel eines Machtapparats waren.
 
 Wenn du zu diesem Projekt beiträgst, baust du nicht nur Software. Du baust Infrastruktur für Widerstand.
 
