@@ -1,6 +1,6 @@
 # Widerstands-Toolkit
 
-**Digitale Resilienz für Aktivist*innen**
+**Digitale Resilienz für Aktivisten**
 
 Eine Plattform für digitale Selbstverteidigung und Aktivismus. Keine Tracker. Keine Überwachung. Deine Daten bleiben bei dir.
 
@@ -10,9 +10,9 @@ Eine Plattform für digitale Selbstverteidigung und Aktivismus. Keine Tracker. K
 
 Das Widerstands-Toolkit ist ein umfassendes Werkzeugset für:
 
-- **Friedensaktivist*innen** – Schutz bei Demos und Aktionen
-- **Kritische Bürger*innen** – Digitale Selbstverteidigung im Alltag
-- **Journalist*innen & Whistleblower** – Sichere Kommunikation
+- **Friedensaktivisten** – Schutz bei Demos und Aktionen
+- **Kritische Bürger** – Digitale Selbstverteidigung im Alltag
+- **Journalisten & Whistleblower** – Sichere Kommunikation
 - **Zivilgesellschaft** – Resilienz gegen Überwachung und Propaganda
 
 ### Kernfunktionen
