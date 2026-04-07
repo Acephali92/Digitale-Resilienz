@@ -385,4 +385,30 @@
     console.log('%c🔒 Keine Tracker. Keine Überwachung. Deine Daten bleiben bei dir.', 'color: #888; font-size: 12px;');
     console.log('%c⚡ Quellcode: https://github.com/Acephali92/Digitale-Resilienz', 'color: #00d4ff; font-size: 11px;');
 
+    // ========================================
+    // Service Worker Registration
+    // ========================================
+
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(function(registration) {
+                    console.log('%c✓ Service Worker registriert - Offline-Modus verfügbar', 'color: #00ff41; font-size: 11px;');
+
+                    // Check for updates
+                    registration.addEventListener('updatefound', function() {
+                        const newWorker = registration.installing;
+                        newWorker.addEventListener('statechange', function() {
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                console.log('%c↻ Neue Version verfügbar - Seite neu laden für Update', 'color: #ffaa00; font-size: 11px;');
+                            }
+                        });
+                    });
+                })
+                .catch(function(error) {
+                    console.log('%c✗ Service Worker Registrierung fehlgeschlagen:', 'color: #ff0040; font-size: 11px;', error);
+                });
+        });
+    }
+
 })();

@@ -106,7 +106,7 @@
 
 {% block scripts %}
 <script src="{{ url_for('static', filename='js/passphrase.js') }}"></script>
-<style>
+<style nonce="{{ csp_nonce }}">
     .strength-meter {
         height: 10px;
         background: var(--color-bg-secondary);

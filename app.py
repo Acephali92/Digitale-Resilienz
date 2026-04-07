@@ -9,40 +9,111 @@ Keine Tracker. Keine Überwachung. Deine Daten bleiben bei dir.
 
 import os
 import json
-from flask import Flask, render_template, send_from_directory, request
+import secrets
+import logging
+from logging.handlers import RotatingFileHandler
+from flask import Flask, render_template, send_from_directory, request, g
 from functools import wraps
 
 # Initialize Flask app
 app = Flask(__name__)
+
+# Configure logging
+def setup_logging(app):
+    """Configure structured logging for production use."""
+    # Ensure logs directory exists
+    if not os.path.exists('logs'):
+        os.makedirs('logs')
+
+    # File handler with rotation
+    file_handler = RotatingFileHandler(
+        'logs/widerstands-toolkit.log',
+        maxBytes=10485760,  # 10MB
+        backupCount=5
+    )
+    file_handler.setFormatter(logging.Formatter(
+        '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
+    ))
+    file_handler.setLevel(logging.INFO)
+    app.logger.addHandler(file_handler)
+
+    # Console handler for development
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(logging.Formatter(
+        '%(asctime)s %(levelname)s: %(message)s'
+    ))
+    console_handler.setLevel(logging.DEBUG if app.debug else logging.WARNING)
+    app.logger.addHandler(console_handler)
+
+    app.logger.setLevel(logging.INFO)
+    app.logger.info('Widerstands-Toolkit startup')
+
+setup_logging(app)
 app.config.from_object('config.Config')
 
 
-# Security Headers Middleware
+# ============================================================================
+# SECURITY MIDDLEWARE
+# ============================================================================
+
+@app.before_request
+def generate_csp_nonce():
+    """Generate a cryptographically secure nonce for CSP."""
+    g.csp_nonce = secrets.token_urlsafe(32)
+
+
+@app.context_processor
+def inject_csp_nonce():
+    """Make CSP nonce available in all templates."""
+    return {'csp_nonce': getattr(g, 'csp_nonce', '')}
+
+
 @app.after_request
 def add_security_headers(response):
     """Add security headers to every response - no tracking, maximum privacy."""
-    # Content Security Policy - strict, no external resources
+    nonce = getattr(g, 'csp_nonce', '')
+
+    # Content Security Policy - strict, nonce-based for inline scripts/styles
     response.headers['Content-Security-Policy'] = (
         "default-src 'self'; "
-        "script-src 'self' 'unsafe-inline'; "
-        "style-src 'self' 'unsafe-inline'; "
+        f"script-src 'self' 'nonce-{nonce}'; "
+        f"style-src 'self' 'nonce-{nonce}'; "
         "img-src 'self' data:; "
         "font-src 'self'; "
         "frame-ancestors 'none'; "
         "form-action 'self'; "
-        "base-uri 'self'"
+        "base-uri 'self'; "
+        "upgrade-insecure-requests"
     )
+
+    # HSTS - Force HTTPS for 1 year
+    response.headers['Strict-Transport-Security'] = (
+        'max-age=31536000; includeSubDomains; preload'
+    )
+
     # Prevent clickjacking
     response.headers['X-Frame-Options'] = 'DENY'
+
     # Prevent MIME sniffing
     response.headers['X-Content-Type-Options'] = 'nosniff'
+
     # Referrer Policy - don't leak information
     response.headers['Referrer-Policy'] = 'no-referrer'
+
     # Permissions Policy - disable all browser features we don't need
     response.headers['Permissions-Policy'] = (
         'geolocation=(), microphone=(), camera=(), '
         'payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()'
     )
+
+    # Cross-Origin policies for additional isolation
+    response.headers['Cross-Origin-Embedder-Policy'] = 'require-corp'
+    response.headers['Cross-Origin-Opener-Policy'] = 'same-origin'
+    response.headers['Cross-Origin-Resource-Policy'] = 'same-origin'
+
+    # Prevent Adobe cross-domain policies
+    response.headers['X-Permitted-Cross-Domain-Policies'] = 'none'
+
     # Don't cache sensitive content
     response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, private'
     response.headers['Pragma'] = 'no-cache'
@@ -150,7 +221,6 @@ def resilience_prebunking():
 @app.route('/resilience/sources')
 def resilience_sources():
     """Independent news sources with transparency info - SecuChart style."""
-    import traceback
     # Load sources from JSON file
     sources_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'news_sources.json')
     data = {'sources': [], 'properties_meta': {}}
@@ -158,18 +228,17 @@ def resilience_sources():
         if os.path.exists(sources_file):
             with open(sources_file, 'r', encoding='utf-8') as f:
                 data = json.load(f)
-        print(f"DEBUG: Loaded {len(data.get('sources', []))} sources", flush=True)
-        print(f"DEBUG: properties_meta keys: {data.get('properties_meta', {}).keys()}", flush=True)
-        result = render_template('resilience/sources.html',
+        app.logger.info(f"Loaded {len(data.get('sources', []))} news sources")
+        return render_template('resilience/sources.html',
                          sources=data.get('sources', []),
                          properties_meta=data.get('properties_meta', {}),
                          data_json=json.dumps(data))
-        print("DEBUG: Template rendered successfully", flush=True)
-        return result
+    except json.JSONDecodeError as e:
+        app.logger.error(f"Invalid JSON in news_sources.json: {e}")
+        return render_template('errors/500.html'), 500
     except Exception as e:
-        print(f"ERROR in resilience_sources: {e}", flush=True)
-        traceback.print_exc()
-        raise
+        app.logger.error(f"Failed to load news sources: {e}", exc_info=True)
+        return render_template('errors/500.html'), 500
 
 
 # ============================================================================

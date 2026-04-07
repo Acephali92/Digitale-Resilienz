@@ -3,7 +3,7 @@
 {% block title %}DSGVO-Anfragen{% endblock %}
 
 {% block head %}
-<style>
+<style nonce="{{ csp_nonce }}">
     .dsgvo-hero {
         position: relative;
         margin: calc(-1 * var(--space-xl)) calc(-1 * var(--space-lg)) var(--space-xl);

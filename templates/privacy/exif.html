@@ -3,7 +3,7 @@
 {% block title %}EXIF-Daten entfernen{% endblock %}
 
 {% block head %}
-<style>
+<style nonce="{{ csp_nonce }}">
     .infographic-container {
         margin: var(--space-xl) 0;
         padding: var(--space-lg);

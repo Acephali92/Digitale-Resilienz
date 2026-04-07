@@ -1,0 +1,177 @@
+# Widerstands-Toolkit CI/CD Pipeline
+# ==================================
+# Automatische Tests, Security-Scans und Quality Checks
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  PYTHON_VERSION: '3.11'
+
+jobs:
+  # ============================================
+  # Linting & Code Quality
+  # ============================================
+  lint:
+    name: Code Quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 black
+
+      - name: Check formatting with Black
+        run: black --check --diff app.py config.py
+
+      - name: Lint with flake8
+        run: |
+          # Stop on syntax errors or undefined names
+          flake8 app.py config.py --count --select=E9,F63,F7,F82 --show-source --statistics
+          # Warnings as errors with reasonable limits
+          flake8 app.py config.py --count --max-complexity=10 --max-line-length=120 --statistics
+
+  # ============================================
+  # Security Scanning
+  # ============================================
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install bandit safety
+
+      - name: Run Bandit security scanner
+        run: bandit -r app.py config.py -ll -ii
+
+      - name: Check dependencies for vulnerabilities
+        run: safety check -r requirements.txt --full-report
+        continue-on-error: true  # Don't fail on advisory-only issues
+
+  # ============================================
+  # Tests
+  # ============================================
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest-cov
+
+      - name: Run tests with coverage
+        run: |
+          pytest tests/ -v --cov=. --cov-report=xml --cov-report=term-missing
+
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./coverage.xml
+          fail_ci_if_error: false
+        continue-on-error: true
+
+  # ============================================
+  # HTML Validation
+  # ============================================
+  validate-html:
+    name: Validate HTML
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Start Flask app
+        run: |
+          export FLASK_APP=app.py
+          flask run --host=127.0.0.1 --port=5000 &
+          sleep 5
+
+      - name: Check critical routes respond
+        run: |
+          curl -f http://127.0.0.1:5000/ || exit 1
+          curl -f http://127.0.0.1:5000/privacy || exit 1
+          curl -f http://127.0.0.1:5000/security || exit 1
+          curl -f http://127.0.0.1:5000/tools || exit 1
+
+      - name: Verify security headers
+        run: |
+          HEADERS=$(curl -sI http://127.0.0.1:5000/)
+          echo "$HEADERS"
+          echo "$HEADERS" | grep -i "Content-Security-Policy"
+          echo "$HEADERS" | grep -i "Strict-Transport-Security"
+          echo "$HEADERS" | grep -i "X-Frame-Options: DENY"
+          echo "$HEADERS" | grep -i "X-Content-Type-Options: nosniff"
+
+  # ============================================
+  # Dependency Check
+  # ============================================
+  dependencies:
+    name: Dependency Audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+
+      - name: Check for outdated dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pip-audit
+          pip-audit -r requirements.txt || true
