@@ -5,6 +5,7 @@
 Eine Plattform für digitale Selbstverteidigung und Aktivismus. Keine Tracker. Keine Überwachung. Deine Daten bleiben bei dir.
 
 ---
+<img width="1839" height="865" alt="image" src="https://github.com/user-attachments/assets/e56b9aa2-f8dc-421c-82d0-3a726ceed176" />
 
 ## Über dieses Projekt
 
