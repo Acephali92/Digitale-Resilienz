@@ -88,7 +88,7 @@ class TestSecurityHeaders:
         response = client.get("/")
         server = response.headers.get("Server", "")
         # Should not contain detailed version info
-        assert "Python" not in server or "Werkzeug" not in server
+        assert "Python" not in server and "Werkzeug" not in server
 
 
 class TestXSSPrevention:
@@ -231,3 +231,88 @@ class TestProductionSecretKey:
         finally:
             if env_backup is not None:
                 os.environ["SECRET_KEY"] = env_backup
+
+    def test_production_startup_raises_without_secret_key(self):
+        """app.py must raise RuntimeError when FLASK_ENV=production and SECRET_KEY unset."""
+        import os
+        import importlib
+
+        env_backup = os.environ.copy()
+        os.environ["FLASK_ENV"] = "production"
+        os.environ.pop("SECRET_KEY", None)
+        try:
+            import app as app_module
+
+            with pytest.raises(RuntimeError, match="SECRET_KEY"):
+                importlib.reload(app_module)
+        finally:
+            os.environ.clear()
+            os.environ.update(env_backup)
+
+
+class TestIPAnonymizingFilterArgs:
+    """Cover record.args branches in IPAnonymizingFilter.filter()."""
+
+    def _make_filter(self):
+        from app import IPAnonymizingFilter
+
+        return IPAnonymizingFilter()
+
+    def _make_record(self, msg, args):
+        return logging.LogRecord(
+            name="test",
+            level=logging.INFO,
+            pathname="",
+            lineno=0,
+            msg=msg,
+            args=args,
+            exc_info=None,
+        )
+
+    def test_ip_in_tuple_args_is_redacted(self):
+        """IP inside a tuple arg must be replaced with [IP]."""
+        f = self._make_filter()
+        record = self._make_record("host %s port %s", ("10.0.0.1", "8080"))
+        f.filter(record)
+        assert "10.0.0.1" not in record.args
+        assert "[IP]" in record.args[0]
+        assert record.args[1] == "8080"
+
+    def test_non_tuple_args_is_wrapped_and_redacted(self):
+        """A bare string arg (non-tuple) must be wrapped into a 1-tuple."""
+        f = self._make_filter()
+        record = self._make_record("client %s", "172.16.0.5")
+        f.filter(record)
+        assert isinstance(record.args, tuple)
+        assert "172.16.0.5" not in record.args[0]
+        assert "[IP]" in record.args[0]
+
+    def test_non_string_arg_passes_through_unchanged(self):
+        """Integer/non-string args must not be converted or modified."""
+        f = self._make_filter()
+        record = self._make_record("port %d", (443,))
+        f.filter(record)
+        assert record.args == (443,)
+
+    def test_dict_args_values_are_redacted(self):
+        """dict-style args (%(key)s format) must have IP values scrubbed."""
+        f = self._make_filter()
+        record = self._make_record(
+            "Request from %(ip)s", {"ip": "192.168.0.1", "user": "alice"}
+        )
+        f.filter(record)
+        assert isinstance(record.args, dict)
+        assert "192.168.0.1" not in record.args["ip"]
+        assert "[IP]" in record.args["ip"]
+        assert record.args["user"] == "alice"
+
+
+class TestCacheControlElseBranch:
+    """Verify the catch-all Cache-Control branch for non-whitelisted content types."""
+
+    def test_non_whitelisted_static_content_type_gets_no_store(self, client):
+        """Responses not matching the static-asset allowlist must get no-store."""
+        response = client.get("/")
+        # The HTML index route returns text/html, which is not in _STATIC_CONTENT_TYPES
+        cache = response.headers.get("Cache-Control", "")
+        assert "no-store" in cache

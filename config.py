@@ -26,7 +26,9 @@ class Config:
     WTF_CSRF_TIME_LIMIT = 3600  # 1 hour
 
     # No tracking
-    SEND_FILE_MAX_AGE_DEFAULT = 0  # Don't cache for privacy
+    # Base TTL — overridden per response type by add_security_headers
+    # (static assets under /static/ receive a 1-year immutable cache TTL)
+    SEND_FILE_MAX_AGE_DEFAULT = 0
 
     # Template settings
     TEMPLATES_AUTO_RELOAD = True

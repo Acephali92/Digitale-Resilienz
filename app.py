@@ -27,20 +27,24 @@ class IPAnonymizingFilter(logging.Filter):
     def filter(self, record):
         record.msg = self._IP_RE.sub("[IP]", str(record.msg))
         if record.args:
-            record.args = tuple(
-                self._IP_RE.sub("[IP]", str(a)) if isinstance(a, str) else a
-                for a in (
-                    record.args if isinstance(record.args, tuple) else (record.args,)
+            if isinstance(record.args, dict):
+                record.args = {
+                    k: self._IP_RE.sub("[IP]", v) if isinstance(v, str) else v
+                    for k, v in record.args.items()
+                }
+            else:
+                args = record.args if isinstance(record.args, tuple) else (record.args,)
+                record.args = tuple(
+                    self._IP_RE.sub("[IP]", a) if isinstance(a, str) else a
+                    for a in args
                 )
-            )
         return True
 
 
 # Configure logging
 def setup_logging(app):
     """Configure privacy-respecting structured logging — no IP addresses stored."""
-    if not os.path.exists("logs"):
-        os.makedirs("logs")
+    os.makedirs("logs", exist_ok=True)
 
     ip_filter = IPAnonymizingFilter()
 
@@ -81,7 +85,13 @@ _config_map = {
     "production": "config.ProductionConfig",
     "testing": "config.TestingConfig",
 }
-app.config.from_object(_config_map.get(_env, "config.ProductionConfig"))
+_config_class = _config_map.get(_env)
+if _config_class is None:
+    app.logger.warning(
+        f"Unrecognized FLASK_ENV={_env!r}, falling back to ProductionConfig"
+    )
+    _config_class = "config.ProductionConfig"
+app.config.from_object(_config_class)
 
 if _env == "production" and not app.config.get("SECRET_KEY"):
     raise RuntimeError(
@@ -105,6 +115,25 @@ def generate_csp_nonce():
 def inject_csp_nonce():
     """Make CSP nonce available in all templates."""
     return {"csp_nonce": getattr(g, "csp_nonce", "")}
+
+
+# Module-level constant: MIME types for static assets that receive long-TTL caching.
+# Defined here (not inside the hook) to avoid repeated allocation on every request.
+_STATIC_CONTENT_TYPES = frozenset(
+    {
+        "text/css",
+        "application/javascript",
+        "font/woff",
+        "font/woff2",
+        "font/ttf",
+        "font/otf",
+        "image/png",
+        "image/svg+xml",
+        "image/webp",
+        "image/jpeg",
+        "image/gif",
+    }
+)
 
 
 @app.after_request
@@ -156,24 +185,11 @@ def add_security_headers(response):
     # Differentiated caching: long TTL for static assets, no-store for HTML
     path = request.path
     content_type = response.content_type.split(";")[0].strip()
-    _static_types = {
-        "text/css",
-        "application/javascript",
-        "font/woff",
-        "font/woff2",
-        "font/ttf",
-        "font/otf",
-        "image/png",
-        "image/svg+xml",
-        "image/webp",
-        "image/jpeg",
-        "image/gif",
-    }
     if path == "/service-worker.js":
         # Service worker: must be re-validated on every load to receive updates
         response.headers["Cache-Control"] = "no-cache"
         response.headers.pop("Pragma", None)
-    elif path.startswith("/static/") and content_type in _static_types:
+    elif path.startswith("/static/") and content_type in _STATIC_CONTENT_TYPES:
         # Static assets: cache for 1 year
         response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
         response.headers.pop("Pragma", None)
