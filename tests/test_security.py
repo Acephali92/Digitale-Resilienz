@@ -4,6 +4,7 @@ Security tests for Widerstands-Toolkit.
 Ensures security headers and protections are properly configured.
 """
 
+import logging
 import pytest
 import re
 
@@ -132,3 +133,90 @@ class TestCSRFProtection:
         """CSRF protection should be configurable."""
         # In testing mode, CSRF is disabled, but config should exist
         assert 'WTF_CSRF_ENABLED' in app.config
+
+
+class TestIPAnonymization:
+    """Verify no IP addresses appear in application logs."""
+
+    def test_ip_filter_removes_ipv4(self):
+        """IPAnonymizingFilter must replace IPv4 addresses with [IP]."""
+        from app import IPAnonymizingFilter
+        f = IPAnonymizingFilter()
+        record = logging.LogRecord(
+            name='test', level=logging.INFO,
+            pathname='', lineno=0,
+            msg='Request from 192.168.1.42 processed',
+            args=(), exc_info=None
+        )
+        f.filter(record)
+        assert '192.168.1.42' not in record.msg
+        assert '[IP]' in record.msg
+
+    def test_werkzeug_logger_suppressed(self):
+        """Werkzeug access log must be set to ERROR or higher to avoid IP logging."""
+        werkzeug_logger = logging.getLogger('werkzeug')
+        assert werkzeug_logger.level >= logging.ERROR
+
+
+class TestDifferentiatedCaching:
+    """Verify Cache-Control is differentiated by response type."""
+
+    def test_html_response_no_store(self, client):
+        """HTML pages must not be cached."""
+        response = client.get('/')
+        cache = response.headers.get('Cache-Control', '')
+        assert 'no-store' in cache or 'no-cache' in cache
+
+    def test_css_asset_long_cache(self, client):
+        """CSS static assets must have a long cache TTL for Service Worker."""
+        import os
+        import glob
+        static_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'static', 'css')
+        css_files = glob.glob(os.path.join(static_dir, '*.css'))
+        if not css_files:
+            pytest.skip('No CSS files found under static/css/')
+        css_name = os.path.basename(css_files[0])
+        response = client.get(f'/static/css/{css_name}')
+        if response.status_code == 404:
+            pytest.skip(f'Static file not found: {css_name}')
+        cache = response.headers.get('Cache-Control', '')
+        assert 'max-age=' in cache
+        assert 'no-store' not in cache
+
+    def test_service_worker_no_cache(self, client):
+        """Service worker must use no-cache (not no-store) to allow SW updates."""
+        response = client.get('/service-worker.js')
+        cache = response.headers.get('Cache-Control', '')
+        assert 'no-cache' in cache
+        assert 'no-store' not in cache
+
+
+class TestProductionSecretKey:
+    """Verify SECRET_KEY enforcement for production config."""
+
+    def test_development_config_has_fallback(self):
+        """DevelopmentConfig must provide a SECRET_KEY even without ENV."""
+        import os
+        env_backup = os.environ.pop('SECRET_KEY', None)
+        try:
+            import importlib
+            import config as cfg
+            importlib.reload(cfg)
+            assert cfg.DevelopmentConfig.SECRET_KEY is not None
+            assert len(cfg.DevelopmentConfig.SECRET_KEY) > 0
+        finally:
+            if env_backup is not None:
+                os.environ['SECRET_KEY'] = env_backup
+
+    def test_production_config_no_fallback(self):
+        """ProductionConfig must NOT silently generate a key — SECRET_KEY is None when unset."""
+        import os
+        env_backup = os.environ.pop('SECRET_KEY', None)
+        try:
+            import importlib
+            import config as cfg
+            importlib.reload(cfg)
+            assert cfg.ProductionConfig.SECRET_KEY is None
+        finally:
+            if env_backup is not None:
+                os.environ['SECRET_KEY'] = env_backup

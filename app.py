@@ -11,6 +11,7 @@ import os
 import json
 import secrets
 import logging
+import re
 from logging.handlers import RotatingFileHandler
 from flask import Flask, render_template, send_from_directory, request, g
 from functools import wraps
@@ -18,12 +19,31 @@ from functools import wraps
 # Initialize Flask app
 app = Flask(__name__)
 
+
+class IPAnonymizingFilter(logging.Filter):
+    """Strip IP addresses from log records — keine Überwachung."""
+    _IP_RE = re.compile(r'\b(?:\d{1,3}\.){3}\d{1,3}\b')
+
+    def filter(self, record):
+        record.msg = self._IP_RE.sub('[IP]', str(record.msg))
+        if record.args:
+            record.args = tuple(
+                self._IP_RE.sub('[IP]', str(a)) if isinstance(a, str) else a
+                for a in (record.args if isinstance(record.args, tuple) else (record.args,))
+            )
+        return True
+
+
 # Configure logging
 def setup_logging(app):
-    """Configure structured logging for production use."""
-    # Ensure logs directory exists
+    """Configure privacy-respecting structured logging — no IP addresses stored."""
     if not os.path.exists('logs'):
         os.makedirs('logs')
+
+    ip_filter = IPAnonymizingFilter()
+
+    # Disable Werkzeug's default access log (logs IP per request)
+    logging.getLogger('werkzeug').setLevel(logging.ERROR)
 
     # File handler with rotation
     file_handler = RotatingFileHandler(
@@ -35,6 +55,7 @@ def setup_logging(app):
         '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
     ))
     file_handler.setLevel(logging.INFO)
+    file_handler.addFilter(ip_filter)
     app.logger.addHandler(file_handler)
 
     # Console handler for development
@@ -43,13 +64,27 @@ def setup_logging(app):
         '%(asctime)s %(levelname)s: %(message)s'
     ))
     console_handler.setLevel(logging.DEBUG if app.debug else logging.WARNING)
+    console_handler.addFilter(ip_filter)
     app.logger.addHandler(console_handler)
 
     app.logger.setLevel(logging.INFO)
     app.logger.info('Widerstands-Toolkit startup')
 
 setup_logging(app)
-app.config.from_object('config.Config')
+
+_env = os.environ.get('FLASK_ENV', 'production')
+_config_map = {
+    'development': 'config.DevelopmentConfig',
+    'production':  'config.ProductionConfig',
+    'testing':     'config.TestingConfig',
+}
+app.config.from_object(_config_map.get(_env, 'config.ProductionConfig'))
+
+if _env == 'production' and not app.config.get('SECRET_KEY'):
+    raise RuntimeError(
+        "SECRET_KEY environment variable must be set in production. "
+        "Generate with: python -c \"import secrets; print(secrets.token_hex(32))\""
+    )
 
 
 # ============================================================================
@@ -114,9 +149,26 @@ def add_security_headers(response):
     # Prevent Adobe cross-domain policies
     response.headers['X-Permitted-Cross-Domain-Policies'] = 'none'
 
-    # Don't cache sensitive content
-    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, private'
-    response.headers['Pragma'] = 'no-cache'
+    # Differentiated caching: long TTL for static assets, no-store for HTML
+    path = request.path
+    content_type = response.content_type.split(';')[0].strip()
+    _static_types = {
+        'text/css', 'application/javascript',
+        'font/woff', 'font/woff2', 'font/ttf', 'font/otf',
+        'image/png', 'image/svg+xml', 'image/webp', 'image/jpeg', 'image/gif',
+    }
+    if path == '/service-worker.js':
+        # Service worker: must be re-validated on every load to receive updates
+        response.headers['Cache-Control'] = 'no-cache'
+        response.headers.pop('Pragma', None)
+    elif path.startswith('/static/') and content_type in _static_types:
+        # Static assets: cache for 1 year
+        response.headers['Cache-Control'] = 'public, max-age=31536000, immutable'
+        response.headers.pop('Pragma', None)
+    else:
+        # HTML and all other responses: never cache
+        response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, private'
+        response.headers['Pragma'] = 'no-cache'
 
     return response
 

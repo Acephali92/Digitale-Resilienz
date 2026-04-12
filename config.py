@@ -13,7 +13,7 @@ class Config:
     """Base configuration - security first."""
 
     # Flask core settings
-    SECRET_KEY = os.environ.get('SECRET_KEY') or os.urandom(32)
+    SECRET_KEY = os.environ.get('SECRET_KEY')  # Must be set; see app.py validation
 
     # No sessions by default - stateless for privacy
     SESSION_COOKIE_SECURE = True
@@ -49,6 +49,7 @@ class DevelopmentConfig(Config):
     """Development configuration."""
     DEBUG = True
     ENV = 'development'
+    SECRET_KEY = os.environ.get('SECRET_KEY') or os.urandom(32)
 
 
 class ProductionConfig(Config):

@@ -10,6 +10,7 @@ import os
 # Add the project root to Python path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+os.environ.setdefault('FLASK_ENV', 'testing')
 from app import app as flask_app
 
 
