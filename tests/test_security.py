@@ -4,9 +4,12 @@ Security tests for Widerstands-Toolkit.
 Ensures security headers and protections are properly configured.
 """
 
+import glob
 import logging
-import pytest
+import os
 import re
+
+import pytest
 
 
 class TestSecurityHeaders:
@@ -173,12 +176,7 @@ class TestDifferentiatedCaching:
 
     def test_css_asset_long_cache(self, client):
         """CSS static assets must have a long cache TTL for Service Worker."""
-        import os
-        import glob
-
-        static_dir = os.path.join(
-            os.path.dirname(os.path.dirname(__file__)), "static", "css"
-        )
+        static_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "static", "css")
         css_files = glob.glob(os.path.join(static_dir, "*.css"))
         if not css_files:
             pytest.skip("No CSS files found under static/css/")
