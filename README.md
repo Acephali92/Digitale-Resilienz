@@ -75,6 +75,48 @@ flask run
 
 ---
 
+## Deployment
+
+### HTTPS-Redirect (erforderlich)
+
+Der Toolkit muss hinter einem Reverse-Proxy mit HTTPS-Redirect betrieben werden.
+Flask selbst stellt kein TLS bereit.
+
+**Nginx-Beispiel:**
+
+```nginx
+server {
+    listen 80;
+    server_name example.org;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name example.org;
+
+    ssl_certificate     /etc/letsencrypt/live/example.org/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/example.org/privkey.pem;
+
+    location / {
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Proto https;
+    }
+}
+```
+
+**Caddy-Beispiel:**
+
+```caddyfile
+example.org {
+    reverse_proxy 127.0.0.1:5000
+    # Caddy handles HTTPS and redirect automatically
+}
+```
+
+---
+
 ## Projektstruktur
 
 ```
@@ -112,7 +154,7 @@ Digitale-Resilienz/
 - **Keine Cookies** – Außer technisch notwendige Session-Cookies
 - **Keine externen Ressourcen** – Alle Assets sind lokal gehostet
 - **DSGVO-konform** – Wir sammeln keine personenbezogenen Daten
-- **Tor-kompatibel** – Funktioniert auch ohne JavaScript
+- **Tor-kompatibel** – Funktioniert auch ohne JavaScript (kein .onion-Dienst vorhanden; Einrichtung als Hidden Service ist geplant, aber noch nicht umgesetzt)
 - **Offline-fähig** – Alle Materialien als PDF downloadbar
 
 ### Content Security Policy

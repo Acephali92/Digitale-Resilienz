@@ -135,6 +135,14 @@ _STATIC_CONTENT_TYPES = frozenset(
     }
 )
 
+# robots.txt content: allow main pages, disallow tools and downloads
+_ROBOTS_TXT = """\
+User-agent: *
+Allow: /
+Disallow: /tools/
+Disallow: /downloads/
+"""
+
 
 @app.after_request
 def add_security_headers(response):
@@ -450,6 +458,16 @@ def download_file(filename):
 def service_worker():
     """Serve service worker for offline capability."""
     return send_from_directory(app.static_folder, "js/service-worker.js")
+
+
+@app.route("/robots.txt")
+def robots_txt():
+    """Serve robots.txt to guide search engine crawlers."""
+    return app.response_class(
+        response=_ROBOTS_TXT,
+        status=200,
+        mimetype="text/plain",
+    )
 
 
 # ============================================================================

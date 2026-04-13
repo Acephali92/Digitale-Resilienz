@@ -314,3 +314,27 @@ class TestCacheControlElseBranch:
         # The HTML index route returns text/html, which is not in _STATIC_CONTENT_TYPES
         cache = response.headers.get("Cache-Control", "")
         assert "no-store" in cache
+
+
+class TestPathTraversal:
+    """Verify /downloads/<path:filename> blocks directory traversal."""
+
+    def test_path_traversal_single_dotdot(self, client):
+        """Single ../ traversal must be rejected."""
+        response = client.get("/downloads/../etc/passwd")
+        assert response.status_code in (400, 403, 404)
+
+    def test_path_traversal_double_dotdot(self, client):
+        """Double ../../ traversal must be rejected."""
+        response = client.get("/downloads/../../etc/passwd")
+        assert response.status_code in (400, 403, 404)
+
+    def test_path_traversal_encoded(self, client):
+        """URL-encoded traversal %2e%2e%2f must be rejected."""
+        response = client.get("/downloads/%2e%2e%2fetc%2fpasswd")
+        assert response.status_code in (400, 403, 404)
+
+    def test_valid_download_path_accepted(self, client):
+        """A plain filename (no traversal) must not be blocked by traversal protection."""
+        response = client.get("/downloads/nonexistent.pdf")
+        assert response.status_code in (200, 404)

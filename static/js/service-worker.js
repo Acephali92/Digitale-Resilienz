@@ -70,6 +70,14 @@ self.addEventListener('activate', (event) => {
                 // Take control of all pages immediately
                 return self.clients.claim();
             })
+            .then(() => {
+                // Notify all open pages that new content is available
+                return self.clients.matchAll({ type: 'window' }).then((clients) => {
+                    clients.forEach((client) => {
+                        client.postMessage({ type: 'UPDATE_AVAILABLE', version: CACHE_VERSION });
+                    });
+                });
+            })
     );
 });
 
