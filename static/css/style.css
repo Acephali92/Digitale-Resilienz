@@ -1393,6 +1393,34 @@ a.card:hover {
 .mt-lg { margin-top: var(--space-lg); }
 .mt-xl { margin-top: var(--space-xl); }
 
+/* Service Worker update notification banner */
+.sw-update-banner {
+    position: fixed;
+    bottom: var(--space-md);
+    right: var(--space-md);
+    z-index: 9999;
+    background: var(--color-elevated);
+    border: 1px solid var(--color-info);
+    color: var(--color-text);
+    padding: var(--space-sm) var(--space-md);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    box-shadow: 0 0 16px var(--color-info-glow);
+}
+
+.sw-update-banner button {
+    background: var(--color-info);
+    color: var(--color-deep);
+    border: none;
+    padding: 0.2em 0.8em;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    cursor: pointer;
+}
+
 .mb-sm { margin-bottom: var(--space-sm); }
 .mb-md { margin-bottom: var(--space-md); }
 .mb-lg { margin-bottom: var(--space-lg); }

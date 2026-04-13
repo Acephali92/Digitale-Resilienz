@@ -56,7 +56,7 @@ Dieser Grundsatz gilt nicht nur für die Anwendung selbst, sondern für den gesa
 
 - Commits enthalten keine personenbezogenen Daten
 - Pull Requests enthalten keine echten Nutzerdaten
-- Logs protokollieren keine IP-Adressen oder Identifikatoren
+- Logs protokollieren keine IP-Adressen oder Identifikatoren — `IPAnonymizingFilter` in `app.py` setzt dies automatisch durch und ist durch Tests abgesichert
 - Screenshots in Issues zeigen keine realen Informationen
 
 ---

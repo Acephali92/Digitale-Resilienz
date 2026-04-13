@@ -296,7 +296,8 @@
             try {
                 localStorage.setItem(this.prefix + key, JSON.stringify(value));
             } catch (e) {
-                // Storage not available
+                // Storage unavailable (private browsing, quota exceeded, etc.)
+                console.warn('WiderstandsToolkit: localStorage.set failed for key "' + key + '":', e);
             }
         },
 
@@ -312,7 +313,9 @@
         remove(key) {
             try {
                 localStorage.removeItem(this.prefix + key);
-            } catch (e) {}
+            } catch (e) {
+                console.warn('WiderstandsToolkit: localStorage.remove failed for key "' + key + '":', e);
+            }
         },
 
         clear() {
@@ -320,7 +323,9 @@
                 Object.keys(localStorage)
                     .filter(key => key.startsWith(this.prefix))
                     .forEach(key => localStorage.removeItem(key));
-            } catch (e) {}
+            } catch (e) {
+                console.warn('WiderstandsToolkit: localStorage.clear failed:', e);
+            }
         }
     };
 
@@ -408,6 +413,19 @@
                 .catch(function(error) {
                     console.log('%c✗ Service Worker Registrierung fehlgeschlagen:', 'color: #ff0040; font-size: 11px;', error);
                 });
+
+            // Show visible banner when service worker signals a new version
+            navigator.serviceWorker.addEventListener('message', function(event) {
+                if (event.data && event.data.type === 'UPDATE_AVAILABLE') {
+                    var banner = document.createElement('div');
+                    banner.className = 'sw-update-banner';
+                    banner.innerHTML = '&#8635; Neue Version verfügbar. <button id="sw-reload-btn">Neu laden</button>';
+                    document.body.appendChild(banner);
+                    document.getElementById('sw-reload-btn').addEventListener('click', function() {
+                        window.location.reload();
+                    });
+                }
+            });
         });
     }
 

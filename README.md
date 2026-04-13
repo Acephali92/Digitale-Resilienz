@@ -59,6 +59,9 @@ pip install -r requirements.txt
 # Umgebungsvariablen kopieren
 cp .env.example .env
 
+# Entwicklungsmodus aktivieren (erforderlich für Debug-Features und Dev-SECRET_KEY)
+export FLASK_ENV=development
+
 # Server starten
 flask run
 ```
@@ -162,8 +165,10 @@ Digitale-Resilienz/
 Wir nutzen strenge CSP-Header, um XSS und andere Angriffe zu verhindern:
 
 ```
-Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-ancestors 'none'
+Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-<random>'; style-src 'self' 'nonce-<random>'; img-src 'self' data:; font-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; upgrade-insecure-requests
 ```
+
+Jede Antwort erhält einen kryptografisch einzigartigen Nonce — kein `'unsafe-inline'`.
 
 ### Sicherheitslücken melden
 

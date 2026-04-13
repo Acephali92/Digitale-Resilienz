@@ -523,10 +523,13 @@
         'sinnbild', 'sorgfalt', 'spannweite', 'spielraum', 'spitzname', 'sprungkraft', 'standbein', 'sternstunde'
     ];
 
-    // Cryptographically secure random number
+    // Cryptographically secure random number — rejection sampling eliminates modulo bias
     function secureRandom(max) {
+        const limit = Math.floor(0x100000000 / max) * max;
         const array = new Uint32Array(1);
-        crypto.getRandomValues(array);
+        do {
+            crypto.getRandomValues(array);
+        } while (array[0] >= limit);
         return array[0] % max;
     }
 

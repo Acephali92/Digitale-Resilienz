@@ -338,3 +338,84 @@ class TestPathTraversal:
         """A plain filename (no traversal) must not be blocked by traversal protection."""
         response = client.get("/downloads/nonexistent.pdf")
         assert response.status_code in (200, 404)
+
+
+class TestUnrecognizedFlaskEnvFallback:
+    """Verify that an unrecognized FLASK_ENV falls back to ProductionConfig."""
+
+    def test_unknown_flask_env_falls_back_to_production(self):
+        """An unknown FLASK_ENV value must not crash — it must log a warning and use ProductionConfig."""
+        import os
+        import importlib
+
+        env_backup = os.environ.copy()
+        os.environ["FLASK_ENV"] = "staging_unknown_value"
+        os.environ["SECRET_KEY"] = "test-key-for-unknown-env"
+        try:
+            import app as app_module
+
+            # Should not raise RuntimeError despite unrecognized env
+            importlib.reload(app_module)
+            # ProductionConfig is loaded — it sets PREFERRED_URL_SCHEME to "https"
+            assert app_module.app.config.get("PREFERRED_URL_SCHEME") == "https"
+        finally:
+            os.environ.clear()
+            os.environ.update(env_backup)
+
+
+class TestIPAnonymizingFilterIPv6:
+    """Verify IPAnonymizingFilter redacts IPv6 addresses."""
+
+    def _make_filter(self):
+        from app import IPAnonymizingFilter
+        return IPAnonymizingFilter()
+
+    def _make_record(self, msg):
+        return logging.LogRecord(
+            name="test",
+            level=logging.INFO,
+            pathname="",
+            lineno=0,
+            msg=msg,
+            args=(),
+            exc_info=None,
+        )
+
+    def test_full_ipv6_is_redacted(self):
+        """Full IPv6 address must be replaced with [IP]."""
+        f = self._make_filter()
+        record = self._make_record("Connection from 2001:0db8:85a3:0000:0000:8a2e:0370:7334")
+        f.filter(record)
+        assert "2001:0db8" not in record.msg
+        assert "[IP]" in record.msg
+
+    def test_loopback_ipv6_is_redacted(self):
+        """IPv6 loopback ::1 must be replaced with [IP]."""
+        f = self._make_filter()
+        record = self._make_record("Request from ::1 processed")
+        f.filter(record)
+        assert "::1" not in record.msg
+        assert "[IP]" in record.msg
+
+
+class TestIPAnonymizingFilterAttachment:
+    """Verify IPAnonymizingFilter is attached to all active log handlers."""
+
+    def test_filter_attached_to_all_handlers(self, app):
+        """Every app-configured handler must have IPAnonymizingFilter attached.
+
+        Handlers with level NOTSET are injected by pytest's log capture and are excluded.
+        """
+        from logging.handlers import RotatingFileHandler
+        from app import IPAnonymizingFilter
+
+        app_handlers = [
+            h for h in app.logger.handlers
+            if h.level != logging.NOTSET
+        ]
+        assert app_handlers, "No app-configured handlers found on app.logger"
+        for handler in app_handlers:
+            filter_names = [type(f).__name__ for f in handler.filters]
+            assert "IPAnonymizingFilter" in filter_names, (
+                f"Handler {handler!r} is missing IPAnonymizingFilter"
+            )

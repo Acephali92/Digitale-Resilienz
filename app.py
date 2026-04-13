@@ -20,9 +20,12 @@ app = Flask(__name__)
 
 
 class IPAnonymizingFilter(logging.Filter):
-    """Strip IP addresses from log records — keine Überwachung."""
+    """Strip IPv4 and IPv6 addresses from log records — keine Überwachung."""
 
-    _IP_RE = re.compile(r"\b(?:\d{1,3}\.){3}\d{1,3}\b")
+    _IP_RE = re.compile(
+        r"\b(?:\d{1,3}\.){3}\d{1,3}\b"           # IPv4
+        r"|(?:[0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}"  # IPv6
+    )
 
     def filter(self, record):
         record.msg = self._IP_RE.sub("[IP]", str(record.msg))
@@ -197,6 +200,10 @@ def add_security_headers(response):
         # Service worker: must be re-validated on every load to receive updates
         response.headers["Cache-Control"] = "no-cache"
         response.headers.pop("Pragma", None)
+    elif path == "/robots.txt":
+        # robots.txt: public, cacheable, crawlers expect it to be stable
+        response.headers["Cache-Control"] = "public, max-age=86400"
+        response.headers.pop("Pragma", None)
     elif path.startswith("/static/") and content_type in _STATIC_CONTENT_TYPES:
         # Static assets: cache for 1 year
         response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
@@ -324,6 +331,8 @@ def resilience_sources():
         if os.path.exists(sources_file):
             with open(sources_file, "r", encoding="utf-8") as f:
                 data = json.load(f)
+        else:
+            app.logger.warning("news_sources.json not found at %s — rendering empty source list", sources_file)
         app.logger.info(f"Loaded {len(data.get('sources', []))} news sources")
         return render_template(
             "resilience/sources.html",
@@ -484,6 +493,7 @@ def page_not_found(e):
 @app.errorhandler(500)
 def server_error(e):
     """Custom 500 page."""
+    app.logger.exception("Internal server error: %s", e)
     return render_template("errors/500.html"), 500
 
 

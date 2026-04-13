@@ -150,6 +150,34 @@ class TestToolsRoutes:
         ), f"Route {route} returned {response.status_code}"
 
 
+class TestRobotsTxt:
+    """Test /robots.txt endpoint."""
+
+    def test_robots_txt_status(self, client):
+        """/robots.txt must return 200."""
+        response = client.get("/robots.txt")
+        assert response.status_code == 200
+
+    def test_robots_txt_content_type(self, client):
+        """/robots.txt must be served as text/plain."""
+        response = client.get("/robots.txt")
+        assert "text/plain" in response.headers.get("Content-Type", "")
+
+    def test_robots_txt_content(self, client):
+        """/robots.txt must contain User-agent directive."""
+        response = client.get("/robots.txt")
+        body = response.data.decode("utf-8")
+        assert "User-agent:" in body
+        assert "Disallow:" in body
+
+    def test_robots_txt_cache_public(self, client):
+        """/robots.txt should have public Cache-Control."""
+        response = client.get("/robots.txt")
+        cache = response.headers.get("Cache-Control", "")
+        assert "public" in cache
+        assert "no-store" not in cache
+
+
 class TestErrorHandlers:
     """Test custom error pages."""
 
