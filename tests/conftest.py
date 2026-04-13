@@ -10,16 +10,19 @@ import os
 # Add the project root to Python path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from app import app as flask_app
+os.environ.setdefault("FLASK_ENV", "testing")
+from app import app as flask_app  # noqa: E402
 
 
 @pytest.fixture
 def app():
     """Create application for testing."""
-    flask_app.config.update({
-        'TESTING': True,
-        'WTF_CSRF_ENABLED': False,
-    })
+    flask_app.config.update(
+        {
+            "TESTING": True,
+            "WTF_CSRF_ENABLED": False,
+        }
+    )
     yield flask_app
 
 
