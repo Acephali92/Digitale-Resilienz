@@ -328,17 +328,12 @@ def resilience_sources():
     )
     data = {"sources": [], "properties_meta": {}}
     try:
-        if os.path.exists(sources_file):
-            with open(sources_file, "r", encoding="utf-8") as f:
-                data = json.load(f)
-        else:
-            app.logger.warning("news_sources.json not found at %s — rendering empty source list", sources_file)
-        app.logger.info(f"Loaded {len(data.get('sources', []))} news sources")
-        return render_template(
-            "resilience/sources.html",
-            sources=data.get("sources", []),
-            properties_meta=data.get("properties_meta", {}),
-            data_json=json.dumps(data),
+        with open(sources_file, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except FileNotFoundError:
+        app.logger.warning(
+            "news_sources.json not found at %s — rendering empty source list",
+            sources_file,
         )
     except json.JSONDecodeError as e:
         app.logger.error(f"Invalid JSON in news_sources.json: {e}")
@@ -346,6 +341,13 @@ def resilience_sources():
     except Exception as e:
         app.logger.error(f"Failed to load news sources: {e}", exc_info=True)
         return render_template("errors/500.html"), 500
+    app.logger.info(f"Loaded {len(data.get('sources', []))} news sources")
+    return render_template(
+        "resilience/sources.html",
+        sources=data.get("sources", []),
+        properties_meta=data.get("properties_meta", {}),
+        data_json=json.dumps(data),
+    )
 
 
 # ============================================================================

@@ -360,14 +360,8 @@
     // ========================================
 
     document.addEventListener('keydown', (e) => {
-        // Ctrl/Cmd + P to print
-        if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
-            // Default browser print
-        }
-
         // Escape to close modals/menus
         if (e.key === 'Escape') {
-            // Close any open menus
             document.querySelectorAll('.is-open').forEach(el => {
                 el.classList.remove('is-open');
             });

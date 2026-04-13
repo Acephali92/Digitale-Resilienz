@@ -406,9 +406,6 @@ class TestIPAnonymizingFilterAttachment:
 
         Handlers with level NOTSET are injected by pytest's log capture and are excluded.
         """
-        from logging.handlers import RotatingFileHandler
-        from app import IPAnonymizingFilter
-
         app_handlers = [
             h for h in app.logger.handlers
             if h.level != logging.NOTSET
