@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risikokompetenz statt Angst | Digitale Resilienz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-teal': '#0d4f4f',
+                        'soft-navy': '#1e3a5f',
+                        'warm-accent': '#e8a54b',
+                        'calm-sage': '#7fb69e',
+                        'light-cream': '#faf8f5',
+                        'muted-coral': '#d4847c'
+                    },
+                    fontFamily: {
+                        'display': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'fade-in': 'fadeIn 0.8s ease-out',
+                        'scale-in': 'scaleIn 0.5s ease-out',
+                        'progress': 'progress 1s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        scaleIn: {
+                            '0%': { transform: 'scale(0.95)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        },
+                        progress: {
+                            '0%': { width: '0%' },
+                            '100%': { width: 'var(--progress-width)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style nonce="{{ csp_nonce }}">
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #0d4f4f 0%, #7fb69e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(13, 79, 79, 0.15);
+        }
+
+        .slider-thumb::-webkit-slider-thumb {
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: #0d4f4f;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+        .slider-thumb::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        .scenario-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .scenario-card:hover {
+            transform: scale(1.02);
+        }
+
+        .progress-ring {
+            transition: stroke-dashoffset 0.5s ease-out;
+        }
+
+        [x-cloak] { display: none !important; }
+    </style>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-light-cream text-gray-800 overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#hero" class="text-deep-teal font-semibold text-lg">Risikokompetenz</a>
+            <div class="hidden md:flex gap-6 text-sm">
+                <a href="#prinzipien" class="text-gray-600 hover:text-deep-teal transition-colors">Prinzipien</a>
+                <a href="#tool" class="text-gray-600 hover:text-deep-teal transition-colors">Threat Modeling</a>
+                <a href="#beispiele" class="text-gray-600 hover:text-deep-teal transition-colors">Beispiele</a>
+                <a href="#goldstandard" class="text-gray-600 hover:text-deep-teal transition-colors">Goldstandard</a>
+            </div>
+            <div id="competenceNav" class="flex items-center gap-2 bg-deep-teal/10 px-3 py-1.5 rounded-full">
+                <svg class="w-4 h-4 text-deep-teal" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                </svg>
+                <span class="text-xs font-medium text-deep-teal" id="navCompetenceLevel">Level 0</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+        <div class="absolute inset-0 bg-gradient-to-br from-deep-teal/5 via-transparent to-calm-sage/10"></div>
+        <div class="absolute top-20 right-10 w-64 h-64 bg-warm-accent/10 rounded-full blur-3xl animate-float"></div>
+        <div class="absolute bottom-20 left-10 w-48 h-48 bg-calm-sage/20 rounded-full blur-3xl animate-float" style="animation-delay: -3s;"></div>
+
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <div class="animate-fade-in">
+                <span class="inline-block px-4 py-2 bg-deep-teal/10 text-deep-teal text-sm font-medium rounded-full mb-6">
+                    Ein neuer Ansatz fur digitale Sicherheit
+                </span>
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+                    <span class="gradient-text">Risikokompetenz</span><br>
+                    <span class="text-gray-400 text-3xl md:text-4xl lg:text-5xl font-normal">statt Angst</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-600 mb-4 max-w-2xl mx-auto leading-relaxed">
+                    „Ich verstehe Risiken realistisch und kann bewusst damit umgehen."
+                </p>
+                <p class="text-gray-500 mb-10 max-w-xl mx-auto">
+                    Entdecke einen Weg zur digitalen Sicherheit, der auf Verstandnis, Neugier und Selbstwirksamkeit basiert – nicht auf Angst.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#tool" class="px-8 py-4 bg-deep-teal text-white rounded-xl font-medium hover:bg-deep-teal/90 transition-all hover:shadow-lg hover:shadow-deep-teal/20 hover:-translate-y-0.5">
+                        Threat Modeling starten
+                    </a>
+                    <a href="#prinzipien" class="px-8 py-4 bg-white text-deep-teal rounded-xl font-medium border-2 border-deep-teal/20 hover:border-deep-teal/40 transition-all">
+                        Prinzipien entdecken
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scroll indicator -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+                <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Fear Doesn't Work -->
+    <section class="py-24 bg-white">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1">
+                    <span class="text-warm-accent font-medium text-sm uppercase tracking-wider">Warum ein Umdenken?</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2 mb-6">
+                        Angst lahmt.<br><span class="text-calm-sage">Kompetenz beflugelt.</span>
+                    </h2>
+                    <div class="space-y-4 text-gray-600">
+                        <p>
+                            Wenn wir digitale Sicherheit mit Angst vermitteln, passiert etwas Paradoxes: Menschen fuhlen sich uberwaltigt und handeln <em>weniger</em>, nicht mehr.
+                        </p>
+                        <p>
+                            Die Psychologie zeigt uns einen besseren Weg: <strong>Selbstwirksamkeit</strong> – das Gefuhl, Situationen beeinflussen zu konnen – ist der starkste Motivator fur nachhaltiges Handeln.
+                        </p>
+                        <p class="text-deep-teal font-medium">
+                            Unser Ziel: Du verstehst nicht nur <em>was</em> du tun kannst, sondern fuhlst dich auch fahig, es zu tun.
+                        </p>
+                    </div>
+                </div>
+                <div class="order-1 md:order-2 relative">
+                    <div class="glass-card rounded-2xl p-8 hover-lift">
+                        <div class="flex items-start gap-4 mb-6 pb-6 border-b border-gray-100">
+                            <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-gray-400 text-sm line-through">Angst-Ansatz</p>
+                                <p class="text-gray-800">„Das ist gefahrlich – ihr musst euch schutzen!"</p>
+                                <p class="text-red-400 text-sm mt-1">→ Uberforderung, Resignation</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-calm-sage/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-deep-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-calm-sage text-sm font-medium">Kompetenz-Ansatz</p>
+                                <p class="text-gray-800">„Hier sind drei Szenarien. Entscheide selbst: Wie relevant ist das fur dich?"</p>
+                                <p class="text-deep-teal text-sm mt-1">→ Neugier, Handlungsmotivation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Four Principles -->
+    <section id="prinzipien" class="py-24 bg-gradient-to-b from-white to-light-cream">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="text-warm-accent font-medium text-sm uppercase tracking-wider">Unsere Methodik</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2 mb-4">
+                    Vier Prinzipien fur echte Risikokompetenz
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Diese Prinzipien leiten jeden Inhalt, jede Interaktion und jede Empfehlung auf dieser Seite.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Principle 1 -->
+                <div class="bg-white rounded-2xl p-8 hover-lift border border-gray-100" x-data="{ expanded: false }">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 bg-deep-teal/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <svg class="w-7 h-7 text-deep-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">1. Threat Modeling als Kernmethode</h3>
+                            <p class="text-gray-600 mb-4">
+                                Statt pauschaler Warnungen fuhren wir durch gezielte Fragen zu individuellen Einschatzungen.
+                            </p>
+                            <button @click="expanded = !expanded" class="text-deep-teal font-medium text-sm flex items-center gap-1 hover:gap-2 transition-all">
+                                <span x-text="expanded ? 'Weniger zeigen' : 'Die Leitfragen'"></span>
+                                <svg class="w-4 h-4 transition-transform" :class="expanded ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            <div x-show="expanded" x-collapse class="mt-4 space-y-2 text-sm">
+                                <p class="flex items-center gap-2 text-gray-600"><span class="text-deep-teal">→</span> Wer konnte dich angreifen?</p>
+                                <p class="flex items-center gap-2 text-gray-600"><span class="text-deep-teal">→</span> Warum wurden sie das tun?</p>
+                                <p class="flex items-center gap-2 text-gray-600"><span class="text-deep-teal">→</span> Wie wahrscheinlich ist das in deinem Kontext?</p>
+                                <p class="flex items-center gap-2 text-gray-600"><span class="text-deep-teal">→</span> Was ware ein realistischer Umgang damit?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Principle 2 -->
+                <div class="bg-white rounded-2xl p-8 hover-lift border border-gray-100" x-data="{ expanded: false }">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 bg-warm-accent/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <svg class="w-7 h-7 text-warm-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">2. Wahrscheinlichkeiten & Kontext</h3>
+                            <p class="text-gray-600 mb-4">
+                                Keine absoluten Aussagen. Immer: „Unter welchen Bedingungen? Wie wahrscheinlich?"
+                            </p>
+                            <button @click="expanded = !expanded" class="text-warm-accent font-medium text-sm flex items-center gap-1 hover:gap-2 transition-all">
+                                <span x-text="expanded ? 'Weniger zeigen' : 'Beispiel ansehen'"></span>
+                                <svg class="w-4 h-4 transition-transform" :class="expanded ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            <div x-show="expanded" x-collapse class="mt-4 text-sm space-y-2">
+                                <p class="text-gray-400 line-through">„Cellebrite kann dein Handy knacken."</p>
+                                <p class="text-gray-700">„Forensische Tools konnen unter bestimmten Bedingungen Zugriff erlangen – etwa bei alteren Geraten oder bekannten Sicherheitslucken. Bei aktuellen Geraten mit aktivierter Verschlusselung ist dies deutlich schwieriger."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Principle 3 -->
+                <div class="bg-white rounded-2xl p-8 hover-lift border border-gray-100" x-data="{ expanded: false }">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 bg-calm-sage/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <svg class="w-7 h-7 text-calm-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">3. Selbstwirksamkeit starken</h3>
+                            <p class="text-gray-600 mb-4">
+                                Jeder Abschnitt vermittelt: „Ich kann etwas tun." Basierend auf Banduras Forschung.
+                            </p>
+                            <button @click="expanded = !expanded" class="text-calm-sage font-medium text-sm flex items-center gap-1 hover:gap-2 transition-all">
+                                <span x-text="expanded ? 'Weniger zeigen' : 'Wie wir das umsetzen'"></span>
+                                <svg class="w-4 h-4 transition-transform" :class="expanded ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            <div x-show="expanded" x-collapse class="mt-4 text-sm space-y-2 text-gray-600">
+                                <p>• Konkrete, machbare Handlungsschritte</p>
+                                <p>• Erfolgserlebnisse durch interaktive Ubungen</p>
+                                <p>• Positives Feedback bei Fortschritt</p>
+                                <p>• Wahlfreiheit statt Vorschriften</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Principle 4 -->
+                <div class="bg-white rounded-2xl p-8 hover-lift border border-gray-100" x-data="{ expanded: false }">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 bg-soft-navy/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <svg class="w-7 h-7 text-soft-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">4. Neugier statt Angst</h3>
+                            <p class="text-gray-600 mb-4">
+                                Wir ersetzen Furcht durch Entdeckerfreude und das Gefuhl wachsender Kompetenz.
+                            </p>
+                            <button @click="expanded = !expanded" class="text-soft-navy font-medium text-sm flex items-center gap-1 hover:gap-2 transition-all">
+                                <span x-text="expanded ? 'Weniger zeigen' : 'Die Transformation'"></span>
+                                <svg class="w-4 h-4 transition-transform" :class="expanded ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            <div x-show="expanded" x-collapse class="mt-4 text-sm">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <p class="text-gray-400 text-xs uppercase mb-1">Weg von</p>
+                                        <p class="text-gray-600">Angst, Uberforderung</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-deep-teal text-xs uppercase mb-1">Hin zu</p>
+                                        <p class="text-gray-700 font-medium">Neugier, Kompetenz, Selbstwirksamkeit</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Threat Modeling Tool -->
+    <section id="tool" class="py-24 bg-deep-teal/5">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="text-warm-accent font-medium text-sm uppercase tracking-wider">Interaktives Tool</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2 mb-4">
+                    Dein personliches Threat Modeling
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Finde heraus, welche Risiken fur dich wirklich relevant sind – und entdecke passende Handlungsoptionen.
+                </p>
+            </div>
+
+            <div x-data="threatModelingTool()" class="bg-white rounded-3xl shadow-xl overflow-hidden">
+                <!-- Progress Bar -->
+                <div class="h-2 bg-gray-100">
+                    <div class="h-full bg-gradient-to-r from-deep-teal to-calm-sage transition-all duration-500" :style="'width: ' + (step / 5 * 100) + '%'"></div>
+                </div>
+
+                <div class="p-8 md:p-12">
+                    <!-- Step 1: Select Scenario -->
+                    <div x-show="step === 1" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-x-4" x-transition:enter-end="opacity-100 transform translate-x-0">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Wahle ein Szenario</h3>
+                        <p class="text-gray-600 mb-8">Welcher Bereich interessiert dich?</p>
+
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <template x-for="scenario in scenarios" :key="scenario.id">
+                                <button @click="selectScenario(scenario)"
+                                        class="p-6 rounded-xl border-2 text-left transition-all hover:shadow-md"
+                                        :class="selectedScenario?.id === scenario.id ? 'border-deep-teal bg-deep-teal/5' : 'border-gray-200 hover:border-gray-300'">
+                                    <div class="text-3xl mb-3" x-text="scenario.icon"></div>
+                                    <h4 class="font-semibold text-gray-800 mb-1" x-text="scenario.title"></h4>
+                                    <p class="text-sm text-gray-500" x-text="scenario.description"></p>
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Who could attack? -->
+                    <div x-show="step === 2" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-x-4" x-transition:enter-end="opacity-100 transform translate-x-0">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Wer konnte ein Interesse haben?</h3>
+                        <p class="text-gray-600 mb-8">Denke daruber nach: Wer konnte realistisch versuchen, auf deine Daten zuzugreifen?</p>
+
+                        <div class="space-y-3">
+                            <template x-for="actor in selectedScenario?.actors" :key="actor.id">
+                                <label class="flex items-center gap-4 p-4 rounded-xl border border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors"
+                                       :class="selectedActors.includes(actor.id) ? 'border-deep-teal bg-deep-teal/5' : ''">
+                                    <input type="checkbox" :value="actor.id" x-model="selectedActors" class="w-5 h-5 rounded text-deep-teal focus:ring-deep-teal">
+                                    <div>
+                                        <p class="font-medium text-gray-800" x-text="actor.name"></p>
+                                        <p class="text-sm text-gray-500" x-text="actor.context"></p>
+                                    </div>
+                                </label>
+                            </template>
+                        </div>
+
+                        <div class="mt-6 p-4 bg-warm-accent/10 rounded-xl">
+                            <p class="text-sm text-gray-700">
+                                <span class="font-medium text-warm-accent">Reflexionsfrage:</span>
+                                Gibt es in deinem personlichen Kontext jemanden, der hier nicht aufgefuhrt ist?
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Probability Assessment -->
+                    <div x-show="step === 3" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-x-4" x-transition:enter-end="opacity-100 transform translate-x-0">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Wie schatzt du die Wahrscheinlichkeit ein?</h3>
+                        <p class="text-gray-600 mb-8">Basierend auf deinem Leben und Kontext: Wie wahrscheinlich ist ein tatsachlicher Angriff?</p>
+
+                        <div class="mb-8">
+                            <input type="range" min="1" max="5" x-model="probability"
+                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider-thumb">
+                            <div class="flex justify-between text-sm text-gray-500 mt-2">
+                                <span>Sehr unwahrscheinlich</span>
+                                <span>Moglich</span>
+                                <span>Wahrscheinlich</span>
+                            </div>
+                        </div>
+
+                        <div class="p-6 rounded-xl" :class="probabilityContext.bgClass">
+                            <p class="font-medium" :class="probabilityContext.textClass" x-text="probabilityContext.title"></p>
+                            <p class="text-sm text-gray-600 mt-1" x-text="probabilityContext.description"></p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Impact Assessment -->
+                    <div x-show="step === 4" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-x-4" x-transition:enter-end="opacity-100 transform translate-x-0">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Was waren die Auswirkungen?</h3>
+                        <p class="text-gray-600 mb-8">Wenn dieses Risiko eintreten wurde: Wie stark wurde es dich betreffen?</p>
+
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <button @click="impact = 'low'"
+                                    class="p-6 rounded-xl border-2 text-left transition-all"
+                                    :class="impact === 'low' ? 'border-calm-sage bg-calm-sage/10' : 'border-gray-200 hover:border-gray-300'">
+                                <div class="w-10 h-10 rounded-full bg-calm-sage/20 flex items-center justify-center mb-3">
+                                    <span class="text-calm-sage font-bold">1</span>
+                                </div>
+                                <h4 class="font-semibold text-gray-800">Gering</h4>
+                                <p class="text-sm text-gray-500 mt-1">Argerlich, aber schnell behoben</p>
+                            </button>
+
+                            <button @click="impact = 'medium'"
+                                    class="p-6 rounded-xl border-2 text-left transition-all"
+                                    :class="impact === 'medium' ? 'border-warm-accent bg-warm-accent/10' : 'border-gray-200 hover:border-gray-300'">
+                                <div class="w-10 h-10 rounded-full bg-warm-accent/20 flex items-center justify-center mb-3">
+                                    <span class="text-warm-accent font-bold">2</span>
+                                </div>
+                                <h4 class="font-semibold text-gray-800">Mittel</h4>
+                                <p class="text-sm text-gray-500 mt-1">Bedeutsamer Aufwand zur Behebung</p>
+                            </button>
+
+                            <button @click="impact = 'high'"
+                                    class="p-6 rounded-xl border-2 text-left transition-all"
+                                    :class="impact === 'high' ? 'border-muted-coral bg-muted-coral/10' : 'border-gray-200 hover:border-gray-300'">
+                                <div class="w-10 h-10 rounded-full bg-muted-coral/20 flex items-center justify-center mb-3">
+                                    <span class="text-muted-coral font-bold">3</span>
+                                </div>
+                                <h4 class="font-semibold text-gray-800">Hoch</h4>
+                                <p class="text-sm text-gray-500 mt-1">Ernsthafte Konsequenzen</p>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Results -->
+                    <div x-show="step === 5" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-x-4" x-transition:enter-end="opacity-100 transform translate-x-0">
+                        <div class="text-center mb-8">
+                            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-calm-sage/20 mb-4">
+                                <svg class="w-8 h-8 text-calm-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-semibold text-gray-800 mb-2">Deine personliche Einschatzung</h3>
+                            <p class="text-gray-600">Basierend auf deinen Angaben – hier sind sinnvolle Handlungsoptionen.</p>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6 mb-8">
+                            <div class="p-6 bg-gray-50 rounded-xl">
+                                <p class="text-sm text-gray-500 mb-1">Szenario</p>
+                                <p class="font-semibold text-gray-800" x-text="selectedScenario?.title"></p>
+                            </div>
+                            <div class="p-6 bg-gray-50 rounded-xl">
+                                <p class="text-sm text-gray-500 mb-1">Risikoeinschatzung</p>
+                                <p class="font-semibold" :class="riskLevel.class" x-text="riskLevel.label"></p>
+                            </div>
+                        </div>
+
+                        <div class="bg-deep-teal/5 rounded-xl p-6 mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-deep-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                </svg>
+                                Empfohlene Handlungsoptionen
+                            </h4>
+                            <div class="space-y-3">
+                                <template x-for="action in recommendations" :key="action">
+                                    <div class="flex items-start gap-3">
+                                        <svg class="w-5 h-5 text-calm-sage flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                        </svg>
+                                        <p class="text-gray-700" x-text="action"></p>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-warm-accent/10 rounded-xl text-center">
+                            <p class="text-gray-700">
+                                <span class="font-medium text-warm-accent">Denke daran:</span>
+                                Du entscheidest, welche Massnahmen fur dich sinnvoll sind. Es gibt kein „richtig" oder „falsch" – nur informierte Entscheidungen.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="flex justify-between mt-10 pt-6 border-t border-gray-100">
+                        <button @click="prevStep" x-show="step > 1"
+                                class="px-6 py-3 text-gray-600 hover:text-gray-800 transition-colors flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                            Zuruck
+                        </button>
+                        <div x-show="step === 1"></div>
+
+                        <button @click="nextStep" x-show="step < 5" :disabled="!canProceed"
+                                class="px-8 py-3 bg-deep-teal text-white rounded-xl font-medium transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-deep-teal/90">
+                            Weiter
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+
+                        <button @click="restart" x-show="step === 5"
+                                class="px-8 py-3 bg-deep-teal text-white rounded-xl font-medium transition-all flex items-center gap-2 hover:bg-deep-teal/90">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                            </svg>
+                            Neues Szenario
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Competence Tracker -->
+    <section class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-4">
+            <div x-data="competenceTracker()" class="bg-gradient-to-br from-deep-teal to-soft-navy rounded-3xl p-8 md:p-12 text-white">
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="relative">
+                        <svg class="w-32 h-32 transform -rotate-90">
+                            <circle cx="64" cy="64" r="56" stroke="rgba(255,255,255,0.2)" stroke-width="8" fill="none"/>
+                            <circle cx="64" cy="64" r="56" stroke="#7fb69e" stroke-width="8" fill="none"
+                                    stroke-linecap="round"
+                                    class="progress-ring"
+                                    :stroke-dasharray="351.86"
+                                    :stroke-dashoffset="351.86 - (351.86 * progress / 100)"/>
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="text-3xl font-bold" x-text="level"></span>
+                        </div>
+                    </div>
+                    <div class="text-center md:text-left flex-1">
+                        <h3 class="text-2xl font-bold mb-2">Dein Risikokompetenz-Level</h3>
+                        <p class="text-white/70 mb-4" x-text="levelDescription"></p>
+                        <div class="flex flex-wrap gap-2">
+                            <template x-for="badge in earnedBadges" :key="badge.id">
+                                <span class="inline-flex items-center gap-1 px-3 py-1 bg-white/20 rounded-full text-sm">
+                                    <span x-text="badge.icon"></span>
+                                    <span x-text="badge.name"></span>
+                                </span>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Example Transformations -->
+    <section id="beispiele" class="py-24 bg-light-cream">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="text-warm-accent font-medium text-sm uppercase tracking-wider">Praxisbeispiele</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2 mb-4">
+                    So klingt Risikokompetenz
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Konkrete Beispiele, wie wir angstbasierte Kommunikation in kompetenzfordernde umwandeln.
+                </p>
+            </div>
+
+            <div x-data="{ activeExample: 0 }" class="space-y-6">
+                <!-- Example Cards -->
+                <template x-for="(example, index) in [
+                    {
+                        topic: 'Passwort-Sicherheit',
+                        icon: '🔐',
+                        before: 'Eure Passworter konnen jederzeit gehackt werden! Ihr musst sofort sichere Passworter verwenden!',
+                        after: 'Passworter werden auf verschiedene Weisen kompromittiert – durch Datenlecks, Phishing oder schwache Kombinationen. Je nach deinem Kontext: Welche Methode ist fur dich am relevantesten? Und welcher Schutzansatz passt zu deinem Alltag?',
+                        insight: 'Die Handlungsempfehlung ergibt sich aus dem individuellen Kontext – nicht aus pauschaler Angst.'
+                    },
+                    {
+                        topic: 'Smartphone-Uberwachung',
+                        icon: '📱',
+                        before: 'Dein Smartphone kann uberwacht werden! Apps konnen alles mitlesen!',
+                        after: 'Smartphones haben verschiedene Zugriffsebenen. Die Frage ist: Wer in deinem Umfeld hatte ein realistisches Interesse, auf deine Daten zuzugreifen? Und uber welchen Weg? Von dort aus konnen wir sinnvolle Schutzmassnahmen ableiten.',
+                        insight: 'Statt Panik: Systematische Analyse des personlichen Bedrohungsmodells.'
+                    },
+                    {
+                        topic: 'Offentliches WLAN',
+                        icon: '📶',
+                        before: 'Offentliches WLAN ist gefahrlich! Benutzt es niemals fur wichtige Dinge!',
+                        after: 'In offentlichen Netzwerken sind bestimmte Angriffsarten theoretisch moglich. Die Frage ist: Wie wahrscheinlich ist das am Flughafen vs. im Cafe nebenan? Und was ware ein verhaltnismassiger Umgang – etwa fur Banking vs. Nachrichtenlesen?',
+                        insight: 'Differenzierung nach Kontext und Tatigkeit statt pauschaler Verbote.'
+                    },
+                    {
+                        topic: 'Soziale Medien',
+                        icon: '👥',
+                        before: 'Alles was ihr postet, kann gegen euch verwendet werden! Seid vorsichtig!',
+                        after: 'Informationen in sozialen Medien konnen von verschiedenen Gruppen gesehen werden – Arbeitgeber, Behorden, Bekannte. Uberlege: Wer ist in deinem Fall relevant? Und wie kannst du bewusst entscheiden, was du mit wem teilst?',
+                        insight: 'Bewusste Entscheidungen statt angstgetriebener Vermeidung.'
+                    }
+                ]" :key="index">
+                    <div class="scenario-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100"
+                         :class="activeExample === index ? 'ring-2 ring-deep-teal' : ''">
+                        <button @click="activeExample = activeExample === index ? -1 : index"
+                                class="w-full p-6 flex items-center justify-between text-left">
+                            <div class="flex items-center gap-4">
+                                <span class="text-2xl" x-text="example.icon"></span>
+                                <span class="font-semibold text-gray-800" x-text="example.topic"></span>
+                            </div>
+                            <svg class="w-5 h-5 text-gray-400 transition-transform"
+                                 :class="activeExample === index ? 'rotate-180' : ''"
+                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+
+                        <div x-show="activeExample === index" x-collapse>
+                            <div class="px-6 pb-6 space-y-4">
+                                <div class="p-4 bg-red-50 rounded-xl border-l-4 border-red-300">
+                                    <p class="text-xs text-red-400 uppercase tracking-wider mb-1 font-medium">Angst-Ansatz</p>
+                                    <p class="text-gray-700" x-text="example.before"></p>
+                                </div>
+                                <div class="flex justify-center">
+                                    <svg class="w-6 h-6 text-calm-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                                    </svg>
+                                </div>
+                                <div class="p-4 bg-calm-sage/10 rounded-xl border-l-4 border-calm-sage">
+                                    <p class="text-xs text-calm-sage uppercase tracking-wider mb-1 font-medium">Kompetenz-Ansatz</p>
+                                    <p class="text-gray-700" x-text="example.after"></p>
+                                </div>
+                                <div class="p-3 bg-warm-accent/10 rounded-lg">
+                                    <p class="text-sm text-gray-600">
+                                        <span class="font-medium text-warm-accent">Kernprinzip:</span>
+                                        <span x-text="example.insight"></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scenario Relevance Chooser -->
+    <section class="py-24 bg-white">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="text-warm-accent font-medium text-sm uppercase tracking-wider">Selbsteinschatzung</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mt-2 mb-4">
+                    Wie relevant ist das fur dich?
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Wahle Szenarien und schatze ihre Relevanz fur deinen Alltag ein.
+                </p>
+            </div>
+
+            <div x-data="relevanceChooser()" class="space-y-4">
+                <template x-for="scenario in scenarios" :key="scenario.id">
+                    <div class="bg-gray-50 rounded-2xl p-6 transition-all" :class="scenario.relevance ? 'ring-2 ring-deep-teal/30' : ''">
+                        <div class="flex flex-col md:flex-row md:items-center gap-4">
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-gray-800" x-text="scenario.title"></h4>
+                                <p class="text-sm text-gray-500 mt-1" x-text="scenario.description"></p>
+                            </div>
+                            <div class="flex gap-2">
+                                <button @click="setRelevance(scenario.id, 'low')"
+                                        class="px-4 py-2 rounded-lg text-sm font-medium transition-all"
+                                        :class="scenario.relevance === 'low' ? 'bg-calm-sage text-white' : 'bg-white text-gray-600 hover:bg-gray-100'">
+                                    Gering
+                                </button>
+                                <button @click="setRelevance(scenario.id, 'medium')"
+                                        class="px-4 py-2 rounded-lg text-sm font-medium transition-all"
+                                        :class="scenario.relevance === 'medium' ? 'bg-warm-accent text-white' : 'bg-white text-gray-600 hover:bg-gray-100'">
+                                    Mittel
+                                </button>
+                                <button @click="setRelevance(scenario.id, 'high')"
+                                        class="px-4 py-2 rounded-lg text-sm font-medium transition-all"
+                                        :class="scenario.relevance === 'high' ? 'bg-deep-teal text-white' : 'bg-white text-gray-600 hover:bg-gray-100'">
+                                    Hoch
+                                </button>
+                            </div>
+                        </div>
+
+                        <div x-show="scenario.relevance" x-collapse class="mt-4 pt-4 border-t border-gray-200">
+                            <p class="text-gray-700" x-text="getResponse(scenario.id, scenario.relevance)"></p>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- Goldstandard Formula -->
+    <section id="goldstandard" class="py-24 bg-gradient-to-br from-deep-teal via-soft-navy to-deep-teal text-white relative overflow-hidden">
+        <div class="absolute inset-0">
+            <div class="absolute top-0 left-1/4 w-64 h-64 bg-calm-sage/10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-warm-accent/10 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-4 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-calm-sage font-medium text-sm uppercase tracking-wider">Der Goldstandard</span>
+                <h2 class="text-3xl md:text-5xl font-bold mt-2 mb-6">
+                    Die Formel fur nachhaltiges Lernen
+                </h2>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-white/20">
+                <div class="grid md:grid-cols-5 gap-6 items-center text-center">
+                    <div class="p-4">
+                        <div class="w-16 h-16 mx-auto bg-white/20 rounded-2xl flex items-center justify-center mb-3">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                            </svg>
+                        </div>
+                        <h4 class="font-semibold mb-1">Realistische Bedrohung</h4>
+                        <p class="text-white/60 text-sm">Kontext-basiert, nicht pauschal</p>
+                    </div>
+
+                    <div class="text-4xl font-light text-warm-accent">+</div>
+
+                    <div class="p-4">
+                        <div class="w-16 h-16 mx-auto bg-white/20 rounded-2xl flex items-center justify-center mb-3">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <h4 class="font-semibold mb-1">Handlungsspielraum</h4>
+                        <p class="text-white/60 text-sm">Konkrete, machbare Optionen</p>
+                    </div>
+
+                    <div class="text-4xl font-light text-warm-accent">+</div>
+
+                    <div class="p-4">
+                        <div class="w-16 h-16 mx-auto bg-white/20 rounded-2xl flex items-center justify-center mb-3">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                            </svg>
+                        </div>
+                        <h4 class="font-semibold mb-1">Wahlfreiheit</h4>
+                        <p class="text-white/60 text-sm">Entscheidung liegt bei dir</p>
+                    </div>
+                </div>
+
+                <div class="mt-10 pt-10 border-t border-white/20 text-center">
+                    <div class="text-4xl font-light text-warm-accent mb-4">=</div>
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4">Nachhaltiges Lernen</h3>
+                    <p class="text-white/70 max-w-xl mx-auto">
+                        Menschen, die Risiken realistisch verstehen und sich handlungsfahig fuhlen, treffen bessere Entscheidungen – nicht aus Angst, sondern aus Kompetenz.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="mt-16 text-center">
+                <h3 class="text-2xl font-semibold mb-4">Bereit, Risikokompetenz zu entwickeln?</h3>
+                <p class="text-white/70 mb-8 max-w-lg mx-auto">
+                    Starte mit dem interaktiven Threat Modeling Tool und entdecke einen neuen Ansatz zur digitalen Sicherheit.
+                </p>
+                <a href="#tool" class="inline-flex items-center gap-2 px-8 py-4 bg-white text-deep-teal rounded-xl font-medium hover:bg-gray-100 transition-all hover:shadow-lg">
+                    Jetzt starten
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-gray-900 text-white">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div>
+                    <p class="font-semibold text-lg">Risikokompetenz statt Angst</p>
+                    <p class="text-gray-400 text-sm">Ein Projekt fur nachhaltige digitale Bildung</p>
+                </div>
+                <div class="flex gap-6 text-sm text-gray-400">
+                    <a href="#prinzipien" class="hover:text-white transition-colors">Prinzipien</a>
+                    <a href="#tool" class="hover:text-white transition-colors">Tool</a>
+                    <a href="#beispiele" class="hover:text-white transition-colors">Beispiele</a>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
+                <p>Inspiriert von Albert Banduras Forschung zur Selbstwirksamkeit</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global competence state
+        let globalCompetence = {
+            level: 0,
+            progress: 0,
+            badges: []
+        };
+
+        function updateGlobalCompetence(points) {
+            globalCompetence.level = Math.min(5, Math.floor((globalCompetence.progress + points) / 20));
+            globalCompetence.progress = Math.min(100, globalCompetence.progress + points);
+            document.getElementById('navCompetenceLevel').textContent = 'Level ' + globalCompetence.level;
+        }
+
+        // Threat Modeling Tool
+        function threatModelingTool() {
+            return {
+                step: 1,
+                selectedScenario: null,
+                selectedActors: [],
+                probability: 3,
+                impact: null,
+
+                scenarios: [
+                    {
+                        id: 'online',
+                        title: 'Online-Konten',
+                        description: 'E-Mail, soziale Medien, Banking',
+                        icon: '🌐',
+                        actors: [
+                            { id: 'criminals', name: 'Cyberkriminelle', context: 'Massenangriffe, Phishing-Kampagnen' },
+                            { id: 'hackers', name: 'Gezielte Angreifer', context: 'Personlich motivierte Angriffe' },
+                            { id: 'companies', name: 'Datenhungrige Unternehmen', context: 'Tracking, Profilbildung' },
+                            { id: 'leaks', name: 'Datenlecks', context: 'Kompromittierte Dienste' }
+                        ],
+                        recommendations: {
+                            low: ['Einzigartige Passworter fur wichtige Konten', 'Gelegentliche Uberprufung der Kontoaktivitaten'],
+                            medium: ['Passwort-Manager verwenden', '2-Faktor-Authentifizierung fur wichtige Dienste', 'Regelmasige Uberprufung auf Datenlecks'],
+                            high: ['Hardware-Sicherheitsschlussel', 'Separate E-Mail fur sensitive Konten', 'Regelmasiges Sicherheits-Audit']
+                        }
+                    },
+                    {
+                        id: 'device',
+                        title: 'Gerat & Daten',
+                        description: 'Smartphone, Laptop, Dateien',
+                        icon: '💻',
+                        actors: [
+                            { id: 'theft', name: 'Diebe', context: 'Physischer Zugriff auf Gerate' },
+                            { id: 'malware', name: 'Schadsoftware', context: 'Apps, Downloads, E-Mail-Anhange' },
+                            { id: 'family', name: 'Nahestehende Personen', context: 'Neugier, Kontrolle' },
+                            { id: 'forensic', name: 'Forensische Analyse', context: 'Behordlicher Zugriff' }
+                        ],
+                        recommendations: {
+                            low: ['Bildschirmsperre aktivieren', 'Automatische Updates einschalten'],
+                            medium: ['Vollverschlusselung aktivieren', 'Regelmasige Backups', 'App-Berechtigungen prufen'],
+                            high: ['Sichere Loschung sensibler Daten', 'Verschlusselte Cloud-Backups', 'Separate Profile fur verschiedene Zwecke']
+                        }
+                    },
+                    {
+                        id: 'communication',
+                        title: 'Kommunikation',
+                        description: 'Nachrichten, Anrufe, E-Mails',
+                        icon: '💬',
+                        actors: [
+                            { id: 'providers', name: 'Dienstanbieter', context: 'Metadaten, Inhaltsanalyse' },
+                            { id: 'state', name: 'Staatliche Stellen', context: 'Rechtmaige Uberwachung' },
+                            { id: 'employers', name: 'Arbeitgeber', context: 'Dienstliche Kommunikation' },
+                            { id: 'social', name: 'Soziales Umfeld', context: 'Weiterleitung, Screenshots' }
+                        ],
+                        recommendations: {
+                            low: ['Bewusste Wahl der Kommunikationskanale', 'Nachdenken vor dem Senden'],
+                            medium: ['Ende-zu-Ende-verschlusselte Messenger', 'Trennung privat/beruflich', 'Regelmasiges Loschen alter Nachrichten'],
+                            high: ['Metadata-arme Kommunikation', 'Verschlusselte E-Mail', 'Sichere Sprach- und Videoanrufe']
+                        }
+                    }
+                ],
+
+                get probabilityContext() {
+                    const contexts = [
+                        { title: 'Sehr unwahrscheinlich', description: 'In deinem Kontext scheint dieses Risiko kaum relevant zu sein.', bgClass: 'bg-calm-sage/10', textClass: 'text-calm-sage' },
+                        { title: 'Eher unwahrscheinlich', description: 'Das Risiko existiert, ist fur dich aber vermutlich gering.', bgClass: 'bg-calm-sage/10', textClass: 'text-calm-sage' },
+                        { title: 'Moglich', description: 'Ein gewisses Risiko besteht – abwagen lohnt sich.', bgClass: 'bg-warm-accent/10', textClass: 'text-warm-accent' },
+                        { title: 'Eher wahrscheinlich', description: 'In deinem Kontext scheint dieses Risiko relevant zu sein.', bgClass: 'bg-warm-accent/10', textClass: 'text-warm-accent' },
+                        { title: 'Wahrscheinlich', description: 'Dieses Risiko solltest du ernst nehmen.', bgClass: 'bg-muted-coral/10', textClass: 'text-muted-coral' }
+                    ];
+                    return contexts[this.probability - 1];
+                },
+
+                get canProceed() {
+                    if (this.step === 1) return this.selectedScenario !== null;
+                    if (this.step === 2) return this.selectedActors.length > 0;
+                    if (this.step === 3) return true;
+                    if (this.step === 4) return this.impact !== null;
+                    return true;
+                },
+
+                get riskLevel() {
+                    const prob = parseInt(this.probability);
+                    const impactScore = { low: 1, medium: 2, high: 3 }[this.impact] || 1;
+                    const score = prob * impactScore;
+
+                    if (score <= 4) return { label: 'Gering', class: 'text-calm-sage' };
+                    if (score <= 9) return { label: 'Moderat', class: 'text-warm-accent' };
+                    return { label: 'Erhoht', class: 'text-muted-coral' };
+                },
+
+                get recommendations() {
+                    if (!this.selectedScenario || !this.impact) return [];
+                    const recs = this.selectedScenario.recommendations[this.impact] || [];
+                    return recs;
+                },
+
+                selectScenario(scenario) {
+                    this.selectedScenario = scenario;
+                },
+
+                nextStep() {
+                    if (this.canProceed && this.step < 5) {
+                        this.step++;
+                        if (this.step === 5) {
+                            updateGlobalCompetence(10);
+                        }
+                    }
+                },
+
+                prevStep() {
+                    if (this.step > 1) this.step--;
+                },
+
+                restart() {
+                    this.step = 1;
+                    this.selectedScenario = null;
+                    this.selectedActors = [];
+                    this.probability = 3;
+                    this.impact = null;
+                }
+            }
+        }
+
+        // Competence Tracker
+        function competenceTracker() {
+            return {
+                get level() {
+                    return globalCompetence.level;
+                },
+                get progress() {
+                    return globalCompetence.progress;
+                },
+                get levelDescription() {
+                    const descriptions = [
+                        'Starte deine Reise zur Risikokompetenz',
+                        'Du beginnst, Risiken kontextbezogen zu betrachten',
+                        'Du entwickelst ein gutes Verstandnis fur Bedrohungsmodelle',
+                        'Du kannst Risiken realistisch einschatzen',
+                        'Du triffst informierte Sicherheitsentscheidungen',
+                        'Exzellent! Du hast echte Risikokompetenz entwickelt'
+                    ];
+                    return descriptions[this.level];
+                },
+                get earnedBadges() {
+                    const badges = [];
+                    if (this.progress >= 10) badges.push({ id: 1, name: 'Entdecker', icon: '🔍' });
+                    if (this.progress >= 30) badges.push({ id: 2, name: 'Analytiker', icon: '📊' });
+                    if (this.progress >= 50) badges.push({ id: 3, name: 'Stratege', icon: '🎯' });
+                    if (this.progress >= 80) badges.push({ id: 4, name: 'Experte', icon: '⭐' });
+                    return badges;
+                }
+            }
+        }
+
+        // Relevance Chooser
+        function relevanceChooser() {
+            return {
+                scenarios: [
+                    { id: 'phishing', title: 'Phishing-Angriffe', description: 'Betrugerische E-Mails und Nachrichten', relevance: null },
+                    { id: 'tracking', title: 'Online-Tracking', description: 'Werbung und Profilbildung im Netz', relevance: null },
+                    { id: 'passwords', title: 'Passwort-Kompromittierung', description: 'Gehackte oder erratene Passworter', relevance: null },
+                    { id: 'surveillance', title: 'Staatliche Uberwachung', description: 'Behordlicher Zugriff auf Daten', relevance: null }
+                ],
+
+                responses: {
+                    phishing: {
+                        low: 'Bei geringer Relevanz genugt gesunde Skepsis bei unerwarteten Nachrichten. Du entscheidest selbst, wie viel Aufmerksamkeit du diesem Thema widmest.',
+                        medium: 'Bei mittlerer Relevanz lohnt es sich, ein Gefuhl fur typische Phishing-Merkmale zu entwickeln – ohne paranoid zu werden. Dein Ziel: Informierte Gelassenheit.',
+                        high: 'Bei hoher Relevanz sind systematischere Massnahmen sinnvoll: separate E-Mail-Adressen, Verifizierung uber zweite Kanale, regelmasige Schulung. Du behaltst die Kontrolle.'
+                    },
+                    tracking: {
+                        low: 'Wenn Tracking fur dich wenig relevant ist, sind Basis-Einstellungen im Browser ausreichend. Deine Entscheidung, wie viel Aufwand du investierst.',
+                        medium: 'Bei mittlerer Relevanz bieten sich Browser-Erweiterungen und bewusste Cookie-Einstellungen an – ein guter Kompromiss zwischen Komfort und Privatsphare.',
+                        high: 'Bei hoher Relevanz kannst du systematischere Ansatze wahlen: spezialisierte Browser, VPN-Dienste, Container-Technologie. Du bestimmst das Mass.'
+                    },
+                    passwords: {
+                        low: 'Bei geringer Relevanz genugen starke Passworter fur die wichtigsten Konten. Du entscheidest, welche das fur dich sind.',
+                        medium: 'Bei mittlerer Relevanz ist ein Passwort-Manager eine sinnvolle Investition – einmal eingerichtet, erleichtert er den Alltag erheblich.',
+                        high: 'Bei hoher Relevanz empfehlen sich Hardware-Sicherheitsschlussel und regelmasige Sicherheits-Audits deiner Konten. Aufwandig, aber fur deinen Kontext angemessen.'
+                    },
+                    surveillance: {
+                        low: 'Bei geringer Relevanz sind Standardeinstellungen meist ausreichend. Du lebst nicht in einem Hochrisiko-Kontext – das ist gut zu wissen.',
+                        medium: 'Bei mittlerer Relevanz lohnt sich Bewusstsein fur Metadaten und verschlusselte Kommunikation fur sensible Gesprache – ohne den Alltag zu verkomplizieren.',
+                        high: 'Bei hoher Relevanz sind umfassendere Massnahmen angebracht: durchgangige Verschlusselung, Metadata-Hygiene, Operational Security. Dein Kontext rechtfertigt den Aufwand.'
+                    }
+                },
+
+                setRelevance(scenarioId, level) {
+                    const scenario = this.scenarios.find(s => s.id === scenarioId);
+                    if (scenario) {
+                        scenario.relevance = scenario.relevance === level ? null : level;
+                        if (scenario.relevance) {
+                            updateGlobalCompetence(5);
+                        }
+                    }
+                },
+
+                getResponse(scenarioId, level) {
+                    return this.responses[scenarioId]?.[level] || '';
+                }
+            }
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-slide-up');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

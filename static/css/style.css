@@ -1437,6 +1437,68 @@ a.card:hover {
 }
 
 /* ============================================
+   ACCESSIBILITY - Reduced Motion
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    /* Disable all animations for users who prefer reduced motion */
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    /* Hide decorative animated elements */
+    .matrix-background,
+    #matrix-bg {
+        display: none !important;
+    }
+
+    /* Remove pulsing and glowing effects */
+    .pulse,
+    .glow,
+    .glitch-effect,
+    .scan-line,
+    .terminal-cursor::after {
+        animation: none !important;
+    }
+
+    /* Keep visual indicators but remove motion */
+    .btn:hover,
+    .card:hover,
+    .nav-link:hover {
+        transform: none !important;
+    }
+
+    /* Provide static alternatives for animated indicators */
+    .loading-indicator {
+        border-color: var(--neon-green);
+        border-style: solid;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    :root {
+        --neon-green: #00ff00;
+        --terminal-text: #ffffff;
+        --deep-black: #000000;
+    }
+
+    .card {
+        border-width: 2px;
+    }
+
+    a:focus,
+    button:focus {
+        outline-width: 3px;
+    }
+}
+
+/* ============================================
    PRINT STYLES
    ============================================ */
 

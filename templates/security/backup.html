@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+{% block title %}Sichere Backups{% endblock %}
+
+{% block content %}
+<section class="section-header">
+    <h1>&#128190; Sichere Backups</h1>
+    <p class="section-subtitle">
+        Datensicherung und Recovery-Strategien für Aktivist*innen.
+    </p>
+</section>
+
+<section class="card">
+    <h2>Warum Backups kritisch sind</h2>
+    <p>
+        Aktivist*innen sind besonderen Risiken ausgesetzt: Gerätebeschlagnahmung,
+        Ransomware-Angriffe, physischer Diebstahl oder schlicht Hardware-Defekte.
+        Ohne Backup verlierst du nicht nur Daten, sondern potenziell Jahre an Arbeit.
+    </p>
+    <div class="alert alert-warning mt-md">
+        <strong>&#9888; Realität:</strong> Laut Studien haben 30% der Menschen noch nie
+        ein Backup gemacht. Von denen, die es tun, testen nur 10% die Wiederherstellung.
+        Ein ungetestetes Backup ist kein Backup.
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128200; Die 3-2-1-Regel</h2>
+    <p>Der Goldstandard für Datensicherung:</p>
+    <div class="grid grid-3 mt-md">
+        <div class="alert alert-success">
+            <h3>3 Kopien</h3>
+            <p>Mindestens drei Kopien deiner wichtigen Daten.</p>
+            <ul>
+                <li>Original auf dem Geraet</li>
+                <li>Erste Backup-Kopie</li>
+                <li>Zweite Backup-Kopie</li>
+            </ul>
+        </div>
+        <div class="alert alert-info">
+            <h3>2 Medientypen</h3>
+            <p>Speichere auf verschiedenen Medien.</p>
+            <ul>
+                <li>Interne SSD/HDD</li>
+                <li>Externe Festplatte</li>
+                <li>USB-Stick</li>
+                <li>NAS</li>
+            </ul>
+        </div>
+        <div class="alert alert-warning">
+            <h3>1 Offsite</h3>
+            <p>Eine Kopie außer Haus.</p>
+            <ul>
+                <li>Bei Vertrauensperson</li>
+                <li>Bankschliessfach</li>
+                <li>Verschluesselte Cloud</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128274; Verschlüsselungs-Tools</h2>
+    <div class="grid grid-2">
+        <div class="alert alert-success">
+            <h3>VeraCrypt</h3>
+            <p><strong>Für:</strong> Externe Laufwerke, Container</p>
+            <ul>
+                <li>Open Source, auditiert</li>
+                <li>Versteckte Volumes möglich</li>
+                <li>Plausible Deniability</li>
+                <li>Cross-Platform</li>
+            </ul>
+            <p class="mt-sm"><a href="https://veracrypt.fr" target="_blank" rel="noopener noreferrer">veracrypt.fr</a></p>
+        </div>
+        <div class="alert alert-info">
+            <h3>Cryptomator</h3>
+            <p><strong>Für:</strong> Cloud-Verschlüsselung</p>
+            <ul>
+                <li>Open Source</li>
+                <li>Einzelne Dateien verschlüsselt</li>
+                <li>Für Dropbox, Google Drive, etc.</li>
+                <li>Einfache Bedienung</li>
+            </ul>
+            <p class="mt-sm"><a href="https://cryptomator.org" target="_blank" rel="noopener noreferrer">cryptomator.org</a></p>
+        </div>
+    </div>
+    <div class="alert alert-info mt-md">
+        <strong>&#128161; Unterschied:</strong> VeraCrypt erstellt einen großen Container
+        (wie eine virtuelle Festplatte). Cryptomator verschlüsselt jede Datei einzeln –
+        besser für Cloud-Sync, da nur geänderte Dateien hochgeladen werden.
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128187; Backup-Software</h2>
+    <div class="grid grid-3">
+        <div>
+            <h3>Linux</h3>
+            <ul class="checklist">
+                <li><strong>Borg Backup</strong> – Deduplizierung, Verschlüsselung, sehr effizient</li>
+                <li><strong>restic</strong> – Ähnlich wie Borg, einfacher zu nutzen</li>
+                <li><strong>Deja Dup</strong> – GUI für duplicity, GNOME-Integration</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Windows</h3>
+            <ul class="checklist">
+                <li><strong>Duplicati</strong> – Open Source, Cloud-Support</li>
+                <li><strong>Kopia</strong> – Modern, schnell, verschlüsselt</li>
+                <li><strong>Veeam Agent</strong> – Kostenlos für Privatnutzer</li>
+            </ul>
+        </div>
+        <div>
+            <h3>macOS</h3>
+            <ul class="checklist">
+                <li><strong>Time Machine</strong> – Eingebaut, einfach (aber: nicht verschlüsselt auf externen Laufwerken ohne FileVault)</li>
+                <li><strong>Arq</strong> – Verschluesselt, Cloud-Support</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#9888; Cloud-Backup: Ja oder Nein?</h2>
+    <p>Cloud-Speicher ist praktisch, aber für Aktivist*innen problematisch:</p>
+    <div class="grid grid-2 mt-md">
+        <div class="alert alert-danger">
+            <h3>Risiken</h3>
+            <ul>
+                <li>US-Anbieter unterliegen CLOUD Act</li>
+                <li>Account-Sperrung möglich</li>
+                <li>Metadaten-Analyse durch Anbieter</li>
+                <li>Abhängigkeit von Drittanbietern</li>
+            </ul>
+        </div>
+        <div class="alert alert-success">
+            <h3>Wenn Cloud, dann...</h3>
+            <ul>
+                <li><strong>Immer</strong> lokal verschluesseln (Cryptomator)</li>
+                <li>EU-Anbieter bevorzugen</li>
+                <li>Tresorit, Filen, Proton Drive</li>
+                <li>Eigene Nextcloud-Instanz</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128230; Was sichern?</h2>
+    <ul class="checklist">
+        <li><strong>Dokumente:</strong> Alle persönlichen Dokumente, Scans, Vertraege</li>
+        <li><strong>Passwörter:</strong> KeePassXC-Datenbank (oder Bitwarden-Export)</li>
+        <li><strong>2FA-Codes:</strong> Aegis-Export (verschlüsselt!), Recovery-Codes</li>
+        <li><strong>PGP-Keys:</strong> Privater Schlüssel sicher exportiert</li>
+        <li><strong>Fotos/Videos:</strong> Besonders von Aktionen (Beweismaterial)</li>
+        <li><strong>Kontakte:</strong> Export aus Signal, E-Mail-Kontakte</li>
+        <li><strong>Konfiguration:</strong> SSH-Keys, VPN-Profile, wichtige Config-Dateien</li>
+    </ul>
+    <div class="alert alert-warning mt-md">
+        <strong>&#9888; Nicht sichern:</strong> Temporaere Dateien, Browser-Cache, Downloads
+        die neu heruntergeladen werden können. Halte Backups schlank.
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128736; Recovery testen</h2>
+    <p>Ein Backup ist nur so gut wie der letzte erfolgreiche Test.</p>
+    <ul class="checklist">
+        <li><strong>Regelmäßig testen:</strong> Mindestens alle 6 Monate eine vollständige Wiederherstellung</li>
+        <li><strong>Verschiedene Dateien:</strong> Nicht nur prüfen, ob das Backup existiert – tatsaechlich Dateien öffnen</li>
+        <li><strong>Auf anderem Geraet:</strong> Teste Recovery auf einem anderen Computer</li>
+        <li><strong>Passwort-Check:</strong> Kannst du das Verschlüsselungs-Passwort noch? Ist es dokumentiert?</li>
+    </ul>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128373; Backup bei Beschlagnahmung</h2>
+    <p>Besondere Überlegungen für Aktivist*innen:</p>
+    <ul class="checklist">
+        <li><strong>Offsite-Backup essenziell:</strong> Wenn Polizei alle Geräte mitnimmt, brauchst du ein Backup außer Haus</li>
+        <li><strong>Plausible Deniability:</strong> VeraCrypt Hidden Volumes für sensitive Daten</li>
+        <li><strong>Trusted Person:</strong> Eine Vertrauensperson sollte wissen, wo das Backup ist und wie darauf zugegriffen wird</li>
+        <li><strong>Rechtliche Dokumentation:</strong> Backup aller Schriftverkehre mit Anwält*innen, Behörden</li>
+    </ul>
+    <div class="alert alert-info mt-md">
+        <strong>&#128161; Dead Man's Switch:</strong> Einige Aktivist*innen nutzen Timer-basierte
+        Systeme die automatisch Daten veröffentlichen, wenn sie sich nicht regelmäßig melden.
+        Das ist komplex und riskant – nur für spezielle Situationen.
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128197; Backup-Plan erstellen</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Was</th>
+                <th>Wohin</th>
+                <th>Wie oft</th>
+                <th>Verschlüsselung</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Arbeitsdokumente</td>
+                <td>Externe SSD + Cloud</td>
+                <td>Täglich</td>
+                <td>Cryptomator</td>
+            </tr>
+            <tr>
+                <td>Passwörter/Keys</td>
+                <td>USB-Stick Offsite</td>
+                <td>Bei Änderung</td>
+                <td>VeraCrypt</td>
+            </tr>
+            <tr>
+                <td>Fotos/Videos</td>
+                <td>Externe HDD</td>
+                <td>Wöchentlich</td>
+                <td>VeraCrypt</td>
+            </tr>
+            <tr>
+                <td>System-Image</td>
+                <td>Externe HDD</td>
+                <td>Monatlich</td>
+                <td>VeraCrypt</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section class="alert alert-success mt-xl">
+    <strong>&#128161; Zusammenfassung:</strong> Folge der 3-2-1-Regel, verschluessele alles,
+    teste regelmäßig und halte mindestens ein Backup außer Haus. Ein Backup das du nicht
+    testen kannst oder dessen Passwort du vergessen hast, ist nutzlos.
+</section>
+{% endblock %}
