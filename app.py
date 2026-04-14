@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Widerstands-Toolkit - Digitale Resilienz für Aktivist*innen
+Widerstands-Toolkit - Digitale Resilienz für Aktivisten
 ============================================================
 Eine Plattform für digitale Selbstverteidigung und Aktivismus.
 Keine Tracker. Keine Überwachung. Deine Daten bleiben bei dir.

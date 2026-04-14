@@ -1,6 +1,6 @@
 # Widerstands-Toolkit
 
-**Digitale Resilienz für Aktivist\*innen, Journalist\*innen und kritische Bürger\*innen**
+**Digitale Resilienz für Aktivisten, Journalisten und kritische Bürger**
 
 Eine Plattform für digitale Selbstverteidigung und Aktivismus. Keine Tracker. Keine Überwachung. Deine Daten bleiben bei dir.
 
@@ -32,9 +32,9 @@ Eine Plattform für digitale Selbstverteidigung und Aktivismus. Keine Tracker. K
 
 Das Widerstands-Toolkit ist ein umfassendes Werkzeugset für digitale Selbstverteidigung. Es richtet sich an:
 
-- **Friedensaktivist\*innen** – Schutz bei Demos und Aktionen
-- **Kritische Bürger\*innen** – Digitale Selbstverteidigung im Alltag
-- **Journalist\*innen & Whistleblower** – Sichere Kommunikation und Quellenschutz
+- **Friedensaktivisten** – Schutz bei Demos und Aktionen
+- **Kritische Bürger** – Digitale Selbstverteidigung im Alltag
+- **Journalisten & Whistleblower** – Sichere Kommunikation und Quellenschutz
 - **Zivilgesellschaft** – Resilienz gegen Überwachung und Propaganda
 
 ### Warum dieses Projekt?
@@ -237,7 +237,7 @@ $env:SECRET_KEY="dein-generierter-schlüssel"
 |-------|--------------|
 | `/peace` | Übersicht Friedens-Tools |
 | `/peace/petitions` | Petitions-Tools und Ressourcen |
-| `/peace/burnout` | Burnout-Prävention für Aktivist\*innen |
+| `/peace/burnout` | Burnout-Prävention für Aktivisten |
 | `/peace/antiwar-networks` | Anti-Kriegs-Netzwerke und Friedensorganisationen |
 | `/peace/communication` | Friedenskommunikation: Framing, Storytelling, GFK |
 
@@ -669,7 +669,7 @@ Dieses Projekt baut auf der Arbeit vieler auf:
 - [datenanfragen.de](https://www.datenanfragen.de/) – DSGVO-Tools und Templates
 - [Electronic Frontier Foundation](https://www.eff.org/) – Surveillance Self-Defense Guides
 - [Tactical Tech](https://tacticaltech.org/) – Data Detox Kit
-- [Rote Hilfe e.V.](https://www.rote-hilfe.de/) – Rechtliche Unterstützung für Aktivist\*innen
+- [Rote Hilfe e.V.](https://www.rote-hilfe.de/) – Rechtliche Unterstützung für Aktivisten
 - [SecuChart](https://berty.tech/faq#what-is-the-chat-apps-chart) – Messenger-Vergleichsmethodik
 - [OWASP](https://owasp.org/) – Security Best Practices
 
