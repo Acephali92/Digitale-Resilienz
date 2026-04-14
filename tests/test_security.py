@@ -248,29 +248,30 @@ class TestProductionSecretKey:
             os.environ.update(env_backup)
 
 
+def _make_ip_filter():
+    from app import IPAnonymizingFilter
+    return IPAnonymizingFilter()
+
+
+def _make_log_record(msg, args=()):
+    return logging.LogRecord(
+        name="test",
+        level=logging.INFO,
+        pathname="",
+        lineno=0,
+        msg=msg,
+        args=args,
+        exc_info=None,
+    )
+
+
 class TestIPAnonymizingFilterArgs:
     """Cover record.args branches in IPAnonymizingFilter.filter()."""
 
-    def _make_filter(self):
-        from app import IPAnonymizingFilter
-
-        return IPAnonymizingFilter()
-
-    def _make_record(self, msg, args):
-        return logging.LogRecord(
-            name="test",
-            level=logging.INFO,
-            pathname="",
-            lineno=0,
-            msg=msg,
-            args=args,
-            exc_info=None,
-        )
-
     def test_ip_in_tuple_args_is_redacted(self):
         """IP inside a tuple arg must be replaced with [IP]."""
-        f = self._make_filter()
-        record = self._make_record("host %s port %s", ("10.0.0.1", "8080"))
+        f = _make_ip_filter()
+        record = _make_log_record("host %s port %s", ("10.0.0.1", "8080"))
         f.filter(record)
         assert "10.0.0.1" not in record.args
         assert "[IP]" in record.args[0]
@@ -278,8 +279,8 @@ class TestIPAnonymizingFilterArgs:
 
     def test_non_tuple_args_is_wrapped_and_redacted(self):
         """A bare string arg (non-tuple) must be wrapped into a 1-tuple."""
-        f = self._make_filter()
-        record = self._make_record("client %s", "172.16.0.5")
+        f = _make_ip_filter()
+        record = _make_log_record("client %s", "172.16.0.5")
         f.filter(record)
         assert isinstance(record.args, tuple)
         assert "172.16.0.5" not in record.args[0]
@@ -287,15 +288,15 @@ class TestIPAnonymizingFilterArgs:
 
     def test_non_string_arg_passes_through_unchanged(self):
         """Integer/non-string args must not be converted or modified."""
-        f = self._make_filter()
-        record = self._make_record("port %d", (443,))
+        f = _make_ip_filter()
+        record = _make_log_record("port %d", (443,))
         f.filter(record)
         assert record.args == (443,)
 
     def test_dict_args_values_are_redacted(self):
         """dict-style args (%(key)s format) must have IP values scrubbed."""
-        f = self._make_filter()
-        record = self._make_record(
+        f = _make_ip_filter()
+        record = _make_log_record(
             "Request from %(ip)s", {"ip": "192.168.0.1", "user": "alice"}
         )
         f.filter(record)
@@ -366,33 +367,18 @@ class TestUnrecognizedFlaskEnvFallback:
 class TestIPAnonymizingFilterIPv6:
     """Verify IPAnonymizingFilter redacts IPv6 addresses."""
 
-    def _make_filter(self):
-        from app import IPAnonymizingFilter
-        return IPAnonymizingFilter()
-
-    def _make_record(self, msg):
-        return logging.LogRecord(
-            name="test",
-            level=logging.INFO,
-            pathname="",
-            lineno=0,
-            msg=msg,
-            args=(),
-            exc_info=None,
-        )
-
     def test_full_ipv6_is_redacted(self):
         """Full IPv6 address must be replaced with [IP]."""
-        f = self._make_filter()
-        record = self._make_record("Connection from 2001:0db8:85a3:0000:0000:8a2e:0370:7334")
+        f = _make_ip_filter()
+        record = _make_log_record("Connection from 2001:0db8:85a3:0000:0000:8a2e:0370:7334")
         f.filter(record)
         assert "2001:0db8" not in record.msg
         assert "[IP]" in record.msg
 
     def test_loopback_ipv6_is_redacted(self):
         """IPv6 loopback ::1 must be replaced with [IP]."""
-        f = self._make_filter()
-        record = self._make_record("Request from ::1 processed")
+        f = _make_ip_filter()
+        record = _make_log_record("Request from ::1 processed")
         f.filter(record)
         assert "::1" not in record.msg
         assert "[IP]" in record.msg
