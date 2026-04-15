@@ -134,6 +134,7 @@ jobs:
       - name: Start Flask app
         run: |
           export FLASK_APP=app.py
+          export SECRET_KEY=$(python -c "import secrets; print(secrets.token_hex(32))")
           flask run --host=127.0.0.1 --port=5000 &
           sleep 5
 
