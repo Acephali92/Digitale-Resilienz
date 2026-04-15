@@ -1,0 +1,247 @@
+{% extends "base.html" %}
+{% block title %}Tracking vermeiden{% endblock %}
+
+{% block content %}
+<section class="section-header">
+    <h1>&#128373; Tracking vermeiden</h1>
+    <p class="section-subtitle">
+        IMEI, Fingerprinting, Standort – wie du unsichtbarer wirst.
+    </p>
+</section>
+
+<section class="card">
+    <h2>Tracking-Methoden verstehen</h2>
+    <p>
+        Bevor du dich schuetzen kannst, musst du wissen, wie Tracking funktioniert.
+        Es gibt viele Methoden – manche offensichtlich, manche subtil.
+    </p>
+    <div class="grid grid-3 mt-md">
+        <div class="alert alert-danger">
+            <h3>Hardware-Ebene</h3>
+            <ul>
+                <li>IMEI (Handy-ID)</li>
+                <li>MAC-Adresse</li>
+                <li>SIM-Karte (IMSI)</li>
+                <li>Bluetooth-ID</li>
+            </ul>
+        </div>
+        <div class="alert alert-warning">
+            <h3>Netzwerk-Ebene</h3>
+            <ul>
+                <li>IP-Adresse</li>
+                <li>DNS-Anfragen</li>
+                <li>WLAN-Probes</li>
+                <li>Funkzellen-Logs</li>
+            </ul>
+        </div>
+        <div class="alert alert-info">
+            <h3>Software-Ebene</h3>
+            <ul>
+                <li>Browser-Fingerprint</li>
+                <li>Cookies / LocalStorage</li>
+                <li>Werbe-IDs</li>
+                <li>Login-Tracking</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128241; IMEI und Mobilfunk</h2>
+    <p>
+        Die IMEI (International Mobile Equipment Identity) ist eine eindeutige 15-stellige
+        Nummer deines Handys. Sie wird bei jeder Verbindung zum Mobilfunknetz uebertragen.
+    </p>
+    <h3 class="mt-md">Was die IMEI verraet:</h3>
+    <ul class="checklist">
+        <li>Eindeutige Geraete-Identifikation – auch mit neuer SIM</li>
+        <li>Bewegungsprofile ueber Funkzellen</li>
+        <li>Verknuepfung verschiedener SIM-Karten zum selben Geraet</li>
+    </ul>
+    <h3 class="mt-md">Schutzmassnahmen:</h3>
+    <ul class="checklist">
+        <li><strong>Burner-Phones:</strong> Guenstiges Geraet nur fuer sensitive Kommunikation</li>
+        <li><strong>Bar kaufen:</strong> Kein Vertrag, keine Verknuepfung zu deiner Identitaet</li>
+        <li><strong>Prepaid-SIM:</strong> In manchen Laendern anonym erhaeltlich (nicht mehr in DE)</li>
+        <li><strong>WLAN-only:</strong> Handy im Flugmodus, nur WLAN nutzen</li>
+    </ul>
+    <div class="alert alert-warning mt-md">
+        <strong>&#9888; IMEI aendern ist illegal</strong> in Deutschland (§ 269 StGB). Manche Anleitungen
+        im Internet ignorieren das. Bleib auf der legalen Seite.
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128065; Browser-Fingerprinting</h2>
+    <p>
+        Dein Browser verraet mehr ueber dich als du denkst – selbst ohne Cookies.
+        Browser-Fingerprinting kombiniert dutzende Datenpunkte zu einem eindeutigen Profil.
+    </p>
+    <h3 class="mt-md">Was gesammelt wird:</h3>
+    <ul class="checklist">
+        <li>User-Agent (Browser, Version, Betriebssystem)</li>
+        <li>Bildschirmaufloesung und Farbtiefe</li>
+        <li>Installierte Schriftarten</li>
+        <li>Browser-Plugins und Erweiterungen</li>
+        <li>Zeitzone und Sprache</li>
+        <li>Canvas- und WebGL-Rendering</li>
+        <li>Audio-Fingerprint</li>
+    </ul>
+    <h3 class="mt-md">Schutzmassnahmen:</h3>
+    <ul class="checklist">
+        <li><strong>Tor Browser:</strong> Alle Nutzer sehen gleich aus</li>
+        <li><strong>Firefox mit resistFingerprinting:</strong> Reduziert eindeutige Merkmale</li>
+        <li><strong>Brave Browser:</strong> Fingerprinting-Schutz eingebaut</li>
+        <li><strong>Keine Plugins:</strong> Jedes Plugin macht dich einzigartiger</li>
+        <li><strong>Standard-Fenstergroesse:</strong> Nicht maximieren (Tor Browser)</li>
+    </ul>
+    <div class="alert alert-info mt-md">
+        <strong>&#128161; Teste deinen Fingerprint:</strong>
+        <a href="https://coveryourtracks.eff.org/" target="_blank" rel="noopener noreferrer">Cover Your Tracks (EFF)</a>
+        zeigt dir, wie einzigartig dein Browser ist.
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128225; Standort-Tracking</h2>
+    <p>Dein Standort kann auf viele Arten ermittelt werden:</p>
+    <div class="grid grid-2 mt-md">
+        <div>
+            <h3>Methoden</h3>
+            <ul class="checklist">
+                <li><strong>GPS:</strong> Meter-genaue Ortung</li>
+                <li><strong>Funkzellen:</strong> Ungefaehrer Standort durch Mobilfunk</li>
+                <li><strong>WLAN:</strong> Bekannte Netzwerke verraten Position</li>
+                <li><strong>IP-Adresse:</strong> Grobe Standortbestimmung</li>
+                <li><strong>Bluetooth Beacons:</strong> In Einkaufszentren, Bahnhoefen</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Schutz</h3>
+            <ul class="checklist">
+                <li>GPS deaktivieren</li>
+                <li>WLAN und Bluetooth aus, wenn nicht benoetigt</li>
+                <li>Keine "Standort immer erlauben" Apps</li>
+                <li>VPN oder Tor nutzen</li>
+                <li>Flugmodus bei sensitiven Treffen</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128246; 5G-Mythen entzaubern</h2>
+    <p>
+        Um 5G ranken sich viele Verschwoerungstheorien. Hier sind die echten
+        Privacy-Probleme – und was kein Problem ist.
+    </p>
+    <div class="grid grid-2 mt-md">
+        <div class="alert alert-danger">
+            <h3>Echte Probleme</h3>
+            <ul>
+                <li>Mehr Funkzellen = genauere Standortbestimmung</li>
+                <li>Kuerzere Reichweite = dichteres Tracking-Netz</li>
+                <li>Neue Geraete = neue Sicherheitsluecken</li>
+                <li>Chinesische Infrastruktur-Debatte</li>
+            </ul>
+        </div>
+        <div class="alert alert-success">
+            <h3>Keine Probleme (Mythen)</h3>
+            <ul>
+                <li>5G verursacht keine Gesundheitsschaeden</li>
+                <li>5G hat nichts mit Corona zu tun</li>
+                <li>5G kontrolliert keine Menschen</li>
+                <li>5G ist keine "Waffe"</li>
+            </ul>
+        </div>
+    </div>
+    <div class="alert alert-info mt-md">
+        <strong>&#128161; Fokus:</strong> Die echten Privacy-Risiken von 5G liegen im
+        praeziseren Tracking und moeglichen Backdoors – nicht in Strahlung. Bleib
+        bei den Fakten, um glaubwuerdig zu bleiben.
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128187; Werbe-IDs deaktivieren</h2>
+    <div class="grid grid-2">
+        <div>
+            <h3>Android</h3>
+            <ul class="checklist">
+                <li>Einstellungen → Google → Werbung</li>
+                <li>"Personalisierte Werbung deaktivieren"</li>
+                <li>"Werbe-ID zuruecksetzen" regelmaessig</li>
+                <li>GrapheneOS: Keine Google-IDs vorhanden</li>
+            </ul>
+        </div>
+        <div>
+            <h3>iOS</h3>
+            <ul class="checklist">
+                <li>Einstellungen → Datenschutz → Tracking</li>
+                <li>"Apps erlauben, Tracking anzufordern" AUS</li>
+                <li>Einstellungen → Datenschutz → Apple-Werbung AUS</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128736; Browser-Einstellungen</h2>
+    <h3>Firefox Privacy-Einstellungen:</h3>
+    <ul class="checklist">
+        <li><strong>Erweiterter Tracking-Schutz:</strong> Auf "Streng" stellen</li>
+        <li><strong>Do Not Track:</strong> Senden (obwohl oft ignoriert)</li>
+        <li><strong>HTTPS-Only-Modus:</strong> Aktivieren</li>
+        <li><strong>Cookies:</strong> Beim Schliessen loeschen oder Container nutzen</li>
+    </ul>
+    <h3 class="mt-md">Empfohlene Erweiterungen:</h3>
+    <ul class="checklist">
+        <li><strong>uBlock Origin:</strong> Werbung und Tracker blockieren</li>
+        <li><strong>Multi-Account Containers:</strong> Identitaeten trennen</li>
+        <li><strong>LocalCDN:</strong> CDN-Anfragen lokal bedienen</li>
+    </ul>
+    <div class="alert alert-warning mt-md">
+        <strong>&#9888; Weniger ist mehr:</strong> Jede Erweiterung macht deinen Browser
+        einzigartiger. Nutze nur die noetigsten. Fuer echte Anonymitaet: Tor Browser.
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#9878; Tracking-Level nach Situation</h2>
+    <div class="grid grid-3">
+        <div class="alert alert-success">
+            <h3>Alltag</h3>
+            <ul>
+                <li>Firefox mit uBlock Origin</li>
+                <li>Werbe-ID zurueckgesetzt</li>
+                <li>VPN optional</li>
+                <li>Standard-Vorsicht</li>
+            </ul>
+        </div>
+        <div class="alert alert-warning">
+            <h3>Sensitive Recherche</h3>
+            <ul>
+                <li>Tor Browser</li>
+                <li>VPN vor Tor optional</li>
+                <li>Keine persoenlichen Logins</li>
+                <li>Oeffentliches WLAN</li>
+            </ul>
+        </div>
+        <div class="alert alert-danger">
+            <h3>Hoechste Sicherheit</h3>
+            <ul>
+                <li>Tails OS</li>
+                <li>Burner-Geraete</li>
+                <li>Keine Verbindung zu Identitaet</li>
+                <li>Air-Gap wenn moeglich</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="alert alert-info mt-xl">
+    <strong>&#128161; Merke:</strong> Perfekte Anonymitaet ist fast unmoeglich. Ziel ist es,
+    die Kosten des Trackings so hoch zu treiben, dass du kein lohnendes Ziel mehr bist.
+    Waehle das Schutzniveau passend zur Situation.
+</section>
+{% endblock %}

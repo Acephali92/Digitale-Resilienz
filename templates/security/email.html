@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% block title %}Sichere E-Mail{% endblock %}
+
+{% block content %}
+<section class="section-header">
+    <h1>&#128231; Sichere E-Mail</h1>
+    <p class="section-subtitle">
+        ProtonMail, Tutanota und Alternativen im Vergleich.
+    </p>
+</section>
+
+<section class="card">
+    <h2>Warum sichere E-Mail?</h2>
+    <p>
+        Standard-E-Mail (Gmail, GMX, etc.) ist wie eine Postkarte: Jeder Server auf dem Weg
+        kann mitlesen. Verschluesselte E-Mail-Anbieter ändern das.
+    </p>
+    <div class="alert alert-warning mt-md">
+        <strong>&#9888; Einschränkung:</strong> Ende-zu-Ende-Verschluesselung funktioniert nur,
+        wenn <em>beide</em> Seiten einen kompatiblen Dienst nutzen. Eine E-Mail an Gmail ist
+        weiterhin auf Gmail-Servern unverschlüsselt.
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#9878; Anbieter-Vergleich</h2>
+    <div class="grid grid-3">
+        <div class="alert alert-success">
+            <h3>ProtonMail</h3>
+            <ul>
+                <li>Schweizer Jurisdiktion</li>
+                <li>Open Source Clients</li>
+                <li>PGP-kompatibel</li>
+                <li>Kostenloser Tarif</li>
+                <li>Onion-Adresse verfügbar</li>
+            </ul>
+            <p><a href="https://proton.me" target="_blank" rel="noopener noreferrer">proton.me</a></p>
+        </div>
+        <div class="alert alert-info">
+            <h3>Tutanota</h3>
+            <ul>
+                <li>Deutschland (DSGVO)</li>
+                <li>Vollständig Open Source</li>
+                <li>Eigenes Verschluesselungsprotokoll</li>
+                <li>Günstiger als ProtonMail</li>
+                <li>Kalender inklusive</li>
+            </ul>
+            <p><a href="https://tutanota.com" target="_blank" rel="noopener noreferrer">tutanota.com</a></p>
+        </div>
+        <div class="alert alert-info">
+            <h3>mailbox.org</h3>
+            <ul>
+                <li>Deutschland, datenschutzfreundlich</li>
+                <li>PGP-Unterstuetzung</li>
+                <li>Eigene Domain moeglich</li>
+                <li>Fuer Fortgeschrittene</li>
+                <li>Office-Suite inklusive</li>
+            </ul>
+            <p><a href="https://mailbox.org" target="_blank" rel="noopener noreferrer">mailbox.org</a></p>
+        </div>
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128273; Was ist PGP?</h2>
+    <p>
+        PGP (Pretty Good Privacy) ist ein Standard fuer E-Mail-Verschluesselung seit 1991.
+        Du hast einen oeffentlichen Schluessel (zum Verschluesseln, kann jeder haben) und
+        einen privaten Schluessel (zum Entschluesseln, nur du).
+    </p>
+    <h3 class="mt-md">Wann PGP nutzen?</h3>
+    <ul class="checklist">
+        <li>Kommunikation mit Journalisten (die haben meist einen PGP-Key)</li>
+        <li>Kontakt zu NGOs und Aktivisten-Gruppen</li>
+        <li>Wenn die Gegenseite kein ProtonMail/Tutanota hat</li>
+    </ul>
+    <div class="alert alert-info mt-md">
+        <strong>&#128161; Einfacher:</strong> Fuer die meisten Faelle ist Signal besser als PGP-E-Mail.
+        E-Mail hat strukturelle Schwaechen (Metadaten, Betreffzeile) die auch PGP nicht loest.
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128373; Anmeldung ohne Identitaet</h2>
+    <p>Fuer maximale Anonymitaet bei der Registrierung:</p>
+    <ul class="checklist">
+        <li><strong>Tor Browser nutzen:</strong> Versteckt deine IP bei der Registrierung</li>
+        <li><strong>Keine Telefonnummer:</strong> ProtonMail kann ohne auskommen (evtl. Captcha)</li>
+        <li><strong>Keine Recovery-E-Mail:</strong> Verknuepft sonst Identitaeten</li>
+        <li><strong>Anonyme Zahlung:</strong> Bitcoin (aber: Blockchain ist oeffentlich!) oder Bargeld per Post (Mullvad-Stil)</li>
+        <li><strong>Pseudonym verwenden:</strong> Nicht deinen echten Namen</li>
+    </ul>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128231; E-Mail-Hygiene</h2>
+    <ul class="checklist">
+        <li><strong>Verschiedene Adressen:</strong> Eine fuer wichtige Kommunikation, eine fuer Newsletter, eine Wegwerf-Adresse</li>
+        <li><strong>Alias-Dienste:</strong>
+            <a href="https://simplelogin.io" target="_blank" rel="noopener noreferrer">SimpleLogin</a> oder
+            <a href="https://anonaddy.com" target="_blank" rel="noopener noreferrer">AnonAddy</a>
+            fuer unbegrenzte Aliasse</li>
+        <li><strong>HTML deaktivieren:</strong> Tracking-Pixel werden ueber HTML-E-Mails geladen</li>
+        <li><strong>Remote Content blockieren:</strong> Bilder nicht automatisch laden</li>
+        <li><strong>Anhaenge misstrauen:</strong> Auch von bekannten Absendern – Accounts werden gehackt</li>
+    </ul>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#9888; Was E-Mail nicht kann</h2>
+    <ul class="checklist">
+        <li><strong>Metadaten verbergen:</strong> Wer wem wann schreibt ist sichtbar (auch bei PGP)</li>
+        <li><strong>Forward Secrecy:</strong> Wenn dein Key kompromittiert wird, sind alte E-Mails lesbar</li>
+        <li><strong>Verlaessliche Zustellung:</strong> E-Mails koennen verloren gehen, gefiltert werden</li>
+    </ul>
+</section>
+
+<section class="alert alert-success mt-xl">
+    <strong>&#128161; Empfehlung:</strong> Fuer vertrauliche Kommunikation nutze Signal oder
+    Briar statt E-Mail. E-Mail ist gut fuer formelle Kommunikation, aber strukturell unsicher
+    fuer sensitive Inhalte.
+</section>
+{% endblock %}

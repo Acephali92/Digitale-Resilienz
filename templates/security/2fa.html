@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% block title %}Zwei-Faktor-Authentifizierung{% endblock %}
+
+{% block content %}
+<section class="section-header">
+    <h1>&#128272; Zwei-Faktor-Authentifizierung</h1>
+    <p class="section-subtitle">
+        TOTP, SMS, Hardware-Keys – was schützt wirklich?
+    </p>
+</section>
+
+<section class="card">
+    <h2>Was ist 2FA?</h2>
+    <p>
+        Zwei-Faktor-Authentifizierung kombiniert zwei verschiedene Faktoren zur Identitätsprüfung:
+    </p>
+    <ul class="checklist">
+        <li><strong>Wissen:</strong> Etwas, das du weißt (Passwort, PIN)</li>
+        <li><strong>Besitz:</strong> Etwas, das du hast (Handy, Hardware-Key)</li>
+        <li><strong>Sein:</strong> Etwas, das du bist (Fingerabdruck, Gesicht)</li>
+    </ul>
+    <p class="mt-md">
+        <strong>Warum wichtig?</strong> Selbst wenn dein Passwort geleakt wird, braucht ein Angreifer
+        immer noch den zweiten Faktor. Bei über 10 Milliarden geleakten Passwörtern ist 2FA keine
+        Option mehr, sondern Pflicht.
+    </p>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#9888; Methoden im Vergleich</h2>
+    <div class="grid grid-3">
+        <div class="alert alert-danger">
+            <h3>SMS-Codes</h3>
+            <p><strong>Sicherheit:</strong> Schwach</p>
+            <ul>
+                <li>SIM-Swapping möglich</li>
+                <li>SS7-Protokoll unsicher</li>
+                <li>Abfangen durch Staatstrojaner</li>
+            </ul>
+            <p class="mt-sm"><em>Besser als nichts, aber nicht empfohlen.</em></p>
+        </div>
+        <div class="alert alert-success">
+            <h3>TOTP-Apps</h3>
+            <p><strong>Sicherheit:</strong> Gut</p>
+            <ul>
+                <li>Offline-fähig</li>
+                <li>Kein SIM-Swapping</li>
+                <li>Open Source verfügbar</li>
+            </ul>
+            <p class="mt-sm"><em>Empfohlen für die meisten Nutzer.</em></p>
+        </div>
+        <div class="alert alert-info">
+            <h3>Hardware-Keys</h3>
+            <p><strong>Sicherheit:</strong> Beste</p>
+            <ul>
+                <li>Phishing-resistent</li>
+                <li>Kein Kopieren möglich</li>
+                <li>WebAuthn/FIDO2 Standard</li>
+            </ul>
+            <p class="mt-sm"><em>Für Hochrisiko-Personen.</em></p>
+        </div>
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128241; Empfohlene TOTP-Apps</h2>
+    <div class="grid grid-2">
+        <div>
+            <h3>Android</h3>
+            <ul class="checklist">
+                <li><strong>Aegis Authenticator</strong> – Open Source, verschlüsselte Backups, modernes UI</li>
+                <li><strong>andOTP</strong> – Open Source, einfach, bewährt</li>
+            </ul>
+        </div>
+        <div>
+            <h3>iOS</h3>
+            <ul class="checklist">
+                <li><strong>Tofu</strong> – Open Source, minimalistisch</li>
+                <li><strong>Raivo OTP</strong> – Gutes UI, aber nicht vollständig Open Source</li>
+            </ul>
+        </div>
+    </div>
+    <div class="alert alert-warning mt-md">
+        <strong>&#9888; Vermeide:</strong> Google Authenticator – keine Backups, bei Geräteverlust
+        sind alle Codes weg. Authy – Cloud-basiert, nicht Open Source.
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128273; Hardware-Keys</h2>
+    <p>
+        Hardware-Keys sind physische Geräte, die per USB oder NFC mit deinem Computer/Handy verbunden werden.
+        Sie sind immun gegen Phishing, da sie kryptografisch an die Domain gebunden sind.
+    </p>
+    <h3 class="mt-md">Empfehlungen</h3>
+    <ul class="checklist">
+        <li><strong>YubiKey 5</strong> – Marktführer, proprietär aber bewährt, ab ~50 EUR</li>
+        <li><strong>Nitrokey</strong> – Open Source Hardware, Made in Germany, ab ~30 EUR</li>
+        <li><strong>SoloKey</strong> – Open Source, günstiger, aber weniger Features</li>
+    </ul>
+    <div class="alert alert-info mt-md">
+        <strong>&#128161; Tipp:</strong> Kaufe immer mindestens zwei Keys – einen zum täglichen
+        Gebrauch, einen als Backup an einem sicheren Ort.
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128190; Backup-Strategien für 2FA</h2>
+    <ul class="checklist">
+        <li><strong>Recovery Codes:</strong> Bei der Einrichtung werden meist 8-10 Backup-Codes
+            angezeigt. Speichere sie verschlüsselt oder auf Papier an einem sicheren Ort.</li>
+        <li><strong>Verschluesselte Backups:</strong> Aegis und andOTP erlauben verschlüsselte
+            Exporte der TOTP-Geheimnisse.</li>
+        <li><strong>Zweiter Hardware-Key:</strong> Registriere beide Keys bei allen Diensten.</li>
+        <li><strong>QR-Code-Screenshots:</strong> <em>Nur</em> wenn verschlüsselt gespeichert
+            (z.B. in KeePassXC).</li>
+    </ul>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128295; 2FA einrichten – Checkliste</h2>
+    <ul class="checklist">
+        <li>E-Mail-Konto (Priorität 1 – Schlüssel zu allem anderen)</li>
+        <li>Passwort-Manager</li>
+        <li>Cloud-Speicher</li>
+        <li>Social Media Accounts</li>
+        <li>Messenger (Signal, etc.)</li>
+        <li>Banking und Finanzen</li>
+        <li>Wichtige Dienste (GitHub, Hosting, etc.)</li>
+    </ul>
+</section>
+
+<section class="alert alert-warning mt-xl">
+    <strong>&#128680; Wichtig:</strong> SMS-2FA ist besser als kein 2FA. Wenn ein Dienst nur SMS anbietet,
+    nutze es trotzdem. Aber wechsle zu TOTP oder Hardware-Keys, sobald möglich.
+</section>
+{% endblock %}

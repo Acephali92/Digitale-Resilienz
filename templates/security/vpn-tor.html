@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+{% block title %}VPN und Tor{% endblock %}
+
+{% block content %}
+<section class="section-header">
+    <h1>&#127760; VPN und Tor</h1>
+    <p class="section-subtitle">
+        Anonymes Surfen – wann welches Tool?
+    </p>
+</section>
+
+<section class="card">
+    <h2>VPN verstehen</h2>
+    <p>
+        Ein VPN (Virtual Private Network) leitet deinen gesamten Internetverkehr durch einen
+        verschluesselten Tunnel zu einem Server des VPN-Anbieters.
+    </p>
+    <h3 class="mt-md">Wogegen ein VPN schuetzt:</h3>
+    <ul class="checklist">
+        <li>Dein ISP (Internetanbieter) sieht nicht mehr, welche Seiten du besuchst</li>
+        <li>Oeffentliche WLANs koennen deinen Traffic nicht mitlesen</li>
+        <li>Geo-Blocking umgehen (andere IP-Adresse)</li>
+        <li>Einfache Zensur umgehen</li>
+    </ul>
+    <h3 class="mt-md">Wogegen ein VPN NICHT schuetzt:</h3>
+    <ul class="checklist">
+        <li>Der VPN-Anbieter sieht deinen Traffic (Vertrauen noetig!)</li>
+        <li>Browser-Fingerprinting (dein Browser ist weiterhin identifizierbar)</li>
+        <li>Cookies und Login-Daten (du bist eingeloggt = identifiziert)</li>
+        <li>Staatliche Ueberwachung auf hohem Niveau</li>
+    </ul>
+</section>
+
+<section class="card mt-lg">
+    <h2>Tor verstehen</h2>
+    <p>
+        Tor (The Onion Router) leitet deinen Traffic durch mindestens drei zufaellige Server
+        weltweit. Jeder Server kennt nur den vorherigen und naechsten Hop – niemand sieht
+        das vollstaendige Bild.
+    </p>
+    <h3 class="mt-md">Wogegen Tor schuetzt:</h3>
+    <ul class="checklist">
+        <li>Dein ISP sieht nur, dass du Tor nutzt, nicht was du machst</li>
+        <li>Die Zielseite sieht nicht deine echte IP</li>
+        <li>Kein einzelner Punkt kennt Quelle UND Ziel</li>
+        <li>Zugang zu .onion-Seiten (Hidden Services)</li>
+    </ul>
+    <h3 class="mt-md">Einschraenkungen von Tor:</h3>
+    <ul class="checklist">
+        <li>Langsamer als normale Verbindungen</li>
+        <li>Manche Seiten blockieren Tor-Exit-Nodes</li>
+        <li>JavaScript kann deanonymisieren (daher Security Level beachten!)</li>
+        <li>Nicht fuer Torrents oder grosse Downloads geeignet</li>
+    </ul>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#9878; VPN vs Tor – Wann was?</h2>
+    <div class="grid grid-2">
+        <div class="alert alert-info">
+            <h3>VPN nutzen fuer:</h3>
+            <ul>
+                <li>Alltaegliches Surfen</li>
+                <li>Streaming, Downloads</li>
+                <li>Oeffentliche WLANs</li>
+                <li>Wenn Geschwindigkeit wichtig ist</li>
+                <li>Dienste, die Tor blockieren</li>
+            </ul>
+        </div>
+        <div class="alert alert-warning">
+            <h3>Tor nutzen fuer:</h3>
+            <ul>
+                <li>Recherche zu sensitiven Themen</li>
+                <li>Whistleblowing, Leaks</li>
+                <li>Umgehung starker Zensur</li>
+                <li>Wenn Anonymitaet wichtiger als Geschwindigkeit</li>
+                <li>Zugang zu .onion-Seiten</li>
+            </ul>
+        </div>
+    </div>
+    <div class="alert alert-info mt-md">
+        <strong>&#128161; Tor ueber VPN?</strong> Meist nicht noetig. VPN → Tor versteckt Tor-Nutzung
+        vor dem ISP, aber der VPN-Anbieter weiss, dass du Tor nutzt. Fuer die meisten Faelle
+        reicht Tor allein.
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128274; VPN-Empfehlungen</h2>
+    <p>Kriterien: Keine Logs, anonyme Zahlungsoption, unabhaengige Audits, Open Source Clients.</p>
+    <div class="grid grid-3 mt-md">
+        <div class="alert alert-success">
+            <h3>Mullvad</h3>
+            <ul>
+                <li>Keine Accounts, nur Nummern</li>
+                <li>Barzahlung moeglich</li>
+                <li>Auditiert, Open Source</li>
+                <li>5 EUR/Monat, keine Rabatte</li>
+            </ul>
+            <p><strong>Empfehlung Nr. 1</strong></p>
+        </div>
+        <div class="alert alert-info">
+            <h3>ProtonVPN</h3>
+            <ul>
+                <li>Schweizer Jurisdiktion</li>
+                <li>Kostenloser Tarif verfuegbar</li>
+                <li>Von ProtonMail-Team</li>
+                <li>Open Source Apps</li>
+            </ul>
+        </div>
+        <div class="alert alert-info">
+            <h3>IVPN</h3>
+            <ul>
+                <li>Keine persoenlichen Daten</li>
+                <li>Transparenzberichte</li>
+                <li>Auditiert</li>
+                <li>WireGuard-Unterstuetzung</li>
+            </ul>
+        </div>
+    </div>
+    <div class="alert alert-danger mt-md">
+        <strong>&#9888; Vermeide:</strong> NordVPN, ExpressVPN, Surfshark und aehnliche
+        „Influencer-VPNs". Aggressives Marketing ist kein Qualitaetsmerkmal. Viele machen
+        falsche Versprechen ueber „Anonymitaet".
+    </div>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#129425; Tor richtig nutzen</h2>
+    <ul class="checklist">
+        <li><strong>Nur Tor Browser nutzen:</strong> Download ausschliesslich von
+            <a href="https://www.torproject.org" target="_blank" rel="noopener noreferrer">torproject.org</a></li>
+        <li><strong>Security Level einstellen:</strong> Safer oder Safest fuer sensitive Recherchen</li>
+        <li><strong>Keine persoenlichen Logins:</strong> Einloggen = deanonymisiert</li>
+        <li><strong>Kein Vollbildmodus:</strong> Fenstergroesse ist Fingerprinting-Merkmal</li>
+        <li><strong>Keine Torrents ueber Tor:</strong> Gefaehrdet das Netzwerk und dich</li>
+        <li><strong>Keine Browser-Erweiterungen:</strong> Tor Browser kommt komplett</li>
+    </ul>
+</section>
+
+<section class="card mt-lg">
+    <h2>&#128187; Tails OS</h2>
+    <p>
+        Fuer maximale Sicherheit: <a href="https://tails.boum.org" target="_blank" rel="noopener noreferrer">Tails</a>
+        ist ein Live-Betriebssystem, das von USB startet und allen Traffic durch Tor leitet.
+    </p>
+    <ul class="checklist">
+        <li>Hinterlaesst keine Spuren auf dem Computer</li>
+        <li>Amnesie: Nach jedem Neustart zurueckgesetzt</li>
+        <li>Vorinstallierte Sicherheits-Tools</li>
+        <li>Fuer Journalisten, Whistleblower, Aktivisten unter Druck</li>
+    </ul>
+    <div class="alert alert-warning mt-md">
+        <strong>&#9888; Lernkurve:</strong> Tails erfordert Einarbeitung. Fuer den Alltag ist es
+        uebertrieben – aber wenn du es brauchst, ist es Gold wert.
+    </div>
+</section>
+
+<section class="alert alert-info mt-xl">
+    <strong>&#128161; Merke:</strong> Ein VPN macht dich nicht anonym. Es verschiebt das Vertrauen
+    von deinem ISP zum VPN-Anbieter. Fuer echte Anonymitaet: Tor. Fuer alltaegliche Privatsphaere:
+    VPN von einem vertrauenswuerdigen Anbieter.
+</section>
+{% endblock %}

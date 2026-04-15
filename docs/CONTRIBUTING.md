@@ -18,7 +18,7 @@ Wenn du zu diesem Projekt beiträgst, baust du nicht nur Software. Du baust Infr
 
 ### 1. Autonomie über Abhängigkeit
 
-Jede Architekturentscheidung fragt: **Erhöht das die Kontrolle der Nutzer\*innen über ihre eigenen Daten?**
+Jede Architekturentscheidung fragt: **Erhöht das die Kontrolle der Nutzer über ihre eigenen Daten?**
 
 - Wir bevorzugen clientseitige Verarbeitung gegenüber Server-Roundtrips
 - Wir bevorzugen lokale Speicherung gegenüber Cloud-Diensten

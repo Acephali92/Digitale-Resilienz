@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Widerstands-Toolkit - Digitale Resilienz für Aktivist*innen
+Widerstands-Toolkit - Digitale Resilienz für Aktivisten
 ============================================================
 Eine Plattform für digitale Selbstverteidigung und Aktivismus.
 Keine Tracker. Keine Überwachung. Deine Daten bleiben bei dir.
@@ -96,10 +96,10 @@ if _config_class is None:
     _config_class = "config.ProductionConfig"
 app.config.from_object(_config_class)
 
-if _env == "production" and not os.environ.get("SECRET_KEY"):
-    app.logger.warning(
-        "SECRET_KEY environment variable not set. Using generated key. "
-        "Set SECRET_KEY for production deployments."
+if _env == "production" and not app.config.get("SECRET_KEY"):
+    raise RuntimeError(
+        "SECRET_KEY environment variable must be set in production. "
+        'Generate with: python -c "import secrets; print(secrets.token_hex(32))"'
     )
 
 
@@ -259,6 +259,12 @@ def privacy_quiz():
     return render_template("privacy/quiz.html")
 
 
+@app.route("/privacy/tracking")
+def privacy_tracking():
+    """Tracking avoidance guide - IMEI, fingerprinting, 5G myths."""
+    return render_template("privacy/tracking.html")
+
+
 # ============================================================================
 # SECURITY SECTION (Aktivisten-Sicherheit)
 # ============================================================================
@@ -295,6 +301,30 @@ def security_legal():
     return render_template("security/legal.html")
 
 
+@app.route("/security/2fa")
+def security_2fa():
+    """Two-factor authentication guide - TOTP, WebAuthn, hardware keys."""
+    return render_template("security/2fa.html")
+
+
+@app.route("/security/vpn-tor")
+def security_vpn_tor():
+    """VPN and Tor usage guide - when to use which."""
+    return render_template("security/vpn-tor.html")
+
+
+@app.route("/security/email")
+def security_email():
+    """Secure email providers comparison."""
+    return render_template("security/email.html")
+
+
+@app.route("/security/backup")
+def security_backup():
+    """Secure backup and recovery strategies."""
+    return render_template("security/backup.html")
+
+
 # ============================================================================
 # RESILIENCE SECTION (Propaganda-Resilienz)
 # ============================================================================
@@ -317,6 +347,12 @@ def resilience_sift():
 def resilience_prebunking():
     """Prebunking techniques."""
     return render_template("resilience/prebunking.html")
+
+
+@app.route("/resilience/euphemismen")
+def resilience_euphemismen():
+    """Euphemism decoder - unmasking propaganda language."""
+    return render_template("resilience/euphemismen.html")
 
 
 @app.route("/resilience/sources")
@@ -380,6 +416,12 @@ def activism_seizure_rights():
     return render_template("activism/seizure-rights.html")
 
 
+@app.route("/activism/bezugsgruppen")
+def activism_bezugsgruppen():
+    """Affinity groups guide - secure collective action."""
+    return render_template("activism/bezugsgruppen.html")
+
+
 # ============================================================================
 # CONSPIRACY CHECK SECTION (Verschwörungs-Check)
 # ============================================================================
@@ -420,6 +462,18 @@ def peace_petitions():
 def peace_burnout():
     """Activist burnout prevention."""
     return render_template("peace/burnout.html")
+
+
+@app.route("/peace/antiwar-networks")
+def peace_antiwar_networks():
+    """Anti-war networks and peace organizations directory."""
+    return render_template("peace/antiwar-networks.html")
+
+
+@app.route("/peace/communication")
+def peace_communication():
+    """Peace communication strategies - framing, storytelling, GFK."""
+    return render_template("peace/communication.html")
 
 
 # ============================================================================
