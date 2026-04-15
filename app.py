@@ -377,10 +377,11 @@ def resilience_sources():
     except Exception as e:
         app.logger.error(f"Failed to load news sources: {e}", exc_info=True)
         return render_template("errors/500.html"), 500
-    app.logger.info(f"Loaded {len(data.get('sources', []))} news sources")
+    sources = data.get("sources", [])
+    app.logger.info(f"Loaded {len(sources)} news sources")
     return render_template(
         "resilience/sources.html",
-        sources=data.get("sources", []),
+        sources=sources,
         properties_meta=data.get("properties_meta", {}),
         data_json=json.dumps(data),
     )
