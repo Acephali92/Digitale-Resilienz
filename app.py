@@ -23,7 +23,7 @@ class IPAnonymizingFilter(logging.Filter):
     """Strip IPv4 and IPv6 addresses from log records — keine Überwachung."""
 
     _IP_RE = re.compile(
-        r"\b(?:\d{1,3}\.){3}\d{1,3}\b"           # IPv4
+        r"\b(?:\d{1,3}\.){3}\d{1,3}\b"  # IPv4
         r"|(?:[0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}"  # IPv6
     )
 
@@ -96,10 +96,10 @@ if _config_class is None:
     _config_class = "config.ProductionConfig"
 app.config.from_object(_config_class)
 
-if _env == "production" and not app.config.get("SECRET_KEY"):
-    raise RuntimeError(
-        "SECRET_KEY environment variable must be set in production. "
-        'Generate with: python -c "import secrets; print(secrets.token_hex(32))"'
+if _env == "production" and not os.environ.get("SECRET_KEY"):
+    app.logger.warning(
+        "SECRET_KEY environment variable not set. Using generated key. "
+        "Set SECRET_KEY for production deployments."
     )
 
 
@@ -505,4 +505,9 @@ def server_error(e):
 
 if __name__ == "__main__":
     # Development mode only - use gunicorn/waitress for production
-    app.run(host="127.0.0.1", port=5000, debug=True, use_reloader=False)
+    app.run(
+        host="127.0.0.1",
+        port=5000,
+        debug=os.environ.get("FLASK_DEBUG", "0") == "1",
+        use_reloader=False,
+    )
