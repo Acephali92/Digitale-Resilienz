@@ -208,8 +208,6 @@ class TestProductionSecretKey:
 
     def test_development_config_has_fallback(self):
         """DevelopmentConfig must provide a SECRET_KEY even without ENV."""
-        import os
-
         env_backup = os.environ.pop("SECRET_KEY", None)
         try:
             import importlib
@@ -224,8 +222,6 @@ class TestProductionSecretKey:
 
     def test_production_config_no_fallback(self):
         """ProductionConfig must NOT silently generate a key — SECRET_KEY is None when unset."""
-        import os
-
         env_backup = os.environ.pop("SECRET_KEY", None)
         try:
             import importlib
@@ -239,7 +235,6 @@ class TestProductionSecretKey:
 
     def test_production_startup_raises_without_secret_key(self):
         """app.py must raise RuntimeError when FLASK_ENV=production and SECRET_KEY unset."""
-        import os
         import importlib
 
         env_backup = os.environ.copy()
@@ -354,7 +349,6 @@ class TestUnrecognizedFlaskEnvFallback:
 
     def test_unknown_flask_env_falls_back_to_production(self):
         """An unknown FLASK_ENV value must not crash — it must log a warning and use ProductionConfig."""
-        import os
         import importlib
 
         env_backup = os.environ.copy()

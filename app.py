@@ -358,7 +358,6 @@ def resilience_euphemismen():
 @app.route("/resilience/sources")
 def resilience_sources():
     """Independent news sources with transparency info - SecuChart style."""
-    # Load sources from JSON file
     sources_file = os.path.join(
         os.path.dirname(os.path.abspath(__file__)), "data", "news_sources.json"
     )
@@ -372,13 +371,13 @@ def resilience_sources():
             sources_file,
         )
     except json.JSONDecodeError as e:
-        app.logger.error(f"Invalid JSON in news_sources.json: {e}")
+        app.logger.error("Invalid JSON in news_sources.json: %s", e)
         return render_template("errors/500.html"), 500
     except Exception as e:
-        app.logger.error(f"Failed to load news sources: {e}", exc_info=True)
+        app.logger.error("Failed to load news sources: %s", e, exc_info=True)
         return render_template("errors/500.html"), 500
     sources = data.get("sources", [])
-    app.logger.info(f"Loaded {len(sources)} news sources")
+    app.logger.info("Loaded %d news sources", len(sources))
     return render_template(
         "resilience/sources.html",
         sources=sources,
