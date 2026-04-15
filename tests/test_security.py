@@ -137,6 +137,11 @@ class TestCSRFProtection:
         # In testing mode, CSRF is disabled, but config should exist
         assert "WTF_CSRF_ENABLED" in app.config
 
+    def test_app_not_in_debug_mode_by_default(self, app):
+        """Imported Flask app must not be in debug mode when FLASK_DEBUG is unset."""
+        # The test fixture creates the app without FLASK_DEBUG=1
+        assert app.debug is False
+
 
 class TestIPAnonymization:
     """Verify no IP addresses appear in application logs."""
@@ -176,7 +181,9 @@ class TestDifferentiatedCaching:
 
     def test_css_asset_long_cache(self, client):
         """CSS static assets must have a long cache TTL for Service Worker."""
-        static_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "static", "css")
+        static_dir = os.path.join(
+            os.path.dirname(os.path.dirname(__file__)), "static", "css"
+        )
         css_files = glob.glob(os.path.join(static_dir, "*.css"))
         if not css_files:
             pytest.skip("No CSS files found under static/css/")
@@ -250,6 +257,7 @@ class TestProductionSecretKey:
 
 def _make_ip_filter():
     from app import IPAnonymizingFilter
+
     return IPAnonymizingFilter()
 
 
@@ -370,7 +378,9 @@ class TestIPAnonymizingFilterIPv6:
     def test_full_ipv6_is_redacted(self):
         """Full IPv6 address must be replaced with [IP]."""
         f = _make_ip_filter()
-        record = _make_log_record("Connection from 2001:0db8:85a3:0000:0000:8a2e:0370:7334")
+        record = _make_log_record(
+            "Connection from 2001:0db8:85a3:0000:0000:8a2e:0370:7334"
+        )
         f.filter(record)
         assert "2001:0db8" not in record.msg
         assert "[IP]" in record.msg
@@ -392,13 +402,10 @@ class TestIPAnonymizingFilterAttachment:
 
         Handlers with level NOTSET are injected by pytest's log capture and are excluded.
         """
-        app_handlers = [
-            h for h in app.logger.handlers
-            if h.level != logging.NOTSET
-        ]
+        app_handlers = [h for h in app.logger.handlers if h.level != logging.NOTSET]
         assert app_handlers, "No app-configured handlers found on app.logger"
         for handler in app_handlers:
             filter_names = [type(f).__name__ for f in handler.filters]
-            assert "IPAnonymizingFilter" in filter_names, (
-                f"Handler {handler!r} is missing IPAnonymizingFilter"
-            )
+            assert (
+                "IPAnonymizingFilter" in filter_names
+            ), f"Handler {handler!r} is missing IPAnonymizingFilter"
