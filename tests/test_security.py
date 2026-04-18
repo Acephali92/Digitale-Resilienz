@@ -137,6 +137,11 @@ class TestCSRFProtection:
         # In testing mode, CSRF is disabled, but config should exist
         assert "WTF_CSRF_ENABLED" in app.config
 
+    def test_app_not_in_debug_mode_by_default(self, app):
+        """Imported Flask app must not be in debug mode when FLASK_DEBUG is unset."""
+        # The test fixture creates the app without FLASK_DEBUG=1
+        assert app.debug is False
+
 
 class TestIPAnonymization:
     """Verify no IP addresses appear in application logs."""
@@ -176,7 +181,9 @@ class TestDifferentiatedCaching:
 
     def test_css_asset_long_cache(self, client):
         """CSS static assets must have a long cache TTL for Service Worker."""
-        static_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "static", "css")
+        static_dir = os.path.join(
+            os.path.dirname(os.path.dirname(__file__)), "static", "css"
+        )
         css_files = glob.glob(os.path.join(static_dir, "*.css"))
         if not css_files:
             pytest.skip("No CSS files found under static/css/")
@@ -201,8 +208,6 @@ class TestProductionSecretKey:
 
     def test_development_config_has_fallback(self):
         """DevelopmentConfig must provide a SECRET_KEY even without ENV."""
-        import os
-
         env_backup = os.environ.pop("SECRET_KEY", None)
         try:
             import importlib
@@ -217,8 +222,6 @@ class TestProductionSecretKey:
 
     def test_production_config_no_fallback(self):
         """ProductionConfig must NOT silently generate a key — SECRET_KEY is None when unset."""
-        import os
-
         env_backup = os.environ.pop("SECRET_KEY", None)
         try:
             import importlib
@@ -232,7 +235,6 @@ class TestProductionSecretKey:
 
     def test_production_startup_raises_without_secret_key(self):
         """app.py must raise RuntimeError when FLASK_ENV=production and SECRET_KEY unset."""
-        import os
         import importlib
 
         env_backup = os.environ.copy()
@@ -248,29 +250,31 @@ class TestProductionSecretKey:
             os.environ.update(env_backup)
 
 
+def _make_ip_filter():
+    from app import IPAnonymizingFilter
+
+    return IPAnonymizingFilter()
+
+
+def _make_log_record(msg, args=()):
+    return logging.LogRecord(
+        name="test",
+        level=logging.INFO,
+        pathname="",
+        lineno=0,
+        msg=msg,
+        args=args,
+        exc_info=None,
+    )
+
+
 class TestIPAnonymizingFilterArgs:
     """Cover record.args branches in IPAnonymizingFilter.filter()."""
 
-    def _make_filter(self):
-        from app import IPAnonymizingFilter
-
-        return IPAnonymizingFilter()
-
-    def _make_record(self, msg, args):
-        return logging.LogRecord(
-            name="test",
-            level=logging.INFO,
-            pathname="",
-            lineno=0,
-            msg=msg,
-            args=args,
-            exc_info=None,
-        )
-
     def test_ip_in_tuple_args_is_redacted(self):
         """IP inside a tuple arg must be replaced with [IP]."""
-        f = self._make_filter()
-        record = self._make_record("host %s port %s", ("10.0.0.1", "8080"))
+        f = _make_ip_filter()
+        record = _make_log_record("host %s port %s", ("10.0.0.1", "8080"))
         f.filter(record)
         assert "10.0.0.1" not in record.args
         assert "[IP]" in record.args[0]
@@ -278,8 +282,8 @@ class TestIPAnonymizingFilterArgs:
 
     def test_non_tuple_args_is_wrapped_and_redacted(self):
         """A bare string arg (non-tuple) must be wrapped into a 1-tuple."""
-        f = self._make_filter()
-        record = self._make_record("client %s", "172.16.0.5")
+        f = _make_ip_filter()
+        record = _make_log_record("client %s", "172.16.0.5")
         f.filter(record)
         assert isinstance(record.args, tuple)
         assert "172.16.0.5" not in record.args[0]
@@ -287,15 +291,15 @@ class TestIPAnonymizingFilterArgs:
 
     def test_non_string_arg_passes_through_unchanged(self):
         """Integer/non-string args must not be converted or modified."""
-        f = self._make_filter()
-        record = self._make_record("port %d", (443,))
+        f = _make_ip_filter()
+        record = _make_log_record("port %d", (443,))
         f.filter(record)
         assert record.args == (443,)
 
     def test_dict_args_values_are_redacted(self):
         """dict-style args (%(key)s format) must have IP values scrubbed."""
-        f = self._make_filter()
-        record = self._make_record(
+        f = _make_ip_filter()
+        record = _make_log_record(
             "Request from %(ip)s", {"ip": "192.168.0.1", "user": "alice"}
         )
         f.filter(record)
@@ -345,7 +349,6 @@ class TestUnrecognizedFlaskEnvFallback:
 
     def test_unknown_flask_env_falls_back_to_production(self):
         """An unknown FLASK_ENV value must not crash — it must log a warning and use ProductionConfig."""
-        import os
         import importlib
 
         env_backup = os.environ.copy()
@@ -366,33 +369,20 @@ class TestUnrecognizedFlaskEnvFallback:
 class TestIPAnonymizingFilterIPv6:
     """Verify IPAnonymizingFilter redacts IPv6 addresses."""
 
-    def _make_filter(self):
-        from app import IPAnonymizingFilter
-        return IPAnonymizingFilter()
-
-    def _make_record(self, msg):
-        return logging.LogRecord(
-            name="test",
-            level=logging.INFO,
-            pathname="",
-            lineno=0,
-            msg=msg,
-            args=(),
-            exc_info=None,
-        )
-
     def test_full_ipv6_is_redacted(self):
         """Full IPv6 address must be replaced with [IP]."""
-        f = self._make_filter()
-        record = self._make_record("Connection from 2001:0db8:85a3:0000:0000:8a2e:0370:7334")
+        f = _make_ip_filter()
+        record = _make_log_record(
+            "Connection from 2001:0db8:85a3:0000:0000:8a2e:0370:7334"
+        )
         f.filter(record)
         assert "2001:0db8" not in record.msg
         assert "[IP]" in record.msg
 
     def test_loopback_ipv6_is_redacted(self):
         """IPv6 loopback ::1 must be replaced with [IP]."""
-        f = self._make_filter()
-        record = self._make_record("Request from ::1 processed")
+        f = _make_ip_filter()
+        record = _make_log_record("Request from ::1 processed")
         f.filter(record)
         assert "::1" not in record.msg
         assert "[IP]" in record.msg
@@ -406,13 +396,10 @@ class TestIPAnonymizingFilterAttachment:
 
         Handlers with level NOTSET are injected by pytest's log capture and are excluded.
         """
-        app_handlers = [
-            h for h in app.logger.handlers
-            if h.level != logging.NOTSET
-        ]
+        app_handlers = [h for h in app.logger.handlers if h.level != logging.NOTSET]
         assert app_handlers, "No app-configured handlers found on app.logger"
         for handler in app_handlers:
             filter_names = [type(f).__name__ for f in handler.filters]
-            assert "IPAnonymizingFilter" in filter_names, (
-                f"Handler {handler!r} is missing IPAnonymizingFilter"
-            )
+            assert (
+                "IPAnonymizingFilter" in filter_names
+            ), f"Handler {handler!r} is missing IPAnonymizingFilter"

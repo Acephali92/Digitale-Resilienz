@@ -23,7 +23,7 @@ class IPAnonymizingFilter(logging.Filter):
     """Strip IPv4 and IPv6 addresses from log records — keine Überwachung."""
 
     _IP_RE = re.compile(
-        r"\b(?:\d{1,3}\.){3}\d{1,3}\b"           # IPv4
+        r"\b(?:\d{1,3}\.){3}\d{1,3}\b"  # IPv4
         r"|(?:[0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}"  # IPv6
     )
 
@@ -259,10 +259,10 @@ def privacy_quiz():
     return render_template("privacy/quiz.html")
 
 
-@app.route('/privacy/tracking')
+@app.route("/privacy/tracking")
 def privacy_tracking():
     """Tracking avoidance guide - IMEI, fingerprinting, 5G myths."""
-    return render_template('privacy/tracking.html')
+    return render_template("privacy/tracking.html")
 
 
 # ============================================================================
@@ -301,28 +301,28 @@ def security_legal():
     return render_template("security/legal.html")
 
 
-@app.route('/security/2fa')
+@app.route("/security/2fa")
 def security_2fa():
     """Two-factor authentication guide - TOTP, WebAuthn, hardware keys."""
-    return render_template('security/2fa.html')
+    return render_template("security/2fa.html")
 
 
-@app.route('/security/vpn-tor')
+@app.route("/security/vpn-tor")
 def security_vpn_tor():
     """VPN and Tor usage guide - when to use which."""
-    return render_template('security/vpn-tor.html')
+    return render_template("security/vpn-tor.html")
 
 
-@app.route('/security/email')
+@app.route("/security/email")
 def security_email():
     """Secure email providers comparison."""
-    return render_template('security/email.html')
+    return render_template("security/email.html")
 
 
-@app.route('/security/backup')
+@app.route("/security/backup")
 def security_backup():
     """Secure backup and recovery strategies."""
-    return render_template('security/backup.html')
+    return render_template("security/backup.html")
 
 
 # ============================================================================
@@ -349,16 +349,15 @@ def resilience_prebunking():
     return render_template("resilience/prebunking.html")
 
 
-@app.route('/resilience/euphemismen')
+@app.route("/resilience/euphemismen")
 def resilience_euphemismen():
     """Euphemism decoder - unmasking propaganda language."""
-    return render_template('resilience/euphemismen.html')
+    return render_template("resilience/euphemismen.html")
 
 
 @app.route("/resilience/sources")
 def resilience_sources():
     """Independent news sources with transparency info - SecuChart style."""
-    # Load sources from JSON file
     sources_file = os.path.join(
         os.path.dirname(os.path.abspath(__file__)), "data", "news_sources.json"
     )
@@ -372,15 +371,16 @@ def resilience_sources():
             sources_file,
         )
     except json.JSONDecodeError as e:
-        app.logger.error(f"Invalid JSON in news_sources.json: {e}")
+        app.logger.error("Invalid JSON in news_sources.json: %s", e)
         return render_template("errors/500.html"), 500
     except Exception as e:
-        app.logger.error(f"Failed to load news sources: {e}", exc_info=True)
+        app.logger.error("Failed to load news sources: %s", e, exc_info=True)
         return render_template("errors/500.html"), 500
-    app.logger.info(f"Loaded {len(data.get('sources', []))} news sources")
+    sources = data.get("sources", [])
+    app.logger.info("Loaded %d news sources", len(sources))
     return render_template(
         "resilience/sources.html",
-        sources=data.get("sources", []),
+        sources=sources,
         properties_meta=data.get("properties_meta", {}),
         data_json=json.dumps(data),
     )
@@ -416,10 +416,10 @@ def activism_seizure_rights():
     return render_template("activism/seizure-rights.html")
 
 
-@app.route('/activism/bezugsgruppen')
+@app.route("/activism/bezugsgruppen")
 def activism_bezugsgruppen():
     """Affinity groups guide - secure collective action."""
-    return render_template('activism/bezugsgruppen.html')
+    return render_template("activism/bezugsgruppen.html")
 
 
 # ============================================================================
@@ -464,16 +464,16 @@ def peace_burnout():
     return render_template("peace/burnout.html")
 
 
-@app.route('/peace/antiwar-networks')
+@app.route("/peace/antiwar-networks")
 def peace_antiwar_networks():
     """Anti-war networks and peace organizations directory."""
-    return render_template('peace/antiwar-networks.html')
+    return render_template("peace/antiwar-networks.html")
 
 
-@app.route('/peace/communication')
+@app.route("/peace/communication")
 def peace_communication():
     """Peace communication strategies - framing, storytelling, GFK."""
-    return render_template('peace/communication.html')
+    return render_template("peace/communication.html")
 
 
 # ============================================================================
@@ -559,4 +559,9 @@ def server_error(e):
 
 if __name__ == "__main__":
     # Development mode only - use gunicorn/waitress for production
-    app.run(host="127.0.0.1", port=5000, debug=True, use_reloader=False)
+    app.run(
+        host="127.0.0.1",
+        port=5000,
+        debug=(_env == "development"),
+        use_reloader=False,
+    )

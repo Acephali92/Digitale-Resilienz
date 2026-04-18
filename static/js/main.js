@@ -411,7 +411,7 @@
             // Show visible banner when service worker signals a new version
             navigator.serviceWorker.addEventListener('message', function(event) {
                 if (event.data && event.data.type === 'UPDATE_AVAILABLE') {
-                    var banner = document.createElement('div');
+                    const banner = document.createElement('div');
                     banner.className = 'sw-update-banner';
                     banner.innerHTML = '&#8635; Neue Version verfügbar. <button id="sw-reload-btn">Neu laden</button>';
                     document.body.appendChild(banner);
