@@ -1,85 +1,1040 @@
 {% extends "base.html" %}
 
-{% block title %}Tools{% endblock %}
+{% block title %}Privacy Tools{% endblock %}
+
+{% block head %}
+<style nonce="{{ csp_nonce }}">
+/* ==========================================================================
+   TOOLS PAGE - Sidebar Layout (Privacy Guides Style)
+   ========================================================================== */
+
+/* Main Layout */
+.tools-layout {
+    display: flex;
+    gap: var(--space-xl);
+    margin-top: 80px;
+    min-height: calc(100vh - 80px);
+}
+
+/* ==========================================================================
+   SIDEBAR
+   ========================================================================== */
+
+.tools-sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 100px;
+    height: calc(100vh - 120px);
+    overflow-y: auto;
+    padding-right: var(--space-md);
+    scrollbar-width: thin;
+}
+
+.tools-sidebar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.tools-sidebar::-webkit-scrollbar-thumb {
+    background: var(--color-elevated);
+    border-radius: 2px;
+}
+
+.sidebar-header {
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--color-elevated);
+}
+
+.sidebar-title {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-matrix);
+    margin-bottom: var(--space-xs);
+}
+
+.sidebar-subtitle {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+}
+
+/* Sidebar Navigation */
+.sidebar-nav {
+    list-style: none;
+}
+
+.sidebar-group {
+    margin-bottom: var(--space-md);
+}
+
+.sidebar-group-title {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    padding: var(--space-sm) 0;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.sidebar-group-title::before {
+    content: '';
+    width: 12px;
+    height: 1px;
+    background: var(--color-matrix);
+    opacity: 0.5;
+}
+
+.sidebar-items {
+    list-style: none;
+    margin-left: var(--space-sm);
+    border-left: 1px solid var(--color-elevated);
+    padding-left: var(--space-sm);
+}
+
+.sidebar-item {
+    margin-bottom: 2px;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--text-sm);
+    color: var(--color-text-dim);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.sidebar-link:hover {
+    color: var(--color-matrix);
+    background: rgba(0, 255, 65, 0.05);
+}
+
+.sidebar-link.active {
+    color: var(--color-matrix);
+    background: rgba(0, 255, 65, 0.1);
+}
+
+.sidebar-link.active::before {
+    content: '';
+    position: absolute;
+    left: calc(var(--space-sm) * -1 - 1px);
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--color-matrix);
+}
+
+.sidebar-link-icon {
+    width: 16px;
+    height: 16px;
+    opacity: 0.7;
+}
+
+.sidebar-link-count {
+    margin-left: auto;
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    background: var(--color-elevated);
+    padding: 0 6px;
+    border-radius: 10px;
+}
+
+/* ==========================================================================
+   MAIN CONTENT
+   ========================================================================== */
+
+.tools-main {
+    flex: 1;
+    min-width: 0;
+    padding-bottom: var(--space-3xl);
+}
+
+/* Header */
+.tools-header {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--color-elevated);
+}
+
+.tools-page-title {
+    font-size: var(--text-3xl);
+    color: var(--color-matrix);
+    text-shadow: var(--glow-sm);
+    margin-bottom: var(--space-sm);
+}
+
+.tools-page-subtitle {
+    font-size: var(--text-base);
+    color: var(--color-text-dim);
+    max-width: 600px;
+}
+
+/* Search & Filters */
+.tools-search-container {
+    margin-bottom: var(--space-xl);
+}
+
+.tools-search {
+    display: flex;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+}
+
+.tools-search-input {
+    flex: 1;
+    padding: var(--space-md) var(--space-lg);
+    font-family: var(--font-mono);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    background: var(--color-surface);
+    border: 1px solid var(--color-elevated);
+    transition: all 0.3s ease;
+}
+
+.tools-search-input:focus {
+    border-color: var(--color-matrix);
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+    outline: none;
+}
+
+.tools-search-input::placeholder {
+    color: var(--color-text-muted);
+}
+
+/* Filter Chips */
+.tools-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+}
+
+.filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-md);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-dim);
+    background: var(--color-surface);
+    border: 1px solid var(--color-elevated);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.filter-chip:hover {
+    border-color: var(--color-matrix);
+    color: var(--color-matrix);
+}
+
+.filter-chip.active {
+    background: rgba(0, 255, 65, 0.1);
+    border-color: var(--color-matrix);
+    color: var(--color-matrix);
+}
+
+.filter-chip-count {
+    background: var(--color-elevated);
+    padding: 0 4px;
+    border-radius: 4px;
+    font-size: 10px;
+}
+
+/* ==========================================================================
+   CATEGORY SECTIONS
+   ========================================================================== */
+
+.tools-category-section {
+    margin-bottom: var(--space-2xl);
+    scroll-margin-top: 120px;
+}
+
+.category-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--color-elevated);
+}
+
+.category-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--color-matrix);
+}
+
+.category-title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0;
+}
+
+.category-count {
+    margin-left: auto;
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+}
+
+.category-description {
+    font-size: var(--text-sm);
+    color: var(--color-text-dim);
+    margin-bottom: var(--space-lg);
+}
+
+/* ==========================================================================
+   TOOL CARDS
+   ========================================================================== */
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-lg);
+}
+
+.tool-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-elevated);
+    padding: var(--space-lg);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.tool-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--color-matrix);
+    transition: height 0.3s ease;
+}
+
+.tool-card:hover {
+    border-color: var(--color-matrix);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.tool-card:hover::before {
+    height: 100%;
+}
+
+/* Card Header */
+.tool-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.tool-logo {
+    width: 48px;
+    height: 48px;
+    background: var(--color-elevated);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.tool-logo img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.tool-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.tool-name {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 var(--space-xs) 0;
+}
+
+.tool-slogan {
+    font-size: var(--text-sm);
+    color: var(--color-matrix);
+    margin: 0;
+}
+
+/* Card Body */
+.tool-description {
+    font-size: var(--text-sm);
+    color: var(--color-text-dim);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+}
+
+.tool-resilience {
+    font-size: var(--text-xs);
+    color: var(--color-info);
+    padding: var(--space-sm);
+    background: rgba(0, 212, 255, 0.05);
+    border-left: 2px solid var(--color-info);
+    margin-bottom: var(--space-md);
+}
+
+.tool-resilience::before {
+    content: '+ ';
+    font-weight: bold;
+}
+
+/* Tags */
+.tool-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-md);
+}
+
+.tool-tag {
+    font-size: 10px;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 2px 8px;
+    border-radius: 3px;
+    background: var(--color-elevated);
+    color: var(--color-text-muted);
+}
+
+.tool-tag.tag-foss { background: rgba(0, 255, 65, 0.15); color: #00ff41; }
+.tool-tag.tag-privacy-guides { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+.tool-tag.tag-prism-break { background: rgba(168, 85, 247, 0.15); color: #a855f7; }
+.tool-tag.tag-offline { background: rgba(251, 146, 60, 0.15); color: #fb923c; }
+.tool-tag.tag-dezentral { background: rgba(20, 184, 166, 0.15); color: #14b8a6; }
+.tool-tag.tag-audit { background: rgba(6, 182, 212, 0.15); color: #06b6d4; }
+.tool-tag.tag-einsteiger { background: rgba(132, 204, 22, 0.15); color: #84cc16; }
+.tool-tag.tag-fortgeschritten { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+.tool-tag.tag-selbsthosting { background: rgba(99, 102, 241, 0.15); color: #6366f1; }
+.tool-tag.tag-kostenlos { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
+
+/* Platforms */
+.tool-platforms {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-md);
+}
+
+.tool-platforms::before {
+    content: 'Plattformen: ';
+    color: var(--color-text-dim);
+}
+
+/* Actions */
+.tool-actions {
+    display: flex;
+    gap: var(--space-sm);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-elevated);
+}
+
+.tool-btn {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    border: 1px solid var(--color-elevated);
+    background: transparent;
+    color: var(--color-text-dim);
+    transition: all 0.2s ease;
+}
+
+.tool-btn:hover {
+    border-color: var(--color-matrix);
+    color: var(--color-matrix);
+}
+
+.tool-btn-primary {
+    background: var(--color-matrix);
+    border-color: var(--color-matrix);
+    color: var(--color-void);
+}
+
+.tool-btn-primary:hover {
+    background: transparent;
+    color: var(--color-matrix);
+}
+
+/* ==========================================================================
+   GROUP HEADERS
+   ========================================================================== */
+
+.tools-group-header {
+    margin-bottom: var(--space-xl);
+    margin-top: var(--space-2xl);
+    padding: var(--space-lg) 0;
+    border-bottom: 2px solid var(--color-matrix);
+    scroll-margin-top: 100px;
+}
+
+.tools-group-header:first-child {
+    margin-top: 0;
+}
+
+.group-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--color-matrix);
+    text-shadow: var(--glow-sm);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+/* ==========================================================================
+   FOOTER INFO
+   ========================================================================== */
+
+.tools-footer {
+    margin-top: var(--space-3xl);
+    padding: var(--space-xl);
+    background: var(--color-surface);
+    border: 1px solid var(--color-elevated);
+    text-align: center;
+}
+
+.tools-footer-text {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+}
+
+.tools-footer-text a {
+    color: var(--color-matrix);
+}
+
+.tools-footer-date {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-dim);
+    margin-top: var(--space-sm);
+}
+
+/* ==========================================================================
+   MOBILE SIDEBAR TOGGLE
+   ========================================================================== */
+
+.sidebar-toggle {
+    display: none;
+    position: fixed;
+    bottom: var(--space-lg);
+    right: var(--space-lg);
+    z-index: 100;
+    width: 56px;
+    height: 56px;
+    background: var(--color-matrix);
+    border: none;
+    border-radius: 50%;
+    color: var(--color-void);
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 20px var(--color-matrix-glow);
+}
+
+.sidebar-toggle:hover {
+    transform: scale(1.1);
+}
+
+.sidebar-toggle svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+    .tools-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 300px;
+        height: 100vh;
+        background: var(--color-void);
+        z-index: 200;
+        padding: 100px var(--space-lg) var(--space-lg);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        border-right: 1px solid var(--color-elevated);
+    }
+
+    .tools-sidebar.is-open {
+        transform: translateX(0);
+    }
+
+    .sidebar-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 150;
+    }
+
+    .sidebar-overlay.is-open {
+        display: block;
+    }
+
+    .tools-layout {
+        flex-direction: column;
+    }
+
+    .tools-main {
+        width: 100%;
+    }
+}
+
+@media (max-width: 640px) {
+    .tools-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tool-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .tools-page-title {
+        font-size: var(--text-2xl);
+    }
+
+    .tools-search {
+        flex-direction: column;
+    }
+}
+
+/* ==========================================================================
+   NO-JS FALLBACK
+   ========================================================================== */
+
+.js-only {
+    display: none;
+}
+
+.js-enabled .js-only {
+    display: block;
+}
+
+.js-enabled .nojs-only {
+    display: none;
+}
+</style>
+{% endblock %}
 
 {% block content %}
-<section class="section-header">
-    <h1>&#128295; Interaktive Tools</h1>
-    <p class="section-subtitle">
-        Praktische Werkzeuge für deine digitale Sicherheit – alle lokal, kein Tracking.
-    </p>
-</section>
-
-<div class="grid grid-3">
-    <a href="{{ url_for('tools_passphrase') }}" class="card">
-        <div class="card-header">
-            <span class="card-icon">&#128272;</span>
-            <h3 class="card-title">Passphrase-Generator</h3>
+<div class="tools-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="tools-sidebar" id="tools-sidebar" role="navigation" aria-label="Tool-Kategorien">
+        <div class="sidebar-header">
+            <div class="sidebar-title">// KATEGORIEN</div>
+            <div class="sidebar-subtitle">{{ tools|length }} Tools in {{ categories|length }} Kategorien</div>
         </div>
-        <p class="card-body">
-            Generiere und teste sichere Passphrasen.
-            Alles passiert in deinem Browser.
-        </p>
-    </a>
 
-    <a href="{{ url_for('tools_plan48h') }}" class="card">
-        <div class="card-header">
-            <span class="card-icon">&#128197;</span>
-            <h3 class="card-title">48h-Notfallplan</h3>
-        </div>
-        <p class="card-body">
-            Erstelle deinen persönlichen Notfallplan
-            für den Worst Case.
-        </p>
-    </a>
+        <nav class="sidebar-nav">
+            {% for group in category_groups %}
+            {% set group_cats = get_categories_by_group(group.id) %}
+            {% if group_cats %}
+            <div class="sidebar-group">
+                <div class="sidebar-group-title">{{ group.name }}</div>
+                <ul class="sidebar-items">
+                    {% for cat in group_cats %}
+                    {% set cat_tools = [] %}
+                    {% for t in tools if t.category == cat.id %}
+                        {% set _ = cat_tools.append(t) %}
+                    {% endfor %}
+                    {% if cat_tools %}
+                    <li class="sidebar-item">
+                        <a href="#{{ cat.id }}" class="sidebar-link" data-category="{{ cat.id }}">
+                            <span class="sidebar-link-text">{{ cat.name }}</span>
+                            <span class="sidebar-link-count">{{ cat_tools|length }}</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </nav>
+    </aside>
 
-    <a href="{{ url_for('tools_downloads') }}" class="card">
-        <div class="card-header">
-            <span class="card-icon">&#128229;</span>
-            <h3 class="card-title">Offline-Downloads</h3>
+    <!-- Mobile Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+    <!-- Mobile Sidebar Toggle -->
+    <button class="sidebar-toggle js-only" id="sidebar-toggle" aria-label="Kategorien anzeigen" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+
+    <!-- Main Content -->
+    <main class="tools-main">
+        <header class="tools-header">
+            <h1 class="tools-page-title">Privacy Tools</h1>
+            <p class="tools-page-subtitle">
+                Kuratierte Sammlung von Privacy-Tools basierend auf Privacy Guides, Prism Break und dem Privacy Handbuch.
+                Alle Empfehlungen priorisieren Open Source, dezentrale und offline-faehige Loesungen.
+            </p>
+        </header>
+
+        <!-- Search and Filters -->
+        <div class="tools-search-container">
+            <div class="tools-search">
+                <input
+                    type="search"
+                    class="tools-search-input js-only"
+                    id="tools-search"
+                    placeholder="// Tool suchen..."
+                    aria-label="Tools durchsuchen"
+                >
+            </div>
+
+            <div class="tools-filters" role="group" aria-label="Filter">
+                {% for tag_id, tag in tags.items() %}
+                {% set tag_count = [] %}
+                {% for t in tools if tag_id in t.tags %}
+                    {% set _ = tag_count.append(t) %}
+                {% endfor %}
+                {% if tag_count %}
+                <button
+                    class="filter-chip js-only"
+                    data-filter="{{ tag_id }}"
+                    aria-pressed="false"
+                >
+                    {{ tag.label }}
+                    <span class="filter-chip-count">{{ tag_count|length }}</span>
+                </button>
+                {% endif %}
+                {% endfor %}
+            </div>
         </div>
-        <p class="card-body">
-            Alle Materialien als PDF herunterladen.
-            Funktioniert ohne Internet.
-        </p>
-    </a>
+
+        <!-- No Results Message (JS only) -->
+        <div class="alert alert-info js-only" id="no-results" style="display: none;">
+            Keine Tools gefunden. Versuche einen anderen Suchbegriff oder entferne Filter.
+        </div>
+
+        <!-- Tools grouped by Category Groups and Categories -->
+        {% for group in category_groups %}
+        {% set group_has_tools = false %}
+        {% for cat in get_categories_by_group(group.id) %}
+            {% for t in tools if t.category == cat.id %}
+                {% set group_has_tools = true %}
+            {% endfor %}
+        {% endfor %}
+
+        {% if group_has_tools %}
+        <div class="tools-group-header" id="group-{{ group.id }}">
+            <h2 class="group-title">{{ group.name }}</h2>
+        </div>
+
+        {% for cat in get_categories_by_group(group.id) %}
+        {% set cat_tools = [] %}
+        {% for t in tools if t.category == cat.id %}
+            {% set _ = cat_tools.append(t) %}
+        {% endfor %}
+
+        {% if cat_tools %}
+        <section class="tools-category-section" id="{{ cat.id }}" data-category="{{ cat.id }}">
+            <header class="category-header">
+                <h3 class="category-title">{{ cat.name }}</h3>
+                <span class="category-count">{{ cat_tools|length }} Tools</span>
+            </header>
+
+            <p class="category-description">{{ cat.description }}</p>
+
+            <div class="tools-grid">
+                {% for tool in cat_tools %}
+                <article class="tool-card" data-tool="{{ tool.id }}" data-tags="{{ tool.tags|join(' ') }}" data-name="{{ tool.name|lower }}" data-description="{{ tool.description|lower }}">
+                    <div class="tool-card-header">
+                        <div class="tool-logo">
+                            <!-- Placeholder icon - can be replaced with actual logos -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <div class="tool-info">
+                            <h4 class="tool-name">{{ tool.name }}</h4>
+                            <p class="tool-slogan">{{ tool.slogan }}</p>
+                        </div>
+                    </div>
+
+                    <p class="tool-description">{{ tool.description }}</p>
+
+                    {% if tool.resilience %}
+                    <div class="tool-resilience">{{ tool.resilience }}</div>
+                    {% endif %}
+
+                    <div class="tool-tags">
+                        {% for tag_id in tool.tags %}
+                        {% if tag_id in tags %}
+                        <span class="tool-tag tag-{{ tag_id }}" title="{{ tags[tag_id].title }}">{{ tags[tag_id].label }}</span>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    {% if tool.platforms %}
+                    <div class="tool-platforms">{{ tool.platforms|join(', ') }}</div>
+                    {% endif %}
+
+                    <div class="tool-actions">
+                        <a href="{{ tool.website }}" class="tool-btn tool-btn-primary" target="_blank" rel="noopener noreferrer">
+                            Website
+                        </a>
+                        {% if tool.review_url %}
+                        <a href="{{ tool.review_url }}" class="tool-btn" target="_blank" rel="noopener noreferrer">
+                            Review
+                        </a>
+                        {% endif %}
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% endfor %}
+
+        <!-- Footer -->
+        <footer class="tools-footer">
+            <p class="tools-footer-text">
+                Datenquellen:
+                <a href="https://www.privacyguides.org/en/tools/" target="_blank" rel="noopener">Privacy Guides</a>,
+                <a href="https://prism-break.org/en/all/" target="_blank" rel="noopener">Prism Break</a>,
+                <a href="https://privacy-handbuch.de" target="_blank" rel="noopener">Privacy Handbuch</a>
+            </p>
+            <p class="tools-footer-date">
+                Zuletzt aktualisiert: 15. Mai 2026
+            </p>
+        </footer>
+    </main>
 </div>
+{% endblock %}
 
-<section class="card mt-xl">
-    <div class="card-header">
-        <span class="card-icon">&#128274;</span>
-        <h3 class="card-title">Privatsphäre-Versprechen</h3>
-    </div>
-    <div class="card-body">
-        <p>
-            Alle unsere Tools funktionieren <strong>vollständig lokal</strong> in deinem Browser:
-        </p>
-        <ul class="checklist">
-            <li><strong>Keine Serverübertragung</strong> – Deine Daten verlassen nie deinen Computer</li>
-            <li><strong>Kein Tracking</strong> – Wir wissen nicht, wer du bist oder was du eingibst</li>
-            <li><strong>Open Source</strong> – Der gesamte Code ist auf GitHub einsehbar</li>
-            <li><strong>Offline-fähig</strong> – Funktioniert auch ohne Internetverbindung</li>
-        </ul>
-    </div>
-</section>
+{% block scripts %}
+<script nonce="{{ csp_nonce }}">
+(function() {
+    'use strict';
 
-<section class="grid grid-2 mt-xl">
-    <div class="card">
-        <h3>&#128218; Externe Tools (empfohlen)</h3>
-        <ul class="checklist">
-            <li><a href="https://www.datenanfragen.de/" target="_blank" rel="noopener">datenanfragen.de</a> – DSGVO-Anfragen</li>
-            <li><a href="https://haveibeenpwned.com/" target="_blank" rel="noopener">Have I Been Pwned</a> – Datenleck-Check</li>
-            <li><a href="https://www.eff.org/pages/surveillance-self-defense" target="_blank" rel="noopener">EFF SSD</a> – Surveillance Self-Defense</li>
-        </ul>
-    </div>
+    // Mark body as JS-enabled
+    document.body.classList.add('js-enabled');
 
-    <div class="card">
-        <h3>&#128240; Weiterführende Ressourcen</h3>
-        <ul class="checklist">
-            <li><a href="https://ssd.eff.org/" target="_blank" rel="noopener">Surveillance Self-Defense</a></li>
-            <li><a href="https://securityinabox.org/de/" target="_blank" rel="noopener">Security in a Box</a></li>
-            <li><a href="https://datadetoxkit.org/" target="_blank" rel="noopener">Data Detox Kit</a></li>
-        </ul>
-    </div>
-</section>
+    // === MOBILE SIDEBAR TOGGLE ===
+    var sidebar = document.getElementById('tools-sidebar');
+    var sidebarToggle = document.getElementById('sidebar-toggle');
+    var sidebarOverlay = document.getElementById('sidebar-overlay');
+
+    if (sidebarToggle && sidebar) {
+        sidebarToggle.addEventListener('click', function() {
+            var isOpen = sidebar.classList.toggle('is-open');
+            sidebarOverlay.classList.toggle('is-open', isOpen);
+            sidebarToggle.setAttribute('aria-expanded', isOpen);
+        });
+
+        sidebarOverlay.addEventListener('click', function() {
+            sidebar.classList.remove('is-open');
+            sidebarOverlay.classList.remove('is-open');
+            sidebarToggle.setAttribute('aria-expanded', 'false');
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                sidebar.classList.remove('is-open');
+                sidebarOverlay.classList.remove('is-open');
+                sidebarToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
+    // === SEARCH & FILTER ===
+    var searchInput = document.getElementById('tools-search');
+    var filterChips = document.querySelectorAll('.filter-chip');
+    var toolCards = document.querySelectorAll('.tool-card');
+    var categorySections = document.querySelectorAll('.tools-category-section');
+    var groupHeaders = document.querySelectorAll('.tools-group-header');
+    var noResults = document.getElementById('no-results');
+
+    var activeFilters = new Set();
+
+    function filterTools() {
+        var searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
+        var visibleCount = 0;
+        var visibleCategories = new Set();
+
+        toolCards.forEach(function(card) {
+            var name = card.getAttribute('data-name') || '';
+            var description = card.getAttribute('data-description') || '';
+            var tags = card.getAttribute('data-tags') || '';
+            var category = card.closest('.tools-category-section');
+
+            // Check search term
+            var matchesSearch = !searchTerm ||
+                name.indexOf(searchTerm) !== -1 ||
+                description.indexOf(searchTerm) !== -1;
+
+            // Check filters
+            var matchesFilters = activeFilters.size === 0;
+            if (!matchesFilters) {
+                activeFilters.forEach(function(filter) {
+                    if (tags.indexOf(filter) !== -1) {
+                        matchesFilters = true;
+                    }
+                });
+            }
+
+            var isVisible = matchesSearch && matchesFilters;
+            card.style.display = isVisible ? '' : 'none';
+
+            if (isVisible) {
+                visibleCount++;
+                if (category) {
+                    visibleCategories.add(category.id);
+                }
+            }
+        });
+
+        // Hide empty categories
+        categorySections.forEach(function(section) {
+            var hasVisibleTools = visibleCategories.has(section.id);
+            section.style.display = hasVisibleTools ? '' : 'none';
+        });
+
+        // Hide empty group headers
+        groupHeaders.forEach(function(header) {
+            var groupId = header.id.replace('group-', '');
+            var hasVisibleCategories = false;
+            categorySections.forEach(function(section) {
+                if (section.style.display !== 'none') {
+                    var sectionGroupId = section.closest('.tools-main').querySelector('.tools-group-header[id="group-' + groupId + '"]');
+                    // Simplified check - show header if any category is visible
+                    hasVisibleCategories = true;
+                }
+            });
+        });
+
+        // Show no results message
+        if (noResults) {
+            noResults.style.display = visibleCount === 0 ? '' : 'none';
+        }
+    }
+
+    // Search input handler
+    if (searchInput) {
+        var searchTimeout;
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(filterTools, 150);
+        });
+    }
+
+    // Filter chip handlers
+    filterChips.forEach(function(chip) {
+        chip.addEventListener('click', function() {
+            var filter = this.getAttribute('data-filter');
+            var isActive = this.classList.toggle('active');
+            this.setAttribute('aria-pressed', isActive);
+
+            if (isActive) {
+                activeFilters.add(filter);
+            } else {
+                activeFilters.delete(filter);
+            }
+
+            filterTools();
+        });
+    });
+
+    // === SIDEBAR ACTIVE STATE ===
+    var sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+    function updateActiveLink() {
+        var scrollPos = window.scrollY + 150;
+
+        categorySections.forEach(function(section) {
+            var top = section.offsetTop;
+            var bottom = top + section.offsetHeight;
+            var id = section.id;
+
+            sidebarLinks.forEach(function(link) {
+                if (link.getAttribute('href') === '#' + id) {
+                    if (scrollPos >= top && scrollPos < bottom) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                }
+            });
+        });
+    }
+
+    window.addEventListener('scroll', function() {
+        requestAnimationFrame(updateActiveLink);
+    });
+
+    // Smooth scroll for sidebar links
+    sidebarLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            var targetId = this.getAttribute('href');
+            var target = document.querySelector(targetId);
+
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                // Close mobile sidebar
+                if (window.innerWidth < 1024) {
+                    sidebar.classList.remove('is-open');
+                    sidebarOverlay.classList.remove('is-open');
+                    sidebarToggle.setAttribute('aria-expanded', 'false');
+                }
+            }
+        });
+    });
+
+    // Initial state
+    updateActiveLink();
+})();
+</script>
 {% endblock %}

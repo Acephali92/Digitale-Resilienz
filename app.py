@@ -484,8 +484,24 @@ def peace_communication():
 @app.route("/tools")
 @app.route("/tools/")
 def tools_index():
-    """Tools overview page."""
-    return render_template("tools/index.html")
+    """Tools overview page with sidebar navigation."""
+    from data.tools_data import (
+        TOOLS, CATEGORIES, CATEGORY_GROUPS, TAGS,
+        get_all_tools_grouped, get_categories_by_group
+    )
+
+    # Alle Tools gruppiert nach Kategorien
+    tools_grouped = get_all_tools_grouped()
+
+    return render_template(
+        "tools/index.html",
+        tools=TOOLS,
+        categories=CATEGORIES,
+        category_groups=CATEGORY_GROUPS,
+        tags=TAGS,
+        tools_grouped=tools_grouped,
+        get_categories_by_group=get_categories_by_group
+    )
 
 
 @app.route("/tools/passphrase")
