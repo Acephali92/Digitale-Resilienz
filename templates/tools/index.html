@@ -215,17 +215,33 @@
 /* Filter Chips */
 .tools-filters {
     display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.filter-group {
+    display: flex;
     flex-wrap: wrap;
-    gap: var(--space-sm);
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.filter-group-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    min-width: 80px;
 }
 
 .filter-chip {
     display: inline-flex;
     align-items: center;
     gap: var(--space-xs);
-    padding: var(--space-xs) var(--space-md);
+    padding: var(--space-xs) var(--space-sm);
     font-family: var(--font-mono);
-    font-size: var(--text-xs);
+    font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--color-text-dim);
@@ -251,7 +267,7 @@
     background: var(--color-elevated);
     padding: 0 4px;
     border-radius: 4px;
-    font-size: 10px;
+    font-size: 9px;
 }
 
 /* ==========================================================================
@@ -423,16 +439,31 @@
     color: var(--color-text-muted);
 }
 
+/* Lizenz-Tags */
 .tool-tag.tag-foss { background: rgba(0, 255, 65, 0.15); color: #00ff41; }
+.tool-tag.tag-source-available { background: rgba(132, 204, 22, 0.15); color: #84cc16; }
+.tool-tag.tag-proprietary { background: rgba(156, 163, 175, 0.15); color: #9ca3af; }
+
+/* Kosten-Tags */
+.tool-tag.tag-kostenlos { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+.tool-tag.tag-freemium { background: rgba(234, 179, 8, 0.15); color: #eab308; }
+.tool-tag.tag-kostenpflichtig { background: rgba(249, 115, 22, 0.15); color: #f97316; }
+
+/* Schwierigkeits-Tags */
+.tool-tag.tag-einsteiger { background: rgba(14, 165, 233, 0.15); color: #0ea5e9; }
+.tool-tag.tag-mittel { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+.tool-tag.tag-fortgeschritten { background: rgba(139, 92, 246, 0.15); color: #8b5cf6; }
+
+/* Funktions-Tags */
+.tool-tag.tag-offline { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+.tool-tag.tag-dezentral { background: rgba(20, 184, 166, 0.15); color: #14b8a6; }
+.tool-tag.tag-selbsthosting { background: rgba(99, 102, 241, 0.15); color: #6366f1; }
+.tool-tag.tag-audit { background: rgba(6, 182, 212, 0.15); color: #06b6d4; }
+.tool-tag.tag-e2ee { background: rgba(236, 72, 153, 0.15); color: #ec4899; }
+
+/* Quellen-Tags */
 .tool-tag.tag-privacy-guides { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
 .tool-tag.tag-prism-break { background: rgba(168, 85, 247, 0.15); color: #a855f7; }
-.tool-tag.tag-offline { background: rgba(251, 146, 60, 0.15); color: #fb923c; }
-.tool-tag.tag-dezentral { background: rgba(20, 184, 166, 0.15); color: #14b8a6; }
-.tool-tag.tag-audit { background: rgba(6, 182, 212, 0.15); color: #06b6d4; }
-.tool-tag.tag-einsteiger { background: rgba(132, 204, 22, 0.15); color: #84cc16; }
-.tool-tag.tag-fortgeschritten { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
-.tool-tag.tag-selbsthosting { background: rgba(99, 102, 241, 0.15); color: #6366f1; }
-.tool-tag.tag-kostenlos { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
 
 /* Platforms */
 .tool-platforms {
@@ -729,17 +760,26 @@
             </div>
 
             <div class="tools-filters" role="group" aria-label="Filter">
-                {% for tag_id, tag in tags.items() %}
-                {% set count = tag_counts.get(tag_id, 0) %}
-                {% if count > 0 %}
-                <button
-                    class="filter-chip js-only"
-                    data-filter="{{ tag_id }}"
-                    aria-pressed="false"
-                >
-                    {{ tag.label }}
-                    <span class="filter-chip-count">{{ count }}</span>
-                </button>
+                {% for cat_id, cat_info in tag_categories.items() %}
+                {% set cat_tags = tags_by_category.get(cat_id, []) %}
+                {% if cat_tags %}
+                <div class="filter-group">
+                    <span class="filter-group-label">{{ cat_info.name }}:</span>
+                    {% for tag in cat_tags %}
+                    {% set count = tag_counts.get(tag.id, 0) %}
+                    {% if count > 0 %}
+                    <button
+                        class="filter-chip js-only tag-{{ tag.id }}"
+                        data-filter="{{ tag.id }}"
+                        data-category="{{ cat_id }}"
+                        aria-pressed="false"
+                    >
+                        {{ tag.label }}
+                        <span class="filter-chip-count">{{ count }}</span>
+                    </button>
+                    {% endif %}
+                    {% endfor %}
+                </div>
                 {% endif %}
                 {% endfor %}
             </div>

@@ -18,13 +18,13 @@ Funktioniert vollstaendig ohne JavaScript.
 # =============================================================================
 
 CATEGORY_GROUPS = [
-    {"id": "internet", "name": "Im Internet", "icon": "globe"},
+    {"id": "browsing", "name": "Web & Suche", "icon": "globe"},
     {"id": "kommunikation", "name": "Kommunikation", "icon": "message-circle"},
-    {"id": "sicherheit", "name": "Sicherheit", "icon": "shield"},
-    {"id": "daten", "name": "Daten schuetzen", "icon": "lock"},
-    {"id": "netzwerk", "name": "Netzwerk", "icon": "wifi"},
-    {"id": "system", "name": "Betriebssysteme", "icon": "monitor"},
-    {"id": "selbsthosting", "name": "Unabhaengigkeit", "icon": "server"},
+    {"id": "authentifizierung", "name": "Authentifizierung", "icon": "key"},
+    {"id": "datenschutz", "name": "Daten & Speicher", "icon": "lock"},
+    {"id": "netzwerk", "name": "Netzwerk & Anonymitaet", "icon": "wifi"},
+    {"id": "system", "name": "System & Plattformen", "icon": "monitor"},
+    {"id": "selbsthosting", "name": "Selbsthosting & Offline", "icon": "server"},
 ]
 
 CATEGORIES = [
@@ -32,35 +32,35 @@ CATEGORIES = [
     {
         "id": "browser-desktop",
         "name": "Browser (Desktop)",
-        "group": "internet",
+        "group": "browsing",
         "icon": "globe",
         "description": "Privacy-fokussierte Webbrowser fuer Desktop"
     },
     {
         "id": "browser-mobil",
         "name": "Browser (Mobil)",
-        "group": "internet",
+        "group": "browsing",
         "icon": "smartphone",
         "description": "Private Browser fuer Android und iOS"
     },
     {
         "id": "browser-erweiterungen",
         "name": "Browser-Erweiterungen",
-        "group": "internet",
+        "group": "browsing",
         "icon": "puzzle",
         "description": "Essentielle Add-ons fuer Datenschutz"
     },
     {
         "id": "suchmaschinen",
         "name": "Suchmaschinen",
-        "group": "internet",
+        "group": "browsing",
         "icon": "search",
         "description": "Tracking-freie Suchdienste"
     },
     {
         "id": "frontends",
         "name": "Alternative Frontends",
-        "group": "internet",
+        "group": "browsing",
         "icon": "layout",
         "description": "Privacy-Frontends fuer YouTube, Reddit, etc."
     },
@@ -113,21 +113,21 @@ CATEGORIES = [
     {
         "id": "passwort-manager",
         "name": "Passwort-Manager",
-        "group": "sicherheit",
+        "group": "authentifizierung",
         "icon": "key",
         "description": "Sichere Passwortverwaltung"
     },
     {
         "id": "2fa",
         "name": "Zwei-Faktor-Auth",
-        "group": "sicherheit",
+        "group": "authentifizierung",
         "icon": "shield-check",
         "description": "TOTP-Apps und Hardware-Keys"
     },
     {
         "id": "security-keys",
         "name": "Hardware Security Keys",
-        "group": "sicherheit",
+        "group": "authentifizierung",
         "icon": "usb",
         "description": "Physische Sicherheitsschluessel"
     },
@@ -136,49 +136,49 @@ CATEGORIES = [
     {
         "id": "verschluesselung",
         "name": "Verschluesselung",
-        "group": "daten",
+        "group": "datenschutz",
         "icon": "lock",
         "description": "Datei- und Festplattenverschluesselung"
     },
     {
         "id": "cloud-storage",
         "name": "Cloud-Speicher",
-        "group": "daten",
+        "group": "datenschutz",
         "icon": "cloud",
         "description": "Verschluesselte Cloud-Dienste"
     },
     {
         "id": "file-sync",
         "name": "Datei-Sync",
-        "group": "daten",
+        "group": "datenschutz",
         "icon": "refresh-cw",
         "description": "Dezentrale Synchronisation"
     },
     {
         "id": "file-sharing",
         "name": "Datei-Sharing",
-        "group": "daten",
+        "group": "datenschutz",
         "icon": "share-2",
         "description": "Sichere Dateiuebertragung"
     },
     {
         "id": "backup",
         "name": "Backup",
-        "group": "daten",
+        "group": "datenschutz",
         "icon": "database",
         "description": "Verschluesselte Datensicherung"
     },
     {
         "id": "metadaten",
         "name": "Metadaten-Entfernung",
-        "group": "daten",
+        "group": "datenschutz",
         "icon": "trash-2",
         "description": "EXIF und Metadaten loeschen"
     },
     {
         "id": "foto-verwaltung",
         "name": "Foto-Verwaltung",
-        "group": "daten",
+        "group": "datenschutz",
         "icon": "image",
         "description": "Private Foto-Speicherung"
     },
@@ -286,56 +286,120 @@ CATEGORIES = [
 # =============================================================================
 
 TAGS = {
+    # === LIZENZ (Pflicht - jedes Tool bekommt EINEN) ===
     "foss": {
         "label": "FOSS",
         "title": "Free/Open Source Software - Quellcode offen",
-        "color": "green"
+        "color": "green",
+        "category": "lizenz"
     },
+    "source-available": {
+        "label": "Source Available",
+        "title": "Quellcode einsehbar, eingeschraenkte Lizenz",
+        "color": "lime",
+        "category": "lizenz"
+    },
+    "proprietary": {
+        "label": "Proprietaer",
+        "title": "Geschlossener Quellcode",
+        "color": "gray",
+        "category": "lizenz"
+    },
+
+    # === KOSTEN (Pflicht - jedes Tool bekommt EINEN) ===
+    "kostenlos": {
+        "label": "Kostenlos",
+        "title": "Vollstaendig kostenlos nutzbar",
+        "color": "emerald",
+        "category": "kosten"
+    },
+    "freemium": {
+        "label": "Freemium",
+        "title": "Basis kostenlos, Premium kostenpflichtig",
+        "color": "yellow",
+        "category": "kosten"
+    },
+    "kostenpflichtig": {
+        "label": "Bezahlt",
+        "title": "Nur gegen Bezahlung",
+        "color": "orange",
+        "category": "kosten"
+    },
+
+    # === SCHWIERIGKEIT (Pflicht - jedes Tool bekommt EINEN) ===
+    "einsteiger": {
+        "label": "Einsteiger",
+        "title": "Einfache Installation, intuitive Bedienung",
+        "color": "sky",
+        "category": "schwierigkeit"
+    },
+    "mittel": {
+        "label": "Mittel",
+        "title": "Grundkenntnisse erforderlich",
+        "color": "blue",
+        "category": "schwierigkeit"
+    },
+    "fortgeschritten": {
+        "label": "Fortgeschritten",
+        "title": "Technisches Wissen noetig",
+        "color": "violet",
+        "category": "schwierigkeit"
+    },
+
+    # === FUNKTIONEN (Optional - mehrere moeglich) ===
+    "offline": {
+        "label": "Offline",
+        "title": "Funktioniert ohne Internet",
+        "color": "amber",
+        "category": "funktion"
+    },
+    "dezentral": {
+        "label": "Dezentral",
+        "title": "Kein zentraler Server, P2P oder foederiert",
+        "color": "teal",
+        "category": "funktion"
+    },
+    "selbsthosting": {
+        "label": "Selbst-hostbar",
+        "title": "Kann auf eigenem Server betrieben werden",
+        "color": "indigo",
+        "category": "funktion"
+    },
+    "audit": {
+        "label": "Auditiert",
+        "title": "Unabhaengige Sicherheitspruefung durchgefuehrt",
+        "color": "cyan",
+        "category": "funktion"
+    },
+    "e2ee": {
+        "label": "E2EE",
+        "title": "Ende-zu-Ende-Verschluesselung",
+        "color": "rose",
+        "category": "funktion"
+    },
+
+    # === QUELLEN (Optional - fuer Referenz) ===
     "privacy-guides": {
         "label": "Privacy Guides",
-        "title": "Von Privacy Guides empfohlen",
-        "color": "blue"
+        "title": "Auf privacyguides.org empfohlen",
+        "color": "blue",
+        "category": "quelle"
     },
     "prism-break": {
         "label": "Prism Break",
         "title": "Auf prism-break.org gelistet",
-        "color": "purple"
+        "color": "purple",
+        "category": "quelle"
     },
-    "offline": {
-        "label": "Offline",
-        "title": "Funktioniert ohne Internet",
-        "color": "orange"
-    },
-    "dezentral": {
-        "label": "Dezentral",
-        "title": "Kein zentraler Server noetig",
-        "color": "teal"
-    },
-    "audit": {
-        "label": "Auditiert",
-        "title": "Unabhaengig geprueft",
-        "color": "cyan"
-    },
-    "einsteiger": {
-        "label": "Einsteiger",
-        "title": "Gut fuer Anfaenger geeignet",
-        "color": "lime"
-    },
-    "fortgeschritten": {
-        "label": "Fortgeschritten",
-        "title": "Erfordert technisches Wissen",
-        "color": "red"
-    },
-    "kostenlos": {
-        "label": "Kostenlos",
-        "title": "Kostenlos nutzbar",
-        "color": "green"
-    },
-    "selbsthosting": {
-        "label": "Selbst-hostbar",
-        "title": "Kann selbst betrieben werden",
-        "color": "indigo"
-    },
+}
+
+# Tag-Kategorien fuer Filter-Gruppierung
+TAG_CATEGORIES = {
+    "lizenz": {"name": "Lizenz", "order": 1},
+    "kosten": {"name": "Kosten", "order": 2},
+    "schwierigkeit": {"name": "Level", "order": 3},
+    "funktion": {"name": "Features", "order": 4},
+    "quelle": {"name": "Quellen", "order": 5},
 }
 
 # =============================================================================
@@ -354,7 +418,7 @@ TOOLS = [
         "description": "Open-Source-Browser von Mozilla. Mit Haertung (arkenfox user.js) sehr privat. Einzige echte Alternative zum Chromium-Monopol. Enhanced Tracking Protection standardmaessig.",
         "website": "https://www.mozilla.org/firefox/",
         "review_url": "https://www.privacyguides.org/en/desktop-browsers/",
-        "tags": ["foss", "privacy-guides", "prism-break", "einsteiger"],
+        "tags": ["foss", "kostenlos", "einsteiger", "privacy-guides", "prism-break"],
         "platforms": ["Windows", "macOS", "Linux"],
         "resilience": "Unabhaengig von Google, starke Community"
     },
@@ -366,7 +430,7 @@ TOOLS = [
         "description": "Vorkonfigurierter Firefox mit Tor-Integration. Alle Verbindungen laufen durch das Tor-Netzwerk. Standard fuer anonymes Surfen.",
         "website": "https://www.torproject.org",
         "review_url": "https://www.privacyguides.org/en/tor/",
-        "tags": ["foss", "privacy-guides", "prism-break", "offline"],
+        "tags": ["foss", "kostenlos", "fortgeschritten", "offline", "privacy-guides", "prism-break"],
         "platforms": ["Windows", "macOS", "Linux"],
         "resilience": "Funktioniert in zensierten Laendern"
     },
@@ -378,7 +442,7 @@ TOOLS = [
         "description": "Zusammenarbeit von Tor Project und Mullvad VPN. Starker Fingerprinting-Schutz des Tor Browsers, aber ohne Tor-Geschwindigkeitseinbussen. Ideal mit VPN.",
         "website": "https://mullvad.net/browser",
         "review_url": "https://www.privacyguides.org/en/desktop-browsers/",
-        "tags": ["foss", "privacy-guides", "audit"],
+        "tags": ["foss", "kostenlos", "mittel", "audit", "privacy-guides"],
         "platforms": ["Windows", "macOS", "Linux"],
         "resilience": "Beste Kombination aus Geschwindigkeit und Privacy"
     },
@@ -390,7 +454,7 @@ TOOLS = [
         "description": "Chromium-basiert mit eingebautem Werbeblocker, Tracking-Schutz und Shields. Kontroverses Crypto-Feature (BAT) komplett abschaltbar.",
         "website": "https://brave.com",
         "review_url": "https://www.privacyguides.org/en/desktop-browsers/",
-        "tags": ["foss", "privacy-guides", "einsteiger"],
+        "tags": ["foss", "kostenlos", "einsteiger", "privacy-guides"],
         "platforms": ["Windows", "macOS", "Linux"],
         "resilience": "Funktioniert out-of-the-box ohne Konfiguration"
     },
@@ -402,7 +466,7 @@ TOOLS = [
         "description": "Firefox-Fork mit Privacy-Haertung ab Werk. Telemetrie entfernt, uBlock Origin vorinstalliert, strenge Einstellungen.",
         "website": "https://librewolf.net",
         "review_url": None,
-        "tags": ["foss", "prism-break"],
+        "tags": ["foss", "kostenlos", "fortgeschritten", "prism-break"],
         "platforms": ["Windows", "macOS", "Linux"],
         "resilience": "Keine Mozilla-Telemetrie"
     },
@@ -418,7 +482,7 @@ TOOLS = [
         "description": "Offizieller Tor Browser fuer Android. Gleiche Anonymitaet wie auf dem Desktop.",
         "website": "https://www.torproject.org",
         "review_url": "https://www.privacyguides.org/en/tor/",
-        "tags": ["foss", "privacy-guides", "prism-break"],
+        "tags": ["foss", "kostenlos", "mittel", "privacy-guides", "prism-break"],
         "platforms": ["Android"],
         "resilience": "Mobile Anonymitaet"
     },
@@ -430,7 +494,7 @@ TOOLS = [
         "description": "Mobiler Brave mit Shields, Werbeblocker und Fingerprinting-Schutz. Auch auf iOS verfuegbar.",
         "website": "https://brave.com",
         "review_url": "https://www.privacyguides.org/en/mobile-browsers/",
-        "tags": ["foss", "privacy-guides", "einsteiger"],
+        "tags": ["foss", "kostenlos", "einsteiger", "privacy-guides"],
         "platforms": ["Android", "iOS"],
         "resilience": "Cross-Platform-Sync moeglich"
     },
@@ -442,7 +506,7 @@ TOOLS = [
         "description": "Chromium-Fork fuer Android mit eingebautem Ad-Blocking und Fingerprinting-Schutz. Nachfolger von Bromite.",
         "website": "https://github.com/nicholasbraman/nicholasbraman.github.io/releases/tag/nicholasbraman.github.io",
         "review_url": "https://www.privacyguides.org/en/mobile-browsers/",
-        "tags": ["foss", "privacy-guides"],
+        "tags": ["foss", "kostenlos", "mittel", "privacy-guides"],
         "platforms": ["Android"],
         "resilience": "Chromium-Kompatibilitaet mit Privacy"
     },
@@ -454,7 +518,7 @@ TOOLS = [
         "description": "Mobiler Firefox mit Add-on-Unterstuetzung (uBlock Origin etc.). Enhanced Tracking Protection.",
         "website": "https://www.mozilla.org/firefox/mobile/",
         "review_url": "https://www.privacyguides.org/en/mobile-browsers/",
-        "tags": ["foss", "privacy-guides", "prism-break"],
+        "tags": ["foss", "kostenlos", "mittel", "privacy-guides", "prism-break"],
         "platforms": ["Android"],
         "resilience": "Erweiterungen auf Mobilgeraeten"
     },
@@ -466,7 +530,7 @@ TOOLS = [
         "description": "Firefox-Build aus F-Droid ohne proprietaere Komponenten. Fuer maximale FOSS-Reinheit.",
         "website": "https://f-droid.org/packages/org.mozilla.fennec_fdroid/",
         "review_url": None,
-        "tags": ["foss", "prism-break"],
+        "tags": ["foss", "kostenlos", "mittel", "prism-break"],
         "platforms": ["Android"],
         "resilience": "100% Open Source"
     },
@@ -478,7 +542,7 @@ TOOLS = [
         "description": "Tor-Browser fuer iPhone und iPad. Einzige offizielle Tor-Option auf iOS.",
         "website": "https://onionbrowser.com",
         "review_url": "https://www.privacyguides.org/en/tor/",
-        "tags": ["foss", "privacy-guides"],
+        "tags": ["foss", "kostenlos", "mittel", "privacy-guides"],
         "platforms": ["iOS"],
         "resilience": "Anonymitaet auf Apple-Geraeten"
     },
@@ -490,7 +554,7 @@ TOOLS = [
         "description": "iOS-Standardbrowser mit Intelligent Tracking Prevention und Fingerprinting-Schutz. Private Relay fuer iCloud+.",
         "website": "https://www.apple.com/safari/",
         "review_url": "https://www.privacyguides.org/en/mobile-browsers/",
-        "tags": ["privacy-guides", "einsteiger"],
+        "tags": ["proprietary", "kostenlos", "einsteiger", "privacy-guides"],
         "platforms": ["iOS", "macOS"],
         "resilience": "Beste Option fuer iOS ohne Jailbreak"
     },
@@ -506,7 +570,7 @@ TOOLS = [
         "description": "Effizienter Werbeblocker mit geringem Ressourcenverbrauch. Blockiert Werbung, Tracker und Malware. Essentiell fuer jeden Browser.",
         "website": "https://ublockorigin.com",
         "review_url": "https://www.privacyguides.org/en/browser-extensions/",
-        "tags": ["foss", "privacy-guides", "prism-break"],
+        "tags": ["foss", "kostenlos", "einsteiger", "privacy-guides", "prism-break"],
         "platforms": ["Firefox", "Chrome", "Edge"],
         "resilience": "Schuetzt vor Malvertising und Tracking"
     },
@@ -518,7 +582,7 @@ TOOLS = [
         "description": "Manifest V3-kompatible Version von uBlock Origin. Weniger maechtig, aber zukunftssicher fuer Chrome.",
         "website": "https://github.com/nicholasbraman/nicholasbraman.github.io/releases/tag/nicholasbraman.github.io",
         "review_url": "https://www.privacyguides.org/en/browser-extensions/",
-        "tags": ["foss", "privacy-guides"],
+        "tags": ["foss", "kostenlos", "mittel", "privacy-guides"],
         "platforms": ["Chrome", "Edge"],
         "resilience": "Funktioniert auch nach Manifest V3"
     },
@@ -530,7 +594,7 @@ TOOLS = [
         "description": "Blockiert JavaScript, Java, Flash standardmaessig. Whitelist-basierte Freigabe pro Seite. Maximale Sicherheit.",
         "website": "https://noscript.net",
         "review_url": "https://www.privacyguides.org/en/browser-extensions/",
-        "tags": ["foss", "prism-break", "fortgeschritten"],
+        "tags": ["foss", "kostenlos", "fortgeschritten", "prism-break"],
         "platforms": ["Firefox"],
         "resilience": "Stoppt die meisten Browser-Exploits"
     },
@@ -542,7 +606,7 @@ TOOLS = [
         "description": "Trennt Cookies und Speicher in isolierte Container. Social Media, Banking, Arbeit - alle separat.",
         "website": "https://addons.mozilla.org/firefox/addon/multi-account-containers/",
         "review_url": "https://www.privacyguides.org/en/browser-extensions/",
-        "tags": ["foss", "privacy-guides"],
+        "tags": ["foss", "kostenlos", "mittel", "privacy-guides"],
         "platforms": ["Firefox"],
         "resilience": "Verhindert Cross-Site-Tracking"
     },
@@ -554,7 +618,7 @@ TOOLS = [
         "description": "Oeffnet neue Tabs automatisch in temporaeren Containern. Cookies werden nach Schliessen geloescht.",
         "website": "https://addons.mozilla.org/firefox/addon/temporary-containers/",
         "review_url": None,
-        "tags": ["foss", "prism-break"],
+        "tags": ["foss", "kostenlos", "fortgeschritten", "prism-break"],
         "platforms": ["Firefox"],
         "resilience": "Automatische Tracking-Isolation"
     },
@@ -566,7 +630,7 @@ TOOLS = [
         "description": "Von der EFF. Lernt automatisch welche Domains tracken und blockiert sie. Ergaenzt uBlock Origin.",
         "website": "https://privacybadger.org",
         "review_url": None,
-        "tags": ["foss", "prism-break"],
+        "tags": ["foss", "kostenlos", "einsteiger", "prism-break"],
         "platforms": ["Firefox", "Chrome", "Edge"],
         "resilience": "Heuristische Tracker-Erkennung"
     },
@@ -578,7 +642,7 @@ TOOLS = [
         "description": "Emuliert CDNs lokal. Verhindert Tracking durch Google CDN, cdnjs, etc. Schnelleres Laden.",
         "website": "https://decentraleyes.org",
         "review_url": None,
-        "tags": ["foss", "prism-break"],
+        "tags": ["foss", "kostenlos", "mittel", "prism-break"],
         "platforms": ["Firefox", "Chrome"],
         "resilience": "Kein CDN-Tracking"
     },
@@ -590,7 +654,7 @@ TOOLS = [
         "description": "Content-Blocker fuer Safari auf iOS. Blockiert Werbung und Tracker systemweit.",
         "website": "https://adguard.com",
         "review_url": "https://www.privacyguides.org/en/browser-extensions/",
-        "tags": ["privacy-guides"],
+        "tags": ["proprietary", "kostenlos", "mittel", "privacy-guides"],
         "platforms": ["iOS"],
         "resilience": "Safari-Privacy auf iOS"
     },
@@ -606,7 +670,7 @@ TOOLS = [
         "description": "Tracking-freie Suchmaschine mit guten Ergebnissen. Nutzt Bing im Hintergrund, speichert aber keine Suchanfragen.",
         "website": "https://duckduckgo.com",
         "review_url": "https://www.privacyguides.org/en/search-engines/",
-        "tags": ["privacy-guides", "prism-break", "einsteiger", "kostenlos"],
+        "tags": ["foss", "kostenlos", "einsteiger", "privacy-guides", "prism-break"],
         "platforms": ["Web"],
         "resilience": "Einfacher Umstieg, gute Ergebnisse"
     },
@@ -618,7 +682,7 @@ TOOLS = [
         "description": "Proxy fuer Google-Suche. Google-Qualitaet ohne dass Google dich sieht. Anonymous View fuer Ergebnisse.",
         "website": "https://www.startpage.com",
         "review_url": "https://www.privacyguides.org/en/search-engines/",
-        "tags": ["privacy-guides", "kostenlos"],
+        "tags": ["proprietary", "kostenlos", "einsteiger", "privacy-guides"],
         "platforms": ["Web"],
         "resilience": "Beste Ergebnisse mit Privatsphaere"
     },
@@ -630,7 +694,7 @@ TOOLS = [
         "description": "Eigener Suchindex, nicht nur Bing-Proxy. Privacy-fokussiert, kein Tracking.",
         "website": "https://search.brave.com",
         "review_url": "https://www.privacyguides.org/en/search-engines/",
-        "tags": ["privacy-guides", "kostenlos"],
+        "tags": ["proprietary", "kostenlos", "einsteiger", "privacy-guides"],
         "platforms": ["Web"],
         "resilience": "Eigener Index, keine Abhaengigkeit"
     },
@@ -642,7 +706,7 @@ TOOLS = [
         "description": "Open-Source-Metasuchmaschine. Aggregiert Ergebnisse von vielen Quellen. Viele oeffentliche Instanzen, oder selbst hosten.",
         "website": "https://docs.searxng.org",
         "review_url": "https://www.privacyguides.org/en/search-engines/",
-        "tags": ["foss", "privacy-guides", "prism-break", "dezentral", "selbsthosting"],
+        "tags": ["foss", "kostenlos", "mittel", "dezentral", "selbsthosting", "privacy-guides", "prism-break"],
         "platforms": ["Web", "Selbsthosting"],
         "resilience": "Volle Kontrolle durch Selbsthosting"
     },
@@ -658,7 +722,7 @@ TOOLS = [
         "description": "Desktop-YouTube-Client ohne Google-Tracking. Lokale Abonnements, keine Anmeldung noetig.",
         "website": "https://freetubeapp.io",
         "review_url": "https://www.privacyguides.org/en/frontends/",
-        "tags": ["foss", "privacy-guides", "offline"],
+        "tags": ["foss", "kostenlos", "mittel", "offline", "privacy-guides"],
         "platforms": ["Windows", "macOS", "Linux"],
         "resilience": "YouTube ohne Account"
     },
@@ -670,7 +734,7 @@ TOOLS = [
         "description": "Leichtgewichtiger YouTube-Client fuer Android. Hintergrundwiedergabe, Download, keine Werbung.",
         "website": "https://newpipe.net",
         "review_url": "https://www.privacyguides.org/en/frontends/",
-        "tags": ["foss", "privacy-guides", "prism-break"],
+        "tags": ["foss", "kostenlos", "mittel", "privacy-guides", "prism-break"],
         "platforms": ["Android"],
         "resilience": "YouTube ohne Google-Dienste"
     },
@@ -682,7 +746,7 @@ TOOLS = [
         "description": "Android-App die Piped als Backend nutzt. Sync zwischen Geraeten, keine lokale Verarbeitung.",
         "website": "https://libretube.dev",
         "review_url": "https://www.privacyguides.org/en/frontends/",
-        "tags": ["foss", "privacy-guides"],
+        "tags": ["foss", "kostenlos", "mittel", "privacy-guides"],
         "platforms": ["Android"],
         "resilience": "Kein Google-Konto noetig"
     },
@@ -694,7 +758,7 @@ TOOLS = [
         "description": "Selbst-hostbares YouTube-Frontend. Viele oeffentliche Instanzen verfuegbar. RSS-Feeds, kein JavaScript noetig.",
         "website": "https://invidious.io",
         "review_url": "https://www.privacyguides.org/en/frontends/",
-        "tags": ["foss", "privacy-guides", "selbsthosting"],
+        "tags": ["foss", "kostenlos", "mittel", "selbsthosting", "privacy-guides"],
         "platforms": ["Web"],
         "resilience": "YouTube im Browser ohne Google"
     },
@@ -706,7 +770,7 @@ TOOLS = [
         "description": "Privacy-YouTube-Frontend mit modernem Design. Sponsorblock integriert, Account-Sync.",
         "website": "https://piped.video",
         "review_url": "https://www.privacyguides.org/en/frontends/",
-        "tags": ["foss", "privacy-guides", "selbsthosting"],
+        "tags": ["foss", "kostenlos", "mittel", "selbsthosting", "privacy-guides"],
         "platforms": ["Web"],
         "resilience": "YouTube ohne Tracking"
     },
@@ -718,7 +782,7 @@ TOOLS = [
         "description": "Privacy-Frontend fuer Reddit. Kein JavaScript noetig, keine Tracker.",
         "website": "https://github.com/redlib-org/redlib",
         "review_url": "https://www.privacyguides.org/en/frontends/",
-        "tags": ["foss", "privacy-guides", "selbsthosting"],
+        "tags": ["foss", "kostenlos", "mittel", "selbsthosting", "privacy-guides"],
         "platforms": ["Web"],
         "resilience": "Reddit lesen ohne Account"
     },
@@ -730,7 +794,7 @@ TOOLS = [
         "description": "Privacy-Frontend fuer TikTok. Videos ansehen ohne App und Tracking.",
         "website": "https://github.com/pablouser1/ProxiTok",
         "review_url": "https://www.privacyguides.org/en/frontends/",
-        "tags": ["foss", "privacy-guides", "selbsthosting"],
+        "tags": ["foss", "kostenlos", "mittel", "selbsthosting", "privacy-guides"],
         "platforms": ["Web"],
         "resilience": "TikTok ohne China-Tracking"
     },
@@ -746,7 +810,7 @@ TOOLS = [
         "description": "Ende-zu-Ende-verschluesselt mit dem Signal-Protokoll. Minimale Metadaten, keine Werbung. Von Sicherheitsexperten weltweit empfohlen.",
         "website": "https://signal.org",
         "review_url": "https://www.privacyguides.org/en/real-time-communication/",
-        "tags": ["foss", "privacy-guides", "prism-break", "audit", "einsteiger"],
+        "tags": ["foss", "kostenlos", "einsteiger", "e2ee", "audit", "privacy-guides", "prism-break"],
         "platforms": ["Android", "iOS", "Windows", "macOS", "Linux"],
         "resilience": "Bewaehrtes Protokoll, minimale Metadaten"
     },
@@ -758,7 +822,7 @@ TOOLS = [
         "description": "Serverloser Messenger. Funktioniert ueber Tor, WiFi, Bluetooth - auch ohne Internet. Entwickelt fuer Aktivisten und Journalisten.",
         "website": "https://briarproject.org",
         "review_url": "https://www.privacyguides.org/en/real-time-communication/",
-        "tags": ["foss", "privacy-guides", "prism-break", "offline", "dezentral"],
+        "tags": ["foss", "kostenlos", "mittel", "e2ee", "offline", "dezentral", "privacy-guides", "prism-break"],
         "platforms": ["Android"],
         "resilience": "Funktioniert bei Internet-Abschaltung"
     },
@@ -770,7 +834,7 @@ TOOLS = [
         "description": "Erster Messenger ohne Benutzer-IDs. Selbst der Server kennt deine Kontakte nicht. Neuer Ansatz fuer maximale Privatsphaere.",
         "website": "https://simplex.chat",
         "review_url": "https://www.privacyguides.org/en/real-time-communication/",
-        "tags": ["foss", "privacy-guides", "dezentral", "audit"],
+        "tags": ["foss", "kostenlos", "mittel", "e2ee", "dezentral", "audit", "privacy-guides"],
         "platforms": ["Android", "iOS", "Windows", "macOS", "Linux"],
         "resilience": "Keine Benutzer-IDs, keine Metadaten"
     },
@@ -782,7 +846,7 @@ TOOLS = [
         "description": "Client fuer das Matrix-Protokoll. Foederiert wie E-Mail, verschluesselt mit E2EE. Selbsthosting moeglich.",
         "website": "https://element.io",
         "review_url": "https://www.privacyguides.org/en/real-time-communication/",
-        "tags": ["foss", "privacy-guides", "prism-break", "dezentral", "selbsthosting"],
+        "tags": ["foss", "kostenlos", "einsteiger", "e2ee", "dezentral", "selbsthosting", "privacy-guides", "prism-break"],
         "platforms": ["Android", "iOS", "Windows", "macOS", "Linux", "Web"],
         "resilience": "Dezentral, kein Single Point of Failure"
     },
@@ -794,7 +858,7 @@ TOOLS = [
         "description": "Dezentraler Messenger ohne Telefonnummer. Onion-Routing ueber das Oxen-Netzwerk. Maximale Anonymitaet.",
         "website": "https://getsession.org",
         "review_url": None,
-        "tags": ["foss", "prism-break", "dezentral"],
+        "tags": ["foss", "kostenlos", "mittel", "e2ee", "dezentral", "prism-break"],
         "platforms": ["Android", "iOS", "Windows", "macOS", "Linux"],
         "resilience": "Keine Telefonnummer noetig"
     },
@@ -806,7 +870,7 @@ TOOLS = [
         "description": "XMPP/Jabber-Client mit OMEMO-Verschluesselung. Foederiertes Protokoll, viele Server zur Auswahl.",
         "website": "https://conversations.im",
         "review_url": None,
-        "tags": ["foss", "prism-break", "dezentral"],
+        "tags": ["foss", "kostenlos", "mittel", "e2ee", "dezentral", "prism-break"],
         "platforms": ["Android"],
         "resilience": "Offenes Protokoll, viele Server"
     },
@@ -818,7 +882,7 @@ TOOLS = [
         "description": "Moderner XMPP-Client fuer Linux. OMEMO-Verschluesselung, schoene Oberflaeche.",
         "website": "https://dino.im",
         "review_url": None,
-        "tags": ["foss", "prism-break", "dezentral"],
+        "tags": ["foss", "kostenlos", "mittel", "e2ee", "dezentral", "prism-break"],
         "platforms": ["Linux"],
         "resilience": "Desktop-XMPP mit gutem UX"
     },
@@ -834,7 +898,7 @@ TOOLS = [
         "description": "Ende-zu-Ende-verschluesselter E-Mail-Dienst seit 2013. Zero-Access-Verschluesselung: Proton kann deine Mails nicht lesen. 500 MB kostenlos.",
         "website": "https://proton.me/mail",
         "review_url": "https://www.privacyguides.org/en/email/",
-        "tags": ["privacy-guides", "prism-break", "audit", "einsteiger"],
+        "tags": ["source-available", "freemium", "einsteiger", "e2ee", "audit", "privacy-guides", "prism-break"],
         "platforms": ["Web", "Android", "iOS"],
         "resilience": "Schweizer Datenschutz, Zero-Knowledge"
     },
@@ -846,7 +910,7 @@ TOOLS = [
         "description": "Deutscher E-Mail-Anbieter (frueher Tutanota) seit 2011. Volle Ende-zu-Ende-Verschluesselung inkl. Kalender. 1 GB kostenlos.",
         "website": "https://tuta.com",
         "review_url": "https://www.privacyguides.org/en/email/",
-        "tags": ["foss", "privacy-guides", "prism-break"],
+        "tags": ["foss", "freemium", "einsteiger", "e2ee", "privacy-guides", "prism-break"],
         "platforms": ["Web", "Android", "iOS", "Windows", "macOS", "Linux"],
         "resilience": "100% Open Source, deutsche Server"
     },
@@ -858,7 +922,7 @@ TOOLS = [
         "description": "Deutscher E-Mail-Anbieter seit 2014 mit starkem Datenschutz. PGP-Unterstuetzung, Kalender, Cloud. 2 GB, 100% Oeko-Strom.",
         "website": "https://mailbox.org",
         "review_url": "https://www.privacyguides.org/en/email/",
-        "tags": ["privacy-guides"],
+        "tags": ["foss", "freemium", "mittel", "privacy-guides"],
         "platforms": ["Web", "IMAP/SMTP"],
         "resilience": "DSGVO, deutsche Rechtslage"
     },
@@ -870,7 +934,7 @@ TOOLS = [
         "description": "Aktivisten-Kollektiv seit 1999. Kostenlose E-Mail fuer soziale Bewegungen. Keine Logs, keine Werbung.",
         "website": "https://riseup.net",
         "review_url": None,
-        "tags": ["foss", "prism-break", "kostenlos"],
+        "tags": ["foss", "kostenlos", "mittel", "prism-break"],
         "platforms": ["Web", "IMAP/SMTP"],
         "resilience": "Von Aktivisten fuer Aktivisten"
     },
@@ -882,7 +946,7 @@ TOOLS = [
         "description": "Schweizer E-Mail mit Kalender, Kontakten, Dateien. Kolab-Groupware-Suite. Fuer Unternehmen geeignet.",
         "website": "https://kolabnow.com",
         "review_url": None,
-        "tags": ["foss", "prism-break"],
+        "tags": ["foss", "kostenpflichtig", "mittel", "prism-break"],
         "platforms": ["Web", "IMAP/SMTP"],
         "resilience": "Schweizer Datenschutz"
     },
@@ -898,7 +962,7 @@ TOOLS = [
         "description": "Open-Source E-Mail-Client von Mozilla. PGP-Unterstuetzung (OpenPGP) eingebaut, Kalender, RSS.",
         "website": "https://www.thunderbird.net",
         "review_url": "https://www.privacyguides.org/en/email-clients/",
-        "tags": ["foss", "privacy-guides", "prism-break", "einsteiger"],
+        "tags": ["foss", "kostenlos", "einsteiger", "privacy-guides", "prism-break"],
         "platforms": ["Windows", "macOS", "Linux"],
         "resilience": "Lokale E-Mail-Verwaltung"
     },
@@ -910,7 +974,7 @@ TOOLS = [
         "description": "Open-Source E-Mail-Client fuer Android. Wird zu Thunderbird Mobile. PGP via OpenKeychain.",
         "website": "https://k9mail.app",
         "review_url": "https://www.privacyguides.org/en/email-clients/",
-        "tags": ["foss", "privacy-guides", "prism-break"],
+        "tags": ["foss", "kostenlos", "mittel", "privacy-guides", "prism-break"],
         "platforms": ["Android"],
         "resilience": "PGP auf dem Handy"
     },
@@ -922,7 +986,7 @@ TOOLS = [
         "description": "Privacy-fokussierter E-Mail-Client. Blockiert Tracking-Pixel, zeigt Original-Absender.",
         "website": "https://email.faircode.eu",
         "review_url": "https://www.privacyguides.org/en/email-clients/",
-        "tags": ["foss", "privacy-guides"],
+        "tags": ["foss", "kostenlos", "mittel", "privacy-guides"],
         "platforms": ["Android"],
         "resilience": "Anti-Tracking eingebaut"
     },
@@ -934,7 +998,7 @@ TOOLS = [
         "description": "Apples E-Mail-Client mit S/MIME-Unterstuetzung. Mail Privacy Protection blockiert Tracker.",
         "website": "https://www.apple.com/macos/",
         "review_url": "https://www.privacyguides.org/en/email-clients/",
-        "tags": ["privacy-guides"],
+        "tags": ["proprietary", "kostenlos", "mittel", "privacy-guides"],
         "platforms": ["macOS", "iOS"],
         "resilience": "Integriert in Apple-Oekosystem"
     },
@@ -950,7 +1014,7 @@ TOOLS = [
         "description": "E-Mail-Alias-Dienst (jetzt Teil von Proton). Erstelle unbegrenzt Aliase, keine echte Adresse preisgeben.",
         "website": "https://simplelogin.io",
         "review_url": "https://www.privacyguides.org/en/email-aliasing/",
-        "tags": ["foss", "privacy-guides", "selbsthosting"],
+        "tags": ["foss", "freemium", "mittel", "selbsthosting", "privacy-guides"],
         "platforms": ["Web", "Browser-Extension"],
         "resilience": "Schuetzt echte E-Mail-Adresse"
     },
@@ -962,7 +1026,7 @@ TOOLS = [
         "description": "E-Mail-Alias-Dienst (frueher AnonAddy). Open Source, selbst hostbar.",
         "website": "https://addy.io",
         "review_url": "https://www.privacyguides.org/en/email-aliasing/",
-        "tags": ["foss", "privacy-guides", "selbsthosting"],
+        "tags": ["foss", "freemium", "mittel", "selbsthosting", "privacy-guides"],
         "platforms": ["Web", "Browser-Extension"],
         "resilience": "Selbsthosting moeglich"
     },
@@ -978,7 +1042,7 @@ TOOLS = [
         "description": "Open-Source-Videokonferenz ohne Account. Kann selbst gehostet werden. E2EE optional.",
         "website": "https://jitsi.org",
         "review_url": "https://www.privacyguides.org/en/real-time-communication/",
-        "tags": ["foss", "privacy-guides", "prism-break", "dezentral", "selbsthosting"],
+        "tags": ["foss", "kostenlos", "mittel", "dezentral", "selbsthosting", "privacy-guides", "prism-break"],
         "platforms": ["Web", "Android", "iOS"],
         "resilience": "Kein Account, selbst hostbar"
     },
@@ -990,7 +1054,7 @@ TOOLS = [
         "description": "Signal unterstuetzt verschluesselte Sprach- und Videoanrufe. Gleiche Sicherheit wie Nachrichten.",
         "website": "https://signal.org",
         "review_url": "https://www.privacyguides.org/en/real-time-communication/",
-        "tags": ["foss", "privacy-guides", "audit"],
+        "tags": ["foss", "kostenlos", "mittel", "audit", "privacy-guides"],
         "platforms": ["Android", "iOS", "Desktop"],
         "resilience": "Bewaehrtes Signal-Protokoll"
     },
@@ -1002,7 +1066,7 @@ TOOLS = [
         "description": "Dezentraler Video-/Sprachanruf-Dienst. Kein Server noetig, direkte Verbindung.",
         "website": "https://jami.net",
         "review_url": None,
-        "tags": ["foss", "prism-break", "dezentral"],
+        "tags": ["foss", "kostenlos", "mittel", "e2ee", "dezentral", "prism-break"],
         "platforms": ["Windows", "macOS", "Linux", "Android", "iOS"],
         "resilience": "Kein zentraler Server"
     },
@@ -1014,7 +1078,7 @@ TOOLS = [
         "description": "Open-Source Sprachkommunikation. Niedrige Latenz, ideal fuer Gaming. Selbst hostbar.",
         "website": "https://www.mumble.info",
         "review_url": None,
-        "tags": ["foss", "prism-break", "selbsthosting"],
+        "tags": ["foss", "kostenlos", "mittel", "selbsthosting", "prism-break"],
         "platforms": ["Windows", "macOS", "Linux", "Android", "iOS"],
         "resilience": "Eigener Server moeglich"
     },
@@ -1030,7 +1094,7 @@ TOOLS = [
         "description": "Foederiertes soziales Netzwerk. Wie Twitter/X, aber dezentral. Viele unabhaengige Server.",
         "website": "https://joinmastodon.org",
         "review_url": "https://www.privacyguides.org/en/social-networks/",
-        "tags": ["foss", "privacy-guides", "prism-break", "dezentral"],
+        "tags": ["foss", "kostenlos", "mittel", "dezentral", "privacy-guides", "prism-break"],
         "platforms": ["Web", "Android", "iOS"],
         "resilience": "Kein zentraler Betreiber"
     },
@@ -1042,7 +1106,7 @@ TOOLS = [
         "description": "Foederierte Foto-Plattform. Instagram-Alternative im Fediverse.",
         "website": "https://pixelfed.org",
         "review_url": None,
-        "tags": ["foss", "prism-break", "dezentral"],
+        "tags": ["foss", "kostenlos", "mittel", "dezentral", "prism-break"],
         "platforms": ["Web", "Android", "iOS"],
         "resilience": "Fotos ohne Meta"
     },
@@ -1054,7 +1118,7 @@ TOOLS = [
         "description": "Foederierte Video-Plattform. P2P-Streaming entlastet Server. Teil des Fediverse.",
         "website": "https://joinpeertube.org",
         "review_url": None,
-        "tags": ["foss", "prism-break", "dezentral", "selbsthosting"],
+        "tags": ["foss", "kostenlos", "mittel", "dezentral", "selbsthosting", "prism-break"],
         "platforms": ["Web"],
         "resilience": "Videos ohne Google"
     },
@@ -1066,7 +1130,7 @@ TOOLS = [
         "description": "Eines der ersten dezentralen sozialen Netzwerke. Pods von verschiedenen Betreibern.",
         "website": "https://diasporafoundation.org",
         "review_url": None,
-        "tags": ["foss", "prism-break", "dezentral"],
+        "tags": ["foss", "kostenlos", "mittel", "dezentral", "prism-break"],
         "platforms": ["Web"],
         "resilience": "Pionier der Dezentralisierung"
     },
@@ -1082,7 +1146,7 @@ TOOLS = [
         "description": "Plattformuebergreifender Passwort-Manager mit E2E-Verschluesselung. Kostenlose Version ausreichend. Selbsthosting mit Vaultwarden.",
         "website": "https://bitwarden.com",
         "review_url": "https://www.privacyguides.org/en/passwords/",
-        "tags": ["foss", "privacy-guides", "audit", "einsteiger", "selbsthosting"],
+        "tags": ["foss", "freemium", "einsteiger", "e2ee", "selbsthosting", "audit", "privacy-guides"],
         "platforms": ["Windows", "macOS", "Linux", "Android", "iOS", "Web", "Browser"],
         "resilience": "Selbsthosting moeglich"
     },
@@ -1094,7 +1158,7 @@ TOOLS = [
         "description": "Offline-Passwort-Manager mit lokaler Datenbankdatei. Kein Cloud-Zwang. TOTP und YubiKey.",
         "website": "https://keepassxc.org",
         "review_url": "https://www.privacyguides.org/en/passwords/",
-        "tags": ["foss", "privacy-guides", "prism-break", "offline"],
+        "tags": ["foss", "kostenlos", "mittel", "e2ee", "offline", "privacy-guides", "prism-break"],
         "platforms": ["Windows", "macOS", "Linux"],
         "resilience": "Komplett offline, keine Abhaengigkeit"
     },
@@ -1106,7 +1170,7 @@ TOOLS = [
         "description": "Android-Client fuer KeePass-Datenbanken. Autofill, Biometrie, Material Design.",
         "website": "https://www.keepassdx.com",
         "review_url": "https://www.privacyguides.org/en/passwords/",
-        "tags": ["foss", "privacy-guides", "offline"],
+        "tags": ["foss", "kostenlos", "mittel", "e2ee", "offline", "privacy-guides"],
         "platforms": ["Android"],
         "resilience": "KeePass auf dem Handy"
     },
@@ -1118,7 +1182,7 @@ TOOLS = [
         "description": "Neuer Passwort-Manager im Proton-Oekosystem. E2E-verschluesselt, mit E-Mail-Aliasen.",
         "website": "https://proton.me/pass",
         "review_url": "https://www.privacyguides.org/en/passwords/",
-        "tags": ["foss", "privacy-guides", "audit"],
+        "tags": ["foss", "freemium", "mittel", "e2ee", "audit", "privacy-guides"],
         "platforms": ["Windows", "macOS", "Linux", "Android", "iOS", "Browser"],
         "resilience": "Teil des Proton-Oekosystems"
     },
@@ -1130,7 +1194,7 @@ TOOLS = [
         "description": "Kommerzieller Passwort-Manager mit exzellentem UX. Security-Audits, Travel Mode.",
         "website": "https://1password.com",
         "review_url": "https://www.privacyguides.org/en/passwords/",
-        "tags": ["privacy-guides", "audit", "einsteiger"],
+        "tags": ["proprietary", "kostenpflichtig", "einsteiger", "e2ee", "audit", "privacy-guides"],
         "platforms": ["Windows", "macOS", "Linux", "Android", "iOS", "Browser"],
         "resilience": "Sehr benutzerfreundlich"
     },
@@ -1146,7 +1210,7 @@ TOOLS = [
         "description": "Open-Source TOTP/HOTP-App. Verschluesseltes Backup, Import von anderen Apps.",
         "website": "https://getaegis.app",
         "review_url": "https://www.privacyguides.org/en/multi-factor-authentication/",
-        "tags": ["foss", "privacy-guides", "prism-break", "offline"],
+        "tags": ["foss", "kostenlos", "mittel", "offline", "privacy-guides", "prism-break"],
         "platforms": ["Android"],
         "resilience": "Verschluesseltes Export-Backup"
     },
@@ -1158,7 +1222,7 @@ TOOLS = [
         "description": "2FA-App mit E2E-verschluesseltem Cloud-Sync. Von den Machern von Ente Photos.",
         "website": "https://ente.io/auth",
         "review_url": "https://www.privacyguides.org/en/multi-factor-authentication/",
-        "tags": ["foss", "privacy-guides", "audit"],
+        "tags": ["foss", "kostenlos", "mittel", "audit", "privacy-guides"],
         "platforms": ["Android", "iOS", "Web", "macOS", "Linux"],
         "resilience": "Sync zwischen Geraeten"
     },
@@ -1170,7 +1234,7 @@ TOOLS = [
         "description": "Einfache Open-Source TOTP-App fuer Android. Verschluesseltes Backup.",
         "website": "https://github.com/andOTP/andOTP",
         "review_url": None,
-        "tags": ["foss", "prism-break", "offline"],
+        "tags": ["foss", "kostenlos", "mittel", "offline", "prism-break"],
         "platforms": ["Android"],
         "resilience": "Einfach und sicher"
     },
@@ -1182,7 +1246,7 @@ TOOLS = [
         "description": "Open-Source TOTP-App fuer iOS. Einfach, sicher, keine Cloud.",
         "website": "https://www.tofuauth.com",
         "review_url": None,
-        "tags": ["foss", "prism-break", "offline"],
+        "tags": ["foss", "kostenlos", "mittel", "offline", "prism-break"],
         "platforms": ["iOS"],
         "resilience": "iOS-2FA ohne Cloud"
     },
@@ -1198,7 +1262,7 @@ TOOLS = [
         "description": "Physischer Sicherheitsschluessel fuer FIDO2/WebAuthn, OTP, OpenPGP. Phishing-resistent.",
         "website": "https://www.yubico.com",
         "review_url": "https://www.privacyguides.org/en/security-keys/",
-        "tags": ["privacy-guides", "offline"],
+        "tags": ["foss", "kostenlos", "mittel", "offline", "privacy-guides"],
         "platforms": ["USB-A", "USB-C", "NFC"],
         "resilience": "Phishing unmoeglich, kein Akku"
     },
@@ -1210,7 +1274,7 @@ TOOLS = [
         "description": "Open-Source Hardware-Key aus Deutschland. FIDO2, OpenPGP, OTP.",
         "website": "https://www.nitrokey.com",
         "review_url": "https://www.privacyguides.org/en/security-keys/",
-        "tags": ["foss", "privacy-guides"],
+        "tags": ["foss", "kostenlos", "mittel", "privacy-guides"],
         "platforms": ["USB-A", "USB-C"],
         "resilience": "Open Hardware"
     },
@@ -1222,7 +1286,7 @@ TOOLS = [
         "description": "Open-Source FIDO2-Security-Key. Community-Projekt, guenstiger Einstieg.",
         "website": "https://solokeys.com",
         "review_url": None,
-        "tags": ["foss"],
+        "tags": ["foss", "kostenlos", "mittel"],
         "platforms": ["USB-A", "USB-C", "NFC"],
         "resilience": "Guenstige Open-Source-Option"
     },
@@ -1238,7 +1302,7 @@ TOOLS = [
         "description": "TrueCrypt-Nachfolger. Container und Full-Disk-Encryption. Hidden Volumes fuer plausible Abstreitbarkeit.",
         "website": "https://www.veracrypt.fr",
         "review_url": "https://www.privacyguides.org/en/encryption/",
-        "tags": ["foss", "privacy-guides", "prism-break", "offline", "audit"],
+        "tags": ["foss", "kostenlos", "fortgeschritten", "e2ee", "offline", "audit", "privacy-guides", "prism-break"],
         "platforms": ["Windows", "macOS", "Linux"],
         "resilience": "Hidden Volumes bei Zwang"
     },
@@ -1250,7 +1314,7 @@ TOOLS = [
         "description": "Verschluesselt Dateien vor Cloud-Upload transparent. Funktioniert mit jeder Cloud.",
         "website": "https://cryptomator.org",
         "review_url": "https://www.privacyguides.org/en/encryption/",
-        "tags": ["foss", "privacy-guides", "audit"],
+        "tags": ["foss", "kostenlos", "mittel", "e2ee", "audit", "privacy-guides"],
         "platforms": ["Windows", "macOS", "Linux", "Android", "iOS"],
         "resilience": "Nutze unsichere Clouds sicher"
     },
@@ -1262,7 +1326,7 @@ TOOLS = [
         "description": "Einfaches, modernes Verschluesselungstool. Nachfolger von PGP fuer Dateien. Minimalistisch.",
         "website": "https://age-encryption.org",
         "review_url": "https://www.privacyguides.org/en/encryption/",
-        "tags": ["foss", "privacy-guides", "offline"],
+        "tags": ["foss", "kostenlos", "fortgeschritten", "e2ee", "offline", "privacy-guides"],
         "platforms": ["CLI"],
         "resilience": "Einfacher als PGP"
     },
@@ -1274,7 +1338,7 @@ TOOLS = [
         "description": "Einfache Dateiverschluesselung mit GUI. Moderne Kryptographie, simpel zu benutzen.",
         "website": "https://www.kryptor.co.uk",
         "review_url": "https://www.privacyguides.org/en/encryption/",
-        "tags": ["foss", "privacy-guides", "einsteiger"],
+        "tags": ["foss", "kostenlos", "einsteiger", "privacy-guides"],
         "platforms": ["Windows", "macOS", "Linux"],
         "resilience": "Verschluesselung ohne Terminal"
     },
@@ -1286,7 +1350,7 @@ TOOLS = [
         "description": "GNU Privacy Guard. Standard fuer OpenPGP-Verschluesselung und Signaturen.",
         "website": "https://gnupg.org",
         "review_url": "https://www.privacyguides.org/en/encryption/",
-        "tags": ["foss", "privacy-guides", "prism-break", "offline", "fortgeschritten"],
+        "tags": ["foss", "kostenlos", "fortgeschritten", "e2ee", "offline", "privacy-guides", "prism-break"],
         "platforms": ["Windows", "macOS", "Linux"],
         "resilience": "Der Standard fuer Signaturen"
     },
@@ -1302,7 +1366,7 @@ TOOLS = [
         "description": "E2E-verschluesselter Cloud-Speicher von Proton. Zero-Knowledge, Schweizer Datenschutz.",
         "website": "https://proton.me/drive",
         "review_url": "https://www.privacyguides.org/en/cloud/",
-        "tags": ["privacy-guides", "audit"],
+        "tags": ["source-available", "freemium", "mittel", "e2ee", "audit", "privacy-guides"],
         "platforms": ["Web", "Windows", "macOS", "Android", "iOS"],
         "resilience": "Schweizer Datenschutz"
     },
@@ -1314,7 +1378,7 @@ TOOLS = [
         "description": "Schweizer Cloud-Speicher mit clientseitiger Verschluesselung. DSGVO-konform, fuer Business.",
         "website": "https://tresorit.com",
         "review_url": "https://www.privacyguides.org/en/cloud/",
-        "tags": ["privacy-guides"],
+        "tags": ["proprietary", "freemium", "mittel", "e2ee", "privacy-guides"],
         "platforms": ["Windows", "macOS", "Linux", "Android", "iOS", "Web"],
         "resilience": "Business-tauglich"
     },
@@ -1326,7 +1390,7 @@ TOOLS = [
         "description": "Dezentrales, verschluesseltes Dateisystem. Peer-to-Peer, selbst hostbar.",
         "website": "https://peergos.org",
         "review_url": "https://www.privacyguides.org/en/cloud/",
-        "tags": ["foss", "privacy-guides", "dezentral", "selbsthosting"],
+        "tags": ["foss", "kostenlos", "mittel", "dezentral", "selbsthosting", "privacy-guides"],
         "platforms": ["Web", "Java"],
         "resilience": "Dezentral und verschluesselt"
     },
@@ -1342,7 +1406,7 @@ TOOLS = [
         "description": "Sync ohne Cloud. Synchronisiert direkt zwischen Geraeten. Keine Server, keine Accounts.",
         "website": "https://syncthing.net",
         "review_url": "https://www.privacyguides.org/en/file-sharing/",
-        "tags": ["foss", "privacy-guides", "prism-break", "offline", "dezentral"],
+        "tags": ["foss", "kostenlos", "einsteiger", "e2ee", "offline", "dezentral", "privacy-guides", "prism-break"],
         "platforms": ["Windows", "macOS", "Linux", "Android"],
         "resilience": "Keine Cloud-Abhaengigkeit"
     },
@@ -1354,7 +1418,7 @@ TOOLS = [
         "description": "Google Drive Alternative. Dateien, Kalender, Kontakte, Office. Selbst hosten oder Privacy-Hoster.",
         "website": "https://nextcloud.com",
         "review_url": "https://www.privacyguides.org/en/productivity/",
-        "tags": ["foss", "privacy-guides", "prism-break", "dezentral", "selbsthosting"],
+        "tags": ["foss", "freemium", "fortgeschritten", "dezentral", "selbsthosting", "privacy-guides", "prism-break"],
         "platforms": ["Web", "Windows", "macOS", "Linux", "Android", "iOS"],
         "resilience": "Volle Datenkontrolle"
     },
@@ -1366,7 +1430,7 @@ TOOLS = [
         "description": "Ende-zu-Ende-verschluesselte Synchronisation fuer Kalender, Kontakte, Aufgaben.",
         "website": "https://www.etesync.com",
         "review_url": None,
-        "tags": ["foss", "prism-break", "selbsthosting"],
+        "tags": ["foss", "kostenlos", "mittel", "selbsthosting", "prism-break"],
         "platforms": ["Android", "Web"],
         "resilience": "Verschluesselte PIM-Sync"
     },
@@ -1382,7 +1446,7 @@ TOOLS = [
         "description": "Dateien teilen ueber Tor. Empfaenger benoetigt Tor Browser. Kein Server.",
         "website": "https://onionshare.org",
         "review_url": "https://www.privacyguides.org/en/file-sharing/",
-        "tags": ["foss", "privacy-guides", "prism-break", "dezentral"],
+        "tags": ["foss", "kostenlos", "mittel", "e2ee", "dezentral", "privacy-guides", "prism-break"],
         "platforms": ["Windows", "macOS", "Linux"],
         "resilience": "Anonym und direkt"
     },
@@ -1394,7 +1458,7 @@ TOOLS = [
         "description": "E2E-verschluesselte Dateiuebertragung. Urspruenglich Firefox Send, jetzt Community-Fork.",
         "website": "https://send.vis.ee",
         "review_url": "https://www.privacyguides.org/en/file-sharing/",
-        "tags": ["foss", "privacy-guides", "selbsthosting"],
+        "tags": ["foss", "kostenlos", "mittel", "selbsthosting", "privacy-guides"],
         "platforms": ["Web"],
         "resilience": "Einfach verschluesselt teilen"
     },
@@ -1410,7 +1474,7 @@ TOOLS = [
         "description": "Effizientes, verschluesseltes Backup. Deduplizierung spart Speicher. Standard fuer Server.",
         "website": "https://www.borgbackup.org",
         "review_url": None,
-        "tags": ["foss", "prism-break", "offline"],
+        "tags": ["foss", "kostenlos", "mittel", "offline", "prism-break"],
         "platforms": ["Linux", "macOS", "BSD"],
         "resilience": "Verschluesselt, effizient"
     },
@@ -1422,7 +1486,7 @@ TOOLS = [
         "description": "Modernes Backup mit Verschluesselung. Viele Backends (S3, SFTP, rclone, etc.).",
         "website": "https://restic.net",
         "review_url": None,
-        "tags": ["foss", "offline"],
+        "tags": ["foss", "kostenlos", "mittel", "offline"],
         "platforms": ["Windows", "macOS", "Linux"],
         "resilience": "Flexibel, verschluesselt"
     },
@@ -1438,7 +1502,7 @@ TOOLS = [
         "description": "Entfernt Metadaten aus vielen Dateiformaten. CLI und GUI verfuegbar.",
         "website": "https://0xacab.org/jvoisin/mat2",
         "review_url": "https://www.privacyguides.org/en/data-redaction/",
-        "tags": ["foss", "privacy-guides", "offline"],
+        "tags": ["foss", "kostenlos", "mittel", "offline", "privacy-guides"],
         "platforms": ["Linux"],
         "resilience": "Umfassende Metadaten-Entfernung"
     },
@@ -1450,7 +1514,7 @@ TOOLS = [
         "description": "Entfernt EXIF-Daten aus Fotos auf Android. Bevor du teilst.",
         "website": "https://github.com/nicholasbraman/nicholasbraman.github.io/releases/tag/nicholasbraman.github.io",
         "review_url": "https://www.privacyguides.org/en/data-redaction/",
-        "tags": ["foss", "privacy-guides", "offline"],
+        "tags": ["foss", "kostenlos", "mittel", "offline", "privacy-guides"],
         "platforms": ["Android"],
         "resilience": "Standort aus Fotos entfernen"
     },
@@ -1462,7 +1526,7 @@ TOOLS = [
         "description": "Lesen, schreiben, bearbeiten von Metadaten aller Formate. CLI-Tool, extrem maechtig.",
         "website": "https://exiftool.org",
         "review_url": "https://www.privacyguides.org/en/data-redaction/",
-        "tags": ["foss", "privacy-guides", "offline", "fortgeschritten"],
+        "tags": ["foss", "kostenlos", "fortgeschritten", "offline", "privacy-guides"],
         "platforms": ["Windows", "macOS", "Linux"],
         "resilience": "Volle Kontrolle ueber Metadaten"
     },
@@ -1478,7 +1542,7 @@ TOOLS = [
         "description": "E2E-verschluesselte Foto-/Video-Speicherung. Google Photos Alternative mit Privacy.",
         "website": "https://ente.io",
         "review_url": "https://www.privacyguides.org/en/photo-management/",
-        "tags": ["foss", "privacy-guides", "audit"],
+        "tags": ["foss", "freemium", "mittel", "e2ee", "audit", "privacy-guides"],
         "platforms": ["Android", "iOS", "Web", "macOS", "Linux"],
         "resilience": "Fotos ohne Big Tech"
     },
@@ -1490,7 +1554,7 @@ TOOLS = [
         "description": "High-Performance Foto-Backup mit KI-Features. Selbst hosten, volle Kontrolle.",
         "website": "https://immich.app",
         "review_url": None,
-        "tags": ["foss", "selbsthosting"],
+        "tags": ["foss", "kostenlos", "mittel", "selbsthosting"],
         "platforms": ["Docker", "Web", "Android", "iOS"],
         "resilience": "Fotos auf eigenem Server"
     },
@@ -1506,7 +1570,7 @@ TOOLS = [
         "description": "Schwedischer VPN ohne E-Mail oder Passwort. Nur Accountnummer. Akzeptiert Bargeld und Monero.",
         "website": "https://mullvad.net",
         "review_url": "https://www.privacyguides.org/en/vpn/",
-        "tags": ["foss", "privacy-guides", "audit"],
+        "tags": ["foss", "freemium", "einsteiger", "audit", "privacy-guides"],
         "platforms": ["Windows", "macOS", "Linux", "Android", "iOS"],
         "resilience": "Kein Account, keine Identitaet"
     },
@@ -1518,7 +1582,7 @@ TOOLS = [
         "description": "Schweizer VPN mit kostenlosem Tier. Secure Core durch mehrere Laender. 112+ Standorte.",
         "website": "https://protonvpn.com",
         "review_url": "https://www.privacyguides.org/en/vpn/",
-        "tags": ["foss", "privacy-guides", "audit", "kostenlos"],
+        "tags": ["foss", "kostenlos", "einsteiger", "audit", "privacy-guides"],
         "platforms": ["Windows", "macOS", "Linux", "Android", "iOS"],
         "resilience": "Kostenlose Option verfuegbar"
     },
@@ -1530,7 +1594,7 @@ TOOLS = [
         "description": "Gibraltar-basierter VPN. Multi-Hop, WireGuard. Akzeptiert Monero und Bargeld.",
         "website": "https://www.ivpn.net",
         "review_url": "https://www.privacyguides.org/en/vpn/",
-        "tags": ["foss", "privacy-guides", "audit"],
+        "tags": ["foss", "freemium", "mittel", "audit", "privacy-guides"],
         "platforms": ["Windows", "macOS", "Linux", "Android", "iOS"],
         "resilience": "Transparente Audits"
     },
@@ -1546,7 +1610,7 @@ TOOLS = [
         "description": "Dezentrales Anonymisierungsnetzwerk. Drei Relays, keine direkte Verbindung zum Ziel.",
         "website": "https://www.torproject.org",
         "review_url": "https://www.privacyguides.org/en/tor/",
-        "tags": ["foss", "privacy-guides", "prism-break", "dezentral"],
+        "tags": ["foss", "kostenlos", "mittel", "dezentral", "privacy-guides", "prism-break"],
         "platforms": ["Alle"],
         "resilience": "Hoechste Anonymitaet"
     },
@@ -1558,7 +1622,7 @@ TOOLS = [
         "description": "Tor-Proxy fuer Android. Leitet Apps durch Tor, auch ohne Root.",
         "website": "https://orbot.app",
         "review_url": "https://www.privacyguides.org/en/tor/",
-        "tags": ["foss", "privacy-guides", "prism-break"],
+        "tags": ["foss", "kostenlos", "mittel", "privacy-guides", "prism-break"],
         "platforms": ["Android"],
         "resilience": "Tor fuer alle Android-Apps"
     },
@@ -1570,7 +1634,7 @@ TOOLS = [
         "description": "Alternatives Anonymisierungsnetz. Optimiert fuer versteckte Dienste (eepsites).",
         "website": "https://geti2p.net",
         "review_url": "https://www.privacyguides.org/en/advanced/tor-i2p/",
-        "tags": ["foss", "prism-break", "dezentral", "fortgeschritten"],
+        "tags": ["foss", "kostenlos", "fortgeschritten", "dezentral", "prism-break"],
         "platforms": ["Windows", "macOS", "Linux", "Android"],
         "resilience": "Alternative zu Tor"
     },
@@ -1582,7 +1646,7 @@ TOOLS = [
         "description": "Hilft zensierten Nutzern Tor zu erreichen. Du wirst zur Bridge fuer andere.",
         "website": "https://snowflake.torproject.org",
         "review_url": "https://www.privacyguides.org/en/tor/",
-        "tags": ["foss", "privacy-guides"],
+        "tags": ["foss", "kostenlos", "mittel", "privacy-guides"],
         "platforms": ["Browser-Extension"],
         "resilience": "Hilf anderen, Zensur zu umgehen"
     },
@@ -1598,7 +1662,7 @@ TOOLS = [
         "description": "Schweizer Non-Profit DNS mit Malware-Blocking. DoH, DoT, keine Logs.",
         "website": "https://quad9.net",
         "review_url": "https://www.privacyguides.org/en/dns/",
-        "tags": ["privacy-guides", "kostenlos"],
+        "tags": ["foss", "kostenlos", "mittel", "privacy-guides"],
         "platforms": ["Alle"],
         "resilience": "Schweizer Rechtslage"
     },
@@ -1610,7 +1674,7 @@ TOOLS = [
         "description": "Verschluesselter DNS von Mullvad. Mit Werbeblocker-Option.",
         "website": "https://mullvad.net/en/help/dns-over-https-and-dns-over-tls/",
         "review_url": "https://www.privacyguides.org/en/dns/",
-        "tags": ["privacy-guides", "kostenlos"],
+        "tags": ["foss", "kostenlos", "mittel", "privacy-guides"],
         "platforms": ["Alle"],
         "resilience": "Vertrauenswuerdiger Anbieter"
     },
@@ -1622,7 +1686,7 @@ TOOLS = [
         "description": "DNS-Werbeblocker fuer das ganze Netzwerk. Raspberry Pi oder Docker.",
         "website": "https://pi-hole.net",
         "review_url": "https://www.privacyguides.org/en/dns/",
-        "tags": ["foss", "prism-break", "selbsthosting"],
+        "tags": ["foss", "kostenlos", "fortgeschritten", "selbsthosting", "prism-break"],
         "platforms": ["Linux", "Docker"],
         "resilience": "Schuetzt alle Geraete"
     },
@@ -1634,7 +1698,7 @@ TOOLS = [
         "description": "Lokaler DNS-Proxy mit Verschluesselung (DNSCrypt, DoH, DoT). Lokal betreiben.",
         "website": "https://dnscrypt.info",
         "review_url": "https://www.privacyguides.org/en/dns/",
-        "tags": ["foss", "privacy-guides", "prism-break"],
+        "tags": ["foss", "kostenlos", "mittel", "privacy-guides", "prism-break"],
         "platforms": ["Windows", "macOS", "Linux"],
         "resilience": "Volle DNS-Kontrolle"
     },
@@ -1650,7 +1714,7 @@ TOOLS = [
         "description": "Extrem sicheres OS mit Virtualisierung. Jede App in eigener VM. Von Snowden empfohlen.",
         "website": "https://www.qubes-os.org",
         "review_url": "https://www.privacyguides.org/en/desktop/",
-        "tags": ["foss", "privacy-guides", "prism-break", "fortgeschritten"],
+        "tags": ["foss", "kostenlos", "fortgeschritten", "privacy-guides", "prism-break"],
         "platforms": ["x86-64"],
         "resilience": "Kompromittierung bleibt isoliert"
     },
@@ -1662,7 +1726,7 @@ TOOLS = [
         "description": "Cutting-Edge Linux mit SELinux. Schnelle Sicherheitsupdates, moderne Features.",
         "website": "https://fedoraproject.org",
         "review_url": "https://www.privacyguides.org/en/desktop/",
-        "tags": ["foss", "privacy-guides", "prism-break"],
+        "tags": ["foss", "kostenlos", "mittel", "privacy-guides", "prism-break"],
         "platforms": ["x86-64", "ARM"],
         "resilience": "Aktuellste Sicherheitspatches"
     },
@@ -1674,7 +1738,7 @@ TOOLS = [
         "description": "Rolling-Release Linux. Immer aktuell, gutes Tooling (YaST), AppArmor.",
         "website": "https://get.opensuse.org/tumbleweed/",
         "review_url": "https://www.privacyguides.org/en/desktop/",
-        "tags": ["foss", "privacy-guides"],
+        "tags": ["foss", "kostenlos", "mittel", "privacy-guides"],
         "platforms": ["x86-64", "ARM"],
         "resilience": "Kontinuierliche Updates"
     },
@@ -1686,7 +1750,7 @@ TOOLS = [
         "description": "Minimalistisches Rolling-Release. Du baust dein System selbst. AUR fuer Software.",
         "website": "https://archlinux.org",
         "review_url": "https://www.privacyguides.org/en/desktop/",
-        "tags": ["foss", "privacy-guides", "fortgeschritten"],
+        "tags": ["foss", "kostenlos", "fortgeschritten", "privacy-guides"],
         "platforms": ["x86-64"],
         "resilience": "Volle Kontrolle"
     },
@@ -1698,7 +1762,7 @@ TOOLS = [
         "description": "Stabiles, freies Betriebssystem. Basis fuer Ubuntu und viele andere.",
         "website": "https://www.debian.org",
         "review_url": None,
-        "tags": ["foss", "prism-break"],
+        "tags": ["foss", "kostenlos", "mittel", "prism-break"],
         "platforms": ["x86-64", "ARM", "viele andere"],
         "resilience": "Extrem stabil, lange Unterstuetzung"
     },
@@ -1710,7 +1774,7 @@ TOOLS = [
         "description": "Reproduzierbare Systemkonfiguration. Rollbacks, Isolation. Steile Lernkurve.",
         "website": "https://nixos.org",
         "review_url": "https://www.privacyguides.org/en/desktop/",
-        "tags": ["foss", "privacy-guides", "fortgeschritten"],
+        "tags": ["foss", "kostenlos", "fortgeschritten", "privacy-guides"],
         "platforms": ["x86-64", "ARM"],
         "resilience": "Reproduzierbare Systeme"
     },
@@ -1722,7 +1786,7 @@ TOOLS = [
         "description": "Sicherheitsgehaertetes Debian. Von den Whonix-Machern. Weniger radikal als Qubes.",
         "website": "https://www.kicksecure.com",
         "review_url": "https://www.privacyguides.org/en/desktop/",
-        "tags": ["foss", "privacy-guides"],
+        "tags": ["foss", "kostenlos", "mittel", "privacy-guides"],
         "platforms": ["x86-64"],
         "resilience": "Gehaertetes Linux"
     },
@@ -1738,7 +1802,7 @@ TOOLS = [
         "description": "Gehaertetes Android. Memory-Safety, Sandboxing, minimale Angriffsflaeche. Nur fuer Pixel.",
         "website": "https://grapheneos.org",
         "review_url": "https://www.privacyguides.org/en/android/",
-        "tags": ["foss", "privacy-guides", "audit"],
+        "tags": ["foss", "kostenlos", "einsteiger", "audit", "privacy-guides"],
         "platforms": ["Google Pixel"],
         "resilience": "Maximale Sicherheit"
     },
@@ -1750,7 +1814,7 @@ TOOLS = [
         "description": "Benutzerfreundliches Privacy-Android. microG fuer Google-Kompatibilitaet.",
         "website": "https://calyxos.org",
         "review_url": "https://www.privacyguides.org/en/android/",
-        "tags": ["foss", "privacy-guides"],
+        "tags": ["foss", "kostenlos", "fortgeschritten", "privacy-guides"],
         "platforms": ["Google Pixel", "Fairphone"],
         "resilience": "Guter Kompromiss"
     },
@@ -1762,7 +1826,7 @@ TOOLS = [
         "description": "Sicherheitsfokussiertes Android fuer aeltere Geraete. Laengere Unterstuetzung.",
         "website": "https://divestos.org",
         "review_url": "https://www.privacyguides.org/en/android/",
-        "tags": ["foss", "privacy-guides"],
+        "tags": ["foss", "kostenlos", "fortgeschritten", "privacy-guides"],
         "platforms": ["Diverse Android-Geraete"],
         "resilience": "Neues Leben fuer alte Handys"
     },
@@ -1778,7 +1842,7 @@ TOOLS = [
         "description": "Bootfaehiges Linux vom USB-Stick. Keine Spuren, alles durch Tor. Vergisst alles.",
         "website": "https://tails.net",
         "review_url": "https://www.privacyguides.org/en/desktop/",
-        "tags": ["foss", "privacy-guides", "prism-break", "offline"],
+        "tags": ["foss", "kostenlos", "fortgeschritten", "offline", "privacy-guides", "prism-break"],
         "platforms": ["USB-Boot"],
         "resilience": "Keine Spuren hinterlassen"
     },
@@ -1790,7 +1854,7 @@ TOOLS = [
         "description": "Zwei-VM-System das alle Verbindungen durch Tor zwingt. IP-Leaks technisch unmoeglich.",
         "website": "https://www.whonix.org",
         "review_url": "https://www.privacyguides.org/en/desktop/",
-        "tags": ["foss", "privacy-guides", "prism-break"],
+        "tags": ["foss", "kostenlos", "fortgeschritten", "privacy-guides", "prism-break"],
         "platforms": ["VirtualBox", "Qubes", "KVM"],
         "resilience": "Anonymitaet auch bei Bugs"
     },
@@ -1806,7 +1870,7 @@ TOOLS = [
         "description": "Linux fuer Router. Volle Kontrolle ueber dein Netzwerk. Viele unterstuetzte Geraete.",
         "website": "https://openwrt.org",
         "review_url": "https://www.privacyguides.org/en/router/",
-        "tags": ["foss", "privacy-guides", "prism-break"],
+        "tags": ["foss", "kostenlos", "fortgeschritten", "privacy-guides", "prism-break"],
         "platforms": ["Viele Router"],
         "resilience": "Freie Firmware"
     },
@@ -1818,7 +1882,7 @@ TOOLS = [
         "description": "FreeBSD-basierte Firewall/Router. Web-GUI, VPN, IDS/IPS. Fuer dedizierte Hardware.",
         "website": "https://opnsense.org",
         "review_url": "https://www.privacyguides.org/en/router/",
-        "tags": ["foss", "privacy-guides"],
+        "tags": ["foss", "kostenlos", "mittel", "privacy-guides"],
         "platforms": ["x86 Hardware", "VM"],
         "resilience": "Enterprise-Grade Firewall"
     },
@@ -1834,7 +1898,7 @@ TOOLS = [
         "description": "App-Store nur fuer Open-Source-Apps. Keine proprietaere Software.",
         "website": "https://f-droid.org",
         "review_url": None,
-        "tags": ["foss", "prism-break"],
+        "tags": ["foss", "kostenlos", "einsteiger", "prism-break"],
         "platforms": ["Android"],
         "resilience": "100% Open Source Apps"
     },
@@ -1846,7 +1910,7 @@ TOOLS = [
         "description": "Anonymer Zugang zum Play Store. Kein Google-Konto noetig.",
         "website": "https://auroraoss.com",
         "review_url": "https://www.privacyguides.org/en/android/#aurora-store",
-        "tags": ["foss", "privacy-guides"],
+        "tags": ["foss", "kostenlos", "einsteiger", "privacy-guides"],
         "platforms": ["Android"],
         "resilience": "Play Store Apps anonym"
     },
@@ -1858,7 +1922,7 @@ TOOLS = [
         "description": "Holt App-Updates direkt von GitHub, GitLab, etc. Kein App Store noetig.",
         "website": "https://github.com/nicholasbraman/nicholasbraman.github.io/releases/tag/nicholasbraman.github.io",
         "review_url": "https://www.privacyguides.org/en/android/#obtainium",
-        "tags": ["foss", "privacy-guides"],
+        "tags": ["foss", "kostenlos", "mittel", "privacy-guides"],
         "platforms": ["Android"],
         "resilience": "Updates ohne Store"
     },
@@ -1870,7 +1934,7 @@ TOOLS = [
         "description": "Isoliert Apps in Androids Work Profile. Trennt Arbeit von Privat.",
         "website": "https://gitea.angry.im/nicholasbraman/nicholasbraman.github.io",
         "review_url": "https://www.privacyguides.org/en/android/",
-        "tags": ["foss", "privacy-guides"],
+        "tags": ["foss", "kostenlos", "mittel", "privacy-guides"],
         "platforms": ["Android"],
         "resilience": "App-Isolation"
     },
@@ -1886,7 +1950,7 @@ TOOLS = [
         "description": "Leichtgewichtige Bitwarden-Server-Implementation. Alle Premium-Features. Wenig Ressourcen.",
         "website": "https://github.com/dani-garcia/vaultwarden",
         "review_url": None,
-        "tags": ["foss", "offline"],
+        "tags": ["foss", "kostenlos", "mittel", "offline"],
         "platforms": ["Docker", "Linux"],
         "resilience": "Passwoerter unter Kontrolle"
     },
@@ -1898,7 +1962,7 @@ TOOLS = [
         "description": "Open-Source Smart-Home-Zentrale. 2000+ Integrationen, lokal kontrolliert.",
         "website": "https://www.home-assistant.io",
         "review_url": None,
-        "tags": ["foss", "offline"],
+        "tags": ["foss", "kostenlos", "mittel", "offline"],
         "platforms": ["Raspberry Pi", "Docker", "VM"],
         "resilience": "Smart Home ohne Cloud"
     },
@@ -1910,7 +1974,7 @@ TOOLS = [
         "description": "Schnelles, einfaches VPN-Protokoll. Nur 4000 Zeilen Code. Eigenen VPN-Server betreiben.",
         "website": "https://www.wireguard.com",
         "review_url": "https://www.privacyguides.org/en/vpn/",
-        "tags": ["foss", "privacy-guides", "prism-break", "offline"],
+        "tags": ["foss", "kostenlos", "mittel", "offline", "privacy-guides", "prism-break"],
         "platforms": ["Linux", "Windows", "macOS", "Android", "iOS"],
         "resilience": "Eigener VPN-Server"
     },
@@ -1922,7 +1986,7 @@ TOOLS = [
         "description": "Selbstgehostetes Dokumentenarchiv mit OCR. Scannt, kategorisiert, durchsucht.",
         "website": "https://docs.paperless-ngx.com",
         "review_url": None,
-        "tags": ["foss", "offline"],
+        "tags": ["foss", "kostenlos", "mittel", "offline"],
         "platforms": ["Docker", "Linux"],
         "resilience": "Dokumente digitalisiert"
     },
@@ -1934,7 +1998,7 @@ TOOLS = [
         "description": "Leichtgewichtiger Git-Server. GitHub-Alternative fuer eigene Infrastruktur.",
         "website": "https://gitea.io",
         "review_url": None,
-        "tags": ["foss", "prism-break"],
+        "tags": ["foss", "kostenlos", "mittel", "prism-break"],
         "platforms": ["Docker", "Linux", "Windows", "macOS"],
         "resilience": "Code unter Kontrolle"
     },
@@ -1946,7 +2010,7 @@ TOOLS = [
         "description": "E2E-verschluesselte Office-Suite. Docs, Sheets, Kanban. Kollaborativ und privat.",
         "website": "https://cryptpad.fr",
         "review_url": "https://www.privacyguides.org/en/productivity/",
-        "tags": ["foss", "privacy-guides", "prism-break", "selbsthosting"],
+        "tags": ["foss", "kostenlos", "mittel", "selbsthosting", "privacy-guides", "prism-break"],
         "platforms": ["Web"],
         "resilience": "Google Docs Alternative"
     },
@@ -1962,7 +2026,7 @@ TOOLS = [
         "description": "Verschluesselte Notizen mit Sync. Einfach, sicher, langlebig.",
         "website": "https://standardnotes.com",
         "review_url": "https://www.privacyguides.org/en/notebooks/",
-        "tags": ["foss", "privacy-guides", "audit"],
+        "tags": ["foss", "kostenlos", "mittel", "audit", "privacy-guides"],
         "platforms": ["Windows", "macOS", "Linux", "Android", "iOS", "Web"],
         "resilience": "Notizen verschluesselt"
     },
@@ -1974,7 +2038,7 @@ TOOLS = [
         "description": "Open-Source Notiz-App mit E2EE-Sync. Markdown, Tagging, Notebooks.",
         "website": "https://joplinapp.org",
         "review_url": "https://www.privacyguides.org/en/notebooks/",
-        "tags": ["foss", "privacy-guides"],
+        "tags": ["foss", "kostenlos", "mittel", "privacy-guides"],
         "platforms": ["Windows", "macOS", "Linux", "Android", "iOS"],
         "resilience": "Evernote-Alternative"
     },
@@ -1986,7 +2050,7 @@ TOOLS = [
         "description": "E2E-verschluesselte Dokumente und Fotos. Web-basiert, Zero-Knowledge.",
         "website": "https://crypt.ee",
         "review_url": "https://www.privacyguides.org/en/notebooks/",
-        "tags": ["privacy-guides"],
+        "tags": ["foss", "freemium", "mittel", "e2ee", "privacy-guides"],
         "platforms": ["Web"],
         "resilience": "Docs in der Cloud, verschluesselt"
     },
@@ -1998,7 +2062,7 @@ TOOLS = [
         "description": "Vollstaendige Office-Suite. Word/Excel/PowerPoint-kompatibel. Kein Abo.",
         "website": "https://www.libreoffice.org",
         "review_url": "https://www.privacyguides.org/en/productivity/",
-        "tags": ["foss", "privacy-guides", "prism-break", "offline"],
+        "tags": ["foss", "kostenlos", "mittel", "offline", "privacy-guides", "prism-break"],
         "platforms": ["Windows", "macOS", "Linux"],
         "resilience": "Unabhaengig von Microsoft"
     },
@@ -2010,7 +2074,7 @@ TOOLS = [
         "description": "Office-Suite mit bester MS-Kompatibilitaet. Docs, Sheets, Slides. Selbst hostbar.",
         "website": "https://www.onlyoffice.com",
         "review_url": "https://www.privacyguides.org/en/productivity/",
-        "tags": ["foss", "privacy-guides", "selbsthosting"],
+        "tags": ["foss", "kostenlos", "mittel", "selbsthosting", "privacy-guides"],
         "platforms": ["Windows", "macOS", "Linux", "Web"],
         "resilience": "Office-Dateien ohne Microsoft"
     },
@@ -2026,7 +2090,7 @@ TOOLS = [
         "description": "Markdown-Notizen mit Verlinkung. Lokale Dateien, keine Cloud noetig. Graph-Ansicht.",
         "website": "https://obsidian.md",
         "review_url": None,
-        "tags": ["offline"],
+        "tags": ["foss", "kostenlos", "mittel", "offline"],
         "platforms": ["Windows", "macOS", "Linux", "Android", "iOS"],
         "resilience": "Deine Notizen, deine Dateien"
     },
@@ -2038,7 +2102,7 @@ TOOLS = [
         "description": "Liest ZIM-Dateien: Wikipedia, Stack Overflow, Gutenberg offline. Wissen ohne Internet.",
         "website": "https://www.kiwix.org",
         "review_url": None,
-        "tags": ["foss", "offline"],
+        "tags": ["foss", "kostenlos", "mittel", "offline"],
         "platforms": ["Windows", "macOS", "Linux", "Android", "iOS"],
         "resilience": "Wissen ohne Internet"
     },
@@ -2050,7 +2114,7 @@ TOOLS = [
         "description": "Lokale LLMs ausfuehren. Llama, Mistral, etc. auf eigenem Rechner. Keine Cloud.",
         "website": "https://ollama.com",
         "review_url": "https://www.privacyguides.org/en/ai-chatbots/",
-        "tags": ["foss", "privacy-guides", "offline"],
+        "tags": ["foss", "kostenlos", "mittel", "offline", "privacy-guides"],
         "platforms": ["Windows", "macOS", "Linux"],
         "resilience": "KI ohne Cloud"
     },
@@ -2066,7 +2130,7 @@ TOOLS = [
         "description": "Privacy-by-Default Kryptowaehrung. Transaktionen nicht nachverfolgbar.",
         "website": "https://www.getmonero.org",
         "review_url": "https://www.privacyguides.org/en/cryptocurrency/",
-        "tags": ["foss", "privacy-guides", "prism-break", "dezentral"],
+        "tags": ["foss", "kostenlos", "fortgeschritten", "dezentral", "privacy-guides", "prism-break"],
         "platforms": ["Windows", "macOS", "Linux", "Android"],
         "resilience": "Finanziell anonym"
     },
@@ -2078,7 +2142,7 @@ TOOLS = [
         "description": "Peer-to-Peer Kryptowaehrungshandel. Kein Account, keine Verifizierung.",
         "website": "https://bisq.network",
         "review_url": None,
-        "tags": ["foss", "prism-break", "dezentral"],
+        "tags": ["foss", "kostenlos", "fortgeschritten", "dezentral", "prism-break"],
         "platforms": ["Windows", "macOS", "Linux"],
         "resilience": "Krypto ohne Boerse"
     },
@@ -2094,7 +2158,7 @@ TOOLS = [
         "description": "Offline-Karten basierend auf OpenStreetMap. Wandern, Radfahren, Autofahren.",
         "website": "https://organicmaps.app",
         "review_url": "https://www.privacyguides.org/en/mobile-apps/",
-        "tags": ["foss", "privacy-guides", "offline"],
+        "tags": ["foss", "kostenlos", "einsteiger", "offline", "privacy-guides"],
         "platforms": ["Android", "iOS"],
         "resilience": "Navigation ohne Internet"
     },
@@ -2106,7 +2170,7 @@ TOOLS = [
         "description": "Umfangreiche Offline-Navigation mit OSM. Viele Features, auch komplexe Routen.",
         "website": "https://osmand.net",
         "review_url": "https://www.privacyguides.org/en/mobile-apps/",
-        "tags": ["foss", "privacy-guides", "prism-break", "offline"],
+        "tags": ["foss", "kostenlos", "einsteiger", "offline", "privacy-guides", "prism-break"],
         "platforms": ["Android", "iOS"],
         "resilience": "Volle Kontrolle ueber Karten"
     },
