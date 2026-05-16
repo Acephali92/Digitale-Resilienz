@@ -487,11 +487,27 @@ def tools_index():
     """Tools overview page with sidebar navigation."""
     from data.tools_data import (
         TOOLS, CATEGORIES, CATEGORY_GROUPS, TAGS,
-        get_all_tools_grouped, get_categories_by_group
+        get_categories_by_group
     )
 
-    # Alle Tools gruppiert nach Kategorien
-    tools_grouped = get_all_tools_grouped()
+    # Vorberechnete Daten fuer das Template
+    # Tools nach Kategorie gruppieren
+    tools_by_category = {}
+    for tool in TOOLS:
+        cat_id = tool["category"]
+        if cat_id not in tools_by_category:
+            tools_by_category[cat_id] = []
+        tools_by_category[cat_id].append(tool)
+
+    # Tag-Zaehler
+    tag_counts = {}
+    for tag_id in TAGS:
+        tag_counts[tag_id] = len([t for t in TOOLS if tag_id in t.get("tags", [])])
+
+    # Kategorien nach Gruppe
+    categories_by_group = {}
+    for group in CATEGORY_GROUPS:
+        categories_by_group[group["id"]] = get_categories_by_group(group["id"])
 
     return render_template(
         "tools/index.html",
@@ -499,8 +515,9 @@ def tools_index():
         categories=CATEGORIES,
         category_groups=CATEGORY_GROUPS,
         tags=TAGS,
-        tools_grouped=tools_grouped,
-        get_categories_by_group=get_categories_by_group
+        tools_by_category=tools_by_category,
+        tag_counts=tag_counts,
+        categories_by_group=categories_by_group
     )
 
 

@@ -501,7 +501,7 @@ pre code {
     transform: rotate(-45deg);
 }
 
-/* Nav Menu */
+/* Nav Menu - Mobile (default) */
 .nav-menu {
     position: fixed;
     top: 0;
@@ -589,46 +589,107 @@ pre code {
     text-align: center;
 }
 
-/* Desktop Navigation */
-@media (min-width: 1200px) {
+/* Desktop Navigation - 1024px and up */
+@media screen and (min-width: 1024px) {
     .site-header {
         padding: var(--space-sm) 0;
     }
 
+    /* FORCE hide hamburger menu on desktop */
     .nav-toggle {
-        display: none;
+        display: none !important;
+        visibility: hidden !important;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        position: absolute !important;
+        pointer-events: none !important;
     }
 
+    /* Reset nav-menu to inline flex row */
     .nav-menu {
-        position: static;
-        display: flex;
-        flex-direction: row;
-        gap: var(--space-xs);
-        padding: 0;
-        transform: none;
-        background: transparent;
-        overflow: visible;
+        position: static !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 0 !important;
+        list-style: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        transform: none !important;
+        background: transparent !important;
+        overflow: visible !important;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        width: auto !important;
+        height: auto !important;
+        z-index: auto !important;
     }
 
+    /* Reset nav-item to visible */
     .nav-item {
-        opacity: 1;
-        transform: none;
-        margin: 0;
+        opacity: 1 !important;
+        transform: none !important;
+        margin: 0 !important;
+        transition: none !important;
     }
 
+    /* Hide icons at smaller desktop to save space */
+    .nav-icon {
+        display: none !important;
+    }
+
+    /* Compact nav links - text only */
     .nav-link {
-        padding: var(--space-sm) var(--space-md);
-        font-size: var(--text-sm);
-        border: 1px solid transparent;
+        padding: 6px 10px !important;
+        font-size: 11px !important;
+        border: 1px solid transparent !important;
+        white-space: nowrap !important;
+        gap: 0 !important;
+        background: transparent !important;
     }
 
     .nav-link:hover {
-        border-color: var(--color-matrix);
+        border-color: var(--color-matrix) !important;
+    }
+}
+
+/* Medium Desktop Navigation - 1200px and up */
+@media screen and (min-width: 1200px) {
+    .nav-menu {
+        gap: 4px !important;
+    }
+
+    /* Show icons at medium desktop */
+    .nav-icon {
+        display: inline !important;
+        font-size: var(--text-sm) !important;
+        width: auto !important;
+    }
+
+    .nav-link {
+        padding: var(--space-xs) var(--space-sm) !important;
+        font-size: var(--text-xs) !important;
+        gap: var(--space-xs) !important;
+    }
+}
+
+/* Large Desktop Navigation - 1400px and up */
+@media screen and (min-width: 1400px) {
+    .nav-menu {
+        gap: var(--space-xs) !important;
+    }
+
+    .nav-link {
+        padding: var(--space-sm) var(--space-md) !important;
+        font-size: var(--text-sm) !important;
+        gap: var(--space-sm) !important;
     }
 
     .nav-icon {
-        font-size: var(--text-base);
-        width: auto;
+        font-size: var(--text-base) !important;
     }
 }
 

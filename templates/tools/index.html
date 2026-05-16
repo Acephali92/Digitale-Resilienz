@@ -675,16 +675,13 @@
 
         <nav class="sidebar-nav">
             {% for group in category_groups %}
-            {% set group_cats = get_categories_by_group(group.id) %}
+            {% set group_cats = categories_by_group.get(group.id, []) %}
             {% if group_cats %}
             <div class="sidebar-group">
                 <div class="sidebar-group-title">{{ group.name }}</div>
                 <ul class="sidebar-items">
                     {% for cat in group_cats %}
-                    {% set cat_tools = [] %}
-                    {% for t in tools if t.category == cat.id %}
-                        {% set _ = cat_tools.append(t) %}
-                    {% endfor %}
+                    {% set cat_tools = tools_by_category.get(cat.id, []) %}
                     {% if cat_tools %}
                     <li class="sidebar-item">
                         <a href="#{{ cat.id }}" class="sidebar-link" data-category="{{ cat.id }}">
@@ -733,18 +730,15 @@
 
             <div class="tools-filters" role="group" aria-label="Filter">
                 {% for tag_id, tag in tags.items() %}
-                {% set tag_count = [] %}
-                {% for t in tools if tag_id in t.tags %}
-                    {% set _ = tag_count.append(t) %}
-                {% endfor %}
-                {% if tag_count %}
+                {% set count = tag_counts.get(tag_id, 0) %}
+                {% if count > 0 %}
                 <button
                     class="filter-chip js-only"
                     data-filter="{{ tag_id }}"
                     aria-pressed="false"
                 >
                     {{ tag.label }}
-                    <span class="filter-chip-count">{{ tag_count|length }}</span>
+                    <span class="filter-chip-count">{{ count }}</span>
                 </button>
                 {% endif %}
                 {% endfor %}
@@ -758,23 +752,21 @@
 
         <!-- Tools grouped by Category Groups and Categories -->
         {% for group in category_groups %}
-        {% set group_has_tools = false %}
-        {% for cat in get_categories_by_group(group.id) %}
-            {% for t in tools if t.category == cat.id %}
-                {% set group_has_tools = true %}
-            {% endfor %}
+        {% set group_cats = categories_by_group.get(group.id, []) %}
+        {% set group_has_tools = namespace(value=false) %}
+        {% for cat in group_cats %}
+            {% if tools_by_category.get(cat.id, [])|length > 0 %}
+                {% set group_has_tools.value = true %}
+            {% endif %}
         {% endfor %}
 
-        {% if group_has_tools %}
+        {% if group_has_tools.value %}
         <div class="tools-group-header" id="group-{{ group.id }}">
             <h2 class="group-title">{{ group.name }}</h2>
         </div>
 
-        {% for cat in get_categories_by_group(group.id) %}
-        {% set cat_tools = [] %}
-        {% for t in tools if t.category == cat.id %}
-            {% set _ = cat_tools.append(t) %}
-        {% endfor %}
+        {% for cat in group_cats %}
+        {% set cat_tools = tools_by_category.get(cat.id, []) %}
 
         {% if cat_tools %}
         <section class="tools-category-section" id="{{ cat.id }}" data-category="{{ cat.id }}">
