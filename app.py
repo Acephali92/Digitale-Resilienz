@@ -487,6 +487,7 @@ def tools_index():
     """Tools overview page with sidebar navigation."""
     from data.tools_data import (
         TOOLS, CATEGORIES, CATEGORY_GROUPS, TAGS, TAG_CATEGORIES,
+        FEATURED_CATEGORIES,
         get_categories_by_group
     )
 
@@ -527,7 +528,8 @@ def tools_index():
         tags_by_category=tags_by_category,
         tools_by_category=tools_by_category,
         tag_counts=tag_counts,
-        categories_by_group=categories_by_group
+        categories_by_group=categories_by_group,
+        featured_categories=FEATURED_CATEGORIES
     )
 
 

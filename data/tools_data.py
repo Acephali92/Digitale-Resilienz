@@ -2178,6 +2178,56 @@ TOOLS = [
 
 
 # =============================================================================
+# FEATURED CATEGORIES - Hero-Bereich (vereinfacht, keine Beispiel-Tools)
+# =============================================================================
+
+FEATURED_CATEGORIES = [
+    {
+        "id": "browser",
+        "name": "Browser",
+        "icon": "🌐",
+        "description": "Surfe ohne Tracking",
+        "anchor": "browser-desktop"  # Scroll-Ziel
+    },
+    {
+        "id": "email",
+        "name": "E-Mail",
+        "icon": "✉️",
+        "description": "Verschluesselt kommunizieren",
+        "anchor": "email-anbieter"
+    },
+    {
+        "id": "messenger",
+        "name": "Messenger",
+        "icon": "💬",
+        "description": "Sicher chatten",
+        "anchor": "messenger"
+    },
+    {
+        "id": "passwords",
+        "name": "Passwoerter",
+        "icon": "🔑",
+        "description": "Sichere Verwaltung",
+        "anchor": "passwort-manager"
+    },
+    {
+        "id": "cloud",
+        "name": "Cloud & Sync",
+        "icon": "☁️",
+        "description": "Deine Daten, deine Kontrolle",
+        "anchor": "file-sync"
+    },
+    {
+        "id": "search",
+        "name": "Suchmaschinen",
+        "icon": "🔍",
+        "description": "Suchen ohne Tracking",
+        "anchor": "suchmaschinen"
+    }
+]
+
+
+# =============================================================================
 # HILFSFUNKTIONEN
 # =============================================================================
 
