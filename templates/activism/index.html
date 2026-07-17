@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}Aktivismus{% endblock %}
+{% block title %}Sichere Aktion{% endblock %}
 
 {% block content %}
 <section class="section-header">
-    <h1>&#9994; Aktivismus-Detox</h1>
+    <h1>&#9994; Sichere Aktion</h1>
     <p class="section-subtitle">
         Sicher und effektiv aktiv sein – mit klarem Kopf und guter Vorbereitung.
     </p>
@@ -44,7 +44,7 @@
         </p>
     </a>
 
-    <div class="card">
+    <a href="{{ url_for('activism_bezugsgruppen') }}" class="card">
         <div class="card-header">
             <span class="card-icon">&#128101;</span>
             <h3 class="card-title">Bezugsgruppen</h3>
@@ -53,8 +53,29 @@
             Sichere Strukturen für Aktionen:
             Wie Bezugsgruppen funktionieren und kommunizieren.
         </p>
-        <span class="badge-wip">In Arbeit</span>
-    </div>
+    </a>
+
+    <a href="{{ url_for('tools_index') }}#messenger" class="card">
+        <div class="card-header">
+            <span class="card-icon">&#128241;</span>
+            <h3 class="card-title">Sichere Kommunikation</h3>
+        </div>
+        <p class="card-body">
+            Signal, Session, Briar: Welcher Messenger fuer welche Situation?
+            Burner-Phones und anonyme SIM-Karten.
+        </p>
+    </a>
+
+    <a href="https://www.rote-hilfe.de/" target="_blank" rel="noopener noreferrer" class="card">
+        <div class="card-header">
+            <span class="card-icon">&#9878;</span>
+            <h3 class="card-title">Rechtliche Ressourcen</h3>
+        </div>
+        <p class="card-body">
+            Rote Hilfe, Ermittlungsausschuss (EA), Anwalts-Notdienste.
+            Wichtige Kontakte fuer den Ernstfall.
+        </p>
+    </a>
 </div>
 
 <section class="card mt-xl">
@@ -67,9 +88,12 @@
             <li>Handy vor der Demo neu gestartet (BFU-Zustand)?</li>
             <li>Biometrie deaktiviert, nur PIN aktiv?</li>
             <li>EA-Nummer (Ermittlungsausschuss) notiert?</li>
-            <li>Bezugsperson informiert, wann ich zurück sein sollte?</li>
+            <li>Bezugsperson informiert, wann ich zurueck sein sollte?</li>
             <li>Bargeld dabei (keine Karte auf der Demo)?</li>
             <li>Keine sensiblen Chats auf dem Demo-Handy?</li>
+            <li>Kleidung ohne auffaellige Merkmale (Logos, Farben)?</li>
+            <li>Medikamente und Erste-Hilfe-Set dabei?</li>
+            <li>Treffpunkt mit Bezugsgruppe vereinbart?</li>
         </ul>
         <a href="{{ url_for('activism_demo_checklist') }}" class="btn btn-primary mt-md">
             Zur vollständigen Checkliste
