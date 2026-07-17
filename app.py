@@ -484,8 +484,53 @@ def peace_communication():
 @app.route("/tools")
 @app.route("/tools/")
 def tools_index():
-    """Tools overview page."""
-    return render_template("tools/index.html")
+    """Tools overview page with sidebar navigation."""
+    from data.tools_data import (
+        TOOLS, CATEGORIES, CATEGORY_GROUPS, TAGS, TAG_CATEGORIES,
+        FEATURED_CATEGORIES,
+        get_categories_by_group
+    )
+
+    # Vorberechnete Daten fuer das Template
+    # Tools nach Kategorie gruppieren
+    tools_by_category = {}
+    for tool in TOOLS:
+        cat_id = tool["category"]
+        if cat_id not in tools_by_category:
+            tools_by_category[cat_id] = []
+        tools_by_category[cat_id].append(tool)
+
+    # Tag-Zaehler
+    tag_counts = {}
+    for tag_id in TAGS:
+        tag_counts[tag_id] = len([t for t in TOOLS if tag_id in t.get("tags", [])])
+
+    # Kategorien nach Gruppe
+    categories_by_group = {}
+    for group in CATEGORY_GROUPS:
+        categories_by_group[group["id"]] = get_categories_by_group(group["id"])
+
+    # Tags nach Kategorie gruppieren
+    tags_by_category = {}
+    for tag_id, tag_info in TAGS.items():
+        cat = tag_info.get("category", "sonstige")
+        if cat not in tags_by_category:
+            tags_by_category[cat] = []
+        tags_by_category[cat].append({"id": tag_id, **tag_info})
+
+    return render_template(
+        "tools/index.html",
+        tools=TOOLS,
+        categories=CATEGORIES,
+        category_groups=CATEGORY_GROUPS,
+        tags=TAGS,
+        tag_categories=TAG_CATEGORIES,
+        tags_by_category=tags_by_category,
+        tools_by_category=tools_by_category,
+        tag_counts=tag_counts,
+        categories_by_group=categories_by_group,
+        featured_categories=FEATURED_CATEGORIES
+    )
 
 
 @app.route("/tools/passphrase")
