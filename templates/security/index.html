@@ -78,4 +78,216 @@
     <strong>&#9888; Wichtig:</strong> Sichere Tools helfen nur, wenn sie richtig angewendet werden.
     Lies die Anleitungen sorgfältig und übe vor dem Ernstfall.
 </section>
+
+<!-- 48-Stunden-Plan Section -->
+<section class="plan-section" id="48h-plan">
+    <!-- Hero Header -->
+    <div class="plan-header">
+        <h2>&#9201; Der 48-Stunden-Plan: Drei Schritte, nicht zwölf</h2>
+        <span class="method-tag">Generation Effect + Handlungsplanung + Chunking</span>
+    </div>
+
+    <!-- Kernbotschaft -->
+    <div class="core-message">
+        <p>
+            Kein Workshop-Transfer ohne konkreten nächsten Schritt. Die häufigste Fehlannahme in der Erwachsenenbildung:
+            Wenn die Inhalte gut genug sind, handeln die Menschen automatisch. Das stimmt nicht. Was stimmt:
+            <strong>Wer im Raum aufschreibt, was er in den nächsten 48 Stunden tut, tut es mit dreifach höherer Wahrscheinlichkeit.</strong>
+        </p>
+    </div>
+
+    <!-- Workshop-Ablauf Info -->
+    <p class="text-secondary mb-lg">
+        Die Moderation verteilt eine letzte Karte – oder die Rückseite der Threat-Modeling-Karte.
+        Drei Minuten Schreiben. Dann optional: Wer mag, liest einen Schritt vor – nicht alle, nicht verpflichtend.
+    </p>
+
+    <!-- Interactive Plan Card -->
+    <div class="plan-card" id="plan-card">
+        <div class="plan-card-header">
+            <span class="plan-card-icon">&#128221;</span>
+            <div>
+                <h3 class="plan-card-title">Meine drei Schritte in den nächsten 48 Stunden:</h3>
+                <p class="plan-card-subtitle">Schreibe konkret auf, was du tun wirst.</p>
+            </div>
+        </div>
+
+        <div class="editable-steps">
+            <div class="editable-step">
+                <span class="step-number">1</span>
+                <textarea class="step-input" id="step-1" placeholder="Was wirst du als Erstes tun?" rows="1" aria-label="Schritt 1"></textarea>
+            </div>
+            <div class="editable-step">
+                <span class="step-number">2</span>
+                <textarea class="step-input" id="step-2" placeholder="Was kommt als Nächstes?" rows="1" aria-label="Schritt 2"></textarea>
+            </div>
+            <div class="editable-step">
+                <span class="step-number">3</span>
+                <textarea class="step-input" id="step-3" placeholder="Und dann?" rows="1" aria-label="Schritt 3"></textarea>
+            </div>
+        </div>
+
+        <div class="plan-card-actions">
+            <button type="button" class="btn btn-primary js-only" id="print-plan">
+                &#128424; Karte drucken
+            </button>
+            <button type="button" class="btn btn-secondary js-only" id="clear-plan">
+                &#128465; Löschen
+            </button>
+        </div>
+    </div>
+
+    <!-- Moderation Section -->
+    <div class="moderation-section">
+        <h3 class="moderation-title">Orientierungshilfe für die Moderation</h3>
+        <p class="moderation-intro">Falls jemand nicht weiß, wo anfangen:</p>
+
+        <!-- Three Protection Levels -->
+        <div class="level-grid">
+            <!-- Level 1 - Green -->
+            <div class="level-card level-1">
+                <div class="level-header">
+                    <span class="level-icon">&#128737;</span>
+                    <div>
+                        <h4 class="level-title">Schutzebene 1</h4>
+                        <span class="level-badge">sofort • 10 Min • kostenlos</span>
+                    </div>
+                </div>
+                <ul class="level-list">
+                    <li>PIN statt Fingerabdruck aktivieren.</li>
+                    <li><a href="https://haveibeenpwned.com" target="_blank" rel="noopener noreferrer">haveibeenpwned.com</a> für die eigene E-Mail-Adresse prüfen.</li>
+                    <li>Signal installieren und einer Person schreiben.</li>
+                    <li>Auf <a href="https://datenanfragen.de" target="_blank" rel="noopener noreferrer">datenanfragen.de</a> eine Auskunftsanfrage an einen Dienst senden (Meta, Google, Mobilfunkanbieter). Das dauert 90 Sekunden und ist DSGVO-Recht.</li>
+                </ul>
+            </div>
+
+            <!-- Level 2 - Blue -->
+            <div class="level-card level-2">
+                <div class="level-header">
+                    <span class="level-icon">&#128197;</span>
+                    <div>
+                        <h4 class="level-title">Schutzebene 2</h4>
+                        <span class="level-badge">diese Woche • 1–2 Std</span>
+                    </div>
+                </div>
+                <ul class="level-list">
+                    <li>Bitwarden oder KeePassXC einrichten und die drei wichtigsten Passwörter migrieren.</li>
+                    <li>Einen RSS-Reader einrichten und drei Feeds aus der Liste abonnieren.</li>
+                    <li>Signal-Selbstzerstörung für Demo-Gruppen aktivieren.</li>
+                </ul>
+            </div>
+
+            <!-- Level 3 - Amber -->
+            <div class="level-card level-3">
+                <div class="level-header">
+                    <span class="level-icon">&#127919;</span>
+                    <div>
+                        <h4 class="level-title">Schutzebene 3</h4>
+                        <span class="level-badge">diesen Monat • erhöhtes Risikoprofil</span>
+                    </div>
+                </div>
+                <ul class="level-list">
+                    <li>Briar installieren und mit der eigenen Gruppe testen.</li>
+                    <li>Mullvad VPN einrichten.</li>
+                    <li>GrapheneOS recherchieren und entscheiden, ob es zum eigenen Bedrohungsprofil passt.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Closing Quote -->
+    <div class="quote-box">
+        <p class="quote-text">
+            Ihr müsst nicht alles auf einmal tun. Wer heute eine Sache tut, ist morgen sicherer als gestern.
+            Wer drei Dinge aufschreibt und keine tut, ist genau dort, wo er heute Morgen war.
+        </p>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script nonce="{{ csp_nonce }}">
+(function() {
+    'use strict';
+
+    const STORAGE_KEY = 'plan48h_steps';
+    const step1 = document.getElementById('step-1');
+    const step2 = document.getElementById('step-2');
+    const step3 = document.getElementById('step-3');
+    const printBtn = document.getElementById('print-plan');
+    const clearBtn = document.getElementById('clear-plan');
+
+    // Load saved steps from localStorage
+    function loadSteps() {
+        try {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                const steps = JSON.parse(saved);
+                if (step1 && steps.step1) step1.value = steps.step1;
+                if (step2 && steps.step2) step2.value = steps.step2;
+                if (step3 && steps.step3) step3.value = steps.step3;
+            }
+        } catch (e) {
+            console.warn('Could not load saved steps:', e);
+        }
+    }
+
+    // Save steps to localStorage
+    function saveSteps() {
+        try {
+            const steps = {
+                step1: step1 ? step1.value : '',
+                step2: step2 ? step2.value : '',
+                step3: step3 ? step3.value : ''
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(steps));
+        } catch (e) {
+            console.warn('Could not save steps:', e);
+        }
+    }
+
+    // Auto-resize textareas
+    function autoResize(textarea) {
+        textarea.style.height = 'auto';
+        textarea.style.height = textarea.scrollHeight + 'px';
+    }
+
+    // Initialize
+    loadSteps();
+
+    // Add event listeners
+    [step1, step2, step3].forEach(function(textarea) {
+        if (textarea) {
+            textarea.addEventListener('input', function() {
+                saveSteps();
+                autoResize(this);
+            });
+            // Initial resize
+            autoResize(textarea);
+        }
+    });
+
+    // Print button
+    if (printBtn) {
+        printBtn.addEventListener('click', function() {
+            window.print();
+        });
+    }
+
+    // Clear button
+    if (clearBtn) {
+        clearBtn.addEventListener('click', function() {
+            if (confirm('Alle Schritte löschen?')) {
+                if (step1) step1.value = '';
+                if (step2) step2.value = '';
+                if (step3) step3.value = '';
+                saveSteps();
+                [step1, step2, step3].forEach(function(t) {
+                    if (t) autoResize(t);
+                });
+            }
+        });
+    }
+})();
+</script>
 {% endblock %}
