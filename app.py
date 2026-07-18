@@ -157,7 +157,7 @@ def add_security_headers(response):
         "default-src 'self'; "
         f"script-src 'self' 'nonce-{nonce}'; "
         f"style-src 'self' 'nonce-{nonce}'; "
-        "img-src 'self' data:; "
+        "img-src 'self' data: https://cdn.simpleicons.org https://cdn.jsdelivr.net; "
         "font-src 'self'; "
         "frame-ancestors 'none'; "
         "form-action 'self'; "
@@ -186,7 +186,7 @@ def add_security_headers(response):
     )
 
     # Cross-Origin policies for additional isolation
-    response.headers["Cross-Origin-Embedder-Policy"] = "require-corp"
+    response.headers["Cross-Origin-Embedder-Policy"] = "credentialless"
     response.headers["Cross-Origin-Opener-Policy"] = "same-origin"
     response.headers["Cross-Origin-Resource-Policy"] = "same-origin"
 
