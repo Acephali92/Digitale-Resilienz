@@ -24,7 +24,6 @@ const PRECACHE_URLS = [
     '/tools/downloads',
     '/static/css/style.css',
     '/static/js/main.js',
-    '/static/js/passphrase.js',
     '/static/fonts/JetBrainsMono-Regular.woff2',
     '/static/fonts/Orbitron-Regular.woff2',
     '/static/img/logo.svg'

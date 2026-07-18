@@ -1,58 +1,39 @@
 {% extends "base.html" %}
 
-{% block title %}Faktencheck{% endblock %}
+{% block title %}Analyserahmen für Medienkritik{% endblock %}
 
 {% block head %}
 <style nonce="{{ csp_nonce }}">
-    .book-card {
-        background: var(--color-surface);
-        border: 1px solid var(--color-elevated);
-        padding: var(--space-lg);
-        position: relative;
-        margin-bottom: var(--space-md);
-    }
-
-    .book-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 4px;
-        height: 100%;
-        background: var(--color-matrix);
-    }
-
-    .book-title {
-        color: var(--color-matrix);
-        font-family: var(--font-display);
-        margin-bottom: var(--space-xs);
-    }
-
-    .book-author {
-        color: var(--color-text-dim);
-        font-size: var(--text-sm);
-        margin-bottom: var(--space-sm);
-    }
-
-    .archive-link {
-        display: inline-block;
-        padding: var(--space-xs) var(--space-sm);
-        background: var(--color-elevated);
-        border: 1px solid var(--color-matrix);
-        color: var(--color-matrix);
-        font-family: var(--font-mono);
-        font-size: var(--text-xs);
-        text-decoration: none;
-        margin-right: var(--space-sm);
-        margin-top: var(--space-sm);
-        transition: all 0.3s ease;
-    }
-
-    .archive-link:hover {
+    /* Section Numbering */
+    .section-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
         background: var(--color-matrix);
         color: var(--color-void);
+        font-family: var(--font-display);
+        font-size: var(--text-xl);
+        font-weight: 900;
+        margin-right: var(--space-md);
+        flex-shrink: 0;
     }
 
+    .section-title-wrapper {
+        display: flex;
+        align-items: center;
+        margin-bottom: var(--space-lg);
+    }
+
+    .section-title-text {
+        font-size: var(--text-2xl);
+        color: var(--color-text);
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    /* Quote Blocks */
     .quote-block {
         border-left: 3px solid var(--color-matrix);
         padding-left: var(--space-md);
@@ -68,223 +49,1338 @@
         color: var(--color-matrix);
         font-size: var(--text-sm);
     }
+
+    /* Actors Matrix Table */
+    .matrix-table-wrapper {
+        overflow-x: auto;
+        margin: var(--space-lg) 0;
+        border: 1px solid var(--color-elevated);
+    }
+
+    .matrix-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 600px;
+    }
+
+    .matrix-table th,
+    .matrix-table td {
+        padding: var(--space-md);
+        text-align: left;
+        border: 1px solid var(--color-elevated);
+    }
+
+    .matrix-table th {
+        background: var(--color-matrix);
+        color: var(--color-void);
+        font-family: var(--font-display);
+        font-size: var(--text-sm);
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+    }
+
+    .matrix-table tbody tr {
+        background: var(--color-surface);
+        transition: all 0.3s ease;
+    }
+
+    .matrix-table tbody tr:hover {
+        background: var(--color-elevated);
+        box-shadow: inset 4px 0 0 var(--color-matrix);
+    }
+
+    .matrix-table td:first-child {
+        font-weight: 600;
+        color: var(--color-matrix);
+        font-family: var(--font-display);
+    }
+
+    /* Accordion */
+    .accordion {
+        margin: var(--space-md) 0;
+    }
+
+    .accordion-item {
+        border: 1px solid var(--color-elevated);
+        margin-bottom: var(--space-xs);
+        background: var(--color-surface);
+    }
+
+    .accordion-header {
+        width: 100%;
+        padding: var(--space-md) var(--space-lg);
+        background: transparent;
+        border: none;
+        color: var(--color-text);
+        font-family: var(--font-mono);
+        font-size: var(--text-base);
+        font-weight: 600;
+        text-align: left;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+
+    .accordion-header:hover {
+        background: var(--color-elevated);
+        color: var(--color-matrix);
+    }
+
+    .accordion-header::after {
+        content: '+';
+        font-size: var(--text-xl);
+        color: var(--color-matrix);
+        transition: transform 0.3s ease;
+    }
+
+    .accordion-item.active .accordion-header::after {
+        content: '-';
+    }
+
+    .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+    }
+
+    .accordion-item.active .accordion-content {
+        max-height: 2000px;
+    }
+
+    .accordion-body {
+        padding: var(--space-lg);
+        border-top: 1px solid var(--color-elevated);
+        color: var(--color-text-dim);
+    }
+
+    /* Progress Bar */
+    .progress-container {
+        margin: var(--space-lg) 0;
+    }
+
+    .progress-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--space-sm);
+    }
+
+    .progress-label {
+        font-family: var(--font-display);
+        font-size: var(--text-sm);
+        color: var(--color-matrix);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .progress-percent {
+        font-family: var(--font-mono);
+        font-size: var(--text-lg);
+        color: var(--color-matrix);
+        text-shadow: var(--glow-sm);
+    }
+
+    .progress-bar {
+        height: 8px;
+        background: var(--color-elevated);
+        border: 1px solid var(--color-matrix);
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: var(--color-matrix);
+        box-shadow: var(--glow-sm);
+        transition: width 0.5s ease;
+        width: 0%;
+    }
+
+    /* Interactive Checklist */
+    .interactive-checklist {
+        list-style: none;
+        padding: 0;
+        margin: var(--space-lg) 0;
+    }
+
+    .interactive-checklist li {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-md);
+        padding: var(--space-md);
+        border: 1px solid var(--color-elevated);
+        margin-bottom: var(--space-sm);
+        background: var(--color-surface);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .interactive-checklist li:hover {
+        border-color: var(--color-matrix);
+        background: var(--color-elevated);
+    }
+
+    .interactive-checklist li.checked {
+        border-color: var(--color-matrix);
+        background: rgba(0, 255, 65, 0.05);
+    }
+
+    .interactive-checklist li.checked .check-box {
+        background: var(--color-matrix);
+        color: var(--color-void);
+    }
+
+    .check-box {
+        width: 24px;
+        height: 24px;
+        border: 2px solid var(--color-matrix);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-weight: bold;
+        transition: all 0.2s ease;
+    }
+
+    .check-label {
+        flex: 1;
+    }
+
+    .check-title {
+        font-weight: 600;
+        color: var(--color-text);
+        margin-bottom: var(--space-xs);
+    }
+
+    .check-desc {
+        font-size: var(--text-sm);
+        color: var(--color-text-dim);
+    }
+
+    /* Modal */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 10000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: var(--space-lg);
+    }
+
+    .modal-overlay.active {
+        display: flex;
+    }
+
+    .modal-content {
+        background: var(--color-surface);
+        border: 2px solid var(--color-matrix);
+        max-width: 800px;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+        box-shadow: 0 0 60px var(--color-matrix-glow);
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--space-lg);
+        border-bottom: 1px solid var(--color-elevated);
+        background: var(--color-elevated);
+    }
+
+    .modal-title {
+        font-family: var(--font-display);
+        font-size: var(--text-lg);
+        color: var(--color-matrix);
+        margin: 0;
+    }
+
+    .modal-close {
+        background: transparent;
+        border: 1px solid var(--color-matrix);
+        color: var(--color-matrix);
+        width: 36px;
+        height: 36px;
+        font-size: var(--text-xl);
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .modal-close:hover {
+        background: var(--color-matrix);
+        color: var(--color-void);
+    }
+
+    .modal-body {
+        padding: var(--space-xl);
+    }
+
+    .memo-list {
+        counter-reset: memo-counter;
+        list-style: none;
+        padding: 0;
+    }
+
+    .memo-list li {
+        counter-increment: memo-counter;
+        display: flex;
+        gap: var(--space-md);
+        padding: var(--space-md) 0;
+        border-bottom: 1px solid var(--color-elevated);
+    }
+
+    .memo-list li::before {
+        content: counter(memo-counter);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        background: var(--color-matrix);
+        color: var(--color-void);
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: var(--text-sm);
+        flex-shrink: 0;
+    }
+
+    .modal-actions {
+        padding: var(--space-lg);
+        border-top: 1px solid var(--color-elevated);
+        display: flex;
+        gap: var(--space-md);
+        justify-content: flex-end;
+    }
+
+    /* Critical Alert */
+    .critical-alert {
+        background: linear-gradient(135deg, rgba(255, 0, 64, 0.1) 0%, rgba(255, 0, 64, 0.05) 100%);
+        border: 2px solid var(--color-danger);
+        padding: var(--space-xl);
+        margin: var(--space-xl) 0;
+        position: relative;
+    }
+
+    .critical-alert::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: var(--color-danger);
+    }
+
+    .critical-alert h4 {
+        color: var(--color-danger);
+        margin-bottom: var(--space-md);
+    }
+
+    /* CTA Section */
+    .cta-section {
+        background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-deep) 100%);
+        border: 2px solid var(--color-matrix);
+        padding: var(--space-2xl);
+        text-align: center;
+        margin-top: var(--space-2xl);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(ellipse at center, rgba(0, 255, 65, 0.1) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    .cta-title {
+        font-size: var(--text-2xl);
+        color: var(--color-matrix);
+        text-shadow: var(--glow-md);
+        margin-bottom: var(--space-md);
+    }
+
+    .cta-text {
+        max-width: 600px;
+        margin: 0 auto var(--space-xl);
+        color: var(--color-text-dim);
+        font-size: var(--text-lg);
+    }
+
+    /* Divider */
+    .section-divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--color-matrix), transparent);
+        margin: var(--space-2xl) 0;
+        opacity: 0.5;
+    }
+
+    /* Example Card */
+    .example-card {
+        background: var(--color-elevated);
+        border-left: 4px solid var(--color-info);
+        padding: var(--space-lg);
+        margin: var(--space-lg) 0;
+    }
+
+    .example-card h5 {
+        color: var(--color-info);
+        font-size: var(--text-sm);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: var(--space-sm);
+    }
+
+    /* Tool badge */
+    .tool-badge {
+        display: inline-block;
+        padding: 0.2em 0.6em;
+        background: rgba(0, 255, 65, 0.1);
+        border: 1px solid var(--color-matrix);
+        color: var(--color-matrix);
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        margin-right: var(--space-xs);
+        margin-bottom: var(--space-xs);
+    }
 </style>
 {% endblock %}
 
 {% block content %}
+<!-- Header -->
 <section class="section-header">
-    <h1>&#128269; Verschwörungs-Check</h1>
+    <h1>Analyserahmen für Medienkritik</h1>
     <p class="section-subtitle">
-        Fiktion von Wahrheit trennen – Ereignisse in langfristige Machtmuster einbetten.
+        Werkzeugkasten zur Dekonstruktion herrschender Narrative<br>
+        <strong style="color: var(--color-matrix);">Recherche als oppositionelles Prinzip</strong>
     </p>
 </section>
 
-<div class="grid grid-2">
-    <a href="{{ url_for('conspiracy_filter') }}" class="card">
-        <div class="card-header">
-            <span class="card-icon">&#128246;</span>
-            <h3 class="card-title">Signal vs. Rauschen</h3>
-        </div>
-        <p class="card-body">
-            Interaktiver Filter: Ist diese Information ein echtes Signal
-            oder nur Ablenkung? Checkliste zur kritischen Einordnung.
-        </p>
-    </a>
-
-    <div class="card">
-        <div class="card-header">
-            <span class="card-icon">&#128176;</span>
-            <h3 class="card-title">Cui Bono?</h3>
-        </div>
-        <p class="card-body">
-            Wer profitiert von dieser Erzählung? Folge dem Geld,
-            analysiere Machtstrukturen, nicht Schattenmänner.
-        </p>
-    </div>
+<!-- Introduction Alert -->
+<div class="alert alert-info">
+    <strong>Positionierung:</strong> Diese Seite bedient keine klassische „Faktenchecker"-Logik.
+    Sie positioniert sich als <strong>oppositionelles, parteiliches Werkzeug</strong> auf der Seite
+    der Opfer instrumenteller Vernunft. Mainstream-Faktenchecker werden als Instrumente der
+    Gesinnungsprüfung und des Status-quo-Schutzes begriffen.
 </div>
 
-<!-- Real vs. Imagined Section -->
-<section class="card mt-xl">
-    <div class="card-header">
-        <span class="card-icon">&#9878;</span>
-        <h3 class="card-title">Reale Machtstrukturen vs. Verschwörungsmythen</h3>
+<!-- ==================== SECTION 1 ==================== -->
+<section class="card mt-xl" id="section-1">
+    <div class="section-title-wrapper">
+        <span class="section-number">1</span>
+        <h2 class="section-title-text">Epistemologische Grundlagen: Recherche als oppositionelles Konzept</h2>
     </div>
+
     <div class="card-body">
         <p>
-            Es gibt <strong>dokumentierte, systematische Machtmissbräuche</strong> (NSA-Überwachung,
-            COINTELPRO, Iran-Contra, Irak-Krieg-Lügen) und es gibt <strong>unbelegbare Verschwörungsmythen</strong>.
-            Der entscheidende Unterschied liegt in der Methodik:
+            Recherche ist in der Tradition der Aufklärung kein neutraler Vorgang der Informationsbeschaffung,
+            sondern ein <strong>strategischer Akt des Widerstands</strong> gegen die instrumentelle Vernunft
+            der Machteliten. In einer Ära, in der die Kulturindustrie und die PR-Apparate der Staaten die
+            Realität bis zur Unkenntlichkeit filtern, fungiert die investigative Recherche als oppositionelles Prinzip.
         </p>
-
-        <div class="grid grid-2 mt-md">
-            <div class="alert alert-success">
-                <strong>&#9989; Systemkritische Analyse:</strong>
-                <ul>
-                    <li>Folgt dokumentierten Kapital- und Machtflüssen</li>
-                    <li>Stützt sich auf Primärquellen und Archive</li>
-                    <li>Bettet Ereignisse in historische Muster ein</li>
-                    <li>Benennt konkrete Institutionen und Interessen</li>
-                    <li>Ist offen für neue Belege und Korrekturen</li>
-                </ul>
-            </div>
-
-            <div class="alert alert-warning">
-                <strong>&#10060; Verschwörungsdenken:</strong>
-                <ul>
-                    <li>Vermutet geheime Kabalen ohne Belege</li>
-                    <li>„Tu deine eigene Recherche" ohne Quellen</li>
-                    <li>Immun gegen Widerlegung</li>
-                    <li>Alles ist Teil des „großen Plans"</li>
-                    <li>Ablenkung von realen Machtstrukturen</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Documented Conspiracies -->
-<section class="card mt-lg">
-    <div class="card-header">
-        <span class="card-icon">&#128220;</span>
-        <h3 class="card-title">Dokumentierte „Verschwörungen" durch Kapitalinteressen</h3>
-    </div>
-    <div class="card-body">
-        <p class="mb-md">
-            Diese Bücher enthüllen <strong>reale, belegbare Machtmechanismen</strong> – keine Fantasien,
-            sondern systematische Ausbeutung mit Quellenangaben:
-        </p>
-
-        <div class="book-card">
-            <h4 class="book-title">„The Shock Doctrine" (Die Schock-Strategie)</h4>
-            <p class="book-author">Naomi Klein, 2007</p>
-            <p>
-                Zeigt, wie Krisen (Naturkatastrophen, Kriege, Wirtschaftscrashes) von Mächtigen
-                <strong>systematisch genutzt</strong> werden, um neoliberale Politiken durchzusetzen –
-                Privatisierung, Deregulierung, Sozialabbau. Von Chile 1973 über den Irak bis zur
-                Finanzkrise 2008: Das Muster ist dokumentiert.
-            </p>
-        </div>
-
-        <div class="book-card">
-            <h4 class="book-title">„Confessions of an Economic Hit Man"</h4>
-            <p class="book-author">John Perkins, 2004</p>
-            <p>
-                Ein Insider enthüllt, wie <strong>IWF, Weltbank und US-Konzerne</strong> systematisch
-                Länder des Globalen Südens in Schuldenfallen locken. Erst kommen die „Economic Hit Men"
-                mit Krediten für Großprojekte, dann die Abhängigkeit, dann die Privatisierung der Ressourcen.
-            </p>
-        </div>
-
-        <div class="book-card">
-            <h4 class="book-title">„A People's History of the United States"</h4>
-            <p class="book-author">Howard Zinn, 1980</p>
-            <p>
-                Geschichte aus der Perspektive der Unterdrückten – entlarvt Narrative wie
-                „<strong>Demokratieexport</strong>" als das, was sie sind: Propaganda zur Rechtfertigung
-                von Imperialismus und Kapitalinteressen. Dokumentiert mit Primärquellen.
-            </p>
-        </div>
 
         <div class="quote-block">
-            „Die beste Art, die Zukunft vorherzusagen, ist, die Vergangenheit zu verstehen –
-            nicht durch Verschwörungstheorien, sondern durch das Studium dokumentierter Machtstrukturen."
-            <cite>— Methodischer Grundsatz kritischer Geschichtsschreibung</cite>
+            „Journalismus ist das, was jemand unterdrücken will – alles andere ist Public Relations."
+            <cite>— Das Orwell-Paradigma</cite>
         </div>
-    </div>
-</section>
 
-<!-- Archives and Sources -->
-<section class="card mt-lg">
-    <div class="card-header">
-        <span class="card-icon">&#127981;</span>
-        <h3 class="card-title">Primärquellen und Archive</h3>
-    </div>
-    <div class="card-body">
         <p>
-            <strong>Methode:</strong> Nutze Archive mit freigegebenen Dokumenten, um offizielle
-            Narrative zu prüfen. Geheimdienst-Dokumente werden nach Jahrzehnten freigegeben und
-            entlarven oft die Lügen ihrer Zeit:
+            Recherche bedeutet, <strong>Wissen gegen Widerstände zu erkämpfen</strong>, um die Architektur
+            der herrschenden Meinung zu dekonstruieren. Dieser Ansatz bricht radikal mit dem bürgerlichen
+            Dogma der Neutralität.
         </p>
 
-        <div class="mt-md">
-            <a href="https://nsarchive.gwu.edu/" target="_blank" rel="noopener" class="archive-link">
-                &#128194; National Security Archive (USA)
-            </a>
-            <a href="https://wikileaks.org/" target="_blank" rel="noopener" class="archive-link">
-                &#128194; WikiLeaks
-            </a>
-            <a href="https://www.documentcloud.org/" target="_blank" rel="noopener" class="archive-link">
-                &#128194; DocumentCloud
-            </a>
-            <a href="https://www.icij.org/" target="_blank" rel="noopener" class="archive-link">
-                &#128194; ICIJ (Panama/Pandora Papers)
-            </a>
+        <div class="quote-block">
+            „Eine Praxis, die sich in eingebildeter Selbstständigkeit von der gesellschaftlichen
+            Gestaltung isoliert, verzichtet auf ihre Humanität."
+            <cite>— Max Horkheimer, 1937</cite>
         </div>
 
-        <ul class="checklist mt-lg">
-            <li><strong>COINTELPRO-Akten</strong> – FBI-Überwachung und Zersetzung von Bürgerrechtsbewegungen</li>
-            <li><strong>Pentagon Papers</strong> – Belege für systematische Lügen im Vietnam-Krieg</li>
-            <li><strong>Church Committee Reports</strong> – CIA-Verbrechen von Putsch bis Drogenhandel</li>
-            <li><strong>Torture Memos</strong> – Legitimierung von Folter durch US-Juristen</li>
+        <p>
+            In Zeiten des Krieges und der Propaganda ist „Objektivität" oft nur eine Chiffre für Affirmation.
+            Der Rechercheur muss <strong>Stellung beziehen – auf der Seite der Opfer</strong> der instrumentellen Vernunft.
+        </p>
+
+        <div class="example-card">
+            <h5>Vorbild: Anna Politkowskaja</h5>
+            <p>
+                Die russische Journalistin nahm den Tod in Kauf, um die Wahrheit hinter dem Tschetschenienkrieg
+                freizulegen. Ihre Zivilcourage ist das Vorbild für parteiliche Recherche.
+            </p>
+        </div>
+
+        <p>
+            Methodisch gründet dies in <strong>Kants „Kritischer Methode"</strong>: Das Urteil wird suspendiert,
+            um es einer freien und öffentlichen Prüfung der Vernunft zu unterziehen. Nur was dieser Prüfung
+            durch den „Partisanen des Wissens" standhält, verdient Respekt. Diese theoretische Unbeugsamkeit
+            ist die Voraussetzung für die operative Quellenkritik.
+        </p>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ==================== SECTION 2 ==================== -->
+<section class="card" id="section-2">
+    <div class="section-title-wrapper">
+        <span class="section-number">2</span>
+        <h2 class="section-title-text">Systematische Quellenkritik und die Architektur der Glaubwürdigkeit</h2>
+    </div>
+
+    <div class="card-body">
+        <div class="quote-block">
+            „Wer an die Quelle will, muss gegen den Strom schwimmen."
+        </div>
+
+        <p>
+            Der Rückzug auf die <strong>Primärquelle</strong> und die „Recherche vor Ort" sind das einzige
+            Korrektiv zur Schreibtisch-PR. Die Wahrheit liegt nicht in Pressekonferenzen, sondern im Feld.
+        </p>
+
+        <div class="example-card">
+            <h5>Vorbild: Elizabeth Wiskemann (1936)</h5>
+            <p>
+                Sie dokumentierte im Danziger Korridor die Kriegspropaganda der Nationalsozialisten unter
+                Lebensgefahr und geriet dafür in Gestapo-Haft. Der Rechercheur muss dorthin gehen, wo es wehtut.
+            </p>
+        </div>
+
+        <h3 style="margin-top: var(--space-xl); margin-bottom: var(--space-md);">Akteurs-Matrix</h3>
+        <p>
+            Zur systematischen Erschließung dient eine Matrix, die Akteure nach ihren Interessen kategorisiert.
+            Besonders wertvoll sind „Schlüsselpersonen" des Alltags – wie Schornsteinfeger oder Klempner –,
+            die Einblicke in Subkulturen und Lebensrealitäten besitzen, die offiziellen Stellen verborgen bleiben:
+        </p>
+
+        <div class="matrix-table-wrapper">
+            <table class="matrix-table" role="table" aria-label="Akteurs-Matrix für Quellenkritik">
+                <thead>
+                    <tr>
+                        <th scope="col">Kategorie</th>
+                        <th scope="col">Akteure</th>
+                        <th scope="col">Charakteristika & Funktion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Täter (Interessengruppen)</td>
+                        <td>Machteliten, Banken, Konzerne, Militärbündnisse</td>
+                        <td>Verursacher von Prozessen; primäres Interesse an Verschleierung und Framing.</td>
+                    </tr>
+                    <tr>
+                        <td>Opfer (Betroffene)</td>
+                        <td>Geschädigte, Soldatenwitwen, ökonomisch Marginalisierte</td>
+                        <td>Der Ausgangspunkt jeder Recherche; sie liefern die Brüche im offiziellen Narrativ.</td>
+                    </tr>
+                    <tr>
+                        <td>Neutrale Beobachter</td>
+                        <td>Wissenschaftler, NGOs, „Schlüsselpersonen" (Handwerker)</td>
+                        <td>Dienen der Verallgemeinerung und der Einordnung von Einzelfällen in globale Strukturen.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h4 style="margin-top: var(--space-xl);">Audiatur et altera pars</h4>
+        <p>
+            Eine substanzielle Ausgewogenheit entsteht nicht durch das bloße Wiedergeben von Pressemitteilungen,
+            sondern durch die <strong>gezielte Konfrontation der Täter</strong> mit den Erkenntnissen, die aus
+            der Perspektive der Opfer und neutralen Beobachter gewonnen wurden.
+        </p>
+
+        <div class="example-card">
+            <h5>Fallbeispiel: „Deep Throat" (Mark Felt)</h5>
+            <p>
+                Bei anonymen Quellen ist die Prüfung von <strong>Zugang, Motiv und Verifizierbarkeit</strong> essenziell:
+            </p>
+            <ul class="checklist" style="margin-top: var(--space-sm);">
+                <li><strong>Zugang:</strong> Als stellvertretender FBI-Chef hatte Felt direkten Zugang zu den Informationen.</li>
+                <li><strong>Motiv:</strong> Kein reiner Altruismus – er wurde bei der Beförderung übergangen (Rache-Motiv).</li>
+                <li><strong>Verifizierbarkeit:</strong> Information war belastbar, da durch Dokumente und das Zwei-Quellen-Prinzip verifizierbar.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ==================== SECTION 3 ==================== -->
+<section class="card" id="section-3">
+    <div class="section-title-wrapper">
+        <span class="section-number">3</span>
+        <h2 class="section-title-text">Das „Cui Bono"-Prinzip: Analyse von Machtinteressen und Geldflüssen</h2>
+    </div>
+
+    <div class="card-body">
+        <p>
+            Informationen sind im digitalen Kapitalismus <strong>Produkte ökonomischer Machtverhältnisse</strong>.
+            Die Analyse muss stets fragen: <em>Cui bono?</em> Wer profitiert von einer spezifischen medialen
+            Darstellung? Die effektivste Strategie ist der <strong>„Follow the Money"-Ansatz</strong>.
+        </p>
+
+        <div class="quote-block">
+            „Während mediale Narrative moralisierend überlagert werden, lügen Finanzströme nicht."
+        </div>
+
+        <div class="example-card">
+            <h5>Exemplarisches Beispiel: Das Narrativ der „Griechenlandrettung"</h5>
+            <p>
+                Die mediale Darstellung suggerierte eine solidarische Hilfe für ein „faules" Volk.
+                Die <strong>Analyse der Geldflüsse</strong> belegt jedoch, dass faktisch deutsche und
+                französische Banken auf Kosten der griechischen Rentner und Arbeitnehmer gerettet wurden.
+            </p>
+            <p style="margin-top: var(--space-sm);">
+                Hier greift das <strong>„Agenda Cutting"</strong>: Informationen, die den ökonomischen
+                Kern des Geschehens offenlegen würden, werden gezielt weggelassen, um den herrschenden
+                Mythos zu stützen.
+            </p>
+        </div>
+
+        <h3 style="margin-top: var(--space-xl); margin-bottom: var(--space-md);">Kritische Analysefragen</h3>
+        <p>Prüfe jede Erzählung mit dieser interaktiven Checkliste:</p>
+
+        <ul class="interactive-checklist" id="cui-bono-checklist" aria-label="Kritische Fragen Checkliste">
+            <li tabindex="0" role="checkbox" aria-checked="false">
+                <span class="check-box" aria-hidden="true"></span>
+                <span class="check-label">
+                    <span class="check-title">Welche Banken, Konzerne oder Netzwerke profitieren?</span>
+                    <span class="check-desc">Finanzielle und machtpolitische Nutznießer identifizieren</span>
+                </span>
+            </li>
+            <li tabindex="0" role="checkbox" aria-checked="false">
+                <span class="check-box" aria-hidden="true"></span>
+                <span class="check-label">
+                    <span class="check-title">Welche Think Tanks oder Stiftungen streuen das Narrativ?</span>
+                    <span class="check-desc">Oft von Konzernen gesponsert – Verbindungen recherchieren</span>
+                </span>
+            </li>
+            <li tabindex="0" role="checkbox" aria-checked="false">
+                <span class="check-box" aria-hidden="true"></span>
+                <span class="check-label">
+                    <span class="check-title">Welche weltanschaulichen Vorurteile werden bedient?</span>
+                    <span class="check-desc">Ablenkung von strukturellen Fakten durch Moralismus</span>
+                </span>
+            </li>
+            <li tabindex="0" role="checkbox" aria-checked="false">
+                <span class="check-box" aria-hidden="true"></span>
+                <span class="check-label">
+                    <span class="check-title">Welche Teile der Vorgeschichte werden ausgeblendet?</span>
+                    <span class="check-desc">Manipulation der Kausalkette durch selektive Historie</span>
+                </span>
+            </li>
         </ul>
     </div>
 </section>
 
-<!-- Critical Questions -->
-<section class="card mt-lg">
-    <div class="card-header">
-        <span class="card-icon">&#128161;</span>
-        <h3 class="card-title">Kritische Fragen an jede Erzählung</h3>
+<div class="section-divider"></div>
+
+<!-- ==================== SECTION 4 ==================== -->
+<section class="card" id="section-4">
+    <div class="section-title-wrapper">
+        <span class="section-number">4</span>
+        <h2 class="section-title-text">Dekonstruktion von Manipulationstechniken in der Berichterstattung</h2>
     </div>
+
     <div class="card-body">
-        <ul class="checklist">
-            <li><strong>Cui bono?</strong> – Wer profitiert materiell von dieser Politik/Erzählung?</li>
-            <li><strong>Kapitalfluss?</strong> – Wohin fließt das Geld? Wer besitzt was?</li>
-            <li><strong>Historisches Muster?</strong> – Gab es ähnliche Situationen? Was geschah danach?</li>
-            <li><strong>Primärquellen?</strong> – Gibt es Dokumente, Verträge, freigegebene Akten?</li>
-            <li><strong>Strukturelle Erklärung?</strong> – Erklärt Kapitalinteresse das Verhalten besser als eine Verschwörung?</li>
-            <li><strong>Ablenkungsfunktion?</strong> – Lenkt diese Theorie von realen Machtstrukturen ab?</li>
+        <p>
+            Mediales Framing erzeugt <strong>künstliche Meinungsklimata</strong>, um den Konsens der
+            Regierten sicherzustellen. Die Sprache wird zum Instrument der Herrschaftssicherung.
+        </p>
+
+        <div class="critical-alert">
+            <h4>Kritik an „Faktencheckern"</h4>
+            <p>
+                Sogenannte „Faktenchecker" müssen kritisch als <strong>Instrumente der Gesinnungsprüfung</strong>
+                begriffen werden. Sie dienen meist dem Schutz des Status quo ihrer Auftraggeber, indem sie
+                Abweichungen vom Narrativ als „Falschbehauptung" brandmarken, anstatt eine echte
+                Interessenanalyse zuzulassen.
+            </p>
+            <p style="margin-top: var(--space-sm); margin-bottom: 0;">
+                Der Begriff „Verschwörungstheorie" fungiert häufig als <strong>Disziplinierungsinstrument</strong>,
+                das legitime systemkritische Recherche delegitimiert.
+            </p>
+        </div>
+
+        <h3 style="margin-top: var(--space-xl); margin-bottom: var(--space-md);">Strukturierte Übersicht der Manipulationstechniken</h3>
+
+        <div class="accordion" id="manipulation-accordion">
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false" aria-controls="manip-1">
+                    <span>Historische Dekontextualisierung</span>
+                </button>
+                <div class="accordion-content" id="manip-1">
+                    <div class="accordion-body">
+                        <p>
+                            Die <strong>gezielte Ausblendung der Vorgeschichte</strong>, um Ereignisse als
+                            unprovozierte Akte darzustellen.
+                        </p>
+                        <div class="example-card">
+                            <h5>Beispiel: Ukraine-Konflikt</h5>
+                            <p>
+                                Die Berichterstattung fokussiert oft exklusiv auf den 24. Februar 2022,
+                                während die vorangegangenen Jahre der NATO-Expansion und die abgelehnten
+                                russischen Verhandlungsangebote (vorgeschrieben durch die UN-Charta)
+                                ausgeblendet werden.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false" aria-controls="manip-2">
+                    <span>Wertgeladene Sprachregelung</span>
+                </button>
+                <div class="accordion-content" id="manip-2">
+                    <div class="accordion-body">
+                        <p>
+                            <strong>Umwertung von Begriffen</strong> zur Verschleierung von Inhalten.
+                        </p>
+                        <ul class="checklist">
+                            <li>„Reform" fungiert heute als Euphemismus für Sozialabbau und Sparmaßnahmen, während sie früher für Fortschritt stand.</li>
+                            <li>„Humanitäre Intervention" verschleiert militärische Aggression.</li>
+                            <li>„Marktanpassung" meint Entlassungen und Lohnkürzungen.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false" aria-controls="manip-3">
+                    <span>Stigmatisierung und Kontaktschuld</span>
+                </button>
+                <div class="accordion-content" id="manip-3">
+                    <div class="accordion-body">
+                        <p>
+                            <strong>Diskreditierung durch Assoziation.</strong> Kritiker werden durch den
+                            Hinweis auf Interviews mit „stigmatisierten" Akteuren sozial isoliert, um
+                            den Diskursraum polizeilich zu bewachen.
+                        </p>
+                        <p>
+                            Diese Technik zielt darauf ab, inhaltliche Auseinandersetzung zu vermeiden
+                            und stattdessen die Person des Kritikers anzugreifen.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false" aria-controls="manip-4">
+                    <span>Suggestive Umfragen und Experten-Framing</span>
+                </button>
+                <div class="accordion-content" id="manip-4">
+                    <div class="accordion-body">
+                        <p>
+                            <strong>Umfragen suggerieren eine Mehrheitsmeinung</strong>, während „Experten"
+                            auftreten, deren finanzielle Verbindungen zur Industrie (z.B. Pharma oder Rüstung)
+                            verschwiegen werden.
+                        </p>
+                        <ul class="checklist">
+                            <li>Fragestellung determiniert oft das Ergebnis</li>
+                            <li>Auswahl der Befragten beeinflusst Outcome</li>
+                            <li>„Unabhängige Experten" mit verdeckten Interessenkonflikten</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ==================== SECTION 5 ==================== -->
+<section class="card" id="section-5">
+    <div class="section-title-wrapper">
+        <span class="section-number">5</span>
+        <h2 class="section-title-text">Der investigative Workflow: Die 12 Werkzeuge des Rechercheurs</h2>
+    </div>
+
+    <div class="card-body">
+        <p>
+            Um im „Dschungel der Lügen" zu bestehen, bedarf es eines methodischen Zyklus. Der investigative
+            Workflow ist <strong>kein linearer Prozess</strong>, sondern ein geschlossener Kreislauf von
+            12 Werkzeugen. Verfolge deinen Fortschritt:
+        </p>
+
+        <div class="progress-container">
+            <div class="progress-header">
+                <span class="progress-label">Recherche-Fortschritt</span>
+                <span class="progress-percent" id="tools-progress-percent">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="tools-progress-fill"></div>
+            </div>
+        </div>
+
+        <ul class="interactive-checklist" id="tools-checklist" aria-label="12 Werkzeuge des Rechercheurs">
+            <li tabindex="0" role="checkbox" aria-checked="false" data-tool="1">
+                <span class="check-box" aria-hidden="true"></span>
+                <span class="check-label">
+                    <span class="check-title">1. Themenfindung</span>
+                    <span class="check-desc">Durch Vor-Ort-Beobachtung (wie bei Egon Erwin Kisch)</span>
+                </span>
+            </li>
+            <li tabindex="0" role="checkbox" aria-checked="false" data-tool="2">
+                <span class="check-box" aria-hidden="true"></span>
+                <span class="check-label">
+                    <span class="check-title">2. Quellenerschließung</span>
+                    <span class="check-desc">Primärquellen, Archive, Schlüsselpersonen identifizieren</span>
+                </span>
+            </li>
+            <li tabindex="0" role="checkbox" aria-checked="false" data-tool="3">
+                <span class="check-box" aria-hidden="true"></span>
+                <span class="check-label">
+                    <span class="check-title">3. Belastbarkeitsprüfung</span>
+                    <span class="check-desc">Zwei-Quellen-Prinzip, Dokumentenprüfung</span>
+                </span>
+            </li>
+            <li tabindex="0" role="checkbox" aria-checked="false" data-tool="4">
+                <span class="check-box" aria-hidden="true"></span>
+                <span class="check-label">
+                    <span class="check-title">4. Quellenschutz</span>
+                    <span class="check-desc">Anonymisierung, sichere Kommunikation</span>
+                </span>
+            </li>
+            <li tabindex="0" role="checkbox" aria-checked="false" data-tool="5">
+                <span class="check-box" aria-hidden="true"></span>
+                <span class="check-label">
+                    <span class="check-title">5. Interessenanalyse</span>
+                    <span class="check-desc">Cui Bono? Follow the Money</span>
+                </span>
+            </li>
+            <li tabindex="0" role="checkbox" aria-checked="false" data-tool="6">
+                <span class="check-box" aria-hidden="true"></span>
+                <span class="check-label">
+                    <span class="check-title">6. Hypothesenbildung</span>
+                    <span class="check-desc">Subjekt, Objekt, Ursache, Wirkung (nach Horkheimer)</span>
+                </span>
+            </li>
+            <li tabindex="0" role="checkbox" aria-checked="false" data-tool="7">
+                <span class="check-box" aria-hidden="true"></span>
+                <span class="check-label">
+                    <span class="check-title">7. Rechercheplan</span>
+                    <span class="check-desc">Beispiel: Martha Gellhorns Infiltration eines Lazarettschiffs am D-Day</span>
+                </span>
+            </li>
+            <li tabindex="0" role="checkbox" aria-checked="false" data-tool="8">
+                <span class="check-box" aria-hidden="true"></span>
+                <span class="check-label">
+                    <span class="check-title">8. Interviewführung</span>
+                    <span class="check-desc">Konfrontation der Täter mit Erkenntnissen</span>
+                </span>
+            </li>
+            <li tabindex="0" role="checkbox" aria-checked="false" data-tool="9">
+                <span class="check-box" aria-hidden="true"></span>
+                <span class="check-label">
+                    <span class="check-title">9. Dokumentation</span>
+                    <span class="check-desc">Rechtssichere Memo-Führung</span>
+                </span>
+            </li>
+            <li tabindex="0" role="checkbox" aria-checked="false" data-tool="10">
+                <span class="check-box" aria-hidden="true"></span>
+                <span class="check-label">
+                    <span class="check-title">10. Storytelling</span>
+                    <span class="check-desc">Narrative Aufbereitung der Erkenntnisse</span>
+                </span>
+            </li>
+            <li tabindex="0" role="checkbox" aria-checked="false" data-tool="11">
+                <span class="check-box" aria-hidden="true"></span>
+                <span class="check-label">
+                    <span class="check-title">11. Faktencheck</span>
+                    <span class="check-desc">Finale Verifikation vor Publikation</span>
+                </span>
+            </li>
+            <li tabindex="0" role="checkbox" aria-checked="false" data-tool="12">
+                <span class="check-box" aria-hidden="true"></span>
+                <span class="check-label">
+                    <span class="check-title">12. Publikationsstrategie & Feedback</span>
+                    <span class="check-desc">Auswertung führt zurück zu Punkt 1 – der Zyklus beginnt erneut</span>
+                </span>
+            </li>
         </ul>
+
+        <div style="text-align: center; margin-top: var(--space-xl);">
+            <button class="btn btn-primary" id="open-memo-modal" aria-haspopup="dialog">
+                Memo-Vorlage anzeigen
+            </button>
+            <button class="btn btn-secondary" id="reset-tools-checklist" style="margin-left: var(--space-md);">
+                Fortschritt zurücksetzen
+            </button>
+        </div>
     </div>
 </section>
 
-<!-- Warning -->
-<section class="alert alert-info mt-lg">
-    <strong>&#9888; Wichtig:</strong> Verschwörungsmythen (Chemtrails, QAnon, Great Reset-Fantasien)
-    <strong>lenken ab</strong> von den dokumentierten, realen Mechanismen der Macht.
-    Während Menschen geheime Kabalen jagen, plündern Konzerne ganz offen – mit Lobbyisten,
-    nicht mit Geheimbünden. <strong>Folge dem Geld, nicht den Schatten.</strong>
-</section>
+<div class="section-divider"></div>
 
-<!-- Methodology -->
-<section class="card mt-lg" style="border-color: var(--color-matrix);">
-    <div class="card-header">
-        <span class="card-icon">&#128736;</span>
-        <h3 class="card-title">Methodik: So entlarvst du Propaganda</h3>
+<!-- ==================== SECTION 6 ==================== -->
+<section class="card" id="section-6">
+    <div class="section-title-wrapper">
+        <span class="section-number">6</span>
+        <h2 class="section-title-text">Operative Sicherheit und Quellenschutz im digitalen Zeitalter</h2>
     </div>
+
     <div class="card-body">
-        <ol>
-            <li class="mb-sm">
-                <strong>Historischen Kontext recherchieren</strong> –
-                Nutze Archive und kritische Geschichtsschreibung (Zinn, Chomsky, Klein)
-            </li>
-            <li class="mb-sm">
-                <strong>Kapitalinteressen identifizieren</strong> –
-                Wer besitzt die Medien? Wer finanziert die Think-Tanks?
-            </li>
-            <li class="mb-sm">
-                <strong>Muster erkennen</strong> –
-                „Demokratieexport" = Regime Change für Rohstoffzugang (dokumentiert)
-            </li>
-            <li class="mb-sm">
-                <strong>Primärquellen prüfen</strong> –
-                Freigegebene Dokumente > Meinungsartikel
-            </li>
-            <li>
-                <strong>Strukturell denken</strong> –
-                Systeme reproduzieren sich ohne zentrale Verschwörung
-            </li>
-        </ol>
+        <p>
+            In einem Umfeld, in dem <strong>Angst als Herrschaftsinstrument</strong> genutzt wird
+            (siehe Assange), ist Sicherheit oberste Bürgerpflicht.
+        </p>
+
+        <div class="critical-alert">
+            <h4>Mahnung: Der Fall David Kelly</h4>
+            <p>
+                Der britische Waffeninspektor fand nach der Entlarvung frisierter Geheimdienstdossiers
+                durch den <strong>Verrat seiner Identität durch die BBC</strong> den Tod.
+                Eine ewige Mahnung für jeden Rechercheur.
+            </p>
+        </div>
+
+        <h3 style="margin-top: var(--space-xl); margin-bottom: var(--space-md);">Technische Guideline zur „digitalen Tarnkappe"</h3>
+
+        <div class="accordion" id="security-accordion">
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span>Betriebssysteme</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <p>
+                            Bevorzugung von <strong>Android oder Linux OS</strong> gegenüber dem
+                            geschlossenen und überwachungsanfälligen Apple iOS.
+                        </p>
+                        <div style="margin-top: var(--space-md);">
+                            <span class="tool-badge">Tails OS</span>
+                            <span class="tool-badge">Qubes OS</span>
+                            <span class="tool-badge">GrapheneOS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span>Anonyme Kommunikation</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <ul class="checklist">
+                            <li><strong>Tor-Netzwerk</strong> für anonymes Browsen</li>
+                            <li><strong>VPN</strong> als zusätzliche Verschleierungsschicht</li>
+                            <li><strong>Signal/Threema</strong> für verschlüsselte Messenger</li>
+                            <li><strong>„Tote elektronische Briefkästen"</strong> – gemeinsame Logins bei Cloud-Anbietern ohne Mail-Versand</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span>Verschlüsselung</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <ul class="checklist">
+                            <li><strong>VeraCrypt</strong> für Datenträger-Verschlüsselung</li>
+                            <li><strong>EnigmaBox</strong> oder GPG für E-Mail-Verschlüsselung</li>
+                            <li>Vollverschlüsselung aller Arbeitsgeräte</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span>Hardware</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <ul class="checklist">
+                            <li>Nutzung von <strong>Offline-Rechnern</strong> für sensible Dokumente</li>
+                            <li><strong>Physische Zerstörung</strong> defekter Festplatten</li>
+                            <li>Keine Nutzung von Smart-Devices in sensiblen Räumen</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span>Suchmaschinen</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <p>
+                            Umgehung des <strong>Google-Bias</strong> durch alternative Suchmaschinen:
+                        </p>
+                        <div style="margin-top: var(--space-md);">
+                            <span class="tool-badge">DuckDuckGo</span>
+                            <span class="tool-badge">Startpage</span>
+                            <span class="tool-badge">Presearch</span>
+                            <span class="tool-badge">Qwant</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-success mt-xl">
+            <strong>Ethische Prämisse:</strong> Ein Rechercheur muss bereit sein,
+            <strong>eher ins Gefängnis zu gehen, als eine vertrauliche Quelle zu verraten.</strong>
+            Diese Prämisse ist unumstößlich.
+        </div>
     </div>
 </section>
+
+<div class="section-divider"></div>
+
+<!-- ==================== SECTION 7 ==================== -->
+<section class="card" id="section-7">
+    <div class="section-title-wrapper">
+        <span class="section-number">7</span>
+        <h2 class="section-title-text">Strukturelle Barrieren und die Refeudalisierung der Öffentlichkeit</h2>
+    </div>
+
+    <div class="card-body">
+        <p>
+            Die Krise des Journalismus ist eine <strong>Krise der bürgerlichen Öffentlichkeit</strong>,
+            die Jürgen Habermas als „Refeudalisierung" beschreibt: Der debattenfreie Raum wird durch
+            PR-Apparate kolonisiert.
+        </p>
+
+        <div class="quote-block">
+            „Pressefreiheit ist die Freiheit von 200 reichen Leuten, ihre Meinung zu verbreiten."
+            <cite>— Paul Sethe, 1965</cite>
+        </div>
+
+        <h4 style="margin-top: var(--space-xl);">Gramscis Unterscheidung der Intellektuellen</h4>
+
+        <div class="grid grid-2 mt-md">
+            <div class="alert alert-warning">
+                <strong>Traditioneller affirmativer Intellektueller</strong>
+                <p style="margin-top: var(--space-sm); margin-bottom: 0;">
+                    Stabilisiert die Machtverhältnisse unbewusst. Reproduziert herrschende Narrative
+                    in dem Glauben, „objektiv" zu berichten.
+                </p>
+            </div>
+
+            <div class="alert alert-success">
+                <strong>Organischer Intellektueller</strong>
+                <p style="margin-top: var(--space-sm); margin-bottom: 0;">
+                    Vertritt die Interessen der Menschlichkeit. Erkennt die eigene Positionierung
+                    und nutzt sie für emanzipatorische Zwecke.
+                </p>
+            </div>
+        </div>
+
+        <p style="margin-top: var(--space-xl);">
+            In den Redaktionen herrscht heute ein <strong>vorauseilender Gehorsam</strong>, befeuert
+            durch prekäre Arbeitsverhältnisse und einen Narzissmus, der nach schneller Anerkennung
+            durch die Vorgesetzten giert. Die strukturellen Bedingungen des Journalismus verhindern
+            systematisch kritische Recherche.
+        </p>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ==================== CTA SECTION ==================== -->
+<section class="cta-section">
+    <h2 class="cta-title">Für die Partisanen des Wissens</h2>
+    <p class="cta-text">
+        Die investigative Recherche unter den Bedingungen des digitalen Kapitalismus ist ein
+        <strong>permanenter Partisanenkampf</strong> gegen die Gleichschaltung und den Zerfall der Vernunft.
+        Sie ist das unverzichtbare Werkzeug zur Verteidigung der Menschlichkeit.
+    </p>
+    <div class="quote-block" style="text-align: left; max-width: 600px; margin: 0 auto var(--space-xl);">
+        „Nur wer bereit ist, die ‚Einsamkeit des Kritikers' zu ertragen und sich gegen den Strom
+        zu stellen, kann die Architektur der Lüge zertrümmern."
+    </div>
+    <a href="{{ url_for('resilience_sources') }}" class="btn btn-primary">
+        Weiter zu den Quellen-Werkzeugen
+    </a>
+</section>
+
+<!-- ==================== MEMO MODAL ==================== -->
+<div class="modal-overlay" id="memo-modal" role="dialog" aria-modal="true" aria-labelledby="memo-modal-title">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title" id="memo-modal-title">Der rechtssichere 10-Punkte-Memo-Standard</h3>
+            <button class="modal-close" id="close-memo-modal" aria-label="Modal schließen">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>
+                Ein Memo ist das <strong>Rückgrat der Recherche</strong>. Es muss folgende Punkte enthalten:
+            </p>
+            <ol class="memo-list">
+                <li>
+                    <span><strong>Datum und Uhrzeit</strong> des Gesprächs/Ereignisses</span>
+                </li>
+                <li>
+                    <span><strong>Teilnehmer</strong> – Alle anwesenden Personen</span>
+                </li>
+                <li>
+                    <span><strong>Status des Quellenschutzes</strong> – z.B. Chatham House Rules (Information nutzbar, Identität geschützt)</span>
+                </li>
+                <li>
+                    <span><strong>Detaillierte Kontaktdaten</strong> der Gesprächspartner</span>
+                </li>
+                <li>
+                    <span><strong>Hintergrund, Expertise und spezifische Netzwerke/Hobbys</strong> des Partners</span>
+                </li>
+                <li>
+                    <span><strong>Inhaltliches Protokoll</strong> – Möglichst wörtliche Wiedergabe</span>
+                </li>
+                <li>
+                    <span><strong>Verweise auf Dokumente</strong> – Erhaltene oder erwähnte Materialien</span>
+                </li>
+                <li>
+                    <span><strong>Genaue Absprachen zu Sperrvermerken</strong> – Was darf wann veröffentlicht werden?</span>
+                </li>
+                <li>
+                    <span><strong>Journalistische Bewertung der Verlässlichkeit</strong> – Einschätzung der Quelle</span>
+                </li>
+                <li>
+                    <span><strong>Todo-Liste für Anschlussrecherchen</strong> – Nächste Schritte</span>
+                </li>
+            </ol>
+        </div>
+        <div class="modal-actions">
+            <button class="btn btn-secondary" id="copy-memo-template">
+                Vorlage kopieren
+            </button>
+            <button class="btn btn-primary" id="close-memo-btn">
+                Schließen
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script nonce="{{ csp_nonce }}">
+(function() {
+    'use strict';
+
+    // ==================== ACCORDION ====================
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+            const item = this.parentElement;
+            const isActive = item.classList.contains('active');
+
+            // Close all items in the same accordion
+            const accordion = item.parentElement;
+            accordion.querySelectorAll('.accordion-item').forEach(i => {
+                i.classList.remove('active');
+                i.querySelector('.accordion-header').setAttribute('aria-expanded', 'false');
+            });
+
+            // Open clicked item if it wasn't active
+            if (!isActive) {
+                item.classList.add('active');
+                this.setAttribute('aria-expanded', 'true');
+            }
+        });
+
+        header.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
+        });
+    });
+
+    // ==================== INTERACTIVE CHECKLISTS ====================
+    const STORAGE_KEY_TOOLS = 'medienkritik-tools-progress';
+    const STORAGE_KEY_CUIBONO = 'medienkritik-cuibono-progress';
+
+    function initChecklist(listId, storageKey, hasProgressBar) {
+        const checklist = document.getElementById(listId);
+        if (!checklist) return;
+
+        const items = checklist.querySelectorAll('li');
+        let progress = loadProgress(storageKey, items.length);
+
+        // Initialize state from storage
+        items.forEach((item, index) => {
+            if (progress[index]) {
+                item.classList.add('checked');
+                item.setAttribute('aria-checked', 'true');
+                item.querySelector('.check-box').textContent = '✓';
+            }
+
+            item.addEventListener('click', function() {
+                toggleItem(this, index);
+            });
+
+            item.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleItem(this, index);
+                }
+            });
+        });
+
+        function toggleItem(item, index) {
+            const isChecked = item.classList.toggle('checked');
+            item.setAttribute('aria-checked', isChecked.toString());
+            item.querySelector('.check-box').textContent = isChecked ? '✓' : '';
+            progress[index] = isChecked;
+            saveProgress(storageKey, progress);
+            if (hasProgressBar) updateProgressBar();
+        }
+
+        function updateProgressBar() {
+            const checked = progress.filter(Boolean).length;
+            const percent = Math.round((checked / items.length) * 100);
+            const fill = document.getElementById('tools-progress-fill');
+            const percentLabel = document.getElementById('tools-progress-percent');
+            if (fill) fill.style.width = percent + '%';
+            if (percentLabel) percentLabel.textContent = percent + '%';
+        }
+
+        if (hasProgressBar) updateProgressBar();
+
+        return {
+            reset: function() {
+                progress = new Array(items.length).fill(false);
+                saveProgress(storageKey, progress);
+                items.forEach(item => {
+                    item.classList.remove('checked');
+                    item.setAttribute('aria-checked', 'false');
+                    item.querySelector('.check-box').textContent = '';
+                });
+                if (hasProgressBar) updateProgressBar();
+            }
+        };
+    }
+
+    function loadProgress(key, length) {
+        try {
+            const stored = localStorage.getItem(key);
+            if (stored) {
+                const parsed = JSON.parse(stored);
+                if (Array.isArray(parsed) && parsed.length === length) {
+                    return parsed;
+                }
+            }
+        } catch (e) {
+            console.warn('Could not load progress:', e);
+        }
+        return new Array(length).fill(false);
+    }
+
+    function saveProgress(key, progress) {
+        try {
+            localStorage.setItem(key, JSON.stringify(progress));
+        } catch (e) {
+            console.warn('Could not save progress:', e);
+        }
+    }
+
+    const toolsChecklist = initChecklist('tools-checklist', STORAGE_KEY_TOOLS, true);
+    initChecklist('cui-bono-checklist', STORAGE_KEY_CUIBONO, false);
+
+    // Reset button
+    const resetBtn = document.getElementById('reset-tools-checklist');
+    if (resetBtn && toolsChecklist) {
+        resetBtn.addEventListener('click', function() {
+            if (confirm('Fortschritt wirklich zurücksetzen?')) {
+                toolsChecklist.reset();
+            }
+        });
+    }
+
+    // ==================== MEMO MODAL ====================
+    const modal = document.getElementById('memo-modal');
+    const openBtn = document.getElementById('open-memo-modal');
+    const closeBtn = document.getElementById('close-memo-modal');
+    const closeBtnAlt = document.getElementById('close-memo-btn');
+    const copyBtn = document.getElementById('copy-memo-template');
+
+    function openModal() {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        closeBtn.focus();
+    }
+
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        openBtn.focus();
+    }
+
+    if (openBtn) openBtn.addEventListener('click', openModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (closeBtnAlt) closeBtnAlt.addEventListener('click', closeModal);
+
+    // Close on overlay click
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) closeModal();
+        });
+    }
+
+    // Close on Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    // Copy memo template
+    if (copyBtn) {
+        copyBtn.addEventListener('click', function() {
+            const template = `RECHERCHE-MEMO
+
+1. Datum/Uhrzeit: _______________
+2. Teilnehmer: _______________
+3. Quellenschutz-Status: [ ] On Record [ ] Background [ ] Chatham House [ ] Off Record
+4. Kontaktdaten: _______________
+5. Hintergrund/Expertise: _______________
+6. Inhaltliches Protokoll:
+_______________________________________________
+_______________________________________________
+
+7. Dokumente/Verweise: _______________
+8. Sperrvermerke/Absprachen: _______________
+9. Bewertung der Verlässlichkeit: [ ] Hoch [ ] Mittel [ ] Niedrig
+10. Todo-Liste:
+- [ ] _______________
+- [ ] _______________
+- [ ] _______________`;
+
+            navigator.clipboard.writeText(template).then(function() {
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'Kopiert!';
+                copyBtn.style.background = 'var(--color-matrix)';
+                copyBtn.style.color = 'var(--color-void)';
+                setTimeout(function() {
+                    copyBtn.textContent = originalText;
+                    copyBtn.style.background = '';
+                    copyBtn.style.color = '';
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Kopieren fehlgeschlagen:', err);
+                alert('Kopieren fehlgeschlagen. Bitte manuell kopieren.');
+            });
+        });
+    }
+})();
+</script>
 {% endblock %}

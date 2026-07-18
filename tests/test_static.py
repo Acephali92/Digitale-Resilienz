@@ -19,11 +19,6 @@ class TestStaticFiles:
         response = client.get("/static/js/main.js")
         assert response.status_code == 200
 
-    def test_passphrase_js_accessible(self, client):
-        """Passphrase generator JS should be accessible."""
-        response = client.get("/static/js/passphrase.js")
-        assert response.status_code == 200
-
 
 class TestFonts:
     """Test font file serving."""
