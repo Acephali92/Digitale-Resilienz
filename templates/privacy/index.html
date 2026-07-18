@@ -158,13 +158,16 @@
 <div class="case-study">
     <!-- Infographic -->
     <div class="infographic-container">
-        <img
-            src="{{ url_for('static', filename='img/anonym-vs-pseudonym.png') }}"
-            alt="Anonym vs. Pseudonym: Den Unterschied verstehen - Vergleich von anonymen und pseudonymen Daten"
-            class="infographic-image"
-            onclick="openImageModal(this)"
-            loading="lazy"
-        >
+        <picture>
+            <source srcset="{{ url_for('static', filename='img/anonym-vs-pseudonym.webp') }}" type="image/webp">
+            <img
+                src="{{ url_for('static', filename='img/anonym-vs-pseudonym.png') }}"
+                alt="Anonym vs. Pseudonym: Den Unterschied verstehen - Vergleich von anonymen und pseudonymen Daten"
+                class="infographic-image"
+                onclick="openImageModal(this)"
+                loading="lazy"
+            >
+        </picture>
         <p class="infographic-caption">
             &#128270; Klicke auf das Bild zum Vergrößern
         </p>

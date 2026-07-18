@@ -105,7 +105,7 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{{ url_for('static', filename='js/passphrase.js') }}"></script>
+<script src="{{ url_for('static', filename='js/passphrase.js') }}" defer></script>
 <style nonce="{{ csp_nonce }}">
     .strength-meter {
         height: 10px;
