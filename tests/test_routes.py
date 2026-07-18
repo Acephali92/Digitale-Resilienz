@@ -29,7 +29,6 @@ MAIN_ROUTES = [
 PRIVACY_ROUTES = [
     "/privacy/exif",
     "/privacy/dsgvo",
-    "/privacy/quiz",
 ]
 
 SECURITY_ROUTES = [

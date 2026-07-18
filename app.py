@@ -259,12 +259,6 @@ def privacy_dsgvo():
     return render_template("privacy/dsgvo.html")
 
 
-@app.route("/privacy/quiz")
-def privacy_quiz():
-    """'Bist du trackbar?' interactive quiz."""
-    return render_template("privacy/quiz.html")
-
-
 @app.route("/privacy/tracking")
 def privacy_tracking():
     """Tracking avoidance guide - IMEI, fingerprinting, 5G myths."""
