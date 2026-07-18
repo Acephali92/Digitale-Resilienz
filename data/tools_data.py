@@ -413,6 +413,7 @@ TOOLS = [
     {
         "id": "firefox",
         "name": "Firefox",
+        "icon": "firefox",
         "category": "browser-desktop",
         "slogan": "Der unabhaengige Browser",
         "description": "Open-Source-Browser von Mozilla. Mit Haertung (arkenfox user.js) sehr privat. Einzige echte Alternative zum Chromium-Monopol. Enhanced Tracking Protection standardmaessig.",
@@ -425,6 +426,7 @@ TOOLS = [
     {
         "id": "tor-browser",
         "name": "Tor Browser",
+        "icon": "torbrowser",
         "category": "browser-desktop",
         "slogan": "Anonymitaet im Netz",
         "description": "Vorkonfigurierter Firefox mit Tor-Integration. Alle Verbindungen laufen durch das Tor-Netzwerk. Standard fuer anonymes Surfen.",
@@ -437,6 +439,8 @@ TOOLS = [
     {
         "id": "mullvad-browser",
         "name": "Mullvad Browser",
+        "icon": "mullvad-browser",
+        "icon_source": "dashboard",
         "category": "browser-desktop",
         "slogan": "Tor Browser ohne Tor",
         "description": "Zusammenarbeit von Tor Project und Mullvad VPN. Starker Fingerprinting-Schutz des Tor Browsers, aber ohne Tor-Geschwindigkeitseinbussen. Ideal mit VPN.",
@@ -449,6 +453,7 @@ TOOLS = [
     {
         "id": "brave-desktop",
         "name": "Brave",
+        "icon": "brave",
         "category": "browser-desktop",
         "slogan": "Privacy by Default",
         "description": "Chromium-basiert mit eingebautem Werbeblocker, Tracking-Schutz und Shields. Kontroverses Crypto-Feature (BAT) komplett abschaltbar.",
@@ -461,6 +466,7 @@ TOOLS = [
     {
         "id": "librewolf",
         "name": "LibreWolf",
+        "icon": "librewolf",
         "category": "browser-desktop",
         "slogan": "Gehaerteter Firefox",
         "description": "Firefox-Fork mit Privacy-Haertung ab Werk. Telemetrie entfernt, uBlock Origin vorinstalliert, strenge Einstellungen.",
@@ -477,6 +483,7 @@ TOOLS = [
     {
         "id": "tor-browser-android",
         "name": "Tor Browser (Android)",
+        "icon": "torbrowser",
         "category": "browser-mobil",
         "slogan": "Tor auf dem Handy",
         "description": "Offizieller Tor Browser fuer Android. Gleiche Anonymitaet wie auf dem Desktop.",
@@ -489,6 +496,7 @@ TOOLS = [
     {
         "id": "brave-mobil",
         "name": "Brave (Mobil)",
+        "icon": "brave",
         "category": "browser-mobil",
         "slogan": "Privacy-Browser fuer Smartphones",
         "description": "Mobiler Brave mit Shields, Werbeblocker und Fingerprinting-Schutz. Auch auf iOS verfuegbar.",
@@ -501,6 +509,7 @@ TOOLS = [
     {
         "id": "cromite",
         "name": "Cromite",
+        "icon": "googlechrome",
         "category": "browser-mobil",
         "slogan": "Chromium mit Privacy",
         "description": "Chromium-Fork fuer Android mit eingebautem Ad-Blocking und Fingerprinting-Schutz. Nachfolger von Bromite.",
@@ -513,6 +522,7 @@ TOOLS = [
     {
         "id": "firefox-android",
         "name": "Firefox (Android)",
+        "icon": "firefox",
         "category": "browser-mobil",
         "slogan": "Firefox fuer Android",
         "description": "Mobiler Firefox mit Add-on-Unterstuetzung (uBlock Origin etc.). Enhanced Tracking Protection.",
@@ -525,6 +535,7 @@ TOOLS = [
     {
         "id": "fennec",
         "name": "Fennec F-Droid",
+        "icon": "fdroid",
         "category": "browser-mobil",
         "slogan": "Firefox ohne proprietaere Bits",
         "description": "Firefox-Build aus F-Droid ohne proprietaere Komponenten. Fuer maximale FOSS-Reinheit.",
@@ -537,6 +548,7 @@ TOOLS = [
     {
         "id": "onion-browser",
         "name": "Onion Browser",
+        "icon": "torbrowser",
         "category": "browser-mobil",
         "slogan": "Tor fuer iOS",
         "description": "Tor-Browser fuer iPhone und iPad. Einzige offizielle Tor-Option auf iOS.",
@@ -549,6 +561,7 @@ TOOLS = [
     {
         "id": "safari",
         "name": "Safari",
+        "icon": "safari",
         "category": "browser-mobil",
         "slogan": "Apple's Browser",
         "description": "iOS-Standardbrowser mit Intelligent Tracking Prevention und Fingerprinting-Schutz. Private Relay fuer iCloud+.",
@@ -565,6 +578,7 @@ TOOLS = [
     {
         "id": "ublock-origin",
         "name": "uBlock Origin",
+        "icon": "ublockorigin",
         "category": "browser-erweiterungen",
         "slogan": "Der Goldstandard-Werbeblocker",
         "description": "Effizienter Werbeblocker mit geringem Ressourcenverbrauch. Blockiert Werbung, Tracker und Malware. Essentiell fuer jeden Browser.",
@@ -577,6 +591,7 @@ TOOLS = [
     {
         "id": "ublock-origin-lite",
         "name": "uBlock Origin Lite",
+        "icon": "ublockorigin",
         "category": "browser-erweiterungen",
         "slogan": "uBlock fuer Manifest V3",
         "description": "Manifest V3-kompatible Version von uBlock Origin. Weniger maechtig, aber zukunftssicher fuer Chrome.",
@@ -589,6 +604,7 @@ TOOLS = [
     {
         "id": "noscript",
         "name": "NoScript",
+        "icon": "noscript",
         "category": "browser-erweiterungen",
         "slogan": "JavaScript-Kontrolle",
         "description": "Blockiert JavaScript, Java, Flash standardmaessig. Whitelist-basierte Freigabe pro Seite. Maximale Sicherheit.",
@@ -601,6 +617,7 @@ TOOLS = [
     {
         "id": "multi-account-containers",
         "name": "Multi-Account Containers",
+        "icon": "firefox",
         "category": "browser-erweiterungen",
         "slogan": "Identitaetstrennung",
         "description": "Trennt Cookies und Speicher in isolierte Container. Social Media, Banking, Arbeit - alle separat.",
@@ -613,6 +630,7 @@ TOOLS = [
     {
         "id": "temporary-containers",
         "name": "Temporary Containers",
+        "icon": "firefox",
         "category": "browser-erweiterungen",
         "slogan": "Automatische Isolation",
         "description": "Oeffnet neue Tabs automatisch in temporaeren Containern. Cookies werden nach Schliessen geloescht.",
@@ -625,6 +643,7 @@ TOOLS = [
     {
         "id": "privacy-badger",
         "name": "Privacy Badger",
+        "icon": "eff",
         "category": "browser-erweiterungen",
         "slogan": "Tracker-Lernen",
         "description": "Von der EFF. Lernt automatisch welche Domains tracken und blockiert sie. Ergaenzt uBlock Origin.",
@@ -637,6 +656,7 @@ TOOLS = [
     {
         "id": "decentraleyes",
         "name": "Decentraleyes",
+        "icon": "decentraleyes",
         "category": "browser-erweiterungen",
         "slogan": "CDN-Emulation",
         "description": "Emuliert CDNs lokal. Verhindert Tracking durch Google CDN, cdnjs, etc. Schnelleres Laden.",
@@ -649,6 +669,7 @@ TOOLS = [
     {
         "id": "adguard-ios",
         "name": "AdGuard (iOS)",
+        "icon": "adguard",
         "category": "browser-erweiterungen",
         "slogan": "Werbeblocker fuer Safari",
         "description": "Content-Blocker fuer Safari auf iOS. Blockiert Werbung und Tracker systemweit.",
@@ -665,6 +686,7 @@ TOOLS = [
     {
         "id": "duckduckgo",
         "name": "DuckDuckGo",
+        "icon": "duckduckgo",
         "category": "suchmaschinen",
         "slogan": "Die private Suchmaschine",
         "description": "Tracking-freie Suchmaschine mit guten Ergebnissen. Nutzt Bing im Hintergrund, speichert aber keine Suchanfragen.",
@@ -677,6 +699,7 @@ TOOLS = [
     {
         "id": "startpage",
         "name": "Startpage",
+        "icon": "startpage",
         "category": "suchmaschinen",
         "slogan": "Google ohne Google",
         "description": "Proxy fuer Google-Suche. Google-Qualitaet ohne dass Google dich sieht. Anonymous View fuer Ergebnisse.",
@@ -689,6 +712,7 @@ TOOLS = [
     {
         "id": "brave-search",
         "name": "Brave Search",
+        "icon": "brave",
         "category": "suchmaschinen",
         "slogan": "Unabhaengiger Suchindex",
         "description": "Eigener Suchindex, nicht nur Bing-Proxy. Privacy-fokussiert, kein Tracking.",
@@ -701,6 +725,7 @@ TOOLS = [
     {
         "id": "searxng",
         "name": "SearXNG",
+        "icon": "searxng",
         "category": "suchmaschinen",
         "slogan": "Selbst-hostbare Metasuchmaschine",
         "description": "Open-Source-Metasuchmaschine. Aggregiert Ergebnisse von vielen Quellen. Viele oeffentliche Instanzen, oder selbst hosten.",
@@ -717,6 +742,7 @@ TOOLS = [
     {
         "id": "freetube",
         "name": "FreeTube",
+        "icon": "freetube",
         "category": "frontends",
         "slogan": "YouTube ohne Google",
         "description": "Desktop-YouTube-Client ohne Google-Tracking. Lokale Abonnements, keine Anmeldung noetig.",
@@ -729,6 +755,7 @@ TOOLS = [
     {
         "id": "newpipe",
         "name": "NewPipe",
+        "icon": "newpipe",
         "category": "frontends",
         "slogan": "YouTube fuer Android",
         "description": "Leichtgewichtiger YouTube-Client fuer Android. Hintergrundwiedergabe, Download, keine Werbung.",
@@ -741,6 +768,7 @@ TOOLS = [
     {
         "id": "libretube",
         "name": "LibreTube",
+        "icon": "libretube",
         "category": "frontends",
         "slogan": "Piped-Client fuer Android",
         "description": "Android-App die Piped als Backend nutzt. Sync zwischen Geraeten, keine lokale Verarbeitung.",
@@ -753,6 +781,7 @@ TOOLS = [
     {
         "id": "invidious",
         "name": "Invidious",
+        "icon": "invidious",
         "category": "frontends",
         "slogan": "YouTube-Web-Frontend",
         "description": "Selbst-hostbares YouTube-Frontend. Viele oeffentliche Instanzen verfuegbar. RSS-Feeds, kein JavaScript noetig.",
@@ -765,6 +794,7 @@ TOOLS = [
     {
         "id": "piped",
         "name": "Piped",
+        "icon": "piped",
         "category": "frontends",
         "slogan": "Modernes YouTube-Frontend",
         "description": "Privacy-YouTube-Frontend mit modernem Design. Sponsorblock integriert, Account-Sync.",
@@ -777,6 +807,7 @@ TOOLS = [
     {
         "id": "redlib",
         "name": "Redlib",
+        "icon": "reddit",
         "category": "frontends",
         "slogan": "Reddit ohne Reddit",
         "description": "Privacy-Frontend fuer Reddit. Kein JavaScript noetig, keine Tracker.",
@@ -789,6 +820,7 @@ TOOLS = [
     {
         "id": "proxitok",
         "name": "ProxiTok",
+        "icon": "tiktok",
         "category": "frontends",
         "slogan": "TikTok ohne TikTok",
         "description": "Privacy-Frontend fuer TikTok. Videos ansehen ohne App und Tracking.",
@@ -805,6 +837,7 @@ TOOLS = [
     {
         "id": "signal",
         "name": "Signal",
+        "icon": "signal",
         "category": "messenger",
         "slogan": "Der Goldstandard-Messenger",
         "description": "Ende-zu-Ende-verschluesselt mit dem Signal-Protokoll. Minimale Metadaten, keine Werbung. Von Sicherheitsexperten weltweit empfohlen.",
@@ -817,6 +850,7 @@ TOOLS = [
     {
         "id": "briar",
         "name": "Briar",
+        "icon": "briar",
         "category": "messenger",
         "slogan": "Peer-to-Peer Messenger",
         "description": "Serverloser Messenger. Funktioniert ueber Tor, WiFi, Bluetooth - auch ohne Internet. Entwickelt fuer Aktivisten und Journalisten.",
@@ -829,6 +863,7 @@ TOOLS = [
     {
         "id": "simplex",
         "name": "SimpleX Chat",
+        "icon": "simplex",
         "category": "messenger",
         "slogan": "Kein Account, keine Identitaet",
         "description": "Erster Messenger ohne Benutzer-IDs. Selbst der Server kennt deine Kontakte nicht. Neuer Ansatz fuer maximale Privatsphaere.",
@@ -841,6 +876,7 @@ TOOLS = [
     {
         "id": "element",
         "name": "Element",
+        "icon": "element",
         "category": "messenger",
         "slogan": "Matrix-Client",
         "description": "Client fuer das Matrix-Protokoll. Foederiert wie E-Mail, verschluesselt mit E2EE. Selbsthosting moeglich.",
@@ -853,6 +889,7 @@ TOOLS = [
     {
         "id": "session",
         "name": "Session",
+        "icon": "session",
         "category": "messenger",
         "slogan": "Anonymer Messenger",
         "description": "Dezentraler Messenger ohne Telefonnummer. Onion-Routing ueber das Oxen-Netzwerk. Maximale Anonymitaet.",
@@ -865,6 +902,7 @@ TOOLS = [
     {
         "id": "conversations",
         "name": "Conversations",
+        "icon": "xmpp",
         "category": "messenger",
         "slogan": "XMPP fuer Android",
         "description": "XMPP/Jabber-Client mit OMEMO-Verschluesselung. Foederiertes Protokoll, viele Server zur Auswahl.",
@@ -877,6 +915,7 @@ TOOLS = [
     {
         "id": "dino",
         "name": "Dino",
+        "icon": "xmpp",
         "category": "messenger",
         "slogan": "XMPP fuer Desktop",
         "description": "Moderner XMPP-Client fuer Linux. OMEMO-Verschluesselung, schoene Oberflaeche.",
@@ -893,6 +932,7 @@ TOOLS = [
     {
         "id": "protonmail",
         "name": "Proton Mail",
+        "icon": "protonmail",
         "category": "email-anbieter",
         "slogan": "Verschluesselte E-Mail aus der Schweiz",
         "description": "Ende-zu-Ende-verschluesselter E-Mail-Dienst seit 2013. Zero-Access-Verschluesselung: Proton kann deine Mails nicht lesen. 500 MB kostenlos.",
@@ -905,6 +945,8 @@ TOOLS = [
     {
         "id": "tuta",
         "name": "Tuta",
+        "icon": "tuta",
+        "icon_source": "dashboard",
         "category": "email-anbieter",
         "slogan": "Sichere E-Mail aus Deutschland",
         "description": "Deutscher E-Mail-Anbieter (frueher Tutanota) seit 2011. Volle Ende-zu-Ende-Verschluesselung inkl. Kalender. 1 GB kostenlos.",
@@ -917,6 +959,7 @@ TOOLS = [
     {
         "id": "mailbox-org",
         "name": "mailbox.org",
+        "icon": "mailboxdotorg",
         "category": "email-anbieter",
         "slogan": "Deutscher Privacy-E-Mail",
         "description": "Deutscher E-Mail-Anbieter seit 2014 mit starkem Datenschutz. PGP-Unterstuetzung, Kalender, Cloud. 2 GB, 100% Oeko-Strom.",
@@ -929,6 +972,7 @@ TOOLS = [
     {
         "id": "riseup",
         "name": "Riseup",
+        "icon": "riseup",
         "category": "email-anbieter",
         "slogan": "E-Mail fuer Aktivisten",
         "description": "Aktivisten-Kollektiv seit 1999. Kostenlose E-Mail fuer soziale Bewegungen. Keine Logs, keine Werbung.",
@@ -941,6 +985,7 @@ TOOLS = [
     {
         "id": "kolab-now",
         "name": "Kolab Now",
+        "icon": "kolab",
         "category": "email-anbieter",
         "slogan": "Schweizer Groupware",
         "description": "Schweizer E-Mail mit Kalender, Kontakten, Dateien. Kolab-Groupware-Suite. Fuer Unternehmen geeignet.",
@@ -957,6 +1002,7 @@ TOOLS = [
     {
         "id": "thunderbird",
         "name": "Thunderbird",
+        "icon": "thunderbird",
         "category": "email-clients",
         "slogan": "Der freie E-Mail-Client",
         "description": "Open-Source E-Mail-Client von Mozilla. PGP-Unterstuetzung (OpenPGP) eingebaut, Kalender, RSS.",
@@ -969,6 +1015,7 @@ TOOLS = [
     {
         "id": "k9-mail",
         "name": "K-9 Mail",
+        "icon": "thunderbird",
         "category": "email-clients",
         "slogan": "E-Mail fuer Android",
         "description": "Open-Source E-Mail-Client fuer Android. Wird zu Thunderbird Mobile. PGP via OpenKeychain.",
@@ -981,6 +1028,7 @@ TOOLS = [
     {
         "id": "fairemail",
         "name": "FairEmail",
+        "icon": "fairemail",
         "category": "email-clients",
         "slogan": "Privacy-E-Mail fuer Android",
         "description": "Privacy-fokussierter E-Mail-Client. Blockiert Tracking-Pixel, zeigt Original-Absender.",
@@ -993,6 +1041,7 @@ TOOLS = [
     {
         "id": "apple-mail",
         "name": "Apple Mail",
+        "icon": "apple",
         "category": "email-clients",
         "slogan": "Standard auf macOS",
         "description": "Apples E-Mail-Client mit S/MIME-Unterstuetzung. Mail Privacy Protection blockiert Tracker.",
@@ -1009,6 +1058,7 @@ TOOLS = [
     {
         "id": "simplelogin",
         "name": "SimpleLogin",
+        "icon": "simplelogin",
         "category": "email-aliase",
         "slogan": "E-Mail-Aliase",
         "description": "E-Mail-Alias-Dienst (jetzt Teil von Proton). Erstelle unbegrenzt Aliase, keine echte Adresse preisgeben.",
@@ -1021,6 +1071,7 @@ TOOLS = [
     {
         "id": "addy-io",
         "name": "addy.io",
+        "icon": "addyio",
         "category": "email-aliase",
         "slogan": "Anonyme E-Mail-Weiterleitung",
         "description": "E-Mail-Alias-Dienst (frueher AnonAddy). Open Source, selbst hostbar.",
@@ -1037,6 +1088,7 @@ TOOLS = [
     {
         "id": "jitsi",
         "name": "Jitsi Meet",
+        "icon": "jitsi",
         "category": "video-voice",
         "slogan": "Verschluesselte Videokonferenzen",
         "description": "Open-Source-Videokonferenz ohne Account. Kann selbst gehostet werden. E2EE optional.",
@@ -1049,6 +1101,7 @@ TOOLS = [
     {
         "id": "signal-calls",
         "name": "Signal (Anrufe)",
+        "icon": "signal",
         "category": "video-voice",
         "slogan": "Verschluesselte Anrufe",
         "description": "Signal unterstuetzt verschluesselte Sprach- und Videoanrufe. Gleiche Sicherheit wie Nachrichten.",
@@ -1061,6 +1114,7 @@ TOOLS = [
     {
         "id": "jami",
         "name": "Jami",
+        "icon": "jami",
         "category": "video-voice",
         "slogan": "Peer-to-Peer Videotelefonie",
         "description": "Dezentraler Video-/Sprachanruf-Dienst. Kein Server noetig, direkte Verbindung.",
@@ -1073,6 +1127,7 @@ TOOLS = [
     {
         "id": "mumble",
         "name": "Mumble",
+        "icon": "mumble",
         "category": "video-voice",
         "slogan": "Verschluesselte Sprachchats",
         "description": "Open-Source Sprachkommunikation. Niedrige Latenz, ideal fuer Gaming. Selbst hostbar.",
@@ -1089,6 +1144,7 @@ TOOLS = [
     {
         "id": "mastodon",
         "name": "Mastodon",
+        "icon": "mastodon",
         "category": "soziale-netzwerke",
         "slogan": "Dezentrales Social Network",
         "description": "Foederiertes soziales Netzwerk. Wie Twitter/X, aber dezentral. Viele unabhaengige Server.",
@@ -1101,6 +1157,7 @@ TOOLS = [
     {
         "id": "pixelfed",
         "name": "Pixelfed",
+        "icon": "pixelfed",
         "category": "soziale-netzwerke",
         "slogan": "Dezentrales Instagram",
         "description": "Foederierte Foto-Plattform. Instagram-Alternative im Fediverse.",
@@ -1113,6 +1170,7 @@ TOOLS = [
     {
         "id": "peertube",
         "name": "PeerTube",
+        "icon": "peertube",
         "category": "soziale-netzwerke",
         "slogan": "Dezentrales YouTube",
         "description": "Foederierte Video-Plattform. P2P-Streaming entlastet Server. Teil des Fediverse.",
@@ -1125,6 +1183,7 @@ TOOLS = [
     {
         "id": "diaspora",
         "name": "diaspora*",
+        "icon": "diaspora",
         "category": "soziale-netzwerke",
         "slogan": "Dezentrales Facebook",
         "description": "Eines der ersten dezentralen sozialen Netzwerke. Pods von verschiedenen Betreibern.",
@@ -1141,6 +1200,7 @@ TOOLS = [
     {
         "id": "bitwarden",
         "name": "Bitwarden",
+        "icon": "bitwarden",
         "category": "passwort-manager",
         "slogan": "Open-Source-Passwortverwaltung",
         "description": "Plattformuebergreifender Passwort-Manager mit E2E-Verschluesselung. Kostenlose Version ausreichend. Selbsthosting mit Vaultwarden.",
@@ -1153,6 +1213,7 @@ TOOLS = [
     {
         "id": "keepassxc",
         "name": "KeePassXC",
+        "icon": "keepassxc",
         "category": "passwort-manager",
         "slogan": "Lokale Passwortdatenbank",
         "description": "Offline-Passwort-Manager mit lokaler Datenbankdatei. Kein Cloud-Zwang. TOTP und YubiKey.",
@@ -1165,6 +1226,7 @@ TOOLS = [
     {
         "id": "keepassdx",
         "name": "KeePassDX",
+        "icon": "keepassxc",
         "category": "passwort-manager",
         "slogan": "KeePass fuer Android",
         "description": "Android-Client fuer KeePass-Datenbanken. Autofill, Biometrie, Material Design.",
@@ -1177,6 +1239,7 @@ TOOLS = [
     {
         "id": "proton-pass",
         "name": "Proton Pass",
+        "icon": "proton",
         "category": "passwort-manager",
         "slogan": "Passwort-Manager von Proton",
         "description": "Neuer Passwort-Manager im Proton-Oekosystem. E2E-verschluesselt, mit E-Mail-Aliasen.",
@@ -1189,6 +1252,7 @@ TOOLS = [
     {
         "id": "1password",
         "name": "1Password",
+        "icon": "1password",
         "category": "passwort-manager",
         "slogan": "Benutzerfreundlicher Passwort-Manager",
         "description": "Kommerzieller Passwort-Manager mit exzellentem UX. Security-Audits, Travel Mode.",
@@ -1205,6 +1269,7 @@ TOOLS = [
     {
         "id": "aegis",
         "name": "Aegis Authenticator",
+        "icon": "aegisauthenticator",
         "category": "2fa",
         "slogan": "Sichere 2FA-App fuer Android",
         "description": "Open-Source TOTP/HOTP-App. Verschluesseltes Backup, Import von anderen Apps.",
@@ -1217,6 +1282,7 @@ TOOLS = [
     {
         "id": "ente-auth",
         "name": "Ente Auth",
+        "icon": "ente",
         "category": "2fa",
         "slogan": "Cloud-Sync 2FA",
         "description": "2FA-App mit E2E-verschluesseltem Cloud-Sync. Von den Machern von Ente Photos.",
@@ -1229,6 +1295,7 @@ TOOLS = [
     {
         "id": "andotp",
         "name": "andOTP",
+        "icon": "android",
         "category": "2fa",
         "slogan": "Open-Source 2FA",
         "description": "Einfache Open-Source TOTP-App fuer Android. Verschluesseltes Backup.",
@@ -1241,6 +1308,7 @@ TOOLS = [
     {
         "id": "tofu",
         "name": "Tofu",
+        "icon": "apple",
         "category": "2fa",
         "slogan": "2FA fuer iOS",
         "description": "Open-Source TOTP-App fuer iOS. Einfach, sicher, keine Cloud.",
@@ -1257,6 +1325,7 @@ TOOLS = [
     {
         "id": "yubikey",
         "name": "YubiKey",
+        "icon": "yubico",
         "category": "security-keys",
         "slogan": "Der Standard-Security-Key",
         "description": "Physischer Sicherheitsschluessel fuer FIDO2/WebAuthn, OTP, OpenPGP. Phishing-resistent.",
@@ -1269,6 +1338,7 @@ TOOLS = [
     {
         "id": "nitrokey",
         "name": "Nitrokey",
+        "icon": "nitrokey",
         "category": "security-keys",
         "slogan": "Open-Hardware Security Key",
         "description": "Open-Source Hardware-Key aus Deutschland. FIDO2, OpenPGP, OTP.",
@@ -1281,6 +1351,7 @@ TOOLS = [
     {
         "id": "solokeys",
         "name": "SoloKeys",
+        "icon": "solokeys",
         "category": "security-keys",
         "slogan": "Open-Source FIDO2",
         "description": "Open-Source FIDO2-Security-Key. Community-Projekt, guenstiger Einstieg.",
@@ -1297,6 +1368,8 @@ TOOLS = [
     {
         "id": "veracrypt",
         "name": "VeraCrypt",
+        "icon": "vera-crypt",
+        "icon_source": "dashboard",
         "category": "verschluesselung",
         "slogan": "Festplattenverschluesselung",
         "description": "TrueCrypt-Nachfolger. Container und Full-Disk-Encryption. Hidden Volumes fuer plausible Abstreitbarkeit.",
@@ -1309,6 +1382,7 @@ TOOLS = [
     {
         "id": "cryptomator",
         "name": "Cryptomator",
+        "icon": "cryptomator",
         "category": "verschluesselung",
         "slogan": "Cloud-Verschluesselung",
         "description": "Verschluesselt Dateien vor Cloud-Upload transparent. Funktioniert mit jeder Cloud.",
@@ -1321,6 +1395,7 @@ TOOLS = [
     {
         "id": "age",
         "name": "age",
+        "icon": "age",
         "category": "verschluesselung",
         "slogan": "Moderne Dateiverschluesselung",
         "description": "Einfaches, modernes Verschluesselungstool. Nachfolger von PGP fuer Dateien. Minimalistisch.",
@@ -1333,6 +1408,7 @@ TOOLS = [
     {
         "id": "kryptor",
         "name": "Kryptor",
+        "icon": "kryptor",
         "category": "verschluesselung",
         "slogan": "GUI fuer moderne Verschluesselung",
         "description": "Einfache Dateiverschluesselung mit GUI. Moderne Kryptographie, simpel zu benutzen.",
@@ -1345,6 +1421,7 @@ TOOLS = [
     {
         "id": "gnupg",
         "name": "GnuPG",
+        "icon": "gnuprivacyguard",
         "category": "verschluesselung",
         "slogan": "OpenPGP-Standard",
         "description": "GNU Privacy Guard. Standard fuer OpenPGP-Verschluesselung und Signaturen.",
@@ -1361,6 +1438,7 @@ TOOLS = [
     {
         "id": "proton-drive",
         "name": "Proton Drive",
+        "icon": "proton",
         "category": "cloud-storage",
         "slogan": "Verschluesselte Cloud",
         "description": "E2E-verschluesselter Cloud-Speicher von Proton. Zero-Knowledge, Schweizer Datenschutz.",
@@ -1373,6 +1451,7 @@ TOOLS = [
     {
         "id": "tresorit",
         "name": "Tresorit",
+        "icon": "tresorit",
         "category": "cloud-storage",
         "slogan": "Zero-Knowledge Cloud",
         "description": "Schweizer Cloud-Speicher mit clientseitiger Verschluesselung. DSGVO-konform, fuer Business.",
@@ -1385,6 +1464,7 @@ TOOLS = [
     {
         "id": "peergos",
         "name": "Peergos",
+        "icon": "peergos",
         "category": "cloud-storage",
         "slogan": "P2P verschluesselte Cloud",
         "description": "Dezentrales, verschluesseltes Dateisystem. Peer-to-Peer, selbst hostbar.",
@@ -1401,6 +1481,7 @@ TOOLS = [
     {
         "id": "syncthing",
         "name": "Syncthing",
+        "icon": "syncthing",
         "category": "file-sync",
         "slogan": "Dezentrale Sync",
         "description": "Sync ohne Cloud. Synchronisiert direkt zwischen Geraeten. Keine Server, keine Accounts.",
@@ -1413,6 +1494,7 @@ TOOLS = [
     {
         "id": "nextcloud",
         "name": "Nextcloud",
+        "icon": "nextcloud",
         "category": "file-sync",
         "slogan": "Selbstgehostete Cloud",
         "description": "Google Drive Alternative. Dateien, Kalender, Kontakte, Office. Selbst hosten oder Privacy-Hoster.",
@@ -1425,6 +1507,7 @@ TOOLS = [
     {
         "id": "etesync",
         "name": "EteSync",
+        "icon": "etesync",
         "category": "file-sync",
         "slogan": "E2E Kalender/Kontakte-Sync",
         "description": "Ende-zu-Ende-verschluesselte Synchronisation fuer Kalender, Kontakte, Aufgaben.",
@@ -1441,6 +1524,7 @@ TOOLS = [
     {
         "id": "onionshare",
         "name": "OnionShare",
+        "icon": "onionshare",
         "category": "file-sharing",
         "slogan": "Anonym Dateien teilen",
         "description": "Dateien teilen ueber Tor. Empfaenger benoetigt Tor Browser. Kein Server.",
@@ -1453,6 +1537,7 @@ TOOLS = [
     {
         "id": "send",
         "name": "Send",
+        "icon": "firefoxsend",
         "category": "file-sharing",
         "slogan": "Verschluesselte Dateiuebertragung",
         "description": "E2E-verschluesselte Dateiuebertragung. Urspruenglich Firefox Send, jetzt Community-Fork.",
@@ -1469,6 +1554,7 @@ TOOLS = [
     {
         "id": "borgbackup",
         "name": "BorgBackup",
+        "icon": "borgbackup",
         "category": "backup",
         "slogan": "Deduplizierendes Backup",
         "description": "Effizientes, verschluesseltes Backup. Deduplizierung spart Speicher. Standard fuer Server.",
@@ -1481,6 +1567,7 @@ TOOLS = [
     {
         "id": "restic",
         "name": "Restic",
+        "icon": "restic",
         "category": "backup",
         "slogan": "Schnelles Backup",
         "description": "Modernes Backup mit Verschluesselung. Viele Backends (S3, SFTP, rclone, etc.).",
@@ -1497,6 +1584,7 @@ TOOLS = [
     {
         "id": "mat2",
         "name": "MAT2",
+        "icon": "tails",
         "category": "metadaten",
         "slogan": "Metadata Anonymisation Toolkit",
         "description": "Entfernt Metadaten aus vielen Dateiformaten. CLI und GUI verfuegbar.",
@@ -1509,6 +1597,7 @@ TOOLS = [
     {
         "id": "exiferaser",
         "name": "ExifEraser",
+        "icon": "android",
         "category": "metadaten",
         "slogan": "EXIF-Entfernung fuer Android",
         "description": "Entfernt EXIF-Daten aus Fotos auf Android. Bevor du teilst.",
@@ -1521,6 +1610,7 @@ TOOLS = [
     {
         "id": "exiftool",
         "name": "ExifTool",
+        "icon": "perl",
         "category": "metadaten",
         "slogan": "Der Metadaten-Standard",
         "description": "Lesen, schreiben, bearbeiten von Metadaten aller Formate. CLI-Tool, extrem maechtig.",
@@ -1537,6 +1627,7 @@ TOOLS = [
     {
         "id": "ente-photos",
         "name": "Ente Photos",
+        "icon": "ente",
         "category": "foto-verwaltung",
         "slogan": "Verschluesselte Foto-Cloud",
         "description": "E2E-verschluesselte Foto-/Video-Speicherung. Google Photos Alternative mit Privacy.",
@@ -1549,6 +1640,7 @@ TOOLS = [
     {
         "id": "immich",
         "name": "Immich",
+        "icon": "immich",
         "category": "foto-verwaltung",
         "slogan": "Selbstgehostetes Google Photos",
         "description": "High-Performance Foto-Backup mit KI-Features. Selbst hosten, volle Kontrolle.",
@@ -1565,6 +1657,7 @@ TOOLS = [
     {
         "id": "mullvad-vpn",
         "name": "Mullvad VPN",
+        "icon": "mullvadvpn",
         "category": "vpn",
         "slogan": "VPN ohne Account",
         "description": "Schwedischer VPN ohne E-Mail oder Passwort. Nur Accountnummer. Akzeptiert Bargeld und Monero.",
@@ -1577,6 +1670,7 @@ TOOLS = [
     {
         "id": "proton-vpn",
         "name": "Proton VPN",
+        "icon": "protonvpn",
         "category": "vpn",
         "slogan": "VPN von Proton",
         "description": "Schweizer VPN mit kostenlosem Tier. Secure Core durch mehrere Laender. 112+ Standorte.",
@@ -1589,6 +1683,7 @@ TOOLS = [
     {
         "id": "ivpn",
         "name": "IVPN",
+        "icon": "ivpn",
         "category": "vpn",
         "slogan": "Privacy-VPN",
         "description": "Gibraltar-basierter VPN. Multi-Hop, WireGuard. Akzeptiert Monero und Bargeld.",
@@ -1605,6 +1700,7 @@ TOOLS = [
     {
         "id": "tor",
         "name": "Tor Network",
+        "icon": "torproject",
         "category": "tor-netzwerk",
         "slogan": "Anonymitaet durch Schichten",
         "description": "Dezentrales Anonymisierungsnetzwerk. Drei Relays, keine direkte Verbindung zum Ziel.",
@@ -1617,6 +1713,7 @@ TOOLS = [
     {
         "id": "orbot",
         "name": "Orbot",
+        "icon": "torproject",
         "category": "tor-netzwerk",
         "slogan": "Tor fuer Android",
         "description": "Tor-Proxy fuer Android. Leitet Apps durch Tor, auch ohne Root.",
@@ -1629,6 +1726,7 @@ TOOLS = [
     {
         "id": "i2p",
         "name": "I2P",
+        "icon": "i2p",
         "category": "tor-netzwerk",
         "slogan": "Das unsichtbare Internet",
         "description": "Alternatives Anonymisierungsnetz. Optimiert fuer versteckte Dienste (eepsites).",
@@ -1641,6 +1739,7 @@ TOOLS = [
     {
         "id": "snowflake",
         "name": "Snowflake",
+        "icon": "torproject",
         "category": "tor-netzwerk",
         "slogan": "Tor-Zensur umgehen",
         "description": "Hilft zensierten Nutzern Tor zu erreichen. Du wirst zur Bridge fuer andere.",
@@ -1657,6 +1756,7 @@ TOOLS = [
     {
         "id": "quad9",
         "name": "Quad9",
+        "icon": "quad9",
         "category": "dns",
         "slogan": "Sicherer DNS",
         "description": "Schweizer Non-Profit DNS mit Malware-Blocking. DoH, DoT, keine Logs.",
@@ -1669,6 +1769,7 @@ TOOLS = [
     {
         "id": "mullvad-dns",
         "name": "Mullvad DNS",
+        "icon": "mullvadvpn",
         "category": "dns",
         "slogan": "DNS von Mullvad",
         "description": "Verschluesselter DNS von Mullvad. Mit Werbeblocker-Option.",
@@ -1681,6 +1782,7 @@ TOOLS = [
     {
         "id": "pi-hole",
         "name": "Pi-hole",
+        "icon": "pihole",
         "category": "dns",
         "slogan": "Netzwerk-Werbeblocker",
         "description": "DNS-Werbeblocker fuer das ganze Netzwerk. Raspberry Pi oder Docker.",
@@ -1693,6 +1795,7 @@ TOOLS = [
     {
         "id": "dnscrypt-proxy",
         "name": "DNSCrypt-Proxy",
+        "icon": "dnscrypt",
         "category": "dns",
         "slogan": "DNS-Verschluesselung",
         "description": "Lokaler DNS-Proxy mit Verschluesselung (DNSCrypt, DoH, DoT). Lokal betreiben.",
@@ -1709,6 +1812,7 @@ TOOLS = [
     {
         "id": "qubes",
         "name": "Qubes OS",
+        "icon": "qubesos",
         "category": "desktop-os",
         "slogan": "Sicherheit durch Isolation",
         "description": "Extrem sicheres OS mit Virtualisierung. Jede App in eigener VM. Von Snowden empfohlen.",
@@ -1721,6 +1825,7 @@ TOOLS = [
     {
         "id": "fedora",
         "name": "Fedora Linux",
+        "icon": "fedora",
         "category": "desktop-os",
         "slogan": "Aktuelles Linux",
         "description": "Cutting-Edge Linux mit SELinux. Schnelle Sicherheitsupdates, moderne Features.",
@@ -1733,6 +1838,7 @@ TOOLS = [
     {
         "id": "opensuse-tw",
         "name": "openSUSE Tumbleweed",
+        "icon": "opensuse",
         "category": "desktop-os",
         "slogan": "Rolling Release",
         "description": "Rolling-Release Linux. Immer aktuell, gutes Tooling (YaST), AppArmor.",
@@ -1745,6 +1851,7 @@ TOOLS = [
     {
         "id": "arch-linux",
         "name": "Arch Linux",
+        "icon": "archlinux",
         "category": "desktop-os",
         "slogan": "Keep It Simple",
         "description": "Minimalistisches Rolling-Release. Du baust dein System selbst. AUR fuer Software.",
@@ -1757,6 +1864,7 @@ TOOLS = [
     {
         "id": "debian",
         "name": "Debian",
+        "icon": "debian",
         "category": "desktop-os",
         "slogan": "Das universelle OS",
         "description": "Stabiles, freies Betriebssystem. Basis fuer Ubuntu und viele andere.",
@@ -1769,6 +1877,7 @@ TOOLS = [
     {
         "id": "nixos",
         "name": "NixOS",
+        "icon": "nixos",
         "category": "desktop-os",
         "slogan": "Deklaratives Linux",
         "description": "Reproduzierbare Systemkonfiguration. Rollbacks, Isolation. Steile Lernkurve.",
@@ -1781,6 +1890,7 @@ TOOLS = [
     {
         "id": "kicksecure",
         "name": "Kicksecure",
+        "icon": "kicksecure",
         "category": "desktop-os",
         "slogan": "Gehaertetes Debian",
         "description": "Sicherheitsgehaertetes Debian. Von den Whonix-Machern. Weniger radikal als Qubes.",
@@ -1797,6 +1907,7 @@ TOOLS = [
     {
         "id": "grapheneos",
         "name": "GrapheneOS",
+        "icon": "grapheneos",
         "category": "mobile-os",
         "slogan": "Das sicherste mobile OS",
         "description": "Gehaertetes Android. Memory-Safety, Sandboxing, minimale Angriffsflaeche. Nur fuer Pixel.",
@@ -1809,6 +1920,7 @@ TOOLS = [
     {
         "id": "calyxos",
         "name": "CalyxOS",
+        "icon": "calyxos",
         "category": "mobile-os",
         "slogan": "Privacy-Android",
         "description": "Benutzerfreundliches Privacy-Android. microG fuer Google-Kompatibilitaet.",
@@ -1821,6 +1933,7 @@ TOOLS = [
     {
         "id": "divestos",
         "name": "DivestOS",
+        "icon": "android",
         "category": "mobile-os",
         "slogan": "Privacy fuer alte Handys",
         "description": "Sicherheitsfokussiertes Android fuer aeltere Geraete. Laengere Unterstuetzung.",
@@ -1837,6 +1950,7 @@ TOOLS = [
     {
         "id": "tails",
         "name": "Tails",
+        "icon": "tails",
         "category": "live-os",
         "slogan": "Das amnesische System",
         "description": "Bootfaehiges Linux vom USB-Stick. Keine Spuren, alles durch Tor. Vergisst alles.",
@@ -1849,6 +1963,7 @@ TOOLS = [
     {
         "id": "whonix",
         "name": "Whonix",
+        "icon": "whonix",
         "category": "live-os",
         "slogan": "Anonymitaet by Design",
         "description": "Zwei-VM-System das alle Verbindungen durch Tor zwingt. IP-Leaks technisch unmoeglich.",
@@ -1865,6 +1980,7 @@ TOOLS = [
     {
         "id": "openwrt",
         "name": "OpenWrt",
+        "icon": "openwrt",
         "category": "router-firmware",
         "slogan": "Freie Router-Firmware",
         "description": "Linux fuer Router. Volle Kontrolle ueber dein Netzwerk. Viele unterstuetzte Geraete.",
@@ -1877,6 +1993,7 @@ TOOLS = [
     {
         "id": "opnsense",
         "name": "OPNsense",
+        "icon": "opnsense",
         "category": "router-firmware",
         "slogan": "Open Source Firewall",
         "description": "FreeBSD-basierte Firewall/Router. Web-GUI, VPN, IDS/IPS. Fuer dedizierte Hardware.",
@@ -1893,6 +2010,7 @@ TOOLS = [
     {
         "id": "f-droid",
         "name": "F-Droid",
+        "icon": "fdroid",
         "category": "android-apps",
         "slogan": "FOSS App Store",
         "description": "App-Store nur fuer Open-Source-Apps. Keine proprietaere Software.",
@@ -1905,6 +2023,7 @@ TOOLS = [
     {
         "id": "aurora-store",
         "name": "Aurora Store",
+        "icon": "aurorastore",
         "category": "android-apps",
         "slogan": "Play Store ohne Google",
         "description": "Anonymer Zugang zum Play Store. Kein Google-Konto noetig.",
@@ -1917,6 +2036,7 @@ TOOLS = [
     {
         "id": "obtainium",
         "name": "Obtainium",
+        "icon": "obtainium",
         "category": "android-apps",
         "slogan": "Updates direkt von Quellen",
         "description": "Holt App-Updates direkt von GitHub, GitLab, etc. Kein App Store noetig.",
@@ -1929,6 +2049,7 @@ TOOLS = [
     {
         "id": "shelter",
         "name": "Shelter",
+        "icon": "android",
         "category": "android-apps",
         "slogan": "Work Profile Management",
         "description": "Isoliert Apps in Androids Work Profile. Trennt Arbeit von Privat.",
@@ -1945,6 +2066,7 @@ TOOLS = [
     {
         "id": "vaultwarden",
         "name": "Vaultwarden",
+        "icon": "bitwarden",
         "category": "selbsthosting",
         "slogan": "Selbstgehosteter Bitwarden",
         "description": "Leichtgewichtige Bitwarden-Server-Implementation. Alle Premium-Features. Wenig Ressourcen.",
@@ -1957,6 +2079,7 @@ TOOLS = [
     {
         "id": "home-assistant",
         "name": "Home Assistant",
+        "icon": "homeassistant",
         "category": "selbsthosting",
         "slogan": "Smart Home ohne Cloud",
         "description": "Open-Source Smart-Home-Zentrale. 2000+ Integrationen, lokal kontrolliert.",
@@ -1969,6 +2092,7 @@ TOOLS = [
     {
         "id": "wireguard",
         "name": "WireGuard",
+        "icon": "wireguard",
         "category": "selbsthosting",
         "slogan": "Modernes VPN-Protokoll",
         "description": "Schnelles, einfaches VPN-Protokoll. Nur 4000 Zeilen Code. Eigenen VPN-Server betreiben.",
@@ -1981,6 +2105,7 @@ TOOLS = [
     {
         "id": "paperless-ngx",
         "name": "Paperless-ngx",
+        "icon": "paperlessngx",
         "category": "selbsthosting",
         "slogan": "Dokumentenmanagement",
         "description": "Selbstgehostetes Dokumentenarchiv mit OCR. Scannt, kategorisiert, durchsucht.",
@@ -1993,6 +2118,7 @@ TOOLS = [
     {
         "id": "gitea",
         "name": "Gitea",
+        "icon": "gitea",
         "category": "selbsthosting",
         "slogan": "Selbstgehostetes GitHub",
         "description": "Leichtgewichtiger Git-Server. GitHub-Alternative fuer eigene Infrastruktur.",
@@ -2005,6 +2131,7 @@ TOOLS = [
     {
         "id": "cryptpad",
         "name": "CryptPad",
+        "icon": "cryptpad",
         "category": "selbsthosting",
         "slogan": "Verschluesselte Zusammenarbeit",
         "description": "E2E-verschluesselte Office-Suite. Docs, Sheets, Kanban. Kollaborativ und privat.",
@@ -2021,6 +2148,7 @@ TOOLS = [
     {
         "id": "standard-notes",
         "name": "Standard Notes",
+        "icon": "standardnotes",
         "category": "produktivitaet",
         "slogan": "E2E-verschluesselte Notizen",
         "description": "Verschluesselte Notizen mit Sync. Einfach, sicher, langlebig.",
@@ -2033,6 +2161,7 @@ TOOLS = [
     {
         "id": "joplin",
         "name": "Joplin",
+        "icon": "joplin",
         "category": "produktivitaet",
         "slogan": "Markdown-Notizen mit Sync",
         "description": "Open-Source Notiz-App mit E2EE-Sync. Markdown, Tagging, Notebooks.",
@@ -2045,6 +2174,7 @@ TOOLS = [
     {
         "id": "cryptee",
         "name": "Cryptee",
+        "icon": "cryptee",
         "category": "produktivitaet",
         "slogan": "Verschluesselte Docs und Fotos",
         "description": "E2E-verschluesselte Dokumente und Fotos. Web-basiert, Zero-Knowledge.",
@@ -2057,6 +2187,7 @@ TOOLS = [
     {
         "id": "libreoffice",
         "name": "LibreOffice",
+        "icon": "libreoffice",
         "category": "produktivitaet",
         "slogan": "Freies Office-Paket",
         "description": "Vollstaendige Office-Suite. Word/Excel/PowerPoint-kompatibel. Kein Abo.",
@@ -2069,6 +2200,7 @@ TOOLS = [
     {
         "id": "onlyoffice",
         "name": "OnlyOffice",
+        "icon": "onlyoffice",
         "category": "produktivitaet",
         "slogan": "MS-Office-kompatibel",
         "description": "Office-Suite mit bester MS-Kompatibilitaet. Docs, Sheets, Slides. Selbst hostbar.",
@@ -2085,6 +2217,7 @@ TOOLS = [
     {
         "id": "obsidian",
         "name": "Obsidian",
+        "icon": "obsidian",
         "category": "offline-tools",
         "slogan": "Lokale Markdown-Wissensbasis",
         "description": "Markdown-Notizen mit Verlinkung. Lokale Dateien, keine Cloud noetig. Graph-Ansicht.",
@@ -2097,6 +2230,7 @@ TOOLS = [
     {
         "id": "kiwix",
         "name": "Kiwix",
+        "icon": "kiwix",
         "category": "offline-tools",
         "slogan": "Wikipedia offline",
         "description": "Liest ZIM-Dateien: Wikipedia, Stack Overflow, Gutenberg offline. Wissen ohne Internet.",
@@ -2109,6 +2243,7 @@ TOOLS = [
     {
         "id": "ollama",
         "name": "Ollama",
+        "icon": "ollama",
         "category": "offline-tools",
         "slogan": "Lokale KI",
         "description": "Lokale LLMs ausfuehren. Llama, Mistral, etc. auf eigenem Rechner. Keine Cloud.",
@@ -2125,6 +2260,7 @@ TOOLS = [
     {
         "id": "monero",
         "name": "Monero",
+        "icon": "monero",
         "category": "finanzen",
         "slogan": "Private Kryptowaehrung",
         "description": "Privacy-by-Default Kryptowaehrung. Transaktionen nicht nachverfolgbar.",
@@ -2137,6 +2273,7 @@ TOOLS = [
     {
         "id": "bisq",
         "name": "Bisq",
+        "icon": "bisq",
         "category": "finanzen",
         "slogan": "Dezentrale Krypto-Boerse",
         "description": "Peer-to-Peer Kryptowaehrungshandel. Kein Account, keine Verifizierung.",
@@ -2153,6 +2290,7 @@ TOOLS = [
     {
         "id": "organic-maps",
         "name": "Organic Maps",
+        "icon": "openstreetmap",
         "category": "karten-navigation",
         "slogan": "Offline-Karten",
         "description": "Offline-Karten basierend auf OpenStreetMap. Wandern, Radfahren, Autofahren.",
@@ -2165,6 +2303,7 @@ TOOLS = [
     {
         "id": "osmand",
         "name": "OsmAnd",
+        "icon": "openstreetmap",
         "category": "karten-navigation",
         "slogan": "Maechtiges Offline-OSM",
         "description": "Umfangreiche Offline-Navigation mit OSM. Viele Features, auch komplexe Routen.",
