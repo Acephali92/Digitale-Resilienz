@@ -491,9 +491,13 @@ def peace_communication():
 def _get_tools_data():
     """Cache computed tools data structures (immutable at runtime)."""
     from data.tools_data import (
-        TOOLS, CATEGORIES, CATEGORY_GROUPS, TAGS, TAG_CATEGORIES,
+        TOOLS,
+        CATEGORIES,
+        CATEGORY_GROUPS,
+        TAGS,
+        TAG_CATEGORIES,
         FEATURED_CATEGORIES,
-        get_categories_by_group
+        get_categories_by_group,
     )
 
     # Tools nach Kategorie gruppieren
@@ -532,7 +536,7 @@ def _get_tools_data():
         "tools_by_category": tools_by_category,
         "tag_counts": tag_counts,
         "categories_by_group": categories_by_group,
-        "featured_categories": FEATURED_CATEGORIES
+        "featured_categories": FEATURED_CATEGORIES,
     }
 
 
