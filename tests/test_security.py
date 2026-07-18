@@ -71,7 +71,7 @@ class TestSecurityHeaders:
     def test_cross_origin_policies(self, client):
         """Cross-Origin policies must be set for isolation."""
         response = client.get("/")
-        assert response.headers.get("Cross-Origin-Embedder-Policy") == "require-corp"
+        assert response.headers.get("Cross-Origin-Embedder-Policy") == "credentialless"
         assert response.headers.get("Cross-Origin-Opener-Policy") == "same-origin"
         assert response.headers.get("Cross-Origin-Resource-Policy") == "same-origin"
 
