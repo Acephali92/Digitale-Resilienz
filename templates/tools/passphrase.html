@@ -6,124 +6,507 @@
 <section class="section-header">
     <h1>&#128272; Passphrase-Generator</h1>
     <p class="section-subtitle">
-        Generiere sichere, merkbare Passphrasen. Alles passiert lokal in deinem Browser.
+        Erstelle sichere, merkbare Passphrasen mit einem vertrauenswürdigen Tool.
     </p>
 </section>
 
-<div class="grid grid-2">
-    <!-- Generator -->
-    <div class="card">
-        <h2>&#127922; Passphrase generieren</h2>
+<!-- Bitwarden Recommendation Card -->
+<article class="generator-card">
+    <div class="generator-card-glow"></div>
 
-        <div class="form-group">
-            <label class="form-label">Anzahl Wörter</label>
-            <select id="word-count" class="form-select">
-                <option value="4">4 Wörter (gut)</option>
-                <option value="5" selected>5 Wörter (stark)</option>
-                <option value="6">6 Wörter (sehr stark)</option>
-                <option value="7">7 Wörter (extrem stark)</option>
-            </select>
+    <header class="generator-header">
+        <div class="generator-icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <polyline points="9 12 11 14 15 10"></polyline>
+            </svg>
         </div>
-
-        <div class="form-group">
-            <label class="form-label">Trennzeichen</label>
-            <select id="separator" class="form-select">
-                <option value="-">Bindestrich (-)</option>
-                <option value=" ">Leerzeichen</option>
-                <option value="_">Unterstrich (_)</option>
-                <option value=".">Punkt (.)</option>
-            </select>
+        <div class="generator-title-group">
+            <h2>Bitwarden Password Generator</h2>
+            <p class="generator-tagline">Der sichere Weg zu starken Passphrasen</p>
         </div>
+    </header>
 
-        <div class="form-group">
-            <div class="form-check">
-                <input type="checkbox" id="add-number">
-                <label for="add-number">Zahl hinzufügen</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" id="capitalize">
-                <label for="capitalize">Wörter großschreiben</label>
-            </div>
+    <p class="generator-description">
+        Nutze den Generator von Bitwarden – dem weltweit vertrauenswürdigsten
+        Open-Source-Passwort-Manager. Erstelle in Sekunden unknackbare Passphrasen,
+        die du dir trotzdem merken kannst.
+    </p>
+
+    <!-- Trust Badges -->
+    <div class="trust-badges">
+        <div class="trust-badge">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                <path d="m9 12 2 2 4-4"></path>
+            </svg>
+            <span>Open Source</span>
         </div>
-
-        <button class="btn btn-primary" onclick="generatePassphrase()">
-            &#128260; Neue Passphrase
-        </button>
-
-        <div id="generated-passphrase" class="mt-lg hidden">
-            <label class="form-label">Deine Passphrase:</label>
-            <div style="display: flex; gap: var(--spacing-sm);">
-                <input type="text" id="passphrase-output" class="form-input" readonly>
-                <button class="btn btn-secondary" onclick="copyPassphrase()">Kopieren</button>
-            </div>
-            <p class="text-secondary mt-sm" id="entropy-info"></p>
+        <div class="trust-badge">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span>Lokal im Browser</span>
+        </div>
+        <div class="trust-badge">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            <span>Keine Datenübertragung</span>
         </div>
     </div>
 
-    <!-- Strength Tester -->
-    <div class="card">
-        <h2>&#128170; Passphrase testen</h2>
-        <p class="text-secondary">
-            Teste die Stärke einer bestehenden Passphrase.
-            Eingaben werden NICHT gespeichert oder gesendet.
-        </p>
+    <a href="https://bitwarden.com/password-generator/"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="generator-cta">
+        <span>Generator öffnen</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+    </a>
 
-        <div class="form-group">
-            <label class="form-label">Passphrase eingeben</label>
-            <input type="password" id="test-passphrase" class="form-input"
-                   placeholder="Deine Passphrase..." oninput="testPassphrase()">
-            <button type="button" class="btn btn-secondary mt-sm" onclick="toggleVisibility()">
-                &#128065; Anzeigen/Verbergen
-            </button>
-        </div>
+    <p class="generator-external-hint">
+        Öffnet bitwarden.com in neuem Tab
+    </p>
+</article>
 
-        <div id="strength-result" class="mt-lg hidden">
-            <div class="strength-meter">
-                <div id="strength-bar" class="strength-bar"></div>
+<!-- Tips Section -->
+<section class="tips-section">
+    <h2 class="tips-title">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"></path>
+            <path d="M9 21h6"></path>
+            <path d="M9 18h6"></path>
+        </svg>
+        Tipps für starke Passphrasen
+    </h2>
+
+    <div class="tips-grid">
+        <article class="tip-card">
+            <div class="tip-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
             </div>
-            <p id="strength-label" class="mt-sm"></p>
-            <ul id="strength-tips" class="mt-md"></ul>
-        </div>
+            <h3>Länge zählt</h3>
+            <p>5 zufällige Wörter sind sicherer als jedes komplexe 8-Zeichen-Passwort.</p>
+        </article>
+
+        <article class="tip-card">
+            <div class="tip-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 3v18h18"></path>
+                    <path d="m19 9-5 5-4-4-3 3"></path>
+                </svg>
+            </div>
+            <h3>Echte Zufälligkeit</h3>
+            <p>Nutze immer einen Generator – eigene Wortsammlungen sind vorhersehbar.</p>
+        </article>
+
+        <article class="tip-card">
+            <div class="tip-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect width="7" height="7" x="3" y="3" rx="1"></rect>
+                    <rect width="7" height="7" x="14" y="3" rx="1"></rect>
+                    <rect width="7" height="7" x="14" y="14" rx="1"></rect>
+                    <rect width="7" height="7" x="3" y="14" rx="1"></rect>
+                </svg>
+            </div>
+            <h3>Einzigartig bleiben</h3>
+            <p>Jeder Account verdient seine eigene Passphrase – niemals wiederverwenden.</p>
+        </article>
+
+        <article class="tip-card">
+            <div class="tip-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+            <h3>Manager nutzen</h3>
+            <p>Speichere alles in Bitwarden oder KeePassXC – sicher und immer griffbereit.</p>
+        </article>
     </div>
-</div>
-
-<section class="card mt-xl">
-    <h2>&#128161; Tipps für gute Passphrasen</h2>
-    <ul class="checklist">
-        <li><strong>Länge zählt</strong> – Eine 5-Wort-Passphrase ist sicherer als ein komplexes 8-Zeichen-Passwort</li>
-        <li><strong>Zufällig</strong> – Nutze den Generator, keine eigenen Wortsammlungen</li>
-        <li><strong>Einzigartig</strong> – Jeder Dienst bekommt eine eigene Passphrase</li>
-        <li><strong>Passwort-Manager</strong> – Speichere Passphrasen in Bitwarden oder KeePassXC</li>
-        <li><strong>Merkbar</strong> – Baue eine Geschichte um die Wörter</li>
-    </ul>
 </section>
 
-<section class="alert alert-info mt-lg">
-    <strong>&#128274; Sicherheit:</strong> Dieser Generator nutzt <code>crypto.getRandomValues()</code>
-    für kryptographisch sichere Zufallszahlen. Keine Daten verlassen deinen Browser.
-</section>
+<!-- Info Footer -->
+<footer class="info-footer">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"></circle>
+        <path d="M12 16v-4"></path>
+        <path d="M12 8h.01"></path>
+    </svg>
+    <p>
+        <strong>Warum Bitwarden?</strong>
+        Regelmäßig auditierter Open-Source-Code, Millionen Nutzer weltweit,
+        und der Generator funktioniert komplett ohne Account.
+    </p>
+</footer>
 {% endblock %}
 
 {% block scripts %}
-<script src="{{ url_for('static', filename='js/passphrase.js') }}" defer></script>
 <style nonce="{{ csp_nonce }}">
-    .strength-meter {
-        height: 10px;
-        background: var(--color-bg-secondary);
-        border-radius: var(--radius-md);
+    /* ===== Variables ===== */
+    .section-header {
+        margin-bottom: 3rem;
+    }
+
+    /* ===== Generator Card ===== */
+    .generator-card {
+        position: relative;
+        background: linear-gradient(
+            165deg,
+            rgba(57, 255, 20, 0.03) 0%,
+            rgba(15, 15, 20, 0.95) 50%,
+            rgba(57, 255, 20, 0.02) 100%
+        );
+        border: 1px solid rgba(57, 255, 20, 0.15);
+        border-radius: 1.25rem;
+        padding: 2.5rem;
+        margin-bottom: 3.5rem;
         overflow: hidden;
     }
 
-    .strength-bar {
-        height: 100%;
-        width: 0%;
-        transition: all var(--transition-base);
-        border-radius: var(--radius-md);
+    .generator-card-glow {
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+            ellipse at center,
+            rgba(57, 255, 20, 0.06) 0%,
+            transparent 60%
+        );
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.5s ease;
     }
 
-    .strength-weak { background: var(--color-accent-secondary); width: 25%; }
-    .strength-fair { background: #ffa500; width: 50%; }
-    .strength-good { background: #9acd32; width: 75%; }
-    .strength-strong { background: var(--color-accent-primary); width: 100%; }
+    .generator-card:hover .generator-card-glow {
+        opacity: 1;
+    }
+
+    .generator-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 1.25rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .generator-icon-wrap {
+        flex-shrink: 0;
+        width: 3.5rem;
+        height: 3.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(57, 255, 20, 0.1);
+        border: 1px solid rgba(57, 255, 20, 0.2);
+        border-radius: 0.875rem;
+    }
+
+    .generator-icon-wrap svg {
+        width: 1.75rem;
+        height: 1.75rem;
+        color: #39ff14;
+    }
+
+    .generator-title-group h2 {
+        margin: 0 0 0.25rem 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #fff;
+        letter-spacing: -0.01em;
+    }
+
+    .generator-tagline {
+        margin: 0;
+        font-size: 0.9375rem;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .generator-description {
+        font-size: 1.0625rem;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.7);
+        margin: 0 0 2rem 0;
+        max-width: 52ch;
+    }
+
+    /* Trust Badges */
+    .trust-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+    }
+
+    .trust-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 0.875rem;
+        background: rgba(57, 255, 20, 0.05);
+        border: 1px solid rgba(57, 255, 20, 0.12);
+        border-radius: 2rem;
+        font-size: 0.8125rem;
+        color: rgba(255, 255, 255, 0.8);
+        transition: all 0.25s ease;
+    }
+
+    .trust-badge:hover {
+        background: rgba(57, 255, 20, 0.1);
+        border-color: rgba(57, 255, 20, 0.25);
+    }
+
+    .trust-badge svg {
+        width: 1rem;
+        height: 1rem;
+        color: #39ff14;
+        opacity: 0.85;
+    }
+
+    /* CTA Button */
+    .generator-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1rem 1.75rem;
+        background: linear-gradient(135deg, #39ff14 0%, #32d912 100%);
+        color: #0a0a0f;
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        border-radius: 0.75rem;
+        box-shadow:
+            0 0 20px rgba(57, 255, 20, 0.3),
+            0 4px 15px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+    }
+
+    .generator-cta:hover {
+        transform: translateY(-2px);
+        box-shadow:
+            0 0 30px rgba(57, 255, 20, 0.45),
+            0 8px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .generator-cta:active {
+        transform: translateY(0);
+    }
+
+    .generator-cta svg {
+        width: 1.25rem;
+        height: 1.25rem;
+        transition: transform 0.25s ease;
+    }
+
+    .generator-cta:hover svg {
+        transform: translateX(4px);
+    }
+
+    .generator-external-hint {
+        margin: 1rem 0 0 0;
+        font-size: 0.8125rem;
+        color: rgba(255, 255, 255, 0.35);
+    }
+
+    /* ===== Tips Section ===== */
+    .tips-section {
+        margin-bottom: 2.5rem;
+    }
+
+    .tips-title {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #fff;
+        margin: 0 0 1.5rem 0;
+    }
+
+    .tips-title svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        color: #39ff14;
+        opacity: 0.8;
+    }
+
+    .tips-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .tip-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        transition: all 0.25s ease;
+    }
+
+    .tip-card:hover {
+        background: rgba(57, 255, 20, 0.03);
+        border-color: rgba(57, 255, 20, 0.12);
+    }
+
+    .tip-icon {
+        width: 2.25rem;
+        height: 2.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(57, 255, 20, 0.08);
+        border-radius: 0.625rem;
+        margin-bottom: 1rem;
+    }
+
+    .tip-icon svg {
+        width: 1.125rem;
+        height: 1.125rem;
+        color: #39ff14;
+    }
+
+    .tip-card h3 {
+        margin: 0 0 0.5rem 0;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #fff;
+    }
+
+    .tip-card p {
+        margin: 0;
+        font-size: 0.875rem;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.55);
+    }
+
+    /* ===== Info Footer ===== */
+    .info-footer {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1.25rem 1.5rem;
+        background: rgba(57, 255, 20, 0.04);
+        border: 1px solid rgba(57, 255, 20, 0.1);
+        border-radius: 0.875rem;
+    }
+
+    .info-footer svg {
+        flex-shrink: 0;
+        width: 1.25rem;
+        height: 1.25rem;
+        color: #39ff14;
+        opacity: 0.7;
+        margin-top: 0.125rem;
+    }
+
+    .info-footer p {
+        margin: 0;
+        font-size: 0.9375rem;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .info-footer strong {
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+        .generator-card {
+            padding: 1.75rem;
+            border-radius: 1rem;
+        }
+
+        .generator-header {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .generator-icon-wrap {
+            width: 3rem;
+            height: 3rem;
+        }
+
+        .generator-icon-wrap svg {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        .generator-title-group h2 {
+            font-size: 1.25rem;
+        }
+
+        .generator-description {
+            font-size: 1rem;
+        }
+
+        .trust-badges {
+            gap: 0.5rem;
+        }
+
+        .trust-badge {
+            padding: 0.4rem 0.75rem;
+            font-size: 0.75rem;
+        }
+
+        .generator-cta {
+            width: 100%;
+            justify-content: center;
+            padding: 0.875rem 1.5rem;
+        }
+
+        .tips-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .tip-card {
+            padding: 1.25rem;
+        }
+
+        .info-footer {
+            flex-direction: column;
+            gap: 0.75rem;
+            text-align: center;
+        }
+
+        .info-footer svg {
+            margin: 0 auto;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .section-header {
+            margin-bottom: 2rem;
+        }
+
+        .generator-card {
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .trust-badge span {
+            display: none;
+        }
+
+        .trust-badge {
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+        }
+
+        .trust-badge svg {
+            width: 1.125rem;
+            height: 1.125rem;
+        }
+    }
 </style>
 {% endblock %}
