@@ -12,11 +12,17 @@ import json
 import secrets
 import logging
 import re
+from functools import lru_cache
 from logging.handlers import RotatingFileHandler
 from flask import Flask, render_template, send_from_directory, request, g
+from flask_compress import Compress
 
 # Initialize Flask app
 app = Flask(__name__)
+
+# Enable gzip/brotli compression for responses
+compress = Compress()
+compress.init_app(app)
 
 
 class IPAnonymizingFilter(logging.Filter):
@@ -481,17 +487,19 @@ def peace_communication():
 # ============================================================================
 
 
-@app.route("/tools")
-@app.route("/tools/")
-def tools_index():
-    """Tools overview page with sidebar navigation."""
+@lru_cache(maxsize=1)
+def _get_tools_data():
+    """Cache computed tools data structures (immutable at runtime)."""
     from data.tools_data import (
-        TOOLS, CATEGORIES, CATEGORY_GROUPS, TAGS, TAG_CATEGORIES,
+        TOOLS,
+        CATEGORIES,
+        CATEGORY_GROUPS,
+        TAGS,
+        TAG_CATEGORIES,
         FEATURED_CATEGORIES,
-        get_categories_by_group
+        get_categories_by_group,
     )
 
-    # Vorberechnete Daten fuer das Template
     # Tools nach Kategorie gruppieren
     tools_by_category = {}
     for tool in TOOLS:
@@ -518,19 +526,26 @@ def tools_index():
             tags_by_category[cat] = []
         tags_by_category[cat].append({"id": tag_id, **tag_info})
 
-    return render_template(
-        "tools/index.html",
-        tools=TOOLS,
-        categories=CATEGORIES,
-        category_groups=CATEGORY_GROUPS,
-        tags=TAGS,
-        tag_categories=TAG_CATEGORIES,
-        tags_by_category=tags_by_category,
-        tools_by_category=tools_by_category,
-        tag_counts=tag_counts,
-        categories_by_group=categories_by_group,
-        featured_categories=FEATURED_CATEGORIES
-    )
+    return {
+        "tools": TOOLS,
+        "categories": CATEGORIES,
+        "category_groups": CATEGORY_GROUPS,
+        "tags": TAGS,
+        "tag_categories": TAG_CATEGORIES,
+        "tags_by_category": tags_by_category,
+        "tools_by_category": tools_by_category,
+        "tag_counts": tag_counts,
+        "categories_by_group": categories_by_group,
+        "featured_categories": FEATURED_CATEGORIES,
+    }
+
+
+@app.route("/tools")
+@app.route("/tools/")
+def tools_index():
+    """Tools overview page with sidebar navigation."""
+    data = _get_tools_data()
+    return render_template("tools/index.html", **data)
 
 
 @app.route("/tools/passphrase")

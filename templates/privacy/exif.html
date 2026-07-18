@@ -138,13 +138,16 @@
 
 <!-- What Photos Reveal Infographic -->
 <div class="infographic-container">
-    <img
-        src="{{ url_for('static', filename='img/photo-metadata-risks.png') }}"
-        alt="Unsichtbare Spuren: Was deine Fotos verraten - GPS-Koordinaten, Zeitstempel, Kamera-Identifikation und mehr"
-        class="infographic-image"
-        onclick="openImageModal(this)"
-        loading="lazy"
-    >
+    <picture>
+        <source srcset="{{ url_for('static', filename='img/photo-metadata-risks.webp') }}" type="image/webp">
+        <img
+            src="{{ url_for('static', filename='img/photo-metadata-risks.png') }}"
+            alt="Unsichtbare Spuren: Was deine Fotos verraten - GPS-Koordinaten, Zeitstempel, Kamera-Identifikation und mehr"
+            class="infographic-image"
+            onclick="openImageModal(this)"
+            loading="lazy"
+        >
+    </picture>
     <p class="infographic-caption">
         &#128270; Was deine Fotos wirklich über dich verraten – Klicke zum Vergrößern
     </p>
@@ -152,13 +155,16 @@
 
 <!-- EXIF Removal Guide Infographic -->
 <div class="infographic-container">
-    <img
-        src="{{ url_for('static', filename='img/exif-removal-guide.png') }}"
-        alt="Anleitung zum Entfernen von Bild-Metadaten: Desktop-Lösungen, Mobile Methoden und Profi-Tools"
-        class="infographic-image"
-        onclick="openImageModal(this)"
-        loading="lazy"
-    >
+    <picture>
+        <source srcset="{{ url_for('static', filename='img/exif-removal-guide.webp') }}" type="image/webp">
+        <img
+            src="{{ url_for('static', filename='img/exif-removal-guide.png') }}"
+            alt="Anleitung zum Entfernen von Bild-Metadaten: Desktop-Lösungen, Mobile Methoden und Profi-Tools"
+            class="infographic-image"
+            onclick="openImageModal(this)"
+            loading="lazy"
+        >
+    </picture>
     <p class="infographic-caption">
         &#128269; Klicke auf das Bild zum Vergrößern
     </p>
