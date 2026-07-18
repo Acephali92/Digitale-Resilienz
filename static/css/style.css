@@ -1715,24 +1715,21 @@ a.card:hover {
     border-bottom: 1px solid var(--color-elevated);
 }
 
-.plan-card-icon {
-    font-size: var(--text-3xl);
+.plan-card-icon-svg {
+    width: 32px;
+    height: 32px;
+    color: var(--color-matrix);
     filter: drop-shadow(0 0 10px var(--color-matrix-glow));
+    flex-shrink: 0;
 }
 
 .plan-card-title {
     font-family: var(--font-display);
-    font-size: var(--text-lg);
+    font-size: var(--text-xl);
     font-weight: 600;
     color: var(--color-text);
     margin: 0;
-}
-
-.plan-card-subtitle {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    color: var(--color-text-dim);
-    margin-top: var(--space-xs);
+    letter-spacing: 0.02em;
 }
 
 /* Editable Steps */
@@ -1794,46 +1791,25 @@ a.card:hover {
     border-top: 1px solid var(--color-elevated);
 }
 
-/* Moderation Section */
-.moderation-section {
-    margin-bottom: var(--space-2xl);
-}
-
-.moderation-title {
-    font-family: var(--font-display);
-    font-size: var(--text-xl);
-    color: var(--color-text);
-    margin-bottom: var(--space-lg);
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-}
-
-.moderation-title::before {
-    content: '//';
-    color: var(--color-matrix);
-    opacity: 0.5;
-}
-
-.moderation-intro {
-    color: var(--color-text-dim);
-    margin-bottom: var(--space-xl);
-}
-
 /* Protection Level Cards */
 .level-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
 }
 
 .level-card {
-    background: var(--color-surface);
+    background: linear-gradient(145deg, var(--color-surface) 0%, var(--color-deep) 100%);
     border: 1px solid var(--color-elevated);
     padding: var(--space-xl);
     position: relative;
     overflow: hidden;
     transition: all 0.4s var(--ease-out-expo);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .level-card::before {
@@ -1845,116 +1821,92 @@ a.card:hover {
     height: 3px;
 }
 
+.level-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at top center, transparent 0%, transparent 100%);
+    pointer-events: none;
+    transition: background 0.4s var(--ease-out-expo);
+}
+
 .level-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-6px);
 }
 
-/* Level 1 - Green (Immediate) */
-.level-1 {
-    border-color: rgba(0, 255, 65, 0.3);
-}
-
-.level-1::before {
-    background: var(--color-matrix);
-}
-
-.level-1:hover {
-    border-color: var(--color-matrix);
-    box-shadow: 0 10px 40px rgba(0, 255, 65, 0.15);
-}
-
-.level-1 .level-icon {
-    color: var(--color-matrix);
-    filter: drop-shadow(0 0 10px var(--color-matrix-glow));
-}
-
-.level-1 .level-badge {
-    background: rgba(0, 255, 65, 0.1);
-    border-color: rgba(0, 255, 65, 0.3);
-    color: var(--color-matrix);
-}
-
-/* Level 2 - Blue (This Week) */
-.level-2 {
-    border-color: rgba(0, 212, 255, 0.3);
-}
-
-.level-2::before {
-    background: var(--color-info);
-}
-
-.level-2:hover {
-    border-color: var(--color-info);
-    box-shadow: 0 10px 40px rgba(0, 212, 255, 0.15);
-}
-
-.level-2 .level-icon {
-    color: var(--color-info);
-    filter: drop-shadow(0 0 10px var(--color-info-glow));
-}
-
-.level-2 .level-badge {
-    background: rgba(0, 212, 255, 0.1);
-    border-color: rgba(0, 212, 255, 0.3);
-    color: var(--color-info);
-}
-
-/* Level 3 - Amber (This Month) */
-.level-3 {
-    border-color: rgba(255, 170, 0, 0.3);
-}
-
-.level-3::before {
-    background: var(--color-warning);
-}
-
-.level-3:hover {
-    border-color: var(--color-warning);
-    box-shadow: 0 10px 40px rgba(255, 170, 0, 0.15);
-}
-
-.level-3 .level-icon {
-    color: var(--color-warning);
-    filter: drop-shadow(0 0 10px rgba(255, 170, 0, 0.5));
-}
-
-.level-3 .level-badge {
-    background: rgba(255, 170, 0, 0.1);
-    border-color: rgba(255, 170, 0, 0.3);
-    color: var(--color-warning);
-}
-
-.level-header {
+/* Icon Wrapper */
+.level-icon-wrapper {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
     display: flex;
-    align-items: flex-start;
-    gap: var(--space-md);
-    margin-bottom: var(--space-md);
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-lg);
+    position: relative;
+    transition: all 0.4s var(--ease-out-expo);
 }
 
-.level-icon {
+.level-icon-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px dashed;
+    opacity: 0.3;
+}
+
+.level-icon-svg {
+    width: 36px;
+    height: 36px;
+    transition: transform 0.4s var(--ease-out-expo);
+}
+
+.level-card:hover .level-icon-svg {
+    transform: scale(1.1);
+}
+
+/* Level Content */
+.level-content {
+    width: 100%;
+}
+
+.level-number {
+    display: block;
+    font-family: var(--font-display);
     font-size: var(--text-3xl);
+    font-weight: 900;
+    opacity: 0.15;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-xs);
 }
 
 .level-title {
     font-family: var(--font-display);
-    font-size: var(--text-lg);
-    font-weight: 600;
+    font-size: var(--text-xl);
+    font-weight: 700;
     color: var(--color-text);
-    margin: 0 0 var(--space-xs) 0;
+    margin: 0 0 var(--space-sm) 0;
+    letter-spacing: 0.02em;
 }
 
 .level-badge {
     display: inline-block;
     font-family: var(--font-mono);
     font-size: var(--text-xs);
-    padding: var(--space-xs) var(--space-sm);
+    padding: var(--space-xs) var(--space-md);
     border: 1px solid;
+    margin-bottom: var(--space-lg);
 }
 
 .level-list {
     list-style: none;
     padding: 0;
     margin: 0;
+    text-align: left;
 }
 
 .level-list li {
@@ -1964,6 +1916,7 @@ a.card:hover {
     font-size: var(--text-sm);
     line-height: 1.6;
     border-bottom: 1px solid var(--color-elevated);
+    transition: color 0.2s;
 }
 
 .level-list li:last-child {
@@ -1971,16 +1924,163 @@ a.card:hover {
 }
 
 .level-list li::before {
-    content: '▸';
+    content: '';
     position: absolute;
-    left: 0;
-    color: inherit;
-    opacity: 0.6;
+    left: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
 }
 
-.level-1 .level-list li::before { color: var(--color-matrix); }
-.level-2 .level-list li::before { color: var(--color-info); }
-.level-3 .level-list li::before { color: var(--color-warning); }
+.level-card:hover .level-list li {
+    color: var(--color-text);
+}
+
+/* Level 1 - Green (Immediate) */
+.level-1 {
+    border-color: rgba(0, 255, 65, 0.3);
+}
+
+.level-1::before {
+    background: linear-gradient(90deg, var(--color-matrix), transparent);
+}
+
+.level-1:hover {
+    border-color: var(--color-matrix);
+    box-shadow:
+        0 15px 50px rgba(0, 255, 65, 0.2),
+        0 0 30px rgba(0, 255, 65, 0.1);
+}
+
+.level-1:hover::after {
+    background: radial-gradient(circle at top center, rgba(0, 255, 65, 0.05) 0%, transparent 70%);
+}
+
+.level-1 .level-icon-wrapper {
+    background: rgba(0, 255, 65, 0.1);
+}
+
+.level-1 .level-icon-wrapper::before {
+    border-color: var(--color-matrix);
+}
+
+.level-1 .level-icon-svg {
+    color: var(--color-matrix);
+    filter: drop-shadow(0 0 8px var(--color-matrix-glow));
+}
+
+.level-1 .level-number {
+    color: var(--color-matrix);
+}
+
+.level-1 .level-badge {
+    background: rgba(0, 255, 65, 0.1);
+    border-color: rgba(0, 255, 65, 0.4);
+    color: var(--color-matrix);
+}
+
+.level-1 .level-list li::before {
+    background: var(--color-matrix);
+    box-shadow: 0 0 6px var(--color-matrix-glow);
+}
+
+/* Level 2 - Blue (This Week) */
+.level-2 {
+    border-color: rgba(0, 212, 255, 0.3);
+}
+
+.level-2::before {
+    background: linear-gradient(90deg, var(--color-info), transparent);
+}
+
+.level-2:hover {
+    border-color: var(--color-info);
+    box-shadow:
+        0 15px 50px rgba(0, 212, 255, 0.2),
+        0 0 30px rgba(0, 212, 255, 0.1);
+}
+
+.level-2:hover::after {
+    background: radial-gradient(circle at top center, rgba(0, 212, 255, 0.05) 0%, transparent 70%);
+}
+
+.level-2 .level-icon-wrapper {
+    background: rgba(0, 212, 255, 0.1);
+}
+
+.level-2 .level-icon-wrapper::before {
+    border-color: var(--color-info);
+}
+
+.level-2 .level-icon-svg {
+    color: var(--color-info);
+    filter: drop-shadow(0 0 8px var(--color-info-glow));
+}
+
+.level-2 .level-number {
+    color: var(--color-info);
+}
+
+.level-2 .level-badge {
+    background: rgba(0, 212, 255, 0.1);
+    border-color: rgba(0, 212, 255, 0.4);
+    color: var(--color-info);
+}
+
+.level-2 .level-list li::before {
+    background: var(--color-info);
+    box-shadow: 0 0 6px var(--color-info-glow);
+}
+
+/* Level 3 - Amber (This Month) */
+.level-3 {
+    border-color: rgba(255, 170, 0, 0.3);
+}
+
+.level-3::before {
+    background: linear-gradient(90deg, var(--color-warning), transparent);
+}
+
+.level-3:hover {
+    border-color: var(--color-warning);
+    box-shadow:
+        0 15px 50px rgba(255, 170, 0, 0.2),
+        0 0 30px rgba(255, 170, 0, 0.1);
+}
+
+.level-3:hover::after {
+    background: radial-gradient(circle at top center, rgba(255, 170, 0, 0.05) 0%, transparent 70%);
+}
+
+.level-3 .level-icon-wrapper {
+    background: rgba(255, 170, 0, 0.1);
+}
+
+.level-3 .level-icon-wrapper::before {
+    border-color: var(--color-warning);
+}
+
+.level-3 .level-icon-svg {
+    color: var(--color-warning);
+    filter: drop-shadow(0 0 8px rgba(255, 170, 0, 0.5));
+}
+
+.level-3 .level-number {
+    color: var(--color-warning);
+}
+
+.level-3 .level-badge {
+    background: rgba(255, 170, 0, 0.1);
+    border-color: rgba(255, 170, 0, 0.4);
+    color: var(--color-warning);
+}
+
+.level-3 .level-list li::before {
+    background: var(--color-warning);
+    box-shadow: 0 0 6px rgba(255, 170, 0, 0.5);
+}
 
 /* Quote Box */
 .quote-box {

@@ -96,100 +96,102 @@
         </p>
     </div>
 
-    <!-- Workshop-Ablauf Info -->
-    <p class="text-secondary mb-lg">
-        Die Moderation verteilt eine letzte Karte – oder die Rückseite der Threat-Modeling-Karte.
-        Drei Minuten Schreiben. Dann optional: Wer mag, liest einen Schritt vor – nicht alle, nicht verpflichtend.
-    </p>
-
     <!-- Interactive Plan Card -->
     <div class="plan-card" id="plan-card">
         <div class="plan-card-header">
-            <span class="plan-card-icon">&#128221;</span>
-            <div>
-                <h3 class="plan-card-title">Meine drei Schritte in den nächsten 48 Stunden:</h3>
-                <p class="plan-card-subtitle">Schreibe konkret auf, was du tun wirst.</p>
-            </div>
+            <svg class="plan-card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+            </svg>
+            <h3 class="plan-card-title">Meine drei Schritte in den nächsten 48 Stunden</h3>
         </div>
 
         <div class="editable-steps">
             <div class="editable-step">
                 <span class="step-number">1</span>
-                <textarea class="step-input" id="step-1" placeholder="Was wirst du als Erstes tun?" rows="1" aria-label="Schritt 1"></textarea>
+                <textarea class="step-input" id="step-1" placeholder="Erster Schritt..." rows="1" aria-label="Schritt 1"></textarea>
             </div>
             <div class="editable-step">
                 <span class="step-number">2</span>
-                <textarea class="step-input" id="step-2" placeholder="Was kommt als Nächstes?" rows="1" aria-label="Schritt 2"></textarea>
+                <textarea class="step-input" id="step-2" placeholder="Zweiter Schritt..." rows="1" aria-label="Schritt 2"></textarea>
             </div>
             <div class="editable-step">
                 <span class="step-number">3</span>
-                <textarea class="step-input" id="step-3" placeholder="Und dann?" rows="1" aria-label="Schritt 3"></textarea>
+                <textarea class="step-input" id="step-3" placeholder="Dritter Schritt..." rows="1" aria-label="Schritt 3"></textarea>
             </div>
         </div>
 
         <div class="plan-card-actions">
             <button type="button" class="btn btn-primary js-only" id="print-plan">
-                &#128424; Karte drucken
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z"/>
+                </svg>
+                Drucken
             </button>
             <button type="button" class="btn btn-secondary js-only" id="clear-plan">
-                &#128465; Löschen
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                </svg>
+                Löschen
             </button>
         </div>
     </div>
 
-    <!-- Moderation Section -->
-    <div class="moderation-section">
-        <h3 class="moderation-title">Orientierungshilfe für die Moderation</h3>
-        <p class="moderation-intro">Falls jemand nicht weiß, wo anfangen:</p>
-
-        <!-- Three Protection Levels -->
-        <div class="level-grid">
-            <!-- Level 1 - Green -->
-            <div class="level-card level-1">
-                <div class="level-header">
-                    <span class="level-icon">&#128737;</span>
-                    <div>
-                        <h4 class="level-title">Schutzebene 1</h4>
-                        <span class="level-badge">sofort • 10 Min • kostenlos</span>
-                    </div>
-                </div>
+    <!-- Three Protection Levels -->
+    <div class="level-grid">
+        <!-- Level 1 - Green -->
+        <div class="level-card level-1">
+            <div class="level-icon-wrapper">
+                <svg class="level-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+            </div>
+            <div class="level-content">
+                <span class="level-number">01</span>
+                <h4 class="level-title">Sofort-Schutz</h4>
+                <span class="level-badge">10 Minuten • kostenlos</span>
                 <ul class="level-list">
-                    <li>PIN statt Fingerabdruck aktivieren.</li>
-                    <li><a href="https://haveibeenpwned.com" target="_blank" rel="noopener noreferrer">haveibeenpwned.com</a> für die eigene E-Mail-Adresse prüfen.</li>
-                    <li>Signal installieren und einer Person schreiben.</li>
-                    <li>Auf <a href="https://datenanfragen.de" target="_blank" rel="noopener noreferrer">datenanfragen.de</a> eine Auskunftsanfrage an einen Dienst senden (Meta, Google, Mobilfunkanbieter). Das dauert 90 Sekunden und ist DSGVO-Recht.</li>
+                    <li>PIN statt Fingerabdruck aktivieren</li>
+                    <li><a href="https://haveibeenpwned.com" target="_blank" rel="noopener noreferrer">haveibeenpwned.com</a> prüfen</li>
+                    <li>Signal installieren</li>
+                    <li><a href="https://datenanfragen.de" target="_blank" rel="noopener noreferrer">DSGVO-Auskunft</a> anfordern</li>
                 </ul>
             </div>
+        </div>
 
-            <!-- Level 2 - Blue -->
-            <div class="level-card level-2">
-                <div class="level-header">
-                    <span class="level-icon">&#128197;</span>
-                    <div>
-                        <h4 class="level-title">Schutzebene 2</h4>
-                        <span class="level-badge">diese Woche • 1–2 Std</span>
-                    </div>
-                </div>
+        <!-- Level 2 - Blue -->
+        <div class="level-card level-2">
+            <div class="level-icon-wrapper">
+                <svg class="level-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+            </div>
+            <div class="level-content">
+                <span class="level-number">02</span>
+                <h4 class="level-title">Diese Woche</h4>
+                <span class="level-badge">1–2 Stunden</span>
                 <ul class="level-list">
-                    <li>Bitwarden oder KeePassXC einrichten und die drei wichtigsten Passwörter migrieren.</li>
-                    <li>Einen RSS-Reader einrichten und drei Feeds aus der Liste abonnieren.</li>
-                    <li>Signal-Selbstzerstörung für Demo-Gruppen aktivieren.</li>
+                    <li>Passwort-Manager einrichten</li>
+                    <li>RSS-Reader mit 3 Feeds</li>
+                    <li>Signal-Selbstzerstörung aktivieren</li>
                 </ul>
             </div>
+        </div>
 
-            <!-- Level 3 - Amber -->
-            <div class="level-card level-3">
-                <div class="level-header">
-                    <span class="level-icon">&#127919;</span>
-                    <div>
-                        <h4 class="level-title">Schutzebene 3</h4>
-                        <span class="level-badge">diesen Monat • erhöhtes Risikoprofil</span>
-                    </div>
-                </div>
+        <!-- Level 3 - Amber -->
+        <div class="level-card level-3">
+            <div class="level-icon-wrapper">
+                <svg class="level-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+            </div>
+            <div class="level-content">
+                <span class="level-number">03</span>
+                <h4 class="level-title">Diesen Monat</h4>
+                <span class="level-badge">erhöhtes Risikoprofil</span>
                 <ul class="level-list">
-                    <li>Briar installieren und mit der eigenen Gruppe testen.</li>
-                    <li>Mullvad VPN einrichten.</li>
-                    <li>GrapheneOS recherchieren und entscheiden, ob es zum eigenen Bedrohungsprofil passt.</li>
+                    <li>Briar testen</li>
+                    <li>Mullvad VPN einrichten</li>
+                    <li>GrapheneOS evaluieren</li>
                 </ul>
             </div>
         </div>
