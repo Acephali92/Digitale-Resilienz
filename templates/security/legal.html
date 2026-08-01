@@ -3,10 +3,31 @@
 {% block content %}
 <section class="section-header">
     <h1>&#9878; Rechtliche Tipps</h1>
-    <p class="section-subtitle">Deine Rechte im Umgang mit Behörden und bei Kontrollen.</p>
+    <p class="section-subtitle">Präventive Krisenvorsorge und Verhalten bei Durchsuchungsmaßnahmen.</p>
 </section>
 
+<!-- Strategischer Kontext -->
 <section class="card">
+    <h2>&#128161; Strategischer Kontext</h2>
+    <p>
+        In einem Umfeld, in dem die Eingriffsschwellen für staatliche Maßnahmen stetig sinken,
+        ist die Integrität einer Organisation nicht mehr allein durch rechtskonformes Handeln geschützt.
+    </p>
+    <p class="mt-md">
+        Wie der Fall der <strong>„Zwiebelfreunde"</strong> eindrucksvoll belegt, reicht oft schon eine
+        lose Verbindung zu Dritten – etwa das Bereitstellen eines Spendenkontos für eine Infrastruktur
+        wie Riseup –, um zur Zielscheibe weitreichender Durchsuchungen zu werden.
+    </p>
+    <div class="alert alert-warning mt-md">
+        <strong>&#9888; Kontaktschuld (Guilt by Association):</strong> Organisationen sind selbst dann
+        als „Zeugen" massiven Repressionen ausgesetzt, wenn sie sich keinerlei Verfehlungen schuldig
+        gemacht haben. Durchsuchungen sind taktisch darauf ausgelegt, Betroffene unvorbereitet und
+        unter hohem psychologischem Druck (typischerweise ab 06:00 Uhr morgens) zu überrumpeln.
+    </div>
+</section>
+
+<!-- PIN vs. Biometrie -->
+<section class="card mt-lg">
     <h2>&#128275; PIN vs. Biometrie – BGH 2025</h2>
     <p>Der Bundesgerichtshof hat entschieden, dass du zur Entsperrung per <strong>Biometrie</strong> (Fingerabdruck, Face ID) gezwungen werden kannst. Bei <strong>PIN/Passwort</strong> greift hingegen das Aussageverweigerungsrecht.</p>
     <div class="alert alert-warning mt-md">
@@ -14,29 +35,232 @@
     </div>
 </section>
 
+<!-- Präventive Infrastruktur- und Datenstrategie -->
+<section class="card mt-lg">
+    <h2>&#128187; Präventive Infrastruktur- und Datenstrategie</h2>
+    <p>
+        Eine konsequente IT-Hygiene fungiert als primäres Schutzschild. Technische Vorkehrungen
+        müssen so gestaltet sein, dass sie die „Plausible Nicht-Relevanz" von Hardware im Moment
+        des Zugriffs belegen können.
+    </p>
+</section>
+
+<section class="card mt-md">
+    <h3>&#128190; Backup-Management & IT-Hygiene</h3>
+    <ul class="checklist">
+        <li><strong>Physische Trennung:</strong> Backups müssen verschlüsselt und außerhalb der Vereinsräumlichkeiten gelagert werden.</li>
+        <li><strong>Restore-Tests:</strong> Nur ein erfolgreich getesteter Restore garantiert die Handlungsfähigkeit nach einer Beschlagnahme.</li>
+        <li><strong>Papier-Backups:</strong> Da Behörden häufig ganze Aktenordner (Buchhaltung, Spenderlisten) mitnehmen, sind digitale Kopien physischer Unterlagen an externen Standorten zwingend erforderlich.</li>
+        <li><strong>Datenminimierung:</strong> Nicht betriebsnotwendige Logfiles (WLAN-Logins, Server-Logs) sind umgehend zu löschen. Was nicht existiert, kann nicht gegen die Organisation verwendet werden.</li>
+    </ul>
+</section>
+
+<section class="card mt-md">
+    <h3>&#127991; Taktische Gerätekennzeichnung (Labeling)</h3>
+    <p>In geteilten Räumen (Hackspaces/Gemeinschaftsbüros) ist die Kennzeichnung von Hardware strategisch einzusetzen.</p>
+    <ul class="checklist mt-md">
+        <li><strong>Physische Labels:</strong> Kennzeichnen Sie Hardware eindeutig (z.B. „Eigentum von Person X").</li>
+        <li><strong>Login-Screen-Faktor:</strong> Stellen Sie sicher, dass Hostnames oder Login-Screens mit den physischen Labels übereinstimmen.</li>
+    </ul>
+    <div class="alert alert-info mt-md">
+        <strong>&#128161; Tipp:</strong> Erfahrungen zeigen, dass Beamte eher bereit sind, Geräte stehen zu lassen
+        (z.B. Laptops von Kindern oder Unbeteiligten), wenn eine schnelle Prüfung vor Ort die Nicht-Zugehörigkeit
+        zur Zielperson bestätigt.
+    </div>
+</section>
+
+<section class="card mt-md">
+    <h3>&#128451; Strategische Spiegelung (Mirroring)</h3>
+    <p>
+        Fordern Sie im Falle einer Beschlagnahme unmittelbar die <strong>Spiegelung (Mirroring)</strong>
+        der Daten als milderes Mittel.
+    </p>
+    <div class="grid grid-2 mt-md">
+        <div class="alert alert-success">
+            <h4>Thüringen</h4>
+            <p>Hardware wird nach einer Spiegelung oft innerhalb von Tagen zurückgegeben.</p>
+        </div>
+        <div class="alert alert-danger">
+            <h4>Bayern</h4>
+            <p>Behörden behalten Geräte ohne strategischen Gegendruck teils über Jahre ein.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Rechtliche Netzwerke -->
+<section class="card mt-lg">
+    <h2>&#128222; Rechtliche Netzwerke und Kontaktmanagement</h2>
+    <p>
+        Der Erfolg im Krisenmoment hängt von der sofortigen Verfügbarkeit juristischer Expertise ab.
+        Ein Anwalt muss bereits am Einsatzort präsent sein, <strong>bevor</strong> die erste Hardware
+        die Räumlichkeiten verlässt.
+    </p>
+    <ul class="checklist mt-md">
+        <li><strong>Notfallliste:</strong> Erstellen Sie eine Liste spezialisierter Anwälte mit Fokus auf IT- und Vereinsrecht.</li>
+        <li><strong>24/7-Erreichbarkeit:</strong> Hinterlegen Sie zwingend Mobilnummern, um Durchsuchungen in den frühen Morgenstunden abfangen zu können.</li>
+        <li><strong>Zentrale Lagerung:</strong> Platzieren Sie diese Kontakte als physische Aufkleber oder Aushänge an prominenter Stelle im Vereinsheim.</li>
+    </ul>
+    <div class="alert alert-warning mt-md">
+        <strong>&#9888; Wichtig:</strong> Da eigene Smartphones oft als erste Amtshandlung beschlagnahmt werden,
+        ist der Zugriff auf digitale Kontaktlisten im Ernstfall unmöglich.
+    </div>
+</section>
+
+<!-- Beschuldigter vs. Zeuge -->
+<section class="card mt-lg">
+    <h2>&#9878; Beschuldigter vs. Zeuge</h2>
+    <p>
+        Das strategische Verhalten unterscheidet sich fundamental je nach Rechtsstatus.
+        Seit der Änderung der Strafprozessordnung (StPO) wurden insbesondere die Rechte von Zeugen eingeschränkt.
+    </p>
+    <table class="table mt-md">
+        <thead>
+            <tr>
+                <th>Merkmal</th>
+                <th>Beschuldigter</th>
+                <th>Zeuge</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Aussagepflicht</strong></td>
+                <td>Umfassendes Schweigerecht</td>
+                <td>Aussagepflicht gegenüber der Polizei, wenn diese im Auftrag der Staatsanwaltschaft handelt (neue StPO)</td>
+            </tr>
+            <tr>
+                <td><strong>Mitwirkung</strong></td>
+                <td>Keine Pflicht zur aktiven Mitwirkung</td>
+                <td>Keine Pflicht zur freiwilligen Herausgabe ohne Beschluss</td>
+            </tr>
+            <tr>
+                <td><strong>Anwesenheitsrecht</strong></td>
+                <td>Recht auf Hinzuziehung eines Verteidigers</td>
+                <td>Recht auf juristischen Beistand</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- Kern-Imperativ: Keine Mitwirkung -->
+<section class="card mt-lg">
+    <h2>&#128683; Kern-Imperativ: Keine Mitwirkung</h2>
+    <p>Leisten Sie unter keinen Umständen aktive Hilfe bei der eigenen Strafverfolgung:</p>
+    <ul class="checklist mt-md">
+        <li><strong>Keine Passwörter:</strong> Geben Sie niemals Entsperrcodes oder Passwörter heraus.</li>
+        <li><strong>Strategische Ablehnung:</strong> Das Narrativ der „kooperativen Strafmilderung" ist ein taktisches Druckmittel.</li>
+    </ul>
+    <div class="alert alert-info mt-md">
+        <strong>&#128161; Kostendrohung:</strong> Behörden drohen oft mit Kosten für technische Entsperrung
+        (z.B. Cellebrite-Verfahren, ca. 2.000 EUR). Diese Kosten sind im Vergleich zum Risiko einer
+        vollständigen Datenexposition strategisch zu vernachlässigen.
+    </div>
+</section>
+
+<!-- Verhaltensregeln während der Durchsuchung -->
+<section class="card mt-lg">
+    <h2>&#128680; Verhaltensregeln während der Durchsuchung</h2>
+    <p>
+        In der Stresssituation sind <strong>Ruhe und Gewaltfreiheit</strong> die wichtigsten taktischen Werkzeuge.
+        Jede unüberlegte Handlung kann als Widerstand gegen Vollstreckungsbeamte gewertet werden.
+    </p>
+</section>
+
+<section class="card mt-md">
+    <h3>&#9203; Sofortmaßnahmen (Die ersten 15 Minuten)</h3>
+    <ul class="checklist">
+        <li><strong>Durchsuchungsbeschluss prüfen:</strong> Verlangen Sie eine Kopie und prüfen Sie die sachliche und zeitliche Reichweite.</li>
+        <li><strong>Anwalt kontaktieren:</strong> Bestehen Sie auf das Eintreffen Ihres Rechtsbeistands, bevor die Maßnahme beginnt.</li>
+        <li><strong>Unabhängige Zeugen:</strong> Sie haben das Recht auf Hinzuziehung von Zeugen. Lehnen Sie vom Amt mitgebrachte Zeugen (z.B. Mitarbeiter des Ordnungsamtes) als nicht unabhängig ab. Rufen Sie Nachbarn oder unbeteiligte Dritte hinzu.</li>
+    </ul>
+</section>
+
+<section class="card mt-md">
+    <h3>&#128172; Interaktionsregeln</h3>
+    <div class="alert alert-warning">
+        <strong>Zentraler Befehl:</strong> „Widersprechen Sie jeder Maßnahme förmlich, ohne physischen Widerstand zu leisten."
+    </div>
+    <ul class="checklist mt-md">
+        <li><strong>Kommunizieren Sie klar:</strong> „Ich widerspreche der Durchsuchung und der Sicherstellung aller Gegenstände."</li>
+        <li><strong>Niemals allein lassen:</strong> Lassen Sie die Beamten niemals allein in einem Raum.</li>
+        <li><strong>Nacheinander durchsuchen:</strong> Bestehen Sie darauf, dass Räume nacheinander durchsucht werden, damit Sie jeden Schritt beobachten und dokumentieren können.</li>
+    </ul>
+</section>
+
+<!-- Protokollierung und Sicherstellung -->
+<section class="card mt-lg">
+    <h2>&#128221; Protokollierung und Sicherstellung</h2>
+    <p>Die Qualität des Sicherstellungsprotokolls entscheidet über die Erfolgsaussichten der späteren Rückforderung von Hardware.</p>
+    <ul class="checklist mt-md">
+        <li><strong>Präzision:</strong> Bestehen Sie auf die exakte Bezeichnung jedes Gegenstands (Marke, Modell, Seriennummer). Akzeptieren Sie keine Pauschalbegriffe wie „eine Tüte USB-Sticks".</li>
+        <li><strong>Keine Freiwilligkeit:</strong> Unterschreiben Sie niemals eine „freiwillige Herausgabe". Nur eine unfreiwillige Beschlagnahme ist rechtlich anfechtbar.</li>
+        <li><strong>Widerspruch:</strong> Kreuzen Sie im Protokoll explizit das Feld für den „Widerspruch gegen die Sicherstellung" an.</li>
+    </ul>
+</section>
+
+<!-- Bei Polizeikontrolle -->
 <section class="card mt-lg">
     <h2>&#128101; Bei Polizeikontrolle</h2>
     <ul class="checklist">
-        <li><strong>Pflichtangaben</strong>: Name, Adresse, Geburtsdatum, Staatsangehörigkeit</li>
-        <li><strong>Keine Aussage zur Sache</strong>: „Dazu möchte ich nichts sagen"</li>
-        <li><strong>Handy nicht entsperren</strong>: Du musst dein Gerät nicht entsperren</li>
-        <li><strong>Durchsuchung protokollieren</strong>: Was wurde wann durchsucht?</li>
-        <li><strong>Zeugen</strong>: Nach Dienstnummer fragen, Zeugen suchen</li>
+        <li><strong>Pflichtangaben:</strong> Name, Adresse, Geburtsdatum, Staatsangehörigkeit</li>
+        <li><strong>Keine Aussage zur Sache:</strong> „Dazu möchte ich nichts sagen"</li>
+        <li><strong>Handy nicht entsperren:</strong> Du musst dein Gerät nicht entsperren</li>
+        <li><strong>Durchsuchung protokollieren:</strong> Was wurde wann durchsucht?</li>
+        <li><strong>Zeugen:</strong> Nach Dienstnummer fragen, Zeugen suchen</li>
     </ul>
 </section>
 
+<!-- Bei Beschlagnahmung -->
 <section class="card mt-lg">
     <h2>&#128275; Bei Beschlagnahmung</h2>
     <ul class="checklist">
-        <li><strong>Widerspruch einlegen</strong>: Mündlich und schriftlich</li>
-        <li><strong>Protokoll verlangen</strong>: Was wurde beschlagnahmt?</li>
-        <li><strong>Anwältin kontaktieren</strong>: So schnell wie möglich</li>
-        <li><strong>EA informieren</strong>: Bei Demo-Kontext</li>
-        <li><strong>Passwort NICHT nennen</strong>: Aussageverweigerungsrecht nutzen</li>
+        <li><strong>Widerspruch einlegen:</strong> Mündlich und schriftlich</li>
+        <li><strong>Protokoll verlangen:</strong> Was wurde beschlagnahmt?</li>
+        <li><strong>Anwältin kontaktieren:</strong> So schnell wie möglich</li>
+        <li><strong>EA informieren:</strong> Bei Demo-Kontext</li>
+        <li><strong>Passwort NICHT nennen:</strong> Aussageverweigerungsrecht nutzen</li>
     </ul>
 </section>
 
+<!-- Post-Krisen-Management -->
+<section class="card mt-lg">
+    <h2>&#128196; Post-Krisen-Management</h2>
+    <p>Nach dem Abzug der Beamten beginnt die Phase der juristischen Gegenoffensive. Zeitnahes Handeln ist hier entscheidend.</p>
+</section>
+
+<section class="card mt-md">
+    <h3>&#128466; Das Gedächtnisprotokoll</h3>
+    <p>Erstellen Sie unmittelbar ein internes Protokoll. Es dient als Hauptwaffe für spätere Beschwerden.</p>
+    <ul class="checklist mt-md">
+        <li><strong>Zeitlicher Ablauf:</strong> Wann hat was stattgefunden?</li>
+        <li><strong>Namen der Beamten:</strong> Soweit bekannt, Dienstnummern notieren</li>
+        <li><strong>Verweigerte Rechte:</strong> Z.B. Telefonat mit Anwalt unterbunden</li>
+        <li><strong>Sachschäden:</strong> Fotos von aufgebrochenen Türen/Schränken</li>
+    </ul>
+</section>
+
+<section class="card mt-md">
+    <h3>&#9878; Juristische Schritte</h3>
+    <p>In Abstimmung mit dem Anwalt sind folgende Maßnahmen einzuleiten:</p>
+    <ul class="checklist mt-md">
+        <li><strong>Herausgabeverlangen:</strong> Antrag auf Rückgabe (ggf. unter Hinweis auf Spiegelung)</li>
+        <li><strong>Beschwerde gegen den Beschluss:</strong> Ziel ist die Feststellung der Rechtswidrigkeit (wie im Fall der Zwiebelfreunde)</li>
+        <li><strong>Schadenersatz:</strong> Geltendmachung von Sachschäden bei unverhältnismäßigen Maßnahmen</li>
+    </ul>
+    <div class="alert alert-success mt-md">
+        <strong>&#128161; Erfolg:</strong> Eine erfolgreiche Beschwerde kann zu Beweisverwertungsverboten führen
+        und zwingt die Staatskasse zur Übernahme der Anwaltskosten. Diese „Ohrfeige" für die Justiz stärkt
+        langfristig die Position der Zivilgesellschaft gegen staatliche Willkür.
+    </div>
+</section>
+
+<!-- Rechtshilfe -->
 <section class="alert alert-info mt-lg">
-    <strong>&#128222; Rechtshilfe:</strong> <a href="https://www.rote-hilfe.de/" target="_blank" rel="noopener">Rote Hilfe e.V.</a> – Bundesweite Rechtshilfe für ACHTUNG:linke Aktivistinnen. (leider)
+    <strong>&#128222; Rechtshilfe:</strong> <a href="https://www.rote-hilfe.de/" target="_blank" rel="noopener">Rote Hilfe e.V.</a> – Bundesweite Rechtshilfe für linke Aktivist*innen.
+</section>
+
+<!-- Abschluss -->
+<section class="alert alert-warning mt-lg">
+    <strong>&#128736; Zusammenfassung:</strong> Zivilgesellschaftlicher Zusammenhalt und technische Vorbereitung
+    sind die wirksamsten Mittel gegen Repression. Bleiben Sie wachsam.
 </section>
 {% endblock %}
