@@ -355,6 +355,12 @@ def resilience_euphemismen():
     return render_template("resilience/euphemismen.html")
 
 
+@app.route("/resilience/manipulation")
+def resilience_manipulation():
+    """Manipulation mechanisms - how media shapes worldview."""
+    return render_template("resilience/manipulation.html")
+
+
 @app.route("/resilience/sources")
 def resilience_sources():
     """Independent news sources with transparency info - SecuChart style."""
