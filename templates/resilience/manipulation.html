@@ -1,0 +1,1162 @@
+{% extends "base.html" %}
+
+{% block title %}Lernleitfaden: Mechanismen der Manipulation{% endblock %}
+
+{% block head %}
+<style nonce="{{ csp_nonce }}">
+    /* ==================== PURPLE COLOR PALETTE ==================== */
+    :root {
+        --color-manipulation: #a855f7;
+        --color-manipulation-dim: #9333ea;
+        --color-manipulation-glow: rgba(168, 85, 247, 0.6);
+        --color-manipulation-subtle: rgba(168, 85, 247, 0.1);
+    }
+
+    /* Override matrix colors for this page */
+    .manipulation-page .section-number {
+        background: var(--color-manipulation);
+    }
+
+    .manipulation-page .quote-block {
+        border-left-color: var(--color-manipulation);
+    }
+
+    .manipulation-page .quote-block cite {
+        color: var(--color-manipulation);
+    }
+
+    .manipulation-page .accordion-header::after {
+        color: var(--color-manipulation);
+    }
+
+    .manipulation-page .accordion-header:hover {
+        color: var(--color-manipulation);
+    }
+
+    .manipulation-page .check-box {
+        border-color: var(--color-manipulation);
+    }
+
+    .manipulation-page .interactive-checklist li.checked .check-box {
+        background: var(--color-manipulation);
+    }
+
+    .manipulation-page .interactive-checklist li.checked {
+        border-color: var(--color-manipulation);
+        background: var(--color-manipulation-subtle);
+    }
+
+    .manipulation-page .interactive-checklist li:hover {
+        border-color: var(--color-manipulation);
+    }
+
+    .manipulation-page .progress-label,
+    .manipulation-page .progress-percent {
+        color: var(--color-manipulation);
+    }
+
+    .manipulation-page .progress-bar {
+        border-color: var(--color-manipulation);
+    }
+
+    .manipulation-page .progress-fill {
+        background: var(--color-manipulation);
+        box-shadow: 0 0 10px var(--color-manipulation-glow);
+    }
+
+    /* ==================== SECTION NUMBERING ==================== */
+    .section-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        background: var(--color-manipulation);
+        color: var(--color-void);
+        font-family: var(--font-display);
+        font-size: var(--text-xl);
+        font-weight: 900;
+        margin-right: var(--space-md);
+        flex-shrink: 0;
+    }
+
+    .section-title-wrapper {
+        display: flex;
+        align-items: center;
+        margin-bottom: var(--space-lg);
+    }
+
+    .section-title-text {
+        font-size: var(--text-2xl);
+        color: var(--color-text);
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    /* ==================== QUOTE BLOCKS ==================== */
+    .quote-block {
+        border-left: 3px solid var(--color-manipulation);
+        padding-left: var(--space-md);
+        margin: var(--space-lg) 0;
+        font-style: italic;
+        color: var(--color-text-dim);
+    }
+
+    .quote-block cite {
+        display: block;
+        margin-top: var(--space-sm);
+        font-style: normal;
+        color: var(--color-manipulation);
+        font-size: var(--text-sm);
+    }
+
+    /* ==================== INFO CARDS GRID ==================== */
+    .info-card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: var(--space-lg);
+        margin: var(--space-xl) 0;
+    }
+
+    .info-card {
+        background: var(--color-surface);
+        border: 1px solid var(--color-elevated);
+        padding: var(--space-xl);
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .info-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: var(--color-manipulation);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .info-card:hover {
+        background: var(--color-elevated);
+        border-color: var(--color-manipulation);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 20px rgba(168, 85, 247, 0.2);
+    }
+
+    .info-card:hover::before {
+        opacity: 1;
+    }
+
+    .info-card-icon {
+        font-size: var(--text-3xl);
+        margin-bottom: var(--space-md);
+    }
+
+    .info-card-title {
+        font-family: var(--font-display);
+        font-size: var(--text-lg);
+        color: var(--color-manipulation);
+        margin-bottom: var(--space-sm);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .info-card-desc {
+        color: var(--color-text-dim);
+        font-size: var(--text-sm);
+        line-height: 1.6;
+    }
+
+    .info-card-example {
+        margin-top: var(--space-md);
+        padding-top: var(--space-md);
+        border-top: 1px solid var(--color-elevated);
+        font-size: var(--text-xs);
+        color: var(--color-text-muted);
+    }
+
+    /* ==================== BRAINWAVE TABLE ==================== */
+    .brainwave-table-wrapper {
+        overflow-x: auto;
+        margin: var(--space-lg) 0;
+        border: 1px solid var(--color-elevated);
+    }
+
+    .brainwave-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 600px;
+    }
+
+    .brainwave-table th,
+    .brainwave-table td {
+        padding: var(--space-md);
+        text-align: left;
+        border: 1px solid var(--color-elevated);
+    }
+
+    .brainwave-table th {
+        background: var(--color-manipulation);
+        color: var(--color-void);
+        font-family: var(--font-display);
+        font-size: var(--text-sm);
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+    }
+
+    .brainwave-table tbody tr {
+        background: var(--color-surface);
+        transition: all 0.3s ease;
+    }
+
+    .brainwave-table tbody tr:hover {
+        background: var(--color-elevated);
+        box-shadow: inset 4px 0 0 var(--color-manipulation);
+    }
+
+    .brainwave-table td:first-child {
+        font-weight: 600;
+        color: var(--color-manipulation);
+        font-family: var(--font-display);
+        white-space: nowrap;
+    }
+
+    /* ==================== ACCORDION ==================== */
+    .accordion {
+        margin: var(--space-md) 0;
+    }
+
+    .accordion-item {
+        border: 1px solid var(--color-elevated);
+        margin-bottom: var(--space-xs);
+        background: var(--color-surface);
+    }
+
+    .accordion-header {
+        width: 100%;
+        padding: var(--space-md) var(--space-lg);
+        background: transparent;
+        border: none;
+        color: var(--color-text);
+        font-family: var(--font-mono);
+        font-size: var(--text-base);
+        font-weight: 600;
+        text-align: left;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+
+    .accordion-header:hover {
+        background: var(--color-elevated);
+        color: var(--color-manipulation);
+    }
+
+    .accordion-header::after {
+        content: '+';
+        font-size: var(--text-xl);
+        color: var(--color-manipulation);
+        transition: transform 0.3s ease;
+    }
+
+    .accordion-item.active .accordion-header::after {
+        content: '-';
+    }
+
+    .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+    }
+
+    .accordion-item.active .accordion-content {
+        max-height: 2000px;
+    }
+
+    .accordion-body {
+        padding: var(--space-lg);
+        border-top: 1px solid var(--color-elevated);
+        color: var(--color-text-dim);
+    }
+
+    /* ==================== ESCALATION TRACKER ==================== */
+    .escalation-tracker {
+        margin: var(--space-xl) 0;
+    }
+
+    .escalation-step {
+        display: flex;
+        gap: var(--space-lg);
+        padding: var(--space-lg);
+        background: var(--color-surface);
+        border: 1px solid var(--color-elevated);
+        margin-bottom: var(--space-sm);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .escalation-step::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 4px;
+        height: 100%;
+        background: var(--color-manipulation);
+        transition: background 0.3s ease;
+    }
+
+    .escalation-step:hover {
+        background: var(--color-elevated);
+        transform: translateX(4px);
+    }
+
+    .escalation-step.active {
+        border-color: var(--color-manipulation);
+    }
+
+    .escalation-number {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--color-manipulation);
+        color: var(--color-void);
+        font-family: var(--font-display);
+        font-size: var(--text-lg);
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    .escalation-content {
+        flex: 1;
+    }
+
+    .escalation-title {
+        font-weight: 600;
+        margin-bottom: var(--space-xs);
+        color: var(--color-manipulation);
+    }
+
+    .escalation-desc {
+        font-size: var(--text-sm);
+        color: var(--color-text-dim);
+    }
+
+    .escalation-detail {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+        background: var(--color-elevated);
+        margin-top: 0;
+    }
+
+    .escalation-step.active .escalation-detail {
+        max-height: 200px;
+        padding: var(--space-md);
+        margin-top: var(--space-md);
+    }
+
+    .escalation-detail p {
+        font-size: var(--text-sm);
+        color: var(--color-text-dim);
+        margin: 0;
+    }
+
+    /* ==================== PROGRESS BAR ==================== */
+    .progress-container {
+        margin: var(--space-lg) 0;
+    }
+
+    .progress-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--space-sm);
+    }
+
+    .progress-label {
+        font-family: var(--font-display);
+        font-size: var(--text-sm);
+        color: var(--color-manipulation);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .progress-percent {
+        font-family: var(--font-mono);
+        font-size: var(--text-lg);
+        color: var(--color-manipulation);
+        text-shadow: 0 0 10px var(--color-manipulation-glow);
+    }
+
+    .progress-bar {
+        height: 8px;
+        background: var(--color-elevated);
+        border: 1px solid var(--color-manipulation);
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: var(--color-manipulation);
+        box-shadow: 0 0 10px var(--color-manipulation-glow);
+        transition: width 0.5s ease;
+        width: 0%;
+    }
+
+    /* ==================== INTERACTIVE CHECKLIST ==================== */
+    .interactive-checklist {
+        list-style: none;
+        padding: 0;
+        margin: var(--space-lg) 0;
+    }
+
+    .interactive-checklist li {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-md);
+        padding: var(--space-md);
+        border: 1px solid var(--color-elevated);
+        margin-bottom: var(--space-sm);
+        background: var(--color-surface);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .interactive-checklist li:hover {
+        border-color: var(--color-manipulation);
+        background: var(--color-elevated);
+    }
+
+    .interactive-checklist li.checked {
+        border-color: var(--color-manipulation);
+        background: var(--color-manipulation-subtle);
+    }
+
+    .interactive-checklist li.checked .check-box {
+        background: var(--color-manipulation);
+        color: var(--color-void);
+    }
+
+    .check-box {
+        width: 24px;
+        height: 24px;
+        border: 2px solid var(--color-manipulation);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-weight: bold;
+        transition: all 0.2s ease;
+    }
+
+    .check-label {
+        flex: 1;
+    }
+
+    .check-title {
+        font-weight: 600;
+        color: var(--color-text);
+        margin-bottom: var(--space-xs);
+    }
+
+    .check-desc {
+        font-size: var(--text-sm);
+        color: var(--color-text-dim);
+    }
+
+    /* ==================== CONCEPT BOX ==================== */
+    .concept-box {
+        background: var(--color-elevated);
+        border: 1px solid var(--color-manipulation);
+        padding: var(--space-lg);
+        margin: var(--space-lg) 0;
+    }
+
+    .concept-box h4 {
+        color: var(--color-manipulation);
+        margin-bottom: var(--space-sm);
+    }
+
+    /* ==================== CTA SECTION ==================== */
+    .cta-section {
+        background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-deep) 100%);
+        border: 2px solid var(--color-manipulation);
+        padding: var(--space-2xl);
+        text-align: center;
+        margin-top: var(--space-2xl);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    .cta-title {
+        font-size: var(--text-2xl);
+        color: var(--color-manipulation);
+        text-shadow: 0 0 20px var(--color-manipulation-glow);
+        margin-bottom: var(--space-md);
+    }
+
+    .cta-text {
+        max-width: 700px;
+        margin: 0 auto var(--space-xl);
+        color: var(--color-text-dim);
+        font-size: var(--text-lg);
+    }
+
+    .cta-links {
+        display: flex;
+        gap: var(--space-md);
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    /* ==================== DIVIDER ==================== */
+    .section-divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--color-manipulation), transparent);
+        margin: var(--space-2xl) 0;
+        opacity: 0.5;
+    }
+
+    /* ==================== BUTTON OVERRIDES ==================== */
+    .manipulation-page .btn-primary {
+        background: var(--color-manipulation);
+        border-color: var(--color-manipulation);
+    }
+
+    .manipulation-page .btn-primary:hover {
+        background: var(--color-manipulation-dim);
+        box-shadow: 0 0 20px var(--color-manipulation-glow);
+    }
+
+    .manipulation-page .btn-secondary {
+        border-color: var(--color-manipulation);
+        color: var(--color-manipulation);
+    }
+
+    .manipulation-page .btn-secondary:hover {
+        background: var(--color-manipulation);
+        color: var(--color-void);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="manipulation-page">
+
+<!-- ==================== HEADER ==================== -->
+<section class="section-header">
+    <h1>Mechanismen der Manipulation</h1>
+    <p class="section-subtitle">
+        Lernleitfaden: Wie Medien unser Weltbild formen<br>
+        <strong style="color: var(--color-manipulation);">Ein Werkzeug zur mentalen Selbstverteidigung</strong>
+    </p>
+</section>
+
+<!-- Introduction Alert -->
+<div class="alert alert-info">
+    <strong>Positionierung:</strong> Dieser Leitfaden ist als Werkzeug zur mentalen Selbstverteidigung konzipiert.
+    Das Verständnis der psychologischen Kriegsführung gegen das menschliche Bewusstsein ist keine bloße Theorie mehr
+    – es ist die <strong>Voraussetzung für individuelle Autonomie</strong>.
+</div>
+
+<!-- ==================== SECTION 1: PHYSIOLOGIE DER BEEINFLUSSUNG ==================== -->
+<section class="card mt-xl" id="section-1">
+    <div class="section-title-wrapper">
+        <span class="section-number">1</span>
+        <h2 class="section-title-text">Die Physiologie der Beeinflussung: Gehirnwellen und Empfänglichkeit</h2>
+    </div>
+
+    <div class="card-body">
+        <p>
+            Die effektivste Manipulation beginnt nicht beim Inhalt, sondern beim <strong>biologischen Zustand
+            des Empfängers</strong>. Unser Gehirn filtert Informationen je nach Frequenzbereich unterschiedlich streng.
+        </p>
+
+        <div class="brainwave-table-wrapper">
+            <table class="brainwave-table" role="table" aria-label="Gehirnwellen und kritische Prüfung">
+                <thead>
+                    <tr>
+                        <th scope="col">Zustand</th>
+                        <th scope="col">Frequenzbereich</th>
+                        <th scope="col">Mentaler Zustand</th>
+                        <th scope="col">Grad der kritischen Prüfung</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Beta-Zustand</td>
+                        <td>14 – 30 Hz</td>
+                        <td>Hellwach, konzentriert, analytisch</td>
+                        <td>Maximum: Informationen werden aktiv auf Logik und Widersprüche geprüft.</td>
+                    </tr>
+                    <tr>
+                        <td>Alpha-Zustand</td>
+                        <td>8 – 13,9 Hz</td>
+                        <td>Entspannt, tagträumerisch, Trance-ähnlich</td>
+                        <td>Minimum: Der kritische Filter ist deaktiviert; das Tor zum Unterbewusstsein steht offen.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="concept-box">
+            <h4>Der Alpha-Zustand als Trojanisches Pferd</h4>
+            <p>
+                Die Gefahr moderner Medien liegt in der <strong>freiwilligen Unterwerfung</strong>. Nach einem Arbeitstag
+                sucht der Mensch Entspannung auf der Couch und versetzt sein Gehirn gezielt in den Alpha-Zustand.
+                Wenn in diesem Moment die Nachrichten laufen, die der Zuschauer als „authentischen Zustandsbericht"
+                missversteht, geschieht eine <strong>Blitzhypnose</strong>.
+            </p>
+            <p style="margin-top: var(--space-md);">
+                Da keine manipulative Absicht vermutet wird, sinkt die Deckung auf Null. Informationen fließen als
+                ungefiltertes „Realitäts-Update" direkt in das Unterbewusstsein und verankern sich dort als
+                <strong>absolute Wahrheit</strong>.
+            </p>
+        </div>
+
+        <p>
+            Dieser physiologische Zustand bildet das Fundament, auf dem emotionale Botschaften dauerhaft als
+            neue Realität einprogrammiert werden.
+        </p>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ==================== SECTION 2: EMOTIONEN VS. LOGIK ==================== -->
+<section class="card" id="section-2">
+    <div class="section-title-wrapper">
+        <span class="section-number">2</span>
+        <h2 class="section-title-text">Emotionen vs. Logik: Die Macht der Fiktion</h2>
+    </div>
+
+    <div class="card-body">
+        <p>
+            Fakten sind für die Massensteuerung zweitrangig. Das Gehirn speichert <strong>emotionale Szenen</strong>
+            wesentlich tiefer und dauerhafter ab als logische Debatten.
+        </p>
+
+        <div class="info-card-grid">
+            <div class="info-card">
+                <div class="info-card-icon">&#127917;</div>
+                <h4 class="info-card-title">Emotionale Überlegenheit</h4>
+                <p class="info-card-desc">
+                    In einem Zustand der Fiktion (Filme/Serien) ist der logische Filter inaktiv. Wir stimmen
+                    emotionalen Narrativen zu, die wir in einer sachlichen Diskussion als unlogisch ablehnen würden.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-card-icon">&#127902;</div>
+                <h4 class="info-card-title">Der „So-was-Effekt"</h4>
+                <p class="info-card-desc">
+                    Warum unterstützen Regierungen Hollywood-Produktionen mit Millionenbeträgen und militärischem
+                    Equipment? Um „Helden-Storys" zu etablieren.
+                </p>
+                <p class="info-card-example">
+                    Das Bild der USA als „smarte Weltenretter" wird so tief verankert, dass völkerrechtswidrige
+                    Kriege als „Demokratie-Export" akzeptiert werden.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-card-icon">&#128250;</div>
+                <h4 class="info-card-title">Kollektives Realitäts-Update</h4>
+                <p class="info-card-desc">
+                    Wenn über ein Ereignis erhebliche Zweifel bestehen, wird ein Hollywood-Film produziert.
+                    Dieser Film überschreibt die Zweifel durch die Wucht der Bilder im Bewusstsein der Massen.
+                </p>
+            </div>
+        </div>
+
+        <p style="margin-top: var(--space-xl);">
+            Diese emotionalen Inhalte benötigen jedoch eine glaubwürdige Trägerfigur – eine
+            <strong>künstlich geschaffene Autorität</strong>.
+        </p>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ==================== SECTION 3: FABRIKATION VON AUTORITÄT ==================== -->
+<section class="card" id="section-3">
+    <div class="section-title-wrapper">
+        <span class="section-number">3</span>
+        <h2 class="section-title-text">Die Fabrikation von Autorität und die „Wissenschaftliche Diktatur"</h2>
+    </div>
+
+    <div class="card-body">
+        <p>
+            Medien nutzen <strong>tiefenpsychologische Archetypen</strong>, um Gehorsam zu erzeugen. Ein zentrales
+            Element ist die Installation künstlicher Vaterfiguren.
+        </p>
+
+        <div class="accordion" id="authority-accordion">
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span>Die „Vaterfigur" im Wohnzimmer</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <p>
+                            Nachrichtensprecher werden über Jahrzehnte als vertrauenswürdige Konstante aufgebaut.
+                            Durch den <strong>direkten Blickkontakt</strong> in die Kamera – mitten im privaten
+                            Wohnzimmer des Zuschauers – entsteht eine <strong>pseudofamiliäre Bindung</strong>.
+                        </p>
+                        <p style="margin-top: var(--space-md);">
+                            Man verdächtigt die „Vaterfigur" nicht der Lüge; sie führt das Publikum sanft zu den
+                            gewünschten Schlussfolgerungen.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span>Zbigniew Brzezinskis Vision</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <p>
+                            Der Geopolitiker Zbigniew Brzezinski beschrieb in <em>„Between Two Ages"</em> die
+                            <strong>„wissenschaftliche Diktatur"</strong>. Er prognostizierte, dass die Massen
+                            bald unfähig sein würden, selbst zu denken, und stattdessen erwarten, dass die Medien
+                            das Urteilen für sie übernehmen.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span>Künstlicher Personenkult</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <p>
+                            Durch Techniken der Hollywood-Industrie werden Politiker zu <strong>„Superhelden"</strong>
+                            stilisiert. Die Menschen sind so mit der Frisur oder dem Charme des „Frontmanns"
+                            beschäftigt, dass niemand mehr fragt: <em>„Was tut er eigentlich für das Finanzsyndikat
+                            im Hintergrund?"</em>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span>Edward Bernays und die Erfindung der „Public Relations"</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <p>
+                            Der Begriff <strong>„Public Relations"</strong> wurde von Edward Bernays erfunden, da das
+                            Wort „Propaganda" nach dem Ersten Weltkrieg negativ belastet war. Bernays erkannte, dass
+                            man die „primitiven Massen" steuern kann, indem man ihre <strong>unterbewussten Wünsche</strong>
+                            anspricht.
+                        </p>
+                        <p style="margin-top: var(--space-md);">
+                            Heute gibt es in den USA <strong>mehr PR-Agenten als Reporter</strong>. Das bedeutet:
+                            Ein Großteil dessen, was als „News" erscheint, wurde von professionellen Lügnern entworfen.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ==================== SECTION 4: ARCHITEKTUR DER ANGST ==================== -->
+<section class="card" id="section-4">
+    <div class="section-title-wrapper">
+        <span class="section-number">4</span>
+        <h2 class="section-title-text">Die Architektur der Angst: Lähmung des Denkvermögens</h2>
+    </div>
+
+    <div class="card-body">
+        <p>
+            Wenn Verführung nicht ausreicht, wird Angst eingesetzt. <strong>Angst ist der ultimative Schalter</strong>,
+            um die menschliche Ratio auszuschalten.
+        </p>
+
+        <div class="concept-box">
+            <h4>Biologische Regression: Das Reptiliengehirn</h4>
+            <p>
+                Sobald Angst erzeugt wird – sei es durch Terrorwarnungen, Wirtschaftskrisen oder Pandemie-Szenarien –
+                übernimmt das <strong>Reptiliengehirn</strong> die Kontrolle. Dieser archaische Hirnteil kennt nur
+                Flucht, Kampf oder Erstarrung. Logisches Denken wird physisch unmöglich.
+            </p>
+            <p style="margin-top: var(--space-md);">
+                Der Mensch wird dadurch leicht regierbar, da er sich in einem <strong>„gedanklichen Gefängnis"</strong> befindet.
+            </p>
+        </div>
+
+        <h3 style="margin-top: var(--space-xl); margin-bottom: var(--space-md);">
+            Die drei Folgen der permanenten Angst-Überfrachtung
+        </h3>
+
+        <div class="escalation-tracker" id="fear-consequences">
+            <div class="escalation-step" tabindex="0" role="button" aria-expanded="false">
+                <span class="escalation-number">1</span>
+                <div class="escalation-content">
+                    <div class="escalation-title">Paralyse</div>
+                    <div class="escalation-desc">Der Bürger wird handlungsunfähig und zieht sich ins Private zurück</div>
+                    <div class="escalation-detail">
+                        <p>
+                            Der Bürger wird handlungsunfähig, fühlt sich überfordert und zieht sich ins Private zurück
+                            (<em>„Lasst mich einfach in Ruhe mit meinem Fernseher"</em>).
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="escalation-step" tabindex="0" role="button" aria-expanded="false">
+                <span class="escalation-number">2</span>
+                <div class="escalation-content">
+                    <div class="escalation-title">Ruf nach dem „Retter"</div>
+                    <div class="escalation-desc">Blinde Hingabe an eine starke Führungsperson</div>
+                    <div class="escalation-detail">
+                        <p>
+                            In der Not neigen Massen dazu, sich blind einer starken Führungsperson anzuvertrauen,
+                            die verspricht, das Elend zu beenden.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="escalation-step" tabindex="0" role="button" aria-expanded="false">
+                <span class="escalation-number">3</span>
+                <div class="escalation-content">
+                    <div class="escalation-title">Verlust der Urteilsfähigkeit</div>
+                    <div class="escalation-desc">Reduktion auf den Verteidigungsmodus</div>
+                    <div class="escalation-detail">
+                        <p>
+                            Klare Gedanken werden auf ein Minimum reduziert; der Mensch funktioniert nur noch im
+                            Verteidigungsmodus und frisst den Mächtigen <em>„aus der Hand"</em>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ==================== SECTION 5: STRATEGIEN DER DESORIENTIERUNG ==================== -->
+<section class="card" id="section-5">
+    <div class="section-title-wrapper">
+        <span class="section-number">5</span>
+        <h2 class="section-title-text">Strategien der Desorientierung und der Weg zum Erwachen</h2>
+    </div>
+
+    <div class="card-body">
+        <p>
+            Um zu verhindern, dass sich die „99 %" gegen das „1 %" der Designer unserer Gesellschaft organisieren,
+            wird eine <strong>Flut von Ablenkungen</strong> eingesetzt.
+        </p>
+
+        <h3 style="margin-top: var(--space-xl); margin-bottom: var(--space-md);">
+            Das Arsenal der Desorientierung
+        </h3>
+
+        <div class="info-card-grid">
+            <div class="info-card">
+                <div class="info-card-icon">&#128722;</div>
+                <h4 class="info-card-title">Konsumismus</h4>
+                <p class="info-card-desc">
+                    Shopping-Sucht als Ersatz für Sinnhaftigkeit. Menschen kaufen Dinge, die sie nicht brauchen,
+                    um Leute zu beeindrucken, die sie nicht mögen.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-card-icon">&#127866;</div>
+                <h4 class="info-card-title">Pacification</h4>
+                <p class="info-card-desc">
+                    Billiger Alkohol, tägliche TV-Proleten-Shows und sportliche Highlights (wie alle zwei Jahre EM/WM),
+                    um den kollektiven Freudentaumel als Tarnung für politische Verschlechterungen zu nutzen.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-card-icon">&#129302;</div>
+                <h4 class="info-card-title">Wissenschaftliche Ablenkung</h4>
+                <p class="info-card-desc">
+                    Kognitive Psychologen und Computeranimateure arbeiten an 30-sekündigen Werbeclips,
+                    um bereits Kinder zu „Konsumidioten" zu erziehen.
+                </p>
+            </div>
+        </div>
+
+        <h3 style="margin-top: var(--space-2xl); margin-bottom: var(--space-md);">
+            Checkliste für Ihre Selbstbehauptung
+        </h3>
+
+        <div class="progress-container">
+            <div class="progress-header">
+                <span class="progress-label">Kognitive Immunität</span>
+                <span class="progress-percent" id="defense-progress-percent">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="defense-progress-fill"></div>
+            </div>
+        </div>
+
+        <ul class="interactive-checklist" id="defense-checklist" aria-label="Checkliste für Selbstbehauptung">
+            <li tabindex="0" role="checkbox" aria-checked="false">
+                <span class="check-box" aria-hidden="true"></span>
+                <span class="check-label">
+                    <span class="check-title">Fernseher ausschalten</span>
+                    <span class="check-desc">Unterbrechen Sie die tägliche Bestrahlung und verlassen Sie den Alpha-Zustand.</span>
+                </span>
+            </li>
+            <li tabindex="0" role="checkbox" aria-checked="false">
+                <span class="check-box" aria-hidden="true"></span>
+                <span class="check-label">
+                    <span class="check-title">Muster der Angst erkennen</span>
+                    <span class="check-desc">Wenn eine Nachricht Panik auslöst, fragen Sie: Wer profitiert von meiner Lähmung?</span>
+                </span>
+            </li>
+            <li tabindex="0" role="checkbox" aria-checked="false">
+                <span class="check-box" aria-hidden="true"></span>
+                <span class="check-label">
+                    <span class="check-title">PR von Information trennen</span>
+                    <span class="check-desc">Recherchieren Sie, ob ein „Experte" oder eine Nachricht aus einer PR-Schmiede stammt.</span>
+                </span>
+            </li>
+            <li tabindex="0" role="checkbox" aria-checked="false">
+                <span class="check-box" aria-hidden="true"></span>
+                <span class="check-label">
+                    <span class="check-title">Distanz zum Mehrheitsbild</span>
+                    <span class="check-desc">Akzeptieren Sie, dass das „gezielte Mehrheitsmeinungsbild" oft künstlich erzeugt ist, um soziale Konformität zu erzwingen.</span>
+                </span>
+            </li>
+        </ul>
+
+        <div style="text-align: center; margin-top: var(--space-xl);">
+            <button class="btn btn-secondary" id="reset-defense-checklist">
+                Fortschritt zurücksetzen
+            </button>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ==================== SECTION 6: CTA / CLOSING ==================== -->
+<section class="cta-section" id="section-6">
+    <h2 class="cta-title">Das Ende der Systemtrottel</h2>
+    <p class="cta-text">
+        Wir erleben heute ein historisch einmaliges <strong>„politisches Erwachen"</strong>. Weltweit erkennen Menschen
+        die globale Ausbeutung und die wissenschaftlich fundierte Manipulation. Wahre Autonomie beginnt mit Wut –
+        nicht mit blinder Zerstörungswut, sondern mit der <strong>heiligen Entrüstung</strong> eines menschlichen Wesens,
+        das erkennt, dass es als „Systemtrottel" im Hamsterrad gehalten wurde.
+    </p>
+    <p class="cta-text">
+        Stehen Sie auf und fordern Sie Ihren Wert zurück. Werden Sie sich bewusst, dass Sie ein freies Individuum sind,
+        keine programmierbare Maschine. <strong>Die Macht der Manipulatoren endet in dem Moment, in dem Sie sich weigern,
+        Ihre Stimme in die Urne zu werfen, sondern sie behalten, um die Wahrheit zu rufen.</strong>
+    </p>
+    <p class="cta-text" style="margin-bottom: var(--space-xl);">
+        Das politische Erwachen ist die neue Realität – und es ist <strong>unumkehrbar</strong>.
+    </p>
+    <div class="cta-links">
+        <a href="{{ url_for('resilience_prebunking') }}" class="btn btn-primary">
+            Weiter zu Prebunking
+        </a>
+        <a href="{{ url_for('resilience_sift') }}" class="btn btn-secondary">
+            SIFT-Methode lernen
+        </a>
+    </div>
+</section>
+
+</div><!-- /.manipulation-page -->
+{% endblock %}
+
+{% block scripts %}
+<script nonce="{{ csp_nonce }}">
+(function() {
+    'use strict';
+
+    // ==================== ACCORDION ====================
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+            const item = this.parentElement;
+            const isActive = item.classList.contains('active');
+            const accordion = item.parentElement;
+
+            accordion.querySelectorAll('.accordion-item').forEach(i => {
+                i.classList.remove('active');
+                i.querySelector('.accordion-header').setAttribute('aria-expanded', 'false');
+            });
+
+            if (!isActive) {
+                item.classList.add('active');
+                this.setAttribute('aria-expanded', 'true');
+            }
+        });
+
+        header.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
+        });
+    });
+
+    // ==================== ESCALATION TRACKER ====================
+    const escalationSteps = document.querySelectorAll('.escalation-step');
+
+    escalationSteps.forEach(step => {
+        step.addEventListener('click', function() {
+            const isActive = this.classList.contains('active');
+
+            escalationSteps.forEach(s => {
+                s.classList.remove('active');
+                s.setAttribute('aria-expanded', 'false');
+            });
+
+            if (!isActive) {
+                this.classList.add('active');
+                this.setAttribute('aria-expanded', 'true');
+            }
+        });
+
+        step.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
+        });
+    });
+
+    // ==================== INTERACTIVE CHECKLIST WITH LOCALSTORAGE ====================
+    const STORAGE_KEY = 'manipulation-defense-progress';
+
+    function initChecklist(listId, storageKey, progressFillId, progressPercentId) {
+        const checklist = document.getElementById(listId);
+        if (!checklist) return null;
+
+        const items = checklist.querySelectorAll('li');
+        let progress = loadProgress(storageKey, items.length);
+
+        items.forEach((item, index) => {
+            if (progress[index]) {
+                item.classList.add('checked');
+                item.setAttribute('aria-checked', 'true');
+                item.querySelector('.check-box').textContent = '\u2713';
+            }
+
+            item.addEventListener('click', function() {
+                toggleItem(this, index);
+            });
+
+            item.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleItem(this, index);
+                }
+            });
+        });
+
+        function toggleItem(item, index) {
+            const isChecked = item.classList.toggle('checked');
+            item.setAttribute('aria-checked', isChecked.toString());
+            item.querySelector('.check-box').textContent = isChecked ? '\u2713' : '';
+            progress[index] = isChecked;
+            saveProgress(storageKey, progress);
+            updateProgressBar();
+        }
+
+        function updateProgressBar() {
+            const checked = progress.filter(Boolean).length;
+            const percent = Math.round((checked / items.length) * 100);
+            const fill = document.getElementById(progressFillId);
+            const percentLabel = document.getElementById(progressPercentId);
+            if (fill) fill.style.width = percent + '%';
+            if (percentLabel) percentLabel.textContent = percent + '%';
+        }
+
+        updateProgressBar();
+
+        return {
+            reset: function() {
+                progress = new Array(items.length).fill(false);
+                saveProgress(storageKey, progress);
+                items.forEach(item => {
+                    item.classList.remove('checked');
+                    item.setAttribute('aria-checked', 'false');
+                    item.querySelector('.check-box').textContent = '';
+                });
+                updateProgressBar();
+            }
+        };
+    }
+
+    function loadProgress(key, length) {
+        try {
+            const stored = localStorage.getItem(key);
+            if (stored) {
+                const parsed = JSON.parse(stored);
+                if (Array.isArray(parsed) && parsed.length === length) {
+                    return parsed;
+                }
+            }
+        } catch (e) {
+            console.warn('Could not load progress:', e);
+        }
+        return new Array(length).fill(false);
+    }
+
+    function saveProgress(key, progress) {
+        try {
+            localStorage.setItem(key, JSON.stringify(progress));
+        } catch (e) {
+            console.warn('Could not save progress:', e);
+        }
+    }
+
+    const defenseChecklist = initChecklist(
+        'defense-checklist',
+        STORAGE_KEY,
+        'defense-progress-fill',
+        'defense-progress-percent'
+    );
+
+    // Reset button
+    const resetBtn = document.getElementById('reset-defense-checklist');
+    if (resetBtn && defenseChecklist) {
+        resetBtn.addEventListener('click', function() {
+            if (confirm('Fortschritt wirklich zurücksetzen?')) {
+                defenseChecklist.reset();
+            }
+        });
+    }
+})();
+</script>
+{% endblock %}
