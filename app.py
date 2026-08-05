@@ -235,6 +235,18 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/impressum")
+def impressum():
+    """Impressum - Legal notice (§ 5 TMG)."""
+    return render_template("impressum.html")
+
+
+@app.route("/datenschutz")
+def datenschutz():
+    """Datenschutzerklärung - Privacy policy (DSGVO)."""
+    return render_template("datenschutz.html")
+
+
 # ============================================================================
 # PRIVACY SECTION (Demo-Modus)
 # ============================================================================
