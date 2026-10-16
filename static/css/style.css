@@ -129,8 +129,13 @@
     --color-danger: #ff0040;
     --color-danger-glow: rgba(255, 0, 64, 0.5);
     --color-warning: #ffaa00;
+    --color-warning-glow: rgba(255, 170, 0, 0.5);
     --color-info: #00d4ff;
     --color-info-glow: rgba(0, 212, 255, 0.5);
+    --color-violet: #b84dff;
+    --color-violet-glow: rgba(184, 77, 255, 0.5);
+    --color-peace: #8ec9ff;
+    --color-peace-glow: rgba(142, 201, 255, 0.5);
 
     /* Text */
     --color-text: #e0e0e0;
@@ -944,6 +949,8 @@ a.card:hover {
 }
 
 .feature-card {
+    --accent: var(--color-matrix);
+    --accent-glow: var(--color-matrix-glow);
     background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-deep) 100%);
     border: 1px solid var(--color-elevated);
     padding: var(--space-xl);
@@ -955,6 +962,13 @@ a.card:hover {
     display: block;
 }
 
+.feature-card--privacy    { --accent: var(--color-info);    --accent-glow: var(--color-info-glow); }
+.feature-card--security   { --accent: var(--color-matrix);  --accent-glow: var(--color-matrix-glow); }
+.feature-card--resilience { --accent: var(--color-warning); --accent-glow: var(--color-warning-glow); }
+.feature-card--activism   { --accent: var(--color-danger);  --accent-glow: var(--color-danger-glow); }
+.feature-card--factcheck  { --accent: var(--color-violet);  --accent-glow: var(--color-violet-glow); }
+.feature-card--peace      { --accent: var(--color-peace);   --accent-glow: var(--color-peace-glow); }
+
 .feature-card::before {
     content: '';
     position: absolute;
@@ -965,30 +979,47 @@ a.card:hover {
     background: linear-gradient(
         90deg,
         transparent 0%,
-        rgba(0, 255, 65, 0.1) 50%,
+        var(--accent-glow) 50%,
         transparent 100%
     );
+    opacity: 0.2;
     transition: left 0.6s var(--ease-out-expo);
+}
+
+.feature-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent);
+    opacity: 0.4;
+    transition: opacity 0.4s var(--ease-out-expo);
 }
 
 .feature-card:hover::before {
     left: 100%;
 }
 
+.feature-card:hover::after {
+    opacity: 1;
+}
+
 .feature-card:hover {
-    border-color: var(--color-matrix);
+    border-color: var(--accent);
     transform: translateY(-5px);
     box-shadow:
         0 20px 40px rgba(0, 0, 0, 0.5),
-        0 0 50px rgba(0, 255, 65, 0.1);
+        0 0 50px var(--accent-glow);
 }
 
 .feature-icon {
     font-size: 3.5rem;
     margin-bottom: var(--space-md);
     display: block;
-    filter: drop-shadow(0 0 20px var(--color-matrix-glow));
-    transition: transform 0.5s var(--ease-out-back);
+    filter: drop-shadow(0 0 20px var(--accent-glow));
+    transition: transform 0.5s var(--ease-out-back), filter 0.5s var(--ease-out-expo);
 }
 
 .feature-card:hover .feature-icon {
@@ -1008,6 +1039,32 @@ a.card:hover {
     font-size: var(--text-sm);
     color: var(--color-text-dim);
     line-height: 1.6;
+}
+
+.feature-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-top: var(--space-md);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    transition: color 0.4s var(--ease-out-expo);
+}
+
+.feature-cta .arrow {
+    display: inline-block;
+    transition: transform 0.4s var(--ease-out-expo);
+}
+
+.feature-card:hover .feature-cta {
+    color: var(--accent);
+}
+
+.feature-card:hover .feature-cta .arrow {
+    transform: translateX(4px);
 }
 
 /* ============================================
