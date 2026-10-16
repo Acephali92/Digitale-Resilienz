@@ -995,6 +995,19 @@ TOOLS = [
         "platforms": ["Web", "IMAP/SMTP"],
         "resilience": "Schweizer Datenschutz"
     },
+    {
+        "id": "posteo",
+        "name": "Posteo",
+        "icon": "posteo",
+        "category": "email-anbieter",
+        "slogan": "Gruene E-Mail aus Berlin",
+        "description": "Deutscher E-Mail-Anbieter seit 2009. PGP-Support, 2FA, anonyme Zahlung moeglich. 100% Oeko-Strom. 1 EUR/Monat.",
+        "website": "https://posteo.de/de",
+        "review_url": "https://www.privacyguides.org/en/email/",
+        "tags": ["foss", "kostenpflichtig", "einsteiger"],
+        "platforms": ["Web", "IMAP/SMTP"],
+        "resilience": "100% Oeko-Strom, deutsche Server"
+    },
 
     # =========================================================================
     # E-MAIL-CLIENTS

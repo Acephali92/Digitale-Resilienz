@@ -1314,6 +1314,16 @@ a.card:hover {
     background: var(--color-matrix);
 }
 
+.alert-danger {
+    background: rgba(255, 0, 64, 0.08);
+    border-color: rgba(255, 0, 64, 0.4);
+    color: var(--color-danger);
+}
+
+.alert-danger::before {
+    background: var(--color-danger);
+}
+
 /* ============================================
    SECTION HEADERS
    ============================================ */
@@ -1405,6 +1415,51 @@ a.card:hover {
 }
 
 /* ============================================
+   TABLES
+   ============================================ */
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+}
+
+.table th,
+.table td {
+    padding: var(--space-md);
+    text-align: left;
+    border-bottom: 1px solid var(--color-elevated);
+}
+
+.table th {
+    background: var(--color-surface);
+    color: var(--color-matrix);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--text-xs);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.table td {
+    color: var(--color-text-dim);
+}
+
+.table tr:hover td {
+    background: rgba(0, 255, 65, 0.02);
+}
+
+.table caption {
+    caption-side: top;
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    padding-bottom: var(--space-sm);
+}
+
+/* ============================================
    FOOTER - Underground Network
    ============================================ */
 
@@ -1493,6 +1548,63 @@ a.card:hover {
 .footer-meta {
     font-size: var(--text-xs);
     color: var(--color-text-muted);
+}
+
+.footer-legal {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    margin-top: var(--space-md);
+    opacity: 0.7;
+}
+
+.footer-legal a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-legal a:hover {
+    color: var(--color-primary);
+}
+
+/* Details/Summary (collapsible) */
+details {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-sm);
+    background: var(--color-bg-elevated);
+}
+
+details[open] {
+    padding-bottom: var(--space-md);
+}
+
+summary {
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--color-primary);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+summary::-webkit-details-marker {
+    display: none;
+}
+
+summary::before {
+    content: "▶";
+    font-size: 0.7em;
+    transition: transform 0.2s ease;
+}
+
+details[open] summary::before {
+    transform: rotate(90deg);
+}
+
+summary:hover {
+    text-shadow: var(--glow-sm);
 }
 
 /* ============================================
@@ -1783,11 +1895,26 @@ a.card:hover {
 }
 
 .plan-card-icon-svg {
-    width: 32px;
-    height: 32px;
+    display: block;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px;
+    max-width: 32px;
+    min-height: 32px;
+    max-height: 32px;
     color: var(--color-matrix);
     filter: drop-shadow(0 0 10px var(--color-matrix-glow));
     flex-shrink: 0;
+    flex-grow: 0;
+}
+
+/* Button Icons */
+.btn svg {
+    display: inline-block;
+    width: 16px !important;
+    height: 16px !important;
+    flex-shrink: 0;
+    vertical-align: middle;
 }
 
 .plan-card-title {
@@ -1908,6 +2035,8 @@ a.card:hover {
 .level-icon-wrapper {
     width: 72px;
     height: 72px;
+    min-width: 72px;
+    min-height: 72px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1927,8 +2056,15 @@ a.card:hover {
 }
 
 .level-icon-svg {
-    width: 36px;
-    height: 36px;
+    display: block;
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px;
+    max-width: 36px;
+    min-height: 36px;
+    max-height: 36px;
+    flex-shrink: 0;
+    flex-grow: 0;
     transition: transform 0.4s var(--ease-out-expo);
 }
 
