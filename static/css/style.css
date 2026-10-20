@@ -1529,6 +1529,21 @@ a.card:hover {
     color: var(--color-matrix);
 }
 
+.kofi-badge {
+    height: 36px;
+    border: 0;
+    border-radius: var(--radius-sm, 4px);
+    filter: grayscale(1) brightness(1.1);
+    opacity: 0.8;
+    transition: filter 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kofi-badge:hover {
+    filter: none;
+    opacity: 1;
+    box-shadow: 0 0 12px var(--color-matrix-glow);
+}
+
 .footer-bottom {
     text-align: center;
     padding-top: var(--space-xl);
