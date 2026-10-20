@@ -130,6 +130,13 @@
                 </div>
 
                 <div class="footer-section">
+                    <h3>Unterstützen</h3>
+                    <a href="https://ko-fi.com/O5O4K32OJ" target="_blank" rel="noopener noreferrer">
+                        <img class="kofi-badge" height="36" src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" alt="Unterstütze mich auf ko-fi.com">
+                    </a>
+                </div>
+
+                <div class="footer-section">
                     <h3>Extern</h3>
                     <ul class="footer-links">
                         <li><a href="https://github.com/Acephali92/Digitale-Resilienz" target="_blank" rel="noopener noreferrer">Quellcode (GitHub)</a></li>
@@ -158,6 +165,11 @@
 
     <!-- Scripts -->
     <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+
+    <!-- Ko-fi Support-Button (eigenes, CSP-konformes Markup statt Ko-fi-Overlay-Skript) -->
+    <a href="https://ko-fi.com/O5O4K32OJ" target="_blank" rel="noopener noreferrer" class="kofi-float-button">
+        &#9749; Unterstütze mich
+    </a>
 
     {% block scripts %}{% endblock %}
 </body>

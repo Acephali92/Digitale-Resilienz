@@ -163,7 +163,7 @@ def add_security_headers(response):
         "default-src 'self'; "
         f"script-src 'self' 'nonce-{nonce}'; "
         f"style-src 'self' 'nonce-{nonce}'; "
-        "img-src 'self' data: https://cdn.simpleicons.org https://cdn.jsdelivr.net; "
+        "img-src 'self' data: https://cdn.simpleicons.org https://cdn.jsdelivr.net https://storage.ko-fi.com; "
         "font-src 'self'; "
         "frame-ancestors 'none'; "
         "form-action 'self'; "
