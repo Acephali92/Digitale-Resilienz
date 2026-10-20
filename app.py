@@ -163,7 +163,7 @@ def add_security_headers(response):
         "default-src 'self'; "
         f"script-src 'self' 'nonce-{nonce}'; "
         f"style-src 'self' 'nonce-{nonce}'; "
-        "img-src 'self' data:; "
+        "img-src 'self' data: https://cdn.simpleicons.org https://cdn.jsdelivr.net https://storage.ko-fi.com; "
         "font-src 'self'; "
         "frame-ancestors 'none'; "
         "form-action 'self'; "
@@ -192,7 +192,7 @@ def add_security_headers(response):
     )
 
     # Cross-Origin policies for additional isolation
-    response.headers["Cross-Origin-Embedder-Policy"] = "require-corp"
+    response.headers["Cross-Origin-Embedder-Policy"] = "credentialless"
     response.headers["Cross-Origin-Opener-Policy"] = "same-origin"
     response.headers["Cross-Origin-Resource-Policy"] = "same-origin"
 
@@ -235,6 +235,18 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/impressum")
+def impressum():
+    """Impressum - Legal notice (§ 5 TMG)."""
+    return render_template("impressum.html")
+
+
+@app.route("/datenschutz")
+def datenschutz():
+    """Datenschutzerklärung - Privacy policy (DSGVO)."""
+    return render_template("datenschutz.html")
+
+
 # ============================================================================
 # PRIVACY SECTION (Demo-Modus)
 # ============================================================================
@@ -257,12 +269,6 @@ def privacy_exif():
 def privacy_dsgvo():
     """DSGVO request templates and tools."""
     return render_template("privacy/dsgvo.html")
-
-
-@app.route("/privacy/quiz")
-def privacy_quiz():
-    """'Bist du trackbar?' interactive quiz."""
-    return render_template("privacy/quiz.html")
 
 
 @app.route("/privacy/tracking")
@@ -359,6 +365,12 @@ def resilience_prebunking():
 def resilience_euphemismen():
     """Euphemism decoder - unmasking propaganda language."""
     return render_template("resilience/euphemismen.html")
+
+
+@app.route("/resilience/manipulation")
+def resilience_manipulation():
+    """Manipulation mechanisms - how media shapes worldview."""
+    return render_template("resilience/manipulation.html")
 
 
 @app.route("/resilience/sources")

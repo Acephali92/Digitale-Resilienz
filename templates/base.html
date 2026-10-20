@@ -104,6 +104,7 @@
     <!-- Main Content -->
     <main id="main" class="main-content">
         <div class="container">
+            {% block breadcrumb %}{% endblock %}
             {% block content %}{% endblock %}
         </div>
     </main>
@@ -124,19 +125,28 @@
                     <h3>Quick Links</h3>
                     <ul class="footer-links">
                         <li><a href="{{ url_for('tools_downloads') }}">Offline-Downloads</a></li>
-                        <li><a href="{{ url_for('tools_passphrase') }}">Passphrase-Generator</a></li>
-                        <li><a href="{{ url_for('privacy_quiz') }}">Trackbarkeits-Test</a></li>
+                        <li><a href="{{ url_for('tools_index') }}">Open-Source Tools</a></li>
                     </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Unterstützen</h3>
+                    <a href="https://ko-fi.com/O5O4K32OJ" target="_blank" rel="noopener noreferrer">
+                        <img class="kofi-badge" height="36" src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" alt="Unterstütze mich auf ko-fi.com">
+                    </a>
                 </div>
 
                 <div class="footer-section">
                     <h3>Extern</h3>
                     <ul class="footer-links">
                         <li><a href="https://github.com/Acephali92/Digitale-Resilienz" target="_blank" rel="noopener noreferrer">Quellcode (GitHub)</a></li>
+                        <li><a href="https://bitwarden.com/password-generator/" target="_blank" rel="noopener noreferrer">Bitwarden Passwort-Generator</a></li>
                         <li><a href="https://www.rote-hilfe.de/" target="_blank" rel="noopener noreferrer">Rote Hilfe e.V.</a></li>
                         <li><a href="https://www.datenanfragen.de/" target="_blank" rel="noopener noreferrer">datenanfragen.de</a></li>
+                        <li><a href="https://deframed.news/#/deframednews-erklaert" target="_blank" rel="noopener noreferrer">DeframedNews (Framing erkennen)</a></li>
                     </ul>
                 </div>
+
             </div>
 
             <div class="footer-bottom">
@@ -146,12 +156,20 @@
                 <p class="footer-meta">
                     <span class="pulse">&#9679;</span> Keine Daten. Keine Cookies. Keine Tracker. Versprochen.
                 </p>
+                <p class="footer-legal">
+                    <a href="{{ url_for('impressum') }}">Impressum</a> · <a href="{{ url_for('datenschutz') }}">Datenschutz</a>
+                </p>
             </div>
         </div>
     </footer>
 
     <!-- Scripts -->
     <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+
+    <!-- Ko-fi Support-Button (eigenes, CSP-konformes Markup statt Ko-fi-Overlay-Skript) -->
+    <a href="https://ko-fi.com/O5O4K32OJ" target="_blank" rel="noopener noreferrer" class="kofi-float-button">
+        &#9749; Unterstütze mich
+    </a>
 
     {% block scripts %}{% endblock %}
 </body>

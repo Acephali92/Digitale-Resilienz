@@ -1,34 +1,1632 @@
 {% extends "base.html" %}
-{% block title %}Prebunking{% endblock %}
+
+{% block title %}Prebunking – Strukturelle Analyse moderner Propagandatechniken{% endblock %}
+
+{% block head %}
+<style nonce="{{ csp_nonce }}">
+    /* ==================== TEAL COLOR PALETTE ==================== */
+    :root {
+        --color-prebunking: #14b8a6;
+        --color-prebunking-dim: #0d9488;
+        --color-prebunking-glow: rgba(20, 184, 166, 0.6);
+        --color-prebunking-subtle: rgba(20, 184, 166, 0.1);
+
+        --color-escalation-1: #14b8a6;
+        --color-escalation-2: #f59e0b;
+        --color-escalation-3: #ef4444;
+    }
+
+    /* Override matrix colors for this page */
+    .prebunking-page .section-number {
+        background: var(--color-prebunking);
+    }
+
+    .prebunking-page .quote-block {
+        border-left-color: var(--color-prebunking);
+    }
+
+    .prebunking-page .quote-block cite {
+        color: var(--color-prebunking);
+    }
+
+    .prebunking-page .accordion-header::after {
+        color: var(--color-prebunking);
+    }
+
+    .prebunking-page .accordion-header:hover {
+        color: var(--color-prebunking);
+    }
+
+    .prebunking-page .check-box {
+        border-color: var(--color-prebunking);
+    }
+
+    .prebunking-page .interactive-checklist li.checked .check-box {
+        background: var(--color-prebunking);
+    }
+
+    .prebunking-page .interactive-checklist li.checked {
+        border-color: var(--color-prebunking);
+        background: var(--color-prebunking-subtle);
+    }
+
+    .prebunking-page .interactive-checklist li:hover {
+        border-color: var(--color-prebunking);
+    }
+
+    .prebunking-page .progress-label,
+    .prebunking-page .progress-percent {
+        color: var(--color-prebunking);
+    }
+
+    .prebunking-page .progress-bar {
+        border-color: var(--color-prebunking);
+    }
+
+    .prebunking-page .progress-fill {
+        background: var(--color-prebunking);
+        box-shadow: 0 0 10px var(--color-prebunking-glow);
+    }
+
+    /* ==================== SECTION NUMBERING ==================== */
+    .section-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        background: var(--color-prebunking);
+        color: var(--color-void);
+        font-family: var(--font-display);
+        font-size: var(--text-xl);
+        font-weight: 900;
+        margin-right: var(--space-md);
+        flex-shrink: 0;
+    }
+
+    .section-title-wrapper {
+        display: flex;
+        align-items: center;
+        margin-bottom: var(--space-lg);
+    }
+
+    .section-title-text {
+        font-size: var(--text-2xl);
+        color: var(--color-text);
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    /* ==================== QUOTE BLOCKS ==================== */
+    .quote-block {
+        border-left: 3px solid var(--color-prebunking);
+        padding-left: var(--space-md);
+        margin: var(--space-lg) 0;
+        font-style: italic;
+        color: var(--color-text-dim);
+    }
+
+    .quote-block cite {
+        display: block;
+        margin-top: var(--space-sm);
+        font-style: normal;
+        color: var(--color-prebunking);
+        font-size: var(--text-sm);
+    }
+
+    /* ==================== INFO CARDS GRID ==================== */
+    .info-card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: var(--space-lg);
+        margin: var(--space-xl) 0;
+    }
+
+    .info-card {
+        background: var(--color-surface);
+        border: 1px solid var(--color-elevated);
+        padding: var(--space-xl);
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .info-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: var(--color-prebunking);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .info-card:hover {
+        background: var(--color-elevated);
+        border-color: var(--color-prebunking);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 20px rgba(20, 184, 166, 0.2);
+    }
+
+    .info-card:hover::before {
+        opacity: 1;
+    }
+
+    .info-card-icon {
+        font-size: var(--text-3xl);
+        margin-bottom: var(--space-md);
+    }
+
+    .info-card-title {
+        font-family: var(--font-display);
+        font-size: var(--text-lg);
+        color: var(--color-prebunking);
+        margin-bottom: var(--space-sm);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .info-card-desc {
+        color: var(--color-text-dim);
+        font-size: var(--text-sm);
+        line-height: 1.6;
+    }
+
+    .info-card-example {
+        margin-top: var(--space-md);
+        padding-top: var(--space-md);
+        border-top: 1px solid var(--color-elevated);
+        font-size: var(--text-xs);
+        color: var(--color-text-muted);
+    }
+
+    /* ==================== FILTER TABLE ==================== */
+    .filter-table-wrapper {
+        overflow-x: auto;
+        margin: var(--space-lg) 0;
+        border: 1px solid var(--color-elevated);
+    }
+
+    .filter-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 700px;
+    }
+
+    .filter-table th,
+    .filter-table td {
+        padding: var(--space-md);
+        text-align: left;
+        border: 1px solid var(--color-elevated);
+    }
+
+    .filter-table th {
+        background: var(--color-prebunking);
+        color: var(--color-void);
+        font-family: var(--font-display);
+        font-size: var(--text-sm);
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+    }
+
+    .filter-table tbody tr {
+        background: var(--color-surface);
+        transition: all 0.3s ease;
+    }
+
+    .filter-table tbody tr:hover {
+        background: var(--color-elevated);
+        box-shadow: inset 4px 0 0 var(--color-prebunking);
+    }
+
+    .filter-table td:first-child {
+        font-weight: 600;
+        color: var(--color-prebunking);
+        font-family: var(--font-display);
+        white-space: nowrap;
+    }
+
+    /* ==================== ACCORDION ==================== */
+    .accordion {
+        margin: var(--space-md) 0;
+    }
+
+    .accordion-item {
+        border: 1px solid var(--color-elevated);
+        margin-bottom: var(--space-xs);
+        background: var(--color-surface);
+    }
+
+    .accordion-header {
+        width: 100%;
+        padding: var(--space-md) var(--space-lg);
+        background: transparent;
+        border: none;
+        color: var(--color-text);
+        font-family: var(--font-mono);
+        font-size: var(--text-base);
+        font-weight: 600;
+        text-align: left;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+
+    .accordion-header:hover {
+        background: var(--color-elevated);
+        color: var(--color-prebunking);
+    }
+
+    .accordion-header::after {
+        content: '+';
+        font-size: var(--text-xl);
+        color: var(--color-prebunking);
+        transition: transform 0.3s ease;
+    }
+
+    .accordion-item.active .accordion-header::after {
+        content: '-';
+    }
+
+    .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+    }
+
+    .accordion-item.active .accordion-content {
+        max-height: 2000px;
+    }
+
+    .accordion-body {
+        padding: var(--space-lg);
+        border-top: 1px solid var(--color-elevated);
+        color: var(--color-text-dim);
+    }
+
+    /* ==================== ESCALATION TRACKER ==================== */
+    .escalation-tracker {
+        margin: var(--space-xl) 0;
+    }
+
+    .escalation-step {
+        display: flex;
+        gap: var(--space-lg);
+        padding: var(--space-lg);
+        background: var(--color-surface);
+        border: 1px solid var(--color-elevated);
+        margin-bottom: var(--space-sm);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .escalation-step::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 4px;
+        height: 100%;
+        transition: background 0.3s ease;
+    }
+
+    .escalation-step[data-level="1"]::before { background: var(--color-escalation-1); }
+    .escalation-step[data-level="2"]::before { background: var(--color-escalation-2); }
+    .escalation-step[data-level="3"]::before { background: var(--color-escalation-3); }
+
+    .escalation-step:hover {
+        background: var(--color-elevated);
+        transform: translateX(4px);
+    }
+
+    .escalation-step.active {
+        border-color: currentColor;
+    }
+
+    .escalation-step[data-level="1"].active { border-color: var(--color-escalation-1); }
+    .escalation-step[data-level="2"].active { border-color: var(--color-escalation-2); }
+    .escalation-step[data-level="3"].active { border-color: var(--color-escalation-3); }
+
+    .escalation-number {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-display);
+        font-size: var(--text-lg);
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    .escalation-step[data-level="1"] .escalation-number {
+        background: var(--color-escalation-1);
+        color: var(--color-void);
+    }
+
+    .escalation-step[data-level="2"] .escalation-number {
+        background: var(--color-escalation-2);
+        color: var(--color-void);
+    }
+
+    .escalation-step[data-level="3"] .escalation-number {
+        background: var(--color-escalation-3);
+        color: var(--color-void);
+    }
+
+    .escalation-content {
+        flex: 1;
+    }
+
+    .escalation-title {
+        font-weight: 600;
+        margin-bottom: var(--space-xs);
+    }
+
+    .escalation-step[data-level="1"] .escalation-title { color: var(--color-escalation-1); }
+    .escalation-step[data-level="2"] .escalation-title { color: var(--color-escalation-2); }
+    .escalation-step[data-level="3"] .escalation-title { color: var(--color-escalation-3); }
+
+    .escalation-desc {
+        font-size: var(--text-sm);
+        color: var(--color-text-dim);
+    }
+
+    .escalation-detail {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+        background: var(--color-elevated);
+        margin-top: 0;
+    }
+
+    .escalation-step.active .escalation-detail {
+        max-height: 200px;
+        padding: var(--space-md);
+        margin-top: var(--space-md);
+    }
+
+    .escalation-detail p {
+        font-size: var(--text-sm);
+        color: var(--color-text-dim);
+        margin: 0;
+    }
+
+    /* ==================== PROGRESS BAR ==================== */
+    .progress-container {
+        margin: var(--space-lg) 0;
+    }
+
+    .progress-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--space-sm);
+    }
+
+    .progress-label {
+        font-family: var(--font-display);
+        font-size: var(--text-sm);
+        color: var(--color-prebunking);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .progress-percent {
+        font-family: var(--font-mono);
+        font-size: var(--text-lg);
+        color: var(--color-prebunking);
+        text-shadow: 0 0 10px var(--color-prebunking-glow);
+    }
+
+    .progress-bar {
+        height: 8px;
+        background: var(--color-elevated);
+        border: 1px solid var(--color-prebunking);
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: var(--color-prebunking);
+        box-shadow: 0 0 10px var(--color-prebunking-glow);
+        transition: width 0.5s ease;
+        width: 0%;
+    }
+
+    /* ==================== INTERACTIVE CHECKLIST ==================== */
+    .interactive-checklist {
+        list-style: none;
+        padding: 0;
+        margin: var(--space-lg) 0;
+    }
+
+    .interactive-checklist li {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-md);
+        padding: var(--space-md);
+        border: 1px solid var(--color-elevated);
+        margin-bottom: var(--space-sm);
+        background: var(--color-surface);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .interactive-checklist li:hover {
+        border-color: var(--color-prebunking);
+        background: var(--color-elevated);
+    }
+
+    .interactive-checklist li.checked {
+        border-color: var(--color-prebunking);
+        background: var(--color-prebunking-subtle);
+    }
+
+    .interactive-checklist li.checked .check-box {
+        background: var(--color-prebunking);
+        color: var(--color-void);
+    }
+
+    .check-box {
+        width: 24px;
+        height: 24px;
+        border: 2px solid var(--color-prebunking);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-weight: bold;
+        transition: all 0.2s ease;
+    }
+
+    .check-label {
+        flex: 1;
+    }
+
+    .check-title {
+        font-weight: 600;
+        color: var(--color-text);
+        margin-bottom: var(--space-xs);
+    }
+
+    .check-desc {
+        font-size: var(--text-sm);
+        color: var(--color-text-dim);
+    }
+
+    /* ==================== MODAL ==================== */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 10000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: var(--space-lg);
+    }
+
+    .modal-overlay.active {
+        display: flex;
+    }
+
+    .modal-content {
+        background: var(--color-surface);
+        border: 2px solid var(--color-prebunking);
+        max-width: 800px;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+        box-shadow: 0 0 60px var(--color-prebunking-glow);
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--space-lg);
+        border-bottom: 1px solid var(--color-elevated);
+        background: var(--color-elevated);
+    }
+
+    .modal-title {
+        font-family: var(--font-display);
+        font-size: var(--text-lg);
+        color: var(--color-prebunking);
+        margin: 0;
+    }
+
+    .modal-close {
+        background: transparent;
+        border: 1px solid var(--color-prebunking);
+        color: var(--color-prebunking);
+        width: 36px;
+        height: 36px;
+        font-size: var(--text-xl);
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .modal-close:hover {
+        background: var(--color-prebunking);
+        color: var(--color-void);
+    }
+
+    .modal-body {
+        padding: var(--space-xl);
+    }
+
+    .modal-actions {
+        padding: var(--space-lg);
+        border-top: 1px solid var(--color-elevated);
+        display: flex;
+        gap: var(--space-md);
+        justify-content: flex-end;
+    }
+
+    /* ==================== TECHNIQUE CARDS IN MODAL ==================== */
+    .technique-card {
+        background: var(--color-elevated);
+        border-left: 4px solid var(--color-prebunking);
+        padding: var(--space-md);
+        margin-bottom: var(--space-md);
+    }
+
+    .technique-card h5 {
+        color: var(--color-prebunking);
+        font-size: var(--text-base);
+        margin-bottom: var(--space-xs);
+    }
+
+    .technique-card p {
+        color: var(--color-text-dim);
+        font-size: var(--text-sm);
+        margin: 0;
+    }
+
+    .technique-card .technique-category {
+        font-size: var(--text-xs);
+        color: var(--color-text-muted);
+        margin-top: var(--space-sm);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    /* ==================== CTA SECTION ==================== */
+    .cta-section {
+        background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-deep) 100%);
+        border: 2px solid var(--color-prebunking);
+        padding: var(--space-2xl);
+        text-align: center;
+        margin-top: var(--space-2xl);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(ellipse at center, rgba(20, 184, 166, 0.1) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    .cta-title {
+        font-size: var(--text-2xl);
+        color: var(--color-prebunking);
+        text-shadow: 0 0 20px var(--color-prebunking-glow);
+        margin-bottom: var(--space-md);
+    }
+
+    .cta-text {
+        max-width: 700px;
+        margin: 0 auto var(--space-xl);
+        color: var(--color-text-dim);
+        font-size: var(--text-lg);
+    }
+
+    .cta-links {
+        display: flex;
+        gap: var(--space-md);
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    /* ==================== DIVIDER ==================== */
+    .section-divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--color-prebunking), transparent);
+        margin: var(--space-2xl) 0;
+        opacity: 0.5;
+    }
+
+    /* ==================== CONCEPT BOX ==================== */
+    .concept-box {
+        background: var(--color-elevated);
+        border: 1px solid var(--color-prebunking);
+        padding: var(--space-lg);
+        margin: var(--space-lg) 0;
+    }
+
+    .concept-box h4 {
+        color: var(--color-prebunking);
+        margin-bottom: var(--space-sm);
+    }
+
+    /* ==================== PREBUNKING VS DEBUNKING ==================== */
+    .comparison-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: var(--space-lg);
+        margin: var(--space-xl) 0;
+    }
+
+    .comparison-card {
+        padding: var(--space-xl);
+        text-align: center;
+    }
+
+    .comparison-card.debunking {
+        background: rgba(239, 68, 68, 0.1);
+        border: 2px solid var(--color-danger);
+    }
+
+    .comparison-card.prebunking {
+        background: var(--color-prebunking-subtle);
+        border: 2px solid var(--color-prebunking);
+    }
+
+    .comparison-card h4 {
+        font-family: var(--font-display);
+        margin-bottom: var(--space-md);
+    }
+
+    .comparison-card.debunking h4 { color: var(--color-danger); }
+    .comparison-card.prebunking h4 { color: var(--color-prebunking); }
+
+    .comparison-card p {
+        color: var(--color-text-dim);
+        font-size: var(--text-sm);
+    }
+
+    /* ==================== THINKER BADGES ==================== */
+    .thinker-badge {
+        display: inline-block;
+        padding: 0.2em 0.6em;
+        background: var(--color-prebunking-subtle);
+        border: 1px solid var(--color-prebunking);
+        color: var(--color-prebunking);
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        margin-right: var(--space-xs);
+        margin-bottom: var(--space-xs);
+    }
+
+    /* ==================== BUTTON OVERRIDES ==================== */
+    .prebunking-page .btn-primary {
+        background: var(--color-prebunking);
+        border-color: var(--color-prebunking);
+    }
+
+    .prebunking-page .btn-primary:hover {
+        background: var(--color-prebunking-dim);
+        box-shadow: 0 0 20px var(--color-prebunking-glow);
+    }
+
+    .prebunking-page .btn-secondary {
+        border-color: var(--color-prebunking);
+        color: var(--color-prebunking);
+    }
+
+    .prebunking-page .btn-secondary:hover {
+        background: var(--color-prebunking);
+        color: var(--color-void);
+    }
+</style>
+{% endblock %}
+
 {% block content %}
+<div class="prebunking-page">
+
+<!-- ==================== HEADER ==================== -->
 <section class="section-header">
-    <h1>&#128737; Prebunking</h1>
-    <p class="section-subtitle">Impfung gegen Desinformation – erkenne Manipulationstechniken bevor du ihnen begegnest.</p>
+    <h1>Prebunking</h1>
+    <p class="section-subtitle">
+        Strukturelle Analyse moderner Propagandatechniken<br>
+        <strong style="color: var(--color-prebunking);">Zur Steigerung der kognitiven Resilienz</strong>
+    </p>
 </section>
 
-<section class="card">
-    <h2>Was ist Prebunking?</h2>
-    <p>Statt Falschinformationen nachträglich zu widerlegen (Debunking), lernen wir die <strong>Techniken</strong> zu erkennen, bevor wir ihnen begegnen – wie eine Impfung gegen Manipulation.</p>
+<!-- Introduction Alert -->
+<div class="alert alert-info">
+    <strong>Positionierung:</strong> Diese Seite versteht Prebunking nicht als neutrale „Medienkompetenz",
+    sondern als <strong>aktive kognitive Verteidigungsstrategie</strong> gegen strukturelle Manipulation
+    in modernen Mediensystemen. Der Fokus liegt auf <strong>Mustererkennung</strong> – dem Erkennen
+    manipulativer Techniken als abstraktes Konzept, bevor sie ihre Wirkung entfalten.
+</div>
+
+<!-- ==================== SECTION 1: EPISTEMOLOGISCHE BASIS ==================== -->
+<section class="card mt-xl" id="section-1">
+    <div class="section-title-wrapper">
+        <span class="section-number">1</span>
+        <h2 class="section-title-text">Die epistemologische Basis: Warum Manipulation funktioniert</h2>
+    </div>
+
+    <div class="card-body">
+        <p>
+            Die strategische Bedeutung der Erkenntnistheorie für das Verständnis von Propaganda liegt in einer
+            fundamentalen Einschränkung der menschlichen Wahrnehmung: <strong>Kein Individuum verfügt über einen
+            direkten, ungefilterten Zugang zur Welt außerhalb seines Bewusstseins.</strong> Wir agieren stattdessen
+            auf Basis von Abbildern der Realität in unseren Köpfen.
+        </p>
+
+        <div class="quote-block">
+            „Diese erkenntnistheoretische Lücke bildet die primäre Einfallspforte für mediale Steuerung,
+            da diejenigen, welche diese inneren Bilder formen, maßgeblichen Einfluss darauf ausüben,
+            was ein Individuum als Realität akzeptiert."
+            <cite>— Das Lippmann-Paradigma</cite>
+        </div>
+
+        <div class="concept-box">
+            <h4>Walter Lippmanns Stereotypen-Konzept</h4>
+            <p>
+                Ein <strong>Stereotyp</strong> ist nach Lippmann kein rein abwertender Begriff, sondern die
+                notwendige vereinfachte Abbildung eines komplexen Objekts in unserem Verstand. Wenn wir über
+                Persönlichkeiten wie Wladimir Putin, Angela Merkel oder Annalena Baerbock nachdenken, reagieren
+                wir nicht auf die realen Personen, sondern auf die <strong>medial vermittelten Bilder</strong>
+                in unseren Köpfen. Diese Bilder behandeln wir als Realität, obwohl sie lediglich Konstruktionen sind.
+            </p>
+        </div>
+
+        <p>
+            Diese Anfälligkeit wird durch eine <strong>evolutionäre Diskrepanz</strong> verschärft. Während sich
+            die menschliche Sinnesverarbeitung über 300.000 Jahre hinweg an eine unmittelbare, physische Umgebung
+            angepasst hat, ist der moderne Mensch einer beispiellosen Reizüberflutung ausgesetzt. Mit einem
+            durchschnittlichen Medienkonsum von etwa <strong>9,5 Stunden pro Tag</strong> verbringt der Mensch
+            einen Großteil seiner wachen Zeit in einer künstlich geschaffenen Informationsumgebung.
+        </p>
+
+        <h3 style="margin-top: var(--space-xl); margin-bottom: var(--space-md);">
+            Die drei Grundcharakteristika der Informationsverarbeitung
+        </h3>
+        <p>Um die Flut an Daten zu bewältigen, nutzt der Verstand drei fundamentale Mechanismen:</p>
+
+        <div class="info-card-grid">
+            <div class="info-card">
+                <div class="info-card-icon">🔬</div>
+                <h4 class="info-card-title">Vereinfachung</h4>
+                <p class="info-card-desc">
+                    Komplexe Systeme (wie ein Staat oder eine Person) müssen abstrahiert werden, um begreifbar zu sein.
+                </p>
+                <p class="info-card-example">
+                    <strong>Manipulative Nutzung:</strong> Komplexe Sachverhalte werden auf griffige,
+                    aber oft irreführende Etiketten reduziert.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-card-icon">⚖️</div>
+                <h4 class="info-card-title">Bewertung</h4>
+                <p class="info-card-desc">
+                    Reize werden instinktiv als nützlich oder schädlich kategorisiert.
+                </p>
+                <p class="info-card-example">
+                    <strong>Manipulative Nutzung:</strong> Propaganda koppelt Botschaften gezielt an Ur-Instinkte
+                    (Nahrung, Sex, Zugehörigkeit vs. Hunger, Isolation, Ohnmacht).
+                </p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-card-icon">👁️</div>
+                <h4 class="info-card-title">Perspektivität</h4>
+                <p class="info-card-desc">
+                    Jede Wahrnehmung ist individuell und durch Vorprägung gefärbt.
+                </p>
+                <p class="info-card-example">
+                    <strong>Manipulative Nutzung:</strong> Durch gezielte Steuerung der Informationszufuhr
+                    lässt sich diese Perspektive massenpsychologisch vereinheitlichen.
+                </p>
+            </div>
+        </div>
+
+        <p>
+            Diese biologisch verankerten Mechanismen bilden das Fundament, auf dem gezielte Strategien zur
+            <strong>Erzeugung von Meinungen durch die Instrumentalisierung von Instinkten</strong> aufbauen.
+        </p>
+    </div>
 </section>
 
-<section class="card mt-lg">
-    <h2>&#128679; Häufige Manipulationstechniken</h2>
-    <ul class="checklist">
-        <li><strong>Emotionalisierung</strong> – Wut oder Angst auslösen statt informieren</li>
-        <li><strong>Falsche Experten</strong> – Unqualifizierte als Autoritäten präsentieren</li>
-        <li><strong>Rosinenpicken</strong> – Nur passende Daten zeigen, Rest ignorieren</li>
-        <li><strong>Strohmann</strong> – Gegnerische Position verzerren, dann widerlegen</li>
-        <li><strong>Whataboutism</strong> – Ablenken auf andere Themen</li>
-        <li><strong>Übertreibung</strong> – Kleine Wahrheiten zu großen Lügen aufblasen</li>
-    </ul>
+<div class="section-divider"></div>
+
+<!-- ==================== SECTION 2: MEINUNGSBILDUNG ==================== -->
+<section class="card" id="section-2">
+    <div class="section-title-wrapper">
+        <span class="section-number">2</span>
+        <h2 class="section-title-text">Mechanismen der Meinungsbildung: Die Instrumentalisierung von Instinkten</h2>
+    </div>
+
+    <div class="card-body">
+        <p>
+            Die gezielte Erzeugung von Meinungen erfolgt durch die <strong>strategische Kopplung von Botschaften
+            an menschliche Grundtriebe</strong>. Ziel ist es, den rationalen Verstand zu umgehen und Informationen
+            direkt in tieferen Bewusstseinsschichten zu verankern, indem sie mit instinktiv positiv oder negativ
+            besetzten Reizen assoziiert werden.
+        </p>
+
+        <div style="margin: var(--space-lg) 0;">
+            <span class="thinker-badge">Edward Bernays</span>
+            <span class="thinker-badge">Paul Lazarsfeld</span>
+            <span class="thinker-badge">Elisabeth Noelle-Neumann</span>
+            <span class="thinker-badge">Solomon Asch</span>
+        </div>
+
+        <div class="accordion" id="meinungsbildung-accordion">
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span>Edward Bernays: „Torches of Freedom"</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <p>
+                            Ein Pionier der Manipulationstechnik war <strong>Edward Bernays</strong>, der die
+                            Psychoanalyse für die Public Relations nutzte. In seiner berühmten „Torches of Freedom"-Kampagne
+                            gelang es ihm, das Rauchen von Frauen durch eine <strong>Umkonnotierung</strong> in ein
+                            Symbol für Freiheit und Emanzipation zu verwandeln.
+                        </p>
+                        <p>
+                            Indem er Zigaretten mit dem Instinkt nach Status und Unabhängigkeit verknüpfte,
+                            änderte er das gesellschaftliche Stereotyp und steigerte den Konsum massiv.
+                            Die Zigarette wurde zum „Fackel der Freiheit" – ein rein emotionales Konstrukt
+                            ohne sachliche Grundlage.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span>Der Herdentrieb: Asch-Experiment & Monopolisierung</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <p>
+                            Ein weiterer Hebel ist der <strong>Herdentrieb</strong>, wie er im
+                            <strong>Asch-Konformitätsexperiment</strong> nachgewiesen wurde. Menschen passen
+                            ihre Meinung an die wahrgenommene Mehrheit an – selbst wenn diese offensichtlich
+                            falsch liegt.
+                        </p>
+                        <p>
+                            In modernen Massenmedien wird dieser Effekt durch eine <strong>Monopolisierung der
+                            Berichterstattung</strong> erzielt – ein Konzept, das Paul Felix Lazarsfeld als
+                            entscheidend für die massenpsychologische Wirkung identifizierte. Wenn alle Kanäle
+                            ein ähnliches Narrativ verbreiten, entsteht der Eindruck einer universellen Meinung.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span>Die Schweigespirale (Noelle-Neumann)</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <p>
+                            Die <strong>Schweigespirale</strong> nach Elisabeth Noelle-Neumann beschreibt einen
+                            selbstverstärkenden Prozess: Individuen mit abweichenden Ansichten verstummen aus
+                            <strong>Angst vor sozialer Isolation</strong>, wodurch die mediale Schein-Mehrheit
+                            noch dominanter erscheint.
+                        </p>
+                        <p>
+                            Je mehr Menschen schweigen, desto stärker wirkt die vermeintliche Mehrheitsmeinung –
+                            ein Teufelskreis, der alternative Perspektiven systematisch unterdrückt.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span>Medien als „Autoritätsverleiher"</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <p>
+                            Zusätzlich nutzen Medien den <strong>Instinkt der Unterordnung unter Autoritäten</strong>.
+                            Medien fungieren hier als „Autoritätsverleiher", indem sie Wissenschaftler, Ärzte oder
+                            Experten ins Rampenlicht rücken und ihnen dadurch Glaubwürdigkeit verleihen – oder
+                            diese durch Nichtbeachtung entziehen.
+                        </p>
+                        <p>
+                            Die Auswahl, wer als „Experte" präsentiert wird, ist dabei keine neutrale Entscheidung,
+                            sondern ein machtpolitischer Akt.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p style="margin-top: var(--space-xl);">
+            Während diese Mechanismen die aktive psychologische Kopplung von Narrativen sicherstellen,
+            stützt sich die Absicherung dieser Meinungen auf <strong>strukturelle Informationsbarrieren</strong>
+            und die gezielte Entwertung von Widerspruch.
+        </p>
+    </div>
 </section>
 
-<section class="card mt-lg">
-    <h2>&#127891; Trainieren</h2>
-    <p>Spiele zum Erkennen von Desinformation:</p>
-    <ul class="checklist">
-        <li><a href="https://www.getbadnews.com/de" target="_blank" rel="noopener">Bad News</a> – Lerne Desinformationstechniken</li>
-        <li><a href="https://www.goviralgame.com/" target="_blank" rel="noopener">Go Viral!</a> – COVID-Desinformation erkennen</li>
-    </ul>
+<div class="section-divider"></div>
+
+<!-- ==================== SECTION 3: MEINUNGSZERSTÖRUNG ==================== -->
+<section class="card" id="section-3">
+    <div class="section-title-wrapper">
+        <span class="section-number">3</span>
+        <h2 class="section-title-text">Mechanismen der Meinungszerstörung: Filter und Diffamierung</h2>
+    </div>
+
+    <div class="card-body">
+        <p>
+            Innerhalb kapitalistischer Mediensysteme müssen Informationen verschiedene <strong>Filter</strong>
+            durchlaufen, die sicherstellen, dass nur systemkonforme Narrative die breite Masse erreichen.
+            Dieser Prozess des <strong>„Manufacturing Consent"</strong> basiert auf strukturellen Barrieren.
+        </p>
+
+        <h3 style="margin-top: var(--space-xl); margin-bottom: var(--space-md);">
+            Die sechs Filter des „Manufacturing Consent"
+        </h3>
+
+        <div class="filter-table-wrapper">
+            <table class="filter-table" role="table" aria-label="Filter des Manufacturing Consent">
+                <thead>
+                    <tr>
+                        <th scope="col">Filter</th>
+                        <th scope="col">Beschreibung</th>
+                        <th scope="col">Manipulative Wirkung</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Einstiegskosten</td>
+                        <td>Hohe Kapitalintensität für Equipment und Infrastruktur</td>
+                        <td>Limitiert den Marktzugang auf Vermögende</td>
+                    </tr>
+                    <tr>
+                        <td>Werbepartner</td>
+                        <td>Abhängigkeit von Werbegeldern für Finanzierung</td>
+                        <td>Führt zur Unterdrückung von Kritik an Geldgebern</td>
+                    </tr>
+                    <tr>
+                        <td>Quellen</td>
+                        <td>Mächtige Akteure gewähren exklusiven Zugang</td>
+                        <td>Nur bei wohlwollender Berichterstattung</td>
+                    </tr>
+                    <tr>
+                        <td>Flak/Gegenwehr</td>
+                        <td>Gezielte Angriffe und organisierte Kampagnen</td>
+                        <td>Diffamierung unliebsamer Akteure</td>
+                    </tr>
+                    <tr>
+                        <td>Kultur/Ideologie</td>
+                        <td>Vorherrschende Denkverbote und Tabus</td>
+                        <td>Führt zur Selbstzensur („Schere im Kopf")</td>
+                    </tr>
+                    <tr>
+                        <td>Selektionsprozesse</td>
+                        <td>Transatlantische Netzwerke (z.B. Atlantik-Brücke)</td>
+                        <td>Sieben Personal nach ideologischer Konformität</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 style="margin-top: var(--space-xl); margin-bottom: var(--space-md);">
+            Framing vs. Labeling
+        </h3>
+
+        <p>
+            Zur aktiven Zerstörung von Gegenpositionen werden zwei Techniken eingesetzt:
+        </p>
+
+        <div class="comparison-grid">
+            <div class="concept-box">
+                <h4>Framing</h4>
+                <p>
+                    Ein spezifischer <strong>Bildausschnitt</strong> aus der Realität wird gewählt,
+                    um den Kontext zu manipulieren. Beispiel: Der Fokus auf eine einzelne Reichsfahne
+                    bei einer Großdemonstration mit tausenden Teilnehmern.
+                </p>
+            </div>
+            <div class="concept-box">
+                <h4>Labeling (Etikettierung)</h4>
+                <p>
+                    Der gewählte Ausschnitt wird mit einem <strong>abwertenden Begriff</strong> versehen.
+                    Beispiel: Ein Interview mit einem „Aluhut"-Träger wird genutzt, um eine gesamte
+                    Bewegung als geistesgestört zu diskreditieren.
+                </p>
+            </div>
+        </div>
+
+        <h3 style="margin-top: var(--space-xl); margin-bottom: var(--space-md);">
+            Moralische Polarisierung – Die Eskalationsstufen
+        </h3>
+
+        <p>
+            Ein entscheidendes Werkzeug der Meinungszerstörung ist die <strong>Moralische Polarisierung</strong>.
+            Indem ein Thema zur moralischen Pflicht erhoben wird, erscheint jede abweichende Meinung nicht mehr
+            nur als sachlich falsch, sondern als fundamental „böse". Die Eskalation verläuft systematisch:
+        </p>
+
+        <div class="escalation-tracker" id="escalation-tracker">
+            <div class="escalation-step" data-level="1" tabindex="0" role="button" aria-expanded="false">
+                <span class="escalation-number">1</span>
+                <div class="escalation-content">
+                    <div class="escalation-title">Etikettierung</div>
+                    <div class="escalation-desc">Zuordnung zu einer negativ besetzten Gruppe durch Kampfbegriffe</div>
+                    <div class="escalation-detail">
+                        <p>
+                            <strong>Beispiele:</strong> „Schwurbler", „prorussisch", „Querdenker", „Verschwörungstheoretiker".
+                            Diese Etiketten ersetzen inhaltliche Auseinandersetzung durch kategorische Abwertung.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="escalation-step" data-level="2" tabindex="0" role="button" aria-expanded="false">
+                <span class="escalation-number">2</span>
+                <div class="escalation-content">
+                    <div class="escalation-title">Moralisierung</div>
+                    <div class="escalation-desc">Transformation der Sachfrage in eine Gut-Böse-Dichotomie</div>
+                    <div class="escalation-detail">
+                        <p>
+                            Die sachliche Debatte wird durch moralische Kategorien ersetzt. Wer anders denkt,
+                            ist nicht nur falsch informiert, sondern moralisch verwerflich. Die Gegenseite
+                            wird zum „Feind des Guten".
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="escalation-step" data-level="3" tabindex="0" role="button" aria-expanded="false">
+                <span class="escalation-number">3</span>
+                <div class="escalation-content">
+                    <div class="escalation-title">Dämonisierung</div>
+                    <div class="escalation-desc">Darstellung des Gegners als existenzielle Bedrohung</div>
+                    <div class="escalation-detail">
+                        <p>
+                            Der Gegner wird als so gefährlich dargestellt, dass seine soziale Ausgrenzung
+                            moralisch legitimiert erscheint. Dialog wird unmöglich – wer mit dem „Feind"
+                            spricht, macht sich selbst verdächtig.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p>
+            Diese inhaltliche Manipulation kann jedoch nur dort dauerhaft Fuß fassen, wo die soziale Struktur
+            durch <strong>Atomisierung</strong> bereits ausreichend geschwächt ist.
+        </p>
+    </div>
 </section>
+
+<div class="section-divider"></div>
+
+<!-- ==================== SECTION 4: SOZIOLOGISCHE PROPAGANDA ==================== -->
+<section class="card" id="section-4">
+    <div class="section-title-wrapper">
+        <span class="section-number">4</span>
+        <h2 class="section-title-text">Soziologische Propaganda: Die Schaffung manipulierbarer Strukturen</h2>
+    </div>
+
+    <div class="card-body">
+        <p>
+            <strong>„Soziologische Propaganda"</strong> zielt auf die langfristige Transformation der Gesellschaft
+            in eine lenkbare Struktur ab. Wenn das soziale Gefüge erodiert, steigt die Abhängigkeit des Einzelnen
+            von zentralen Informationsquellen.
+        </p>
+
+        <div class="info-card-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+            <div class="info-card">
+                <div class="info-card-icon">🍞</div>
+                <h4 class="info-card-title">Panem et Circenses</h4>
+                <p class="info-card-desc">
+                    Moderne Unterhaltungsindustrie, Fast Food und hedonistische Reize lähmen das politische Interesse.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-card-icon">⚔️</div>
+                <h4 class="info-card-title">Divide et Impera</h4>
+                <p class="info-card-desc">
+                    Die Gesellschaft wird in sich bekämpfende Gruppen fragmentiert – nach Geschlecht, Generation, Herkunft.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-card-icon">🔗</div>
+                <h4 class="info-card-title">Atomisierung</h4>
+                <p class="info-card-desc">
+                    Zerstörung sozialer Bindungen macht Individuen abhängig von zentralen Institutionen.
+                </p>
+            </div>
+        </div>
+
+        <div class="quote-block" style="margin-top: var(--space-xl);">
+            „Er [der Staat] arbeitet gern für ihr Wohl; aber er will dessen alleiniger Sachwalter und Richter sein;
+            er sorgt für ihre Sicherheit, überwacht und sichert ihren Bedarf, erleichtert ihre Vergnügungen,
+            führt ihre Hauptgeschäfte, lenkt ihre Industrie [...] was liegt schließlich noch anderes übrig,
+            als ihnen auch die Mühe des Denkens abzunehmen und die Last des Lebens?"
+            <cite>— Alexis de Tocqueville, „Über die Demokratie in Amerika" (1840)</cite>
+        </div>
+
+        <p>
+            Tocqueville beschrieb bereits 1840 die Gefahr einer <strong>„milden Despotie"</strong>. Er warnte vor
+            einer ungeheuren Vormundschaftsgewalt, die sich über eine Masse einander ähnlicher Menschen erhebt.
+            Der Staat webt ein Netz kleiner, verwickelter Regeln, welche den Willen des Bürgers nicht brechen,
+            sondern ihn <strong>„aufweichen, biegen und lenken"</strong>.
+        </p>
+
+        <h3 style="margin-top: var(--space-xl); margin-bottom: var(--space-md);">
+            Dystopische Endpunkte der Entfremdung
+        </h3>
+
+        <p>
+            Dieser Prozess mündet in der totalen Entwurzelung, die in dystopischen Visionen als Endpunkt
+            der Informationskontrolle skizziert wird:
+        </p>
+
+        <div class="accordion" id="dystopie-accordion">
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span>George Orwell (1984)</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <p>
+                            <strong>Vernichtung von Wahrheit und Vergangenheit.</strong> In Orwells Vision
+                            kontrolliert das „Ministerium für Wahrheit" die Geschichte – wer die Vergangenheit
+                            kontrolliert, kontrolliert die Zukunft. „Newspeak" reduziert die Sprache so weit,
+                            dass kritisches Denken unmöglich wird.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span>Jewgeni Samjatin (Wir)</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <p>
+                            <strong>Vollständige Isolation von der natürlichen Umwelt.</strong> In Samjatins
+                            Einheitsstaat leben die Menschen hinter einer gläsernen Mauer, völlig abgetrennt
+                            von der Natur. Individualität wird als Krankheit behandelt.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span>Ray Bradbury (Fahrenheit 451)</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <p>
+                            <strong>Vernichtung von Bildung und klassischer Literatur.</strong> Bücher werden
+                            verbrannt, weil sie Menschen zum Nachdenken bringen. Die Bevölkerung wird durch
+                            interaktive Wandbildschirme und oberflächliche Unterhaltung sediert.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">
+                    <span>Aldous Huxley (Schöne neue Welt)</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <p>
+                            <strong>Auflösung der Familie und künstliche Erzeugung von Leben.</strong> Menschen
+                            werden in Laboratorien gezüchtet und von Geburt an konditioniert. Soma, eine
+                            Glücksdroge, unterdrückt jedes aufkeimende Unbehagen. Die Tyrannei ist perfekt,
+                            weil niemand sie als solche erkennt.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p style="margin-top: var(--space-xl);">
+            Um dieser strukturellen Entfremdung entgegenzuwirken, ist eine <strong>aktive Gegenstrategie</strong>
+            erforderlich, die über bloße Faktenkorrektur hinausgeht.
+        </p>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ==================== SECTION 5: PREBUNKING-STRATEGIE ==================== -->
+<section class="card" id="section-5">
+    <div class="section-title-wrapper">
+        <span class="section-number">5</span>
+        <h2 class="section-title-text">Die Strategie des Prebunking: Mustererkennung als Verteidigung</h2>
+    </div>
+
+    <div class="card-body">
+        <p>
+            In einer Umgebung permanenter Manipulation ist ein <strong>Paradigmenwechsel</strong>
+            vom Debunking zum Prebunking notwendig.
+        </p>
+
+        <div class="comparison-grid">
+            <div class="comparison-card debunking">
+                <h4>Debunking</h4>
+                <p>
+                    Versucht, Lügen <strong>nachträglich</strong> zu korrigieren.
+                    Reagiert auf bereits verbreitete Desinformation.
+                </p>
+            </div>
+
+            <div class="comparison-card prebunking">
+                <h4>Prebunking</h4>
+                <p>
+                    Setzt auf <strong>präventive Stärkung</strong> der kognitiven Immunität.
+                    Vermittelt Mustererkennung, bevor Manipulation wirkt.
+                </p>
+            </div>
+        </div>
+
+        <div class="concept-box" style="margin-top: var(--space-xl);">
+            <h4>Das primäre Ziel: Mustererkennung</h4>
+            <p>
+                Es geht nicht primär um den <strong>Inhalt</strong> einer Nachricht, sondern um das
+                <strong>Sichtbarmachen des Mechanismus</strong> (z.B. wie Framing oder Moralische
+                Polarisierung funktionieren). Sobald ein Bürger die manipulative Technik als abstraktes
+                Konzept erkennt, verliert die Botschaft ihre suggestive Kraft.
+            </p>
+            <p style="margin-top: var(--space-md);">
+                Diese Form der Medienkompetenz ermöglicht es, die <strong>Wirkungsebene</strong>
+                (Emotion, Autorität, Zeitpunkt) von der <strong>Sachebene</strong> zu trennen.
+            </p>
+        </div>
+
+        <h3 style="margin-top: var(--space-xl); margin-bottom: var(--space-md);">
+            Die 10%-Schwelle: Strategie zur gesellschaftlichen Resilienz
+        </h3>
+
+        <p>
+            Eine koordinierte Strategie zur Steigerung der gesellschaftlichen Resilienz muss die
+            <strong>mathematische Reichweiten-Problematik</strong> adressieren. Da alternative Diskurse
+            oft in einer „1%-Blase" verharren, muss eine Kampagne die <strong>kritische Masse von 10%</strong>
+            der Bevölkerung erreichen, um einen unumkehrbaren gesellschaftlichen Diskurs anzustoßen.
+        </p>
+
+        <div class="progress-container">
+            <div class="progress-header">
+                <span class="progress-label">Resilienz-Aufbau</span>
+                <span class="progress-percent" id="strategy-progress-percent">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="strategy-progress-fill"></div>
+            </div>
+        </div>
+
+        <ul class="interactive-checklist" id="strategy-checklist" aria-label="Aktionsplan für kognitive Resilienz">
+            <li tabindex="0" role="checkbox" aria-checked="false">
+                <span class="check-box" aria-hidden="true"></span>
+                <span class="check-label">
+                    <span class="check-title">1. Koordination</span>
+                    <span class="check-desc">Vernetzung unabhängiger Medienmacher zur Fokussierung auf die Vermittlung von Manipulationsmustern</span>
+                </span>
+            </li>
+            <li tabindex="0" role="checkbox" aria-checked="false">
+                <span class="check-box" aria-hidden="true"></span>
+                <span class="check-label">
+                    <span class="check-title">2. Aktivierung</span>
+                    <span class="check-desc">Transformation passiver Konsumenten in aktive Multiplikatoren, um bestehende Informationsblasen zu durchbrechen</span>
+                </span>
+            </li>
+            <li tabindex="0" role="checkbox" aria-checked="false">
+                <span class="check-box" aria-hidden="true"></span>
+                <span class="check-label">
+                    <span class="check-title">3. Wirkungsfokus</span>
+                    <span class="check-desc">Gezielte Kommunikation unter Berücksichtigung psychologischer Barrieren und sozialer Rahmenbedingungen</span>
+                </span>
+            </li>
+        </ul>
+
+        <div style="text-align: center; margin-top: var(--space-xl);">
+            <button class="btn btn-primary" id="open-techniques-modal" aria-haspopup="dialog">
+                Muster erkennen – Beispiele anzeigen
+            </button>
+            <button class="btn btn-secondary" id="reset-strategy-checklist" style="margin-left: var(--space-md);">
+                Fortschritt zurücksetzen
+            </button>
+        </div>
+
+        <div class="alert alert-success mt-xl">
+            <strong>Kernaussage:</strong> Die systematische Etablierung von <strong>Mustererkennung als
+            kollektives Grundwissen</strong> ist die einzige wirksame Verteidigung gegen die Erosion
+            der Demokratie durch moderne Propagandatechniken.
+        </div>
+    </div>
+</section>
+
+<!-- ==================== TECHNIQUES MODAL ==================== -->
+<div class="modal-overlay" id="techniques-modal" role="dialog" aria-modal="true" aria-labelledby="techniques-modal-title">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title" id="techniques-modal-title">Manipulationstechniken erkennen</h3>
+            <button class="modal-close" id="close-techniques-modal" aria-label="Modal schließen">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>
+                Die folgenden Techniken sind Anwendungen der in Abschnitt 1–3 beschriebenen Mechanismen.
+                <strong>Erkenne das Muster, nicht nur den Inhalt.</strong>
+            </p>
+
+            <div class="technique-card">
+                <h5>Emotionalisierung</h5>
+                <p>Wut oder Angst auslösen statt zu informieren. Umgeht den rationalen Verstand.</p>
+                <div class="technique-category">→ Nutzt: Bewertungs-Instinkt (Abschnitt 1)</div>
+            </div>
+
+            <div class="technique-card">
+                <h5>Falsche Experten</h5>
+                <p>Unqualifizierte als Autoritäten präsentieren, um Glaubwürdigkeit zu simulieren.</p>
+                <div class="technique-category">→ Nutzt: Autoritäts-Instinkt (Abschnitt 2)</div>
+            </div>
+
+            <div class="technique-card">
+                <h5>Rosinenpicken (Cherry-Picking)</h5>
+                <p>Nur passende Daten zeigen, den Rest ignorieren. Erzeugt verzerrte Bilder.</p>
+                <div class="technique-category">→ Nutzt: Framing (Abschnitt 3)</div>
+            </div>
+
+            <div class="technique-card">
+                <h5>Strohmann-Argument</h5>
+                <p>Gegnerische Position verzerren, dann die Verzerrung widerlegen.</p>
+                <div class="technique-category">→ Nutzt: Labeling + Vereinfachung (Abschnitt 1 & 3)</div>
+            </div>
+
+            <div class="technique-card">
+                <h5>Whataboutism</h5>
+                <p>Auf andere Themen ablenken, statt auf Kritik zu antworten.</p>
+                <div class="technique-category">→ Nutzt: Framing + Perspektivverschiebung (Abschnitt 3)</div>
+            </div>
+
+            <div class="technique-card">
+                <h5>Übertreibung</h5>
+                <p>Kleine Wahrheiten zu großen Aussagen aufblasen. Erzeugt Alarm ohne Substanz.</p>
+                <div class="technique-category">→ Nutzt: Emotionalisierung + Vereinfachung (Abschnitt 1)</div>
+            </div>
+        </div>
+        <div class="modal-actions">
+            <button class="btn btn-primary" id="close-techniques-btn">
+                Verstanden
+            </button>
+        </div>
+    </div>
+</div>
+
+</div><!-- /.prebunking-page -->
+{% endblock %}
+
+{% block scripts %}
+<script nonce="{{ csp_nonce }}">
+(function() {
+    'use strict';
+
+    // ==================== ACCORDION ====================
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+            const item = this.parentElement;
+            const isActive = item.classList.contains('active');
+
+            // Close all items in the same accordion
+            const accordion = item.parentElement;
+            accordion.querySelectorAll('.accordion-item').forEach(i => {
+                i.classList.remove('active');
+                i.querySelector('.accordion-header').setAttribute('aria-expanded', 'false');
+            });
+
+            // Open clicked item if it wasn't active
+            if (!isActive) {
+                item.classList.add('active');
+                this.setAttribute('aria-expanded', 'true');
+            }
+        });
+
+        header.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
+        });
+    });
+
+    // ==================== ESCALATION TRACKER ====================
+    const escalationSteps = document.querySelectorAll('.escalation-step');
+
+    escalationSteps.forEach(step => {
+        step.addEventListener('click', function() {
+            const isActive = this.classList.contains('active');
+
+            // Close all steps
+            escalationSteps.forEach(s => {
+                s.classList.remove('active');
+                s.setAttribute('aria-expanded', 'false');
+            });
+
+            // Open clicked step if it wasn't active
+            if (!isActive) {
+                this.classList.add('active');
+                this.setAttribute('aria-expanded', 'true');
+            }
+        });
+
+        step.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
+        });
+    });
+
+    // ==================== INTERACTIVE CHECKLIST ====================
+    const STORAGE_KEY = 'prebunking-strategy-progress';
+
+    function initChecklist(listId, storageKey) {
+        const checklist = document.getElementById(listId);
+        if (!checklist) return null;
+
+        const items = checklist.querySelectorAll('li');
+        let progress = loadProgress(storageKey, items.length);
+
+        // Initialize state from storage
+        items.forEach((item, index) => {
+            if (progress[index]) {
+                item.classList.add('checked');
+                item.setAttribute('aria-checked', 'true');
+                item.querySelector('.check-box').textContent = '✓';
+            }
+
+            item.addEventListener('click', function() {
+                toggleItem(this, index);
+            });
+
+            item.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleItem(this, index);
+                }
+            });
+        });
+
+        function toggleItem(item, index) {
+            const isChecked = item.classList.toggle('checked');
+            item.setAttribute('aria-checked', isChecked.toString());
+            item.querySelector('.check-box').textContent = isChecked ? '✓' : '';
+            progress[index] = isChecked;
+            saveProgress(storageKey, progress);
+            updateProgressBar();
+        }
+
+        function updateProgressBar() {
+            const checked = progress.filter(Boolean).length;
+            const percent = Math.round((checked / items.length) * 100);
+            const fill = document.getElementById('strategy-progress-fill');
+            const percentLabel = document.getElementById('strategy-progress-percent');
+            if (fill) fill.style.width = percent + '%';
+            if (percentLabel) percentLabel.textContent = percent + '%';
+        }
+
+        updateProgressBar();
+
+        return {
+            reset: function() {
+                progress = new Array(items.length).fill(false);
+                saveProgress(storageKey, progress);
+                items.forEach(item => {
+                    item.classList.remove('checked');
+                    item.setAttribute('aria-checked', 'false');
+                    item.querySelector('.check-box').textContent = '';
+                });
+                updateProgressBar();
+            }
+        };
+    }
+
+    function loadProgress(key, length) {
+        try {
+            const stored = localStorage.getItem(key);
+            if (stored) {
+                const parsed = JSON.parse(stored);
+                if (Array.isArray(parsed) && parsed.length === length) {
+                    return parsed;
+                }
+            }
+        } catch (e) {
+            console.warn('Could not load progress:', e);
+        }
+        return new Array(length).fill(false);
+    }
+
+    function saveProgress(key, progress) {
+        try {
+            localStorage.setItem(key, JSON.stringify(progress));
+        } catch (e) {
+            console.warn('Could not save progress:', e);
+        }
+    }
+
+    const strategyChecklist = initChecklist('strategy-checklist', STORAGE_KEY);
+
+    // Reset button
+    const resetBtn = document.getElementById('reset-strategy-checklist');
+    if (resetBtn && strategyChecklist) {
+        resetBtn.addEventListener('click', function() {
+            if (confirm('Fortschritt wirklich zurücksetzen?')) {
+                strategyChecklist.reset();
+            }
+        });
+    }
+
+    // ==================== TECHNIQUES MODAL ====================
+    const modal = document.getElementById('techniques-modal');
+    const openBtn = document.getElementById('open-techniques-modal');
+    const closeBtn = document.getElementById('close-techniques-modal');
+    const closeBtnAlt = document.getElementById('close-techniques-btn');
+
+    function openModal() {
+        if (modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            closeBtn.focus();
+        }
+    }
+
+    function closeModal() {
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            openBtn.focus();
+        }
+    }
+
+    if (openBtn) openBtn.addEventListener('click', openModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (closeBtnAlt) closeBtnAlt.addEventListener('click', closeModal);
+
+    // Close on overlay click
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) closeModal();
+        });
+    }
+
+    // Close on Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+})();
+</script>
 {% endblock %}
