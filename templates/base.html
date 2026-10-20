@@ -18,7 +18,7 @@
     <link rel="preload" href="{{ url_for('static', filename='fonts/Orbitron-Regular.woff2') }}" as="font" type="font/woff2" crossorigin>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v={{ asset_version('css/style.css') }}">
 
     <noscript>
         <style nonce="{{ csp_nonce }}">
@@ -130,6 +130,13 @@
                 </div>
 
                 <div class="footer-section">
+                    <h3>Unterstützen</h3>
+                    <a href="https://ko-fi.com/O5O4K32OJ" target="_blank" rel="noopener noreferrer">
+                        <img class="kofi-badge" height="36" src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" alt="Unterstütze mich auf ko-fi.com">
+                    </a>
+                </div>
+
+                <div class="footer-section">
                     <h3>Extern</h3>
                     <ul class="footer-links">
                         <li><a href="https://github.com/Acephali92/Digitale-Resilienz" target="_blank" rel="noopener noreferrer">Quellcode (GitHub)</a></li>
@@ -157,7 +164,12 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}?v={{ asset_version('js/main.js') }}" defer></script>
+
+    <!-- Ko-fi Support-Button (eigenes, CSP-konformes Markup statt Ko-fi-Overlay-Skript) -->
+    <a href="https://ko-fi.com/O5O4K32OJ" target="_blank" rel="noopener noreferrer" class="kofi-float-button">
+        &#9749; Unterstütze mich
+    </a>
 
     {% block scripts %}{% endblock %}
 </body>

@@ -126,6 +126,19 @@ def inject_csp_nonce():
     return {"csp_nonce": getattr(g, "csp_nonce", "")}
 
 
+@lru_cache(maxsize=None)
+def _asset_version(filename):
+    """Short cache-busting token based on file mtime, for versioned static URLs."""
+    path = os.path.join(app.static_folder, filename)
+    try:
+        return format(int(os.path.getmtime(path)), "x")
+    except OSError:
+        return "0"
+
+
+app.jinja_env.globals["asset_version"] = _asset_version
+
+
 # Module-level constant: MIME types for static assets that receive long-TTL caching.
 # Defined here (not inside the hook) to avoid repeated allocation on every request.
 _STATIC_CONTENT_TYPES = frozenset(
@@ -163,7 +176,7 @@ def add_security_headers(response):
         "default-src 'self'; "
         f"script-src 'self' 'nonce-{nonce}'; "
         f"style-src 'self' 'nonce-{nonce}'; "
-        "img-src 'self' data: https://cdn.simpleicons.org https://cdn.jsdelivr.net; "
+        "img-src 'self' data: https://cdn.simpleicons.org https://cdn.jsdelivr.net https://storage.ko-fi.com; "
         "font-src 'self'; "
         "frame-ancestors 'none'; "
         "form-action 'self'; "
