@@ -174,10 +174,14 @@ def add_security_headers(response):
     # Content Security Policy - strict, nonce-based for inline scripts/styles
     response.headers["Content-Security-Policy"] = (
         "default-src 'self'; "
-        f"script-src 'self' 'nonce-{nonce}'; "
+        f"script-src 'self' 'nonce-{nonce}' https://storage.ko-fi.com/cdn/scripts/overlay-widget.js; "
         f"style-src 'self' 'nonce-{nonce}'; "
-        "img-src 'self' data: https://cdn.simpleicons.org https://cdn.jsdelivr.net; "
+        f"style-src-elem 'self' 'nonce-{nonce}' https://storage.ko-fi.com; "
+        "style-src-attr 'unsafe-inline'; "
+        "img-src 'self' data: https://cdn.simpleicons.org https://cdn.jsdelivr.net https://storage.ko-fi.com; "
         "font-src 'self'; "
+        "connect-src 'self' https://ko-fi.com https://storage.ko-fi.com; "
+        "frame-src https://ko-fi.com; "
         "frame-ancestors 'none'; "
         "form-action 'self'; "
         "base-uri 'self'; "
