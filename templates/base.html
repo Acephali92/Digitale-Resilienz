@@ -166,16 +166,10 @@
     <!-- Scripts -->
     <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
 
-    <!-- Ko-fi Support-Widget -->
-    <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script>
-    <script nonce="{{ csp_nonce }}">
-        kofiWidgetOverlay.draw('alexandercwolf', {
-            'type': 'floating-chat',
-            'floating-chat.donateButton.text': 'Unterstütze mich',
-            'floating-chat.donateButton.background-color': '#00ff41',
-            'floating-chat.donateButton.text-color': '#050505'
-        });
-    </script>
+    <!-- Ko-fi Support-Button (eigenes, CSP-konformes Markup statt Ko-fi-Overlay-Skript) -->
+    <a href="https://ko-fi.com/O5O4K32OJ" target="_blank" rel="noopener noreferrer" class="kofi-float-button">
+        &#9749; Unterstütze mich
+    </a>
 
     {% block scripts %}{% endblock %}
 </body>
