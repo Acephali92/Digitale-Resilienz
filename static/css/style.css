@@ -1325,6 +1325,90 @@ a.card:hover {
 }
 
 /* ============================================
+   DIDACTIC BLOCKS - Definitions, Goals, Data
+   ============================================ */
+
+.objective-box {
+    background: rgba(0, 212, 255, 0.04);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    border-left: 3px solid var(--color-info);
+    border-radius: 0.5rem;
+    padding: var(--space-md) var(--space-lg);
+    margin-bottom: var(--space-lg);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    color: var(--color-text);
+}
+
+.definition-card {
+    background: rgba(0, 255, 65, 0.04);
+    border: 1px solid rgba(0, 255, 65, 0.2);
+    border-radius: 0.5rem;
+    padding: var(--space-lg);
+    margin: var(--space-md) 0;
+}
+
+.definition-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.04em;
+    color: var(--color-matrix);
+    margin-bottom: var(--space-sm);
+}
+
+.definition-card p {
+    margin: 0;
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    margin: var(--space-lg) 0;
+    border: 1px solid var(--color-elevated);
+    border-radius: 0.5rem;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+}
+
+.data-table th,
+.data-table td {
+    padding: var(--space-sm) var(--space-md);
+    text-align: left;
+    border-bottom: 1px solid var(--color-elevated);
+    vertical-align: top;
+}
+
+.data-table thead th {
+    color: var(--color-matrix);
+    border-bottom: 2px solid var(--color-elevated);
+    background: var(--color-surface);
+}
+
+.data-table tbody tr:hover {
+    background: rgba(0, 255, 65, 0.02);
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.footnote {
+    margin-top: var(--space-md);
+    padding-top: var(--space-sm);
+    border-top: 1px dashed var(--color-elevated);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    line-height: 1.5;
+}
+
+/* ============================================
    SECTION HEADERS
    ============================================ */
 
