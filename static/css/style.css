@@ -1544,6 +1544,32 @@ a.card:hover {
     box-shadow: 0 0 12px var(--color-matrix-glow);
 }
 
+.kofi-float-button {
+    position: fixed;
+    left: var(--space-lg);
+    bottom: var(--space-lg);
+    z-index: 9999;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: 0.75rem 1.25rem;
+    background: var(--color-matrix);
+    color: var(--color-void);
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    border-radius: 999px;
+    box-shadow: 0 0 16px var(--color-matrix-glow);
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kofi-float-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 24px var(--color-matrix-glow);
+    color: var(--color-void);
+}
+
 .footer-bottom {
     text-align: center;
     padding-top: var(--space-xl);
