@@ -7,7 +7,7 @@
 
 'use strict';
 
-const CACHE_VERSION = 'v1.0.0';
+const CACHE_VERSION = 'v1.0.1';
 const CACHE_NAME = `widerstands-toolkit-${CACHE_VERSION}`;
 
 // Critical resources that must be cached for offline use
